@@ -7,10 +7,28 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 19 Apr 2020 09:48:37 +0700</lastBuildDate>
+    <lastBuildDate>Sun, 26 Apr 2020 10:42:42 +0700</lastBuildDate>
     
 	<atom:link href="https://rifaimartin.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Backend Dev</title>
+      <link>https://rifaimartin.github.io/posts/backend-dev/</link>
+      <pubDate>Sun, 26 Apr 2020 10:42:42 +0700</pubDate>
+      
+      <guid>https://rifaimartin.github.io/posts/backend-dev/</guid>
+      <description>Disini gua mau share pengalaman belajar gua di backend Dev</description>
+    </item>
+    
+    <item>
+      <title>Pengalaman Pertama Belajar Gitar</title>
+      <link>https://rifaimartin.github.io/posts/pengalaman-pertama-belajar-gitar/</link>
+      <pubDate>Sun, 19 Apr 2020 17:07:38 +0700</pubDate>
+      
+      <guid>https://rifaimartin.github.io/posts/pengalaman-pertama-belajar-gitar/</guid>
+      <description>++ Hallo Gaes ini adalah tulisan pertama di blog gua, dan disini gua mau nulis tentang pertama kali gua belajar gitar dan darimana gua bisa beli gitar</description>
+    </item>
     
     <item>
       <title>Diluar kendali</title>
@@ -27,7 +45,7 @@
       <pubDate>Sun, 19 Apr 2020 09:26:07 +0700</pubDate>
       
       <guid>https://rifaimartin.github.io/posts/kesendirian/</guid>
-      <description>size :20px</description>
+      <description></description>
     </item>
     
   </channel>
