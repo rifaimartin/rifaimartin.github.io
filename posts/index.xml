@@ -6,8 +6,49 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Wed, 25 Nov 2020 20:23:04 +0700</lastBuildDate>
+        <lastBuildDate>Sun, 06 Dec 2020 09:16:26 +0700</lastBuildDate>
         <atom:link href="https://rifaimartin.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Belajar Dari Tech Lead</title>
+            <link>https://rifaimartin.github.io/posts/belajar-dari-tech-lead/</link>
+            <pubDate>Sun, 06 Dec 2020 09:16:26 +0700</pubDate>
+            
+            <guid>https://rifaimartin.github.io/posts/belajar-dari-tech-lead/</guid>
+            <description>Happy Weekend Guys hehe. di tulisan kali ini gua mau sedikit membagikan sebuah framework speak up.
+Gue yakin di antara kalian kadang suka bingung dan gk tau harus mulai darimana ketika coba speak up di kantor, meeting virtual dkk
+nah guys&amp;hellip; ternyata kita bisa implement metode di bawah ini ketika coba mulai speak up
+Fact - Story - Ask
+   Fact = Ceritakan sebuah fakta berupa data
+    Story = Menceritakan data dengan sebuah cerita/ analogi.</description>
+            <content type="html"><![CDATA[<p>Happy Weekend Guys hehe. di tulisan kali ini gua mau sedikit membagikan sebuah framework speak up.</p>
+<p>Gue yakin di antara kalian kadang suka bingung dan gk tau harus mulai darimana ketika coba speak up di kantor, meeting virtual dkk</p>
+<p>nah guys&hellip; ternyata kita bisa implement metode di bawah ini ketika coba mulai speak up</p>
+<p>Fact - Story - Ask</p>
+<ul>
+<li>
+<blockquote>
+<p>Fact = Ceritakan sebuah fakta berupa data</p>
+</blockquote>
+</li>
+<li>
+<blockquote>
+<p>Story = Menceritakan data dengan sebuah cerita/ analogi. ini disebut story teeling</p>
+</blockquote>
+</li>
+<li>
+<blockquote>
+<p>Ask = nah disini ajukan sebuah pertanyaan untuk mencari solusi dan best practice</p>
+</blockquote>
+</li>
+</ul>
+<p><img src="/posts/images/framework.jpeg" alt="your image"></p>
+<p>example :</p>
+<p>&quot; * Fact -  pak kemarin saya menemukan sebuah rekomedasi rumus perhitungan study case saya di buku A halaman 63, * story - jika saya coba implementasi kedalam study case saya menggunakan rumus tersebut dan saya coba compare hasilnya menggunakan generator perhitungan AI untuk menghasilkan nilai. ternyata hasilnya tidak sama apakah perhitungan saya yg salah? atau mesin generator perhitungan AI itu yg salah? karena menggunakan rumus berbeda?</p>
+<p>so mari kita coba framework tersebut.</p>
+<p>tulisan ini terinspirasi dari teach lead ku di kantor. super super keren kalo menyampaikan sesuatu. tertata rapih</p>
+]]></content>
+        </item>
         
         <item>
             <title>Ini Bukan Akhir</title>
