@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 06 Dec 2020 09:16:26 +0700</lastBuildDate>
+    <lastBuildDate>Fri, 18 Dec 2020 05:35:55 +0700</lastBuildDate>
     
 	<atom:link href="https://rifaimartin.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Podcast Indonesia Belajar</title>
+      <link>https://rifaimartin.github.io/posts/podcast-indonesia-belajar/</link>
+      <pubDate>Fri, 18 Dec 2020 05:35:55 +0700</pubDate>
+      
+      <guid>https://rifaimartin.github.io/posts/podcast-indonesia-belajar/</guid>
+      <description>Belajar bareng mas Fauzan dan mas setia budi di podcast INDONESIA BELAJAR
+catatan :
+ kalo kalian punya basic data structure + alogritma bagus, kalian bisa gampang ganti bahasa pemograman bisa jadi team player yg bagus (bisa kerja sebagai team yg baik) → kerjanya solid  kalo kalian belajar kelompok. belajar kelompok yg bener ya. jgn cuma satu org aja yg kerjaiin karena disini adalah tahapan yg penting untuk membuat diri kalian d masa depan menjadi team player yg bagus so mulai dari yg kecil (kerja kelompok di sekolah → sampe bisa kerja team di company atau community)</description>
+    </item>
     
     <item>
       <title>Belajar Dari Tech Lead</title>
