@@ -1,0 +1,50 @@
+/* ==========================================================================
+   MINIMAL THEME DARK MODE (Inspired by Lei Mao)
+   Clean, minimal design with card shadows - Dark version
+   ========================================================================== */
+
+/* Color codes used for the theme */
+$primary-color              : #5dade2;  // Lighter blue for dark mode
+$text-color                 : #e0e0e0;  // Light gray text
+$text-light                 : #a0a0a0;  // Medium gray text
+$background                 : #1a1a1a;  // Dark background
+$background-light           : #2d2d2d;  // Slightly lighter dark
+$border-color               : #404040;  // Dark border
+
+/* Color codes used for the site */
+$danger-color               : #e74c3c;
+$info-color                 : #3498db;
+$notice-color               : #95a5a6;
+$success-color              : #2ecc71;
+$warning-color              : #f39c12;
+
+/* Other basic settings for the template */
+$border-radius              : 8px;
+$box-shadow                 : 0 2px 8px rgba(0, 0, 0, 0.3);
+$box-shadow-hover           : 0 4px 12px rgba(0, 0, 0, 0.4);
+$global-transition          : all 0.3s ease-in-out;
+$masthead-height            : 60px;
+$navicon-width              : 28px;
+$navicon-height             : 4px;
+$sidebar-link-max-width     : 250px;
+$sidebar-screen-min-width   : 1024px;
+
+/* Minimal dark theme */
+:root {
+    --global-base-color                 : #{$text-color};
+    --global-bg-color                   : #{$background};
+    --global-footer-bg-color            : #{$background-light};
+    --global-border-color               : #{$border-color};
+    --global-dark-border-color          : #505050;
+    --global-code-background-color      : #{$background-light};
+    --global-code-text-color            : #{$text-color};
+    --global-fig-caption-color          : #{$text-light};
+    --global-link-color                 : #{$primary-color};
+    --global-link-color-hover           : #85c1e9;
+    --global-link-color-visited         : #bb8fce;
+    --global-masthead-link-color        : #{$text-color};
+    --global-masthead-link-color-hover  : #{$primary-color};
+    --global-text-color                 : #{$text-color};
+    --global-text-color-light           : #{$text-light};
+    --global-thead-color                : #{$background-light};
+}

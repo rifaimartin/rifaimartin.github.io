@@ -8,7 +8,7 @@
 
 # Basic Site Settings
 locale                   : "en-US"
-site_theme               : "default" # Currently available options are "default", "air"
+site_theme               : "minimal" # Currently available options are "default", "air", "minimal"
 title                    : "Muhammad Rifai"
 title_separator          : "-"
 name                     : &name "Muhammad Rifai"

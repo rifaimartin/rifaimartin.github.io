@@ -1,0 +1,141 @@
+/* ==========================================================================
+   CARD STYLES (Lei Mao inspired)
+   Modern card design with shadows and hover effects
+   ========================================================================== */
+
+/* Archive item cards (blog posts list) */
+.archive__item {
+  background: var(--global-bg-color);
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  padding: 1.5em;
+  margin-bottom: 1.5em;
+  transition: $global-transition;
+  border: 1px solid var(--global-border-color);
+
+  &:hover {
+    box-shadow: $box-shadow-hover;
+    transform: translateY(-2px);
+  }
+}
+
+/* Archive item title */
+.archive__item-title {
+  margin-top: 0;
+  font-size: $type-size-4;
+
+  a {
+    color: var(--global-text-color);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--global-link-color);
+    }
+  }
+}
+
+/* Archive item excerpt/description */
+.archive__item-excerpt {
+  color: var(--global-text-color-light);
+  font-size: $type-size-6;
+  margin-top: 0.5em;
+}
+
+/* Post meta information */
+.page__meta {
+  color: var(--global-text-color-light);
+  font-size: $type-size-7;
+  margin-top: 0.5em;
+}
+
+/* List view items */
+.list__item {
+  background: var(--global-bg-color);
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  padding: 1em 1.5em;
+  margin-bottom: 1em;
+  transition: $global-transition;
+  border: 1px solid var(--global-border-color);
+
+  &:hover {
+    box-shadow: $box-shadow-hover;
+    transform: translateY(-1px);
+  }
+
+  .archive__item-title {
+    margin: 0;
+    font-size: $type-size-5;
+  }
+}
+
+/* Grid view cards */
+.grid__item {
+  .archive__item {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* Sidebar cards */
+.sidebar {
+  .author__avatar {
+    box-shadow: $box-shadow;
+    border-radius: 50%;
+  }
+
+  .author__content {
+    background: var(--global-bg-color);
+    border-radius: $border-radius;
+    padding: 1em;
+    margin-top: 1em;
+    box-shadow: $box-shadow;
+  }
+}
+
+/* Page content cards */
+.page__content {
+  background: var(--global-bg-color);
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  padding: 2em;
+  margin-bottom: 2em;
+}
+
+/* Notice/alert cards */
+.notice {
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  border-left: 4px solid var(--global-link-color);
+}
+
+/* Code blocks */
+pre.highlight,
+figure.highlight {
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+}
+
+/* Tables */
+table {
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  overflow: hidden;
+}
+
+/* Pagination */
+.pagination {
+  .pagination--pager {
+    background: var(--global-bg-color);
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
+    padding: 0.5em 1em;
+    transition: $global-transition;
+
+    &:hover {
+      box-shadow: $box-shadow-hover;
+      transform: translateY(-1px);
+    }
+  }
+}
