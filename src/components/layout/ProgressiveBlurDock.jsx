@@ -1,6 +1,7 @@
 import React from 'react';
 import { soundFx } from '../../utils/audio';
-import { Sun, Moon, Sparkles, Mail, ArrowUp, BookOpen } from 'lucide-react';
+import { Sun, Moon, Sparkles, Mail, ArrowUp, BookOpen, Eye } from 'lucide-react';
+import { useVisitorCount } from '../../utils/visitorCounter';
 
 function GithubIcon({ size = 14 }) {
   return (
@@ -22,6 +23,8 @@ function LinkedinIcon({ size = 14 }) {
 }
 
 export default function ProgressiveBlurDock({ onResetGate, isDark, onToggleTheme }) {
+  const { formattedCount } = useVisitorCount();
+
   const scrollToTop = () => {
     soundFx.playCardClick();
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -114,23 +117,57 @@ export default function ProgressiveBlurDock({ onResetGate, isDark, onToggleTheme
             <button
               className="ff-link"
               onClick={() => {
-                soundFx.playThemeToggle();
+                soundFx.playCardClick();
                 onToggleTheme();
               }}
-              title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+              title={isDark ? "Switch to Daylight Mode" : "Switch to Night Mode"}
+              aria-label="Toggle theme"
             >
               {isDark ? <Sun size={13} color="#f59e0b" /> : <Moon size={13} color="#6366f1" />}
-              <span>{isDark ? 'Light' : 'Dark'}</span>
+              <span>{isDark ? 'Day' : 'Night'}</span>
             </button>
+
+            <div className="ff-divider" />
+
+            {/* Global Live Views Counter Badge */}
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '5px',
+                padding: '4px 10px',
+                borderRadius: '999px',
+                background: 'var(--surface-sunken)',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '11px',
+                fontWeight: 600,
+                color: 'var(--folio-ink)'
+              }}
+              title="Global Profile Views (Persistent Across All Devices)"
+            >
+              <span
+                style={{
+                  width: '6px',
+                  height: '6px',
+                  borderRadius: '50%',
+                  backgroundColor: '#10b981',
+                  boxShadow: '0 0 6px #10b981'
+                }}
+              />
+              <Eye size={12} color="var(--folio-blue)" />
+              <span>{formattedCount}</span>
+            </div>
+
+            <div className="ff-divider" />
 
             {/* Scroll to Top */}
             <button
               className="ff-link"
               onClick={scrollToTop}
-              title="Back to Top"
-              style={{ padding: '6px 8px' }}
+              title="Ascend to Top of Flight"
             >
               <ArrowUp size={13} />
+              <span>Top</span>
             </button>
           </nav>
         </div>

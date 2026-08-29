@@ -1,10 +1,13 @@
 import React from 'react';
 import AccessPassCard from './AccessPassCard';
 import { soundFx } from '../../utils/audio';
-import { Sparkles, ArrowRight, ShieldCheck, Plane } from 'lucide-react';
+import { Sparkles, ArrowRight, ShieldCheck, Plane, Eye } from 'lucide-react';
+import { useVisitorCount } from '../../utils/visitorCounter';
 import '../../styles/gate.css';
 
 export default function GatePassOverlay({ onGranted, onSkip, isDark, isOpen }) {
+  const { formattedCount } = useVisitorCount();
+
   if (!isOpen) return null;
 
   const handleTap = () => {
@@ -26,9 +29,17 @@ export default function GatePassOverlay({ onGranted, onSkip, isDark, isOpen }) {
             <Plane size={18} color="var(--folio-blue)" />
             <span>RIFAI AIRWAYS • CHECK-IN</span>
           </div>
-          <div className="gate-status-tag">
-            <ShieldCheck size={13} style={{ display: 'inline', marginRight: 4 }} />
-            BOARDING PASS VERIFICATION
+          <div className="gate-status-tag" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <span
+              style={{
+                width: '6px',
+                height: '6px',
+                borderRadius: '50%',
+                backgroundColor: '#10b981',
+                boxShadow: '0 0 6px #10b981'
+              }}
+            />
+            <span>PAX #{formattedCount} • BOARDING PASS VERIFICATION</span>
           </div>
         </div>
 

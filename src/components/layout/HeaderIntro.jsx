@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import PlaneWindowScene from '../3d/PlaneWindowScene';
 import { profileData } from '../../data/profileData';
-import { Plane, Clock } from 'lucide-react';
+import { Plane, Clock, Eye, Users } from 'lucide-react';
+import { useVisitorCount } from '../../utils/visitorCounter';
 
 export default function HeaderIntro({ isDark, onShadeChange }) {
   const [time, setTime] = useState('');
+  const { formattedCount, loading } = useVisitorCount();
 
   useEffect(() => {
     const updateTime = () => {
@@ -30,6 +32,12 @@ export default function HeaderIntro({ isDark, onShadeChange }) {
             <div className="hud-dot" />
             <span>ALT 36,000 FT • {isDark ? 'NIGHT CRUISE' : 'DAYLIGHT CRUISE'}</span>
           </div>
+
+          <div className="hud-pill" title="Global Profile Views (All Devices)">
+            <Eye size={11} style={{ marginRight: 2, color: '#38bdf8' }} />
+            <span>PAX #{formattedCount}</span>
+          </div>
+
           <div className="hud-pill">
             <Clock size={11} style={{ marginRight: 2 }} />
             <span>{time || '08:30:00 WIB'}</span>
@@ -39,9 +47,40 @@ export default function HeaderIntro({ isDark, onShadeChange }) {
 
       {/* Intro Header */}
       <div className="folio-intro reveal">
-        <div className="folio-flight-tag">
-          <Plane size={12} />
-          <span>FLIGHT {profileData.flightNumber} • {profileData.status}</span>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '12px' }}>
+          <div className="folio-flight-tag" style={{ marginBottom: 0 }}>
+            <Plane size={12} />
+            <span>FLIGHT {profileData.flightNumber} • {profileData.status}</span>
+          </div>
+
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '5px',
+              padding: '3px 10px',
+              borderRadius: '999px',
+              background: 'var(--surface-sunken)',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '11px',
+              fontWeight: 600,
+              color: 'var(--folio-ink)',
+              border: '1px solid var(--card-border)'
+            }}
+            title="Global Cross-Device Profile Views"
+          >
+            <span
+              style={{
+                width: '6px',
+                height: '6px',
+                borderRadius: '50%',
+                backgroundColor: '#10b981',
+                boxShadow: '0 0 6px #10b981'
+              }}
+            />
+            <Eye size={12} color="var(--folio-blue)" />
+            <span>{formattedCount} Views</span>
+          </div>
         </div>
 
         <h1 className="folio-tagline">
