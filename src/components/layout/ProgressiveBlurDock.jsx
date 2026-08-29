@@ -1,6 +1,6 @@
 import React from 'react';
 import { soundFx } from '../../utils/audio';
-import { Sun, Moon, Sparkles, Mail, ArrowUp, BookOpen, Eye } from 'lucide-react';
+import { Sun, Moon, Sparkles, Mail, ArrowUp, BookOpen, Eye, Dumbbell } from 'lucide-react';
 import { useVisitorCount } from '../../utils/visitorCounter';
 
 function GithubIcon({ size = 14 }) {
@@ -76,6 +76,17 @@ export default function ProgressiveBlurDock({ onResetGate, isDark, onToggleTheme
               <BookOpen size={13} />
               <span>Reads</span>
             </button>
+
+            {/* openGym App direct launcher */}
+            <a
+              className="ff-link"
+              href="./opengym/"
+              title="Launch openGym Fitness & Workout Tracker"
+              onClick={() => soundFx.playCardClick()}
+            >
+              <Dumbbell size={13} color="#38bdf8" />
+              <span>openGym</span>
+            </a>
 
             <div className="ff-divider" />
 

@@ -223,6 +223,19 @@ export const profileData = {
 
   projects: [
     {
+      id: "opengym",
+      title: "openGym — Self-Hosted Fitness & Workout Tracker",
+      category: "Fullstack PWA & Distributed Sync",
+      desc: "Privacy-first gym & body-weight tracker with interactive muscle heatmaps, 1,300+ exercise library, passkey authentication, and offline PWA sync.",
+      repo: "/opengym/",
+      isLocalRoute: true,
+      demoUrl: "/opengym/",
+      sourceRepo: "https://gitlab.com/DuarteSantos8/opengym",
+      tech: ["React 19", "PWA", "Zustand", "Docker", "Capacitor", "AGPL-3.0"],
+      stars: "Featured App",
+      featured: true
+    },
+    {
       id: "orch-h2h",
       title: "orch-h2h-isocon",
       category: "Banking Switch / ISO 8583",

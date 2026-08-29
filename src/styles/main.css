@@ -354,6 +354,76 @@ button {
   color: var(--ink-faint);
 }
 
+.project-card.featured {
+  border-color: rgba(56, 189, 248, 0.45);
+  background: linear-gradient(135deg, var(--surface-card) 0%, rgba(56, 189, 248, 0.06) 100%);
+  box-shadow: 0 4px 20px rgba(56, 189, 248, 0.08);
+}
+
+.project-card.featured:hover {
+  border-color: #38bdf8;
+  box-shadow: 0 10px 30px rgba(56, 189, 248, 0.18);
+}
+
+.p-badge-featured {
+  background: rgba(56, 189, 248, 0.15) !important;
+  color: #0284c7 !important;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+[data-theme="dark"] .p-badge-featured {
+  color: #38bdf8 !important;
+}
+
+.p-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.p-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 6px;
+  background: var(--folio-blue);
+  color: #ffffff !important;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(44, 111, 255, 0.3);
+}
+
+.p-btn-primary:hover {
+  background: #1e5de6;
+  transform: translateY(-1px);
+}
+
+.p-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 6px;
+  background: var(--surface-chip);
+  color: var(--folio-ink) !important;
+  border: 1px solid var(--card-border);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.p-btn-secondary:hover {
+  background: var(--surface-hover);
+  border-color: var(--accent);
+}
+
 /* In-Flight Magazine & Editorial Notes */
 .magazine-section {
   width: 100%;
