@@ -1,208 +1,211 @@
-import React, { useRef, useMemo, useState, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo, useCallback, Suspense } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
+import { Clouds, Cloud } from '@react-three/drei';
 import * as THREE from 'three';
 import { soundFx } from '../../utils/audio';
 
-// Dynamic Ocean Wave GLSL Shader with Sun / Moon Specular & Horizon Haze
-function OceanShaderPlane({ isDark }) {
+// Dimensions & exact aperture clipping curves matching authentic aircraft proportions
+const W_WIDTH = 200;
+const W_HEIGHT = 300;
+const CANVAS_W = 600;
+const CANVAS_H = 900;
+
+const at = { top: 132, bottom: 716, left: 79, right: 520 };
+const ws = 170;
+const zm = { top: 179, bottom: 653, left: 118, right: 481 };
+const Om = 150;
+const Fm = 723;
+const Am = 210;
+const vd = (Fm - Am) / CANVAS_H; // ~0.57
+const TRAVEL_PX = W_HEIGHT * vd; // ~171px
+
+const makeClip = (box, radius, padding) =>
+  `inset(${(box.top - padding) / CANVAS_H * 100}% ${(CANVAS_W - box.right - padding) / CANVAS_W * 100}% ${(CANVAS_H - box.bottom - padding) / CANVAS_H * 100}% ${(box.left - padding) / CANVAS_W * 100}% round ${(radius + padding) / 3}px)`;
+
+const clipGlass = makeClip(zm, Om, 2);
+const clipShutterTrack = makeClip(at, ws, 6);
+const clipButton = makeClip(at, ws, 0);
+
+const handleBoxStyle = {
+  left: `${at.left / 3}px`,
+  top: `${at.top / 3}px`,
+  width: `${(at.right - at.left) / 3}px`,
+  height: `${(at.bottom - at.top) / 3}px`,
+  borderRadius: `${ws / 3}px`
+};
+
+const skyGradientDay = "linear-gradient(to bottom, #5CADF4 0%, #94CCFB 33%, #C8E6FB 45%, #FFFFFF 50%)";
+const skyGradientNight = "linear-gradient(to bottom, #070e1b 0%, #0d1a30 33%, #142442 45%, #1a2f52 50%)";
+
+// Fallback 2D Parallax Cloud Layer
+function CloudFallback({ isDark }) {
+  const fallbackClouds = [
+    { left: "-30%", top: "34%", width: "105%", opacity: isDark ? 0.4 : 0.7 },
+    { left: "30%", top: "30%", width: "100%", opacity: isDark ? 0.3 : 0.6 },
+    { left: "-15%", top: "46%", width: "135%", opacity: isDark ? 0.5 : 0.95 }
+  ];
+
+  return (
+    <>
+      {fallbackClouds.map((style, idx) => (
+        <img
+          key={idx}
+          src="./cloud.png"
+          alt=""
+          aria-hidden="true"
+          draggable="false"
+          style={{ position: 'absolute', pointerEvents: 'none', ...style }}
+        />
+      ))}
+      <div
+        style={{
+          position: 'absolute',
+          inset: '64% 0 0 0',
+          background: isDark
+            ? 'linear-gradient(to bottom, rgba(13,26,48,0) 0%, #0a1322 70%)'
+            : 'linear-gradient(to bottom, rgba(255,255,255,0) 0%, #FFFFFF 70%)'
+        }}
+      />
+    </>
+  );
+}
+
+// 3D Shimmering Ocean Normal Wave Shader
+function OceanPlane({ isDark }) {
   const meshRef = useRef();
+  const timeRef = useRef(0);
 
-  const uniforms = useMemo(() => ({
-    uTime: { value: 0 },
-    uDeepColor: { value: new THREE.Color(isDark ? '#020b1c' : '#03285c') },
-    uMidColor: { value: new THREE.Color(isDark ? '#061a38' : '#0d5ea6') },
-    uLightColor: { value: new THREE.Color(isDark ? '#1e3a8a' : '#38bdf8') },
-    uSunGlint: { value: new THREE.Color(isDark ? '#93c5fd' : '#ffffff') },
-    uHazeColor: { value: new THREE.Color(isDark ? '#090d16' : '#e0f2fe') },
-  }), [isDark]);
+  const texture = useMemo(() => {
+    const loader = new THREE.TextureLoader();
+    const tex = loader.load('./waternormals.jpg');
+    tex.wrapS = THREE.RepeatWrapping;
+    tex.wrapT = THREE.RepeatWrapping;
+    return tex;
+  }, []);
 
-  useEffect(() => {
-    if (meshRef.current) {
-      meshRef.current.material.uniforms.uDeepColor.value.set(isDark ? '#020b1c' : '#03285c');
-      meshRef.current.material.uniforms.uMidColor.value.set(isDark ? '#061a38' : '#0d5ea6');
-      meshRef.current.material.uniforms.uLightColor.value.set(isDark ? '#1e3a8a' : '#38bdf8');
-      meshRef.current.material.uniforms.uSunGlint.value.set(isDark ? '#93c5fd' : '#ffffff');
-      meshRef.current.material.uniforms.uHazeColor.value.set(isDark ? '#090d16' : '#e0f2fe');
-    }
-  }, [isDark]);
+  const shaderArgs = useMemo(() => ({
+    uniforms: {
+      uTime: { value: 0 },
+      uNormalMap: { value: texture },
+      uIsDark: { value: isDark ? 1.0 : 0.0 }
+    },
+    vertexShader: `
+      varying vec2 vUv;
+      void main() {
+        vUv = uv;
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+      }
+    `,
+    fragmentShader: `
+      uniform float uTime;
+      uniform sampler2D uNormalMap;
+      uniform float uIsDark;
+      varying vec2 vUv;
 
-  const vertexShader = `
-    varying vec2 vUv;
-    varying float vWave;
-    uniform float uTime;
+      void main() {
+        vec2 uv = vUv * 120.0;
+        vec2 uv1 = uv * 0.8 + vec2(uTime * 0.02, uTime * 0.01);
+        vec2 uv2 = uv * 0.5 - vec2(uTime * 0.015, uTime * 0.008);
+        vec3 n1 = texture2D(uNormalMap, uv1).rgb * 2.0 - 1.0;
+        vec3 n2 = texture2D(uNormalMap, uv2).rgb * 2.0 - 1.0;
+        float waves = (n1.r + n2.r) * 0.5;
 
-    void main() {
-      vUv = uv;
-      vec3 pos = position;
+        vec3 deepBlue  = mix(vec3(0.00, 0.25, 0.60), vec3(0.00, 0.05, 0.15), uIsDark);
+        vec3 midBlue   = mix(vec3(0.05, 0.40, 0.75), vec3(0.02, 0.10, 0.25), uIsDark);
+        vec3 lightBlue = mix(vec3(0.20, 0.60, 0.90), vec3(0.05, 0.20, 0.40), uIsDark);
 
-      // Multi-harmonic Gerstner waves
-      float w1 = sin(pos.x * 2.5 + uTime * 1.2) * 0.035;
-      float w2 = cos(pos.y * 1.8 + uTime * 0.9) * 0.025;
-      float w3 = sin((pos.x + pos.y) * 1.2 + uTime * 0.7) * 0.02;
-      
-      pos.z += w1 + w2 + w3;
-      vWave = pos.z;
+        vec3 colour = mix(deepBlue, midBlue, waves * 0.7);
+        colour = mix(colour, lightBlue, waves * waves * 0.3);
 
-      gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
-    }
-  `;
+        float glint = pow(clamp(waves + 0.1, 0.0, 1.0), 8.0) * (uIsDark > 0.5 ? 0.08 : 0.22);
+        colour += vec3(0.8, 0.9, 1.0) * glint;
 
-  const fragmentShader = `
-    varying vec2 vUv;
-    varying float vWave;
-    uniform float uTime;
-    uniform vec3 uDeepColor;
-    uniform vec3 uMidColor;
-    uniform vec3 uLightColor;
-    uniform vec3 uSunGlint;
-    uniform vec3 uHazeColor;
+        float horizonFade = smoothstep(0.0, 0.6, vUv.y);
+        vec3 hazeColour = mix(vec3(0.96, 0.98, 1.00), vec3(0.08, 0.14, 0.24), uIsDark);
+        colour = mix(colour, hazeColour, horizonFade * 0.98);
 
-    void main() {
-      // High-frequency animated ocean ripples
-      vec2 uv = vUv * 90.0;
-      float wave1 = sin(uv.x * 0.7 + uTime * 1.4 + cos(uv.y * 0.5 + uTime * 0.9));
-      float wave2 = cos(uv.y * 0.9 - uTime * 1.1 + sin(uv.x * 0.6 + uTime * 0.8));
-      float ripples = (wave1 + wave2) * 0.5;
-
-      // Oceanic color transition
-      vec3 color = mix(uDeepColor, uMidColor, ripples * 0.5 + 0.4);
-      color = mix(color, uLightColor, clamp(ripples * ripples * 0.35, 0.0, 1.0));
-
-      // Specular beam on sea surface
-      float sunAxis = exp(-pow(vUv.x - 0.45, 2.0) * 12.0);
-      float specular = pow(clamp(ripples + 0.2, 0.0, 1.0), 8.0) * 0.6 * sunAxis;
-      color += uSunGlint * specular;
-
-      // Horizon atmospheric haze fading out into distance
-      float horizonFade = smoothstep(0.08, 0.7, vUv.y);
-      color = mix(color, uHazeColor, horizonFade * 0.97);
-
-      gl_FragColor = vec4(color, 1.0);
-    }
-  `;
+        gl_FragColor = vec4(colour, 1.0);
+      }
+    `
+  }), [texture, isDark]);
 
   useFrame((_, delta) => {
+    timeRef.current += Math.min(delta, 1 / 30);
     if (meshRef.current) {
-      meshRef.current.material.uniforms.uTime.value += Math.min(delta, 0.033);
+      meshRef.current.material.uniforms.uTime.value = timeRef.current;
+      meshRef.current.material.uniforms.uIsDark.value = isDark ? 1.0 : 0.0;
     }
   });
 
   return (
     <mesh
       ref={meshRef}
-      rotation={[-Math.PI * 0.44, 0, 0]}
-      position={[0, -2.2, -2.5]}
+      rotation={[-Math.PI * 0.42, 0, 0]}
+      position={[0, -1.9, 0.8]}
     >
-      <planeGeometry args={[34, 34, 64, 64]} />
-      <shaderMaterial
-        vertexShader={vertexShader}
-        fragmentShader={fragmentShader}
-        uniforms={uniforms}
-      />
+      <planeGeometry args={[20, 20, 64, 64]} />
+      <shaderMaterial attach="material" {...shaderArgs} />
     </mesh>
   );
 }
 
-// 3D Airplane Wing outside the window with blinking strobe navigation light
-function AirplaneWing({ isDark }) {
-  const strobeRef = useRef();
+// High Altitude Cirrus Cloud Planes
+function CirrusPlanes({ isDark }) {
+  const meshesRef = useRef([]);
+  const planesData = useMemo(() => [
+    { x: 0, y: 2, z: -24, w: 18, h: 1, opacity: 0.2, speed: 0.001 },
+    { x: -4, y: 2.1, z: -24, w: 18, h: 1, opacity: 0.6, speed: 0.001 },
+    { x: 3, y: 1.5, z: -24, w: 18, h: 1, opacity: 0.2, speed: 0.001 },
+    { x: 2, y: 1.3, z: -24, w: 18, h: 1, opacity: 0.4, speed: 0.001 },
+    { x: -5, y: 1.9, z: -24, w: 18, h: 1, opacity: 0.3, speed: 0.001 },
+    { x: -4, y: 1, z: -40, w: 40, h: 10, opacity: 1, speed: 0.001 }
+  ], []);
 
-  useFrame((state) => {
-    if (strobeRef.current) {
-      // Periodic aviation strobe flash (every 1.2s with dual pulse)
-      const t = state.clock.elapsedTime % 1.2;
-      const flash = (t < 0.08 || (t > 0.16 && t < 0.24)) ? 1 : 0;
-      strobeRef.current.intensity = flash * (isDark ? 5.0 : 3.5);
-    }
+  const materials = useMemo(() => {
+    const loader = new THREE.TextureLoader();
+    const tex = loader.load('./CirrusCloud.png');
+    return planesData.map(p => new THREE.MeshBasicMaterial({
+      map: tex,
+      transparent: true,
+      opacity: p.opacity * (isDark ? 0.4 : 1.0),
+      depthWrite: false,
+      blending: THREE.AdditiveBlending
+    }));
+  }, [planesData, isDark]);
+
+  useFrame((_, delta) => {
+    const dt = Math.min(delta, 1 / 30);
+    meshesRef.current.forEach((m, idx) => {
+      if (m) {
+        m.position.x -= dt * planesData[idx].speed;
+        if (m.position.x < -6) m.position.x = 6;
+      }
+    });
   });
 
   return (
-    <group position={[2.6, -0.6, -1.8]} rotation={[-0.1, -0.25, -0.15]}>
-      {/* Main Swept Wing Body */}
-      <mesh position={[-0.6, -0.1, -0.8]} rotation={[0, 0.4, 0]}>
-        <boxGeometry args={[4.2, 0.08, 1.1]} />
-        <meshStandardMaterial
-          color={isDark ? "#334155" : "#e2e8f0"}
-          metalness={0.7}
-          roughness={0.25}
-        />
-      </mesh>
-
-      {/* Upward Winglet Tip */}
-      <mesh position={[1.4, 0.35, -0.3]} rotation={[0, 0.2, 0.8]}>
-        <boxGeometry args={[0.08, 0.8, 0.4]} />
-        <meshStandardMaterial
-          color="#2c6fff"
-          metalness={0.75}
-          roughness={0.25}
-        />
-      </mesh>
-
-      {/* Flashing Navigation Strobe Light */}
-      <pointLight
-        ref={strobeRef}
-        position={[1.45, 0.75, -0.3]}
-        color="#ffffff"
-        distance={6}
-        decay={2}
-      />
-      <mesh position={[1.45, 0.75, -0.3]}>
-        <sphereGeometry args={[0.04, 12, 12]} />
-        <meshBasicMaterial color="#ffffff" />
-      </mesh>
-    </group>
+    <>
+      {planesData.map((p, idx) => (
+        <mesh
+          key={idx}
+          ref={el => (meshesRef.current[idx] = el)}
+          position={[p.x, p.y, p.z]}
+          material={materials[idx]}
+        >
+          <planeGeometry args={[p.w, p.h]} />
+        </mesh>
+      ))}
+    </>
   );
 }
 
-// Night Sky Stars (when in dark mode)
-function StarsField() {
-  const starsRef = useRef();
-  const count = 120;
-
-  const positions = useMemo(() => {
-    const pos = new Float32Array(count * 3);
-    for (let i = 0; i < count; i++) {
-      pos[i * 3] = (Math.random() - 0.5) * 16;
-      pos[i * 3 + 1] = Math.random() * 6 + 0.5;
-      pos[i * 3 + 2] = -Math.random() * 8 - 4;
-    }
-    return pos;
-  }, []);
-
-  useFrame((state) => {
-    if (starsRef.current) {
-      starsRef.current.rotation.y = state.clock.elapsedTime * 0.01;
-    }
-  });
-
-  return (
-    <points ref={starsRef}>
-      <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
-          count={count}
-          array={positions}
-          itemSize={3}
-        />
-      </bufferGeometry>
-      <pointsMaterial
-        size={0.07}
-        color="#ffffff"
-        transparent
-        opacity={0.85}
-        sizeAttenuation
-      />
-    </points>
-  );
-}
-
-// Fluffy Volumetric Clouds
-function CloudCluster({ position, scale, speed, opacity, resetX = 7, color = '#ffffff' }) {
+// 3D Moving Cloud Puff
+function CloudPuff({ position, speed, opacity, segments, bounds, volume, seed, resetX, color, shadowColor }) {
   const groupRef = useRef();
 
   useFrame((_, delta) => {
     if (groupRef.current) {
-      groupRef.current.position.x -= delta * speed;
+      groupRef.current.position.x -= Math.min(delta, 1 / 30) * speed;
       if (groupRef.current.position.x < -resetX) {
         groupRef.current.position.x = resetX;
       }
@@ -210,333 +213,336 @@ function CloudCluster({ position, scale, speed, opacity, resetX = 7, color = '#f
   });
 
   return (
-    <group ref={groupRef} position={position} scale={scale}>
-      <mesh position={[0, 0, 0]}>
-        <sphereGeometry args={[1, 16, 16]} />
-        <meshStandardMaterial
-          color={color}
-          roughness={0.95}
-          transparent
-          opacity={opacity}
-          depthWrite={false}
-        />
-      </mesh>
-      <mesh position={[0.75, -0.15, 0.2]} scale={0.78}>
-        <sphereGeometry args={[1, 14, 14]} />
-        <meshStandardMaterial
-          color={color}
-          roughness={0.95}
-          transparent
-          opacity={opacity * 0.92}
-          depthWrite={false}
-        />
-      </mesh>
-      <mesh position={[-0.75, -0.18, -0.15]} scale={0.82}>
-        <sphereGeometry args={[1, 14, 14]} />
-        <meshStandardMaterial
-          color={color}
-          roughness={0.95}
-          transparent
-          opacity={opacity * 0.88}
-          depthWrite={false}
-        />
-      </mesh>
-      <mesh position={[0.3, 0.35, -0.2]} scale={0.65}>
-        <sphereGeometry args={[1, 12, 12]} />
-        <meshStandardMaterial
-          color={color}
-          roughness={0.95}
-          transparent
-          opacity={opacity * 0.95}
-          depthWrite={false}
-        />
-      </mesh>
+    <group ref={groupRef} position={position}>
+      <Cloud
+        opacity={opacity}
+        color={color}
+        segments={segments}
+        bounds={bounds}
+        volume={volume}
+        seed={seed}
+        position={[0, bounds[1] * 0.15, 0]}
+      />
+      <Cloud
+        opacity={opacity * 0.7}
+        color={shadowColor}
+        segments={Math.floor(segments * 0.7)}
+        bounds={[bounds[0], bounds[1] * 0.5, bounds[2]]}
+        volume={volume * 0.6}
+        seed={seed + 100}
+        position={[0, -bounds[1] * 0.25, 0]}
+      />
     </group>
   );
 }
 
-function CloudDeck({ isDark }) {
-  const clouds = useMemo(() => [
-    // Far slow cumulus banks
-    { pos: [-4, 0.7, -13], scale: [4.2, 0.9, 1.8], speed: 0.12, opacity: 0.65, resetX: 9, color: isDark ? '#1e293b' : '#f8fafc' },
-    { pos: [1.5, 0.8, -14], scale: [4.8, 1.0, 2.0], speed: 0.1, opacity: 0.6, resetX: 10, color: isDark ? '#1e293b' : '#ffffff' },
-    { pos: [-7, 0.6, -12], scale: [3.8, 0.85, 1.6], speed: 0.14, opacity: 0.58, resetX: 9, color: isDark ? '#0f172a' : '#f1f5f9' },
+// Full 3D Multi-deck Clouds Scene
+function VolumetricCloudScene({ isDark }) {
+  return (
+    <>
+      <ambientLight intensity={isDark ? 1.0 : 3.0} color={isDark ? '#64748b' : '#e8f4ff'} />
+      <directionalLight position={[5, 5, 5]} intensity={isDark ? 0.8 : 2.0} color={isDark ? '#94a3b8' : '#fff8f0'} />
 
-    // Mid-level fluffy clouds
-    { pos: [-2, -0.15, -6.5], scale: [3.0, 0.75, 1.4], speed: 0.38, opacity: 0.82, resetX: 7, color: isDark ? '#334155' : '#ffffff' },
-    { pos: [2.8, -0.05, -7.5], scale: [3.4, 0.85, 1.5], speed: 0.32, opacity: 0.78, resetX: 8, color: isDark ? '#1e293b' : '#f8fafc' },
-    { pos: [-5.5, -0.25, -6.8], scale: [2.8, 0.7, 1.3], speed: 0.36, opacity: 0.8, resetX: 7, color: isDark ? '#334155' : '#ffffff' },
+      {/* High-altitude Cirrus Sky */}
+      <CirrusPlanes isDark={isDark} />
 
-    // Near passing fast cloud drifts
-    { pos: [-0.5, -0.95, -2.8], scale: [2.2, 0.55, 1.1], speed: 0.88, opacity: 0.9, resetX: 6, color: isDark ? '#475569' : '#ffffff' },
-    { pos: [-3.5, -1.05, -3.2], scale: [2.0, 0.5, 1.0], speed: 0.95, opacity: 0.85, resetX: 6, color: isDark ? '#334155' : '#ffffff' },
-    { pos: [3.5, -0.85, -2.5], scale: [2.1, 0.52, 1.0], speed: 0.92, opacity: 0.88, resetX: 6, color: isDark ? '#475569' : '#ffffff' }
-  ], [isDark]);
+      {/* 3D Drei Cloud Cluster */}
+      <Clouds texture="./cloud.png" limit={400}>
+        {/* Deep Horizon Clouds */}
+        <CloudPuff position={[-1.5, -0.8, -16]} speed={0.04} opacity={0.35} segments={10} bounds={[1.5, 0.4, 0.4]} volume={0.4} seed={1} resetX={4} color={isDark ? "#334155" : "#c8d8e8"} shadowColor={isDark ? "#1e293b" : "#4a6a8a"} />
+        <CloudPuff position={[0.5, -0.8, -16]} speed={0.03} opacity={0.3} segments={10} bounds={[1.8, 0.4, 0.4]} volume={0.4} seed={2} resetX={4} color={isDark ? "#334155" : "#d0dce8"} shadowColor={isDark ? "#1e293b" : "#4a6a8a"} />
+        <CloudPuff position={[2.5, -0.8, -16]} speed={0.04} opacity={0.32} segments={10} bounds={[1.6, 0.4, 0.4]} volume={0.4} seed={3} resetX={4} color={isDark ? "#334155" : "#c8d8e8"} shadowColor={isDark ? "#1e293b" : "#4a6a8a"} />
+        <CloudPuff position={[-3, -0.85, -16]} speed={0.03} opacity={0.28} segments={10} bounds={[1.4, 0.35, 0.35]} volume={0.35} seed={10} resetX={4} color={isDark ? "#334155" : "#d0dce8"} shadowColor={isDark ? "#1e293b" : "#4a6a8a"} />
+
+        {/* Mid Deck Fluffy Cumulus */}
+        <CloudPuff position={[-1, -0.95, -9]} speed={0.08} opacity={0.55} segments={14} bounds={[2.2, 0.7, 0.7]} volume={0.7} seed={4} resetX={4} color={isDark ? "#475569" : "#f0f4f8"} shadowColor={isDark ? "#1e293b" : "#8aa0b8"} />
+        <CloudPuff position={[1, -0.9, -9]} speed={0.07} opacity={0.5} segments={14} bounds={[2, 0.65, 0.65]} volume={0.65} seed={5} resetX={4} color={isDark ? "#475569" : "#eef2f8"} shadowColor={isDark ? "#1e293b" : "#5a7898"} />
+        <CloudPuff position={[-3, -1, -9]} speed={0.09} opacity={0.48} segments={12} bounds={[1.8, 0.6, 0.6]} volume={0.6} seed={6} resetX={4} color={isDark ? "#475569" : "#f0f4f8"} shadowColor={isDark ? "#1e293b" : "#5a7898"} />
+        <CloudPuff position={[3, -0.62, -9]} speed={0.08} opacity={0.5} segments={12} bounds={[2, 0.6, 0.6]} volume={0.6} seed={11} resetX={4} color={isDark ? "#475569" : "#eef2f8"} shadowColor={isDark ? "#1e293b" : "#5a7898"} />
+
+        {/* Near Fast-Drifting Cloud Deck */}
+        <CloudPuff position={[0, -1.3, -2.5]} speed={0.48} opacity={0.7} segments={18} bounds={[3, 1, 1]} volume={1} seed={7} resetX={5} color={isDark ? "#64748b" : "#ffffff"} shadowColor={isDark ? "#1e293b" : "#7a8fa8"} />
+        <CloudPuff position={[-2, -1.4, -2.5]} speed={0.52} opacity={0.65} segments={16} bounds={[2.8, 0.9, 0.9]} volume={0.9} seed={8} resetX={5} color={isDark ? "#64748b" : "#fffef8"} shadowColor={isDark ? "#1e293b" : "#7a8fa8"} />
+        <CloudPuff position={[2, -1.5, -2.5]} speed={0.44} opacity={0.6} segments={16} bounds={[2.5, 0.9, 0.9]} volume={0.9} seed={9} resetX={5} color={isDark ? "#64748b" : "#ffffff"} shadowColor={isDark ? "#1e293b" : "#7a8fa8"} />
+        <CloudPuff position={[-4, -1.2, -2.5]} speed={0.5} opacity={0.62} segments={16} bounds={[2.6, 0.85, 0.85]} volume={0.85} seed={12} resetX={5} color={isDark ? "#64748b" : "#fffef8"} shadowColor={isDark ? "#1e293b" : "#7a8fa8"} />
+      </Clouds>
+    </>
+  );
+}
+
+// Master 3D Viewport
+function ThreeWindowViewport({ isDark, paused }) {
+  const frameloop = paused ? 'demand' : 'always';
 
   return (
-    <group>
-      {clouds.map((c, i) => (
-        <CloudCluster
-          key={i}
-          position={c.pos}
-          scale={c.scale}
-          speed={c.speed}
-          opacity={c.opacity}
-          resetX={c.resetX}
-          color={c.color}
-        />
-      ))}
-    </group>
+    <>
+      {/* Ocean Sea Layer */}
+      <Canvas
+        style={{ position: 'absolute', inset: 0 }}
+        camera={{ position: [0, 0, 2], fov: 60 }}
+        gl={{ antialias: true, powerPreference: 'high-performance', alpha: true }}
+        frameloop={frameloop}
+        flat
+      >
+        <OceanPlane isDark={isDark} />
+      </Canvas>
+
+      {/* Cloud Particle Scene */}
+      <Canvas
+        style={{ position: 'absolute', inset: 0 }}
+        camera={{ position: [0, 0, 3], fov: 70 }}
+        gl={{ antialias: true, powerPreference: 'high-performance', alpha: true }}
+        frameloop={frameloop}
+      >
+        <VolumetricCloudScene isDark={isDark} />
+      </Canvas>
+    </>
   );
 }
 
-// Interactive Camera Parallax based on mouse cursor over window
-function ParallaxCamera({ mousePos }) {
-  useFrame((state) => {
-    state.camera.position.x = THREE.MathUtils.lerp(state.camera.position.x, mousePos.x * 0.45, 0.06);
-    state.camera.position.y = THREE.MathUtils.lerp(state.camera.position.y, mousePos.y * 0.3, 0.06);
-    state.camera.lookAt(mousePos.x * 0.2, mousePos.y * 0.1, -10);
-  });
-  return null;
+// Photorealistic Window Image Helper
+function WindowImage({ src, shade, dim, style }) {
+  return (
+    <img
+      src={src}
+      alt=""
+      aria-hidden="true"
+      draggable="false"
+      style={{
+        position: 'absolute',
+        inset: 0,
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover',
+        pointerEvents: 'none',
+        filter: `brightness(${1 - shade * dim})`,
+        ...style
+      }}
+    />
+  );
 }
 
+// Main Interactive Aircraft Window Component
 export default function PlaneWindowScene({ isDark, onShadeChange }) {
-  // Window Shade State: 0 = fully open (top), 100 = fully closed (bottom)
-  const [shadeY, setShadeY] = useState(() => (isDark ? 100 : 0));
-  const [isDragging, setIsDragging] = useState(false);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const containerRef = useRef(null);
+  // Shade ratio: 0 (fully open / daylight) to 1 (fully pulled down / dark mode)
+  const [shade, setShade] = useState(() => (isDark ? 1 : 0));
+  const [dragging, setDragging] = useState(false);
+  const pointerStartRef = useRef(null);
+  const velocityRef = useRef(0);
+  const lastTimeRef = useRef(0);
+  const rafRef = useRef(0);
 
-  // Synchronize shade position if theme is toggled from dock
+  // Synchronize shade if theme is changed externally (e.g. from dock)
   useEffect(() => {
-    if (!isDragging) {
-      setShadeY(isDark ? 100 : 0);
+    if (!dragging) {
+      setShade(isDark ? 1 : 0);
     }
-  }, [isDark]);
+  }, [isDark, dragging]);
 
-  // Drag handlers for window shade
-  const handlePointerDown = (e) => {
-    e.stopPropagation();
-    setIsDragging(true);
-    soundFx.playShadeSlide();
-  };
-
-  const handlePointerMove = (e) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-
-    // Track mouse for 3D camera parallax
-    const relX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-    const relY = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
-    setMousePos({ x: relX, y: relY });
-
-    if (isDragging) {
-      const offsetY = e.clientY - rect.top;
-      const pct = Math.max(0, Math.min(100, (offsetY / rect.height) * 100));
-      setShadeY(pct);
-    }
-  };
-
-  const handlePointerUp = () => {
-    if (isDragging) {
-      setIsDragging(false);
-      // Snap to closed if dragged past 50%, else snap to open
-      if (shadeY > 50) {
-        setShadeY(100);
-        soundFx.playShadeSnap();
-        if (onShadeChange) onShadeChange(true); // Switch to Dark Mode!
-      } else {
-        setShadeY(0);
-        soundFx.playShadeSnap();
-        if (onShadeChange) onShadeChange(false); // Switch to Light Mode!
-      }
-    }
-  };
-
-  // Toggle shade on clicking the handle
-  const toggleShade = (e) => {
-    e.stopPropagation();
+  // Spring animation to target position
+  const animateTo = useCallback((target) => {
+    cancelAnimationFrame(rafRef.current);
     soundFx.playShadeSnap();
-    const willClose = shadeY <= 50;
-    setShadeY(willClose ? 100 : 0);
-    if (onShadeChange) {
-      onShadeChange(willClose); // Toggle theme automatically
-    }
-  };
 
-  useEffect(() => {
-    const onUp = () => {
-      if (isDragging) {
-        setIsDragging(false);
-        if (shadeY > 50) {
-          setShadeY(100);
-          if (onShadeChange) onShadeChange(true);
-        } else {
-          setShadeY(0);
-          if (onShadeChange) onShadeChange(false);
+    const startVal = shade;
+    const distance = target - startVal;
+    const startTime = performance.now();
+    const duration = 280; // ms
+
+    const easeOutCubic = (x) => 1 - Math.pow(1 - x, 3);
+
+    const step = (now) => {
+      const progress = Math.min((now - startTime) / duration, 1);
+      const current = startVal + distance * easeOutCubic(progress);
+      setShade(current);
+
+      if (progress < 1) {
+        rafRef.current = requestAnimationFrame(step);
+      } else {
+        setShade(target);
+        if (onShadeChange) {
+          onShadeChange(target > 0.5);
         }
       }
     };
-    window.addEventListener('pointerup', onUp);
-    return () => window.removeEventListener('pointerup', onUp);
-  }, [isDragging, shadeY, onShadeChange]);
+
+    rafRef.current = requestAnimationFrame(step);
+  }, [shade, onShadeChange]);
+
+  const handlePointerDown = (e) => {
+    if (e.button != null && e.button !== 0) return;
+    cancelAnimationFrame(rafRef.current);
+    e.currentTarget.setPointerCapture?.(e.pointerId);
+    setDragging(true);
+    soundFx.playShadeSlide();
+    pointerStartRef.current = {
+      y: e.clientY,
+      fromShade: shade,
+      time: performance.now()
+    };
+  };
+
+  const handlePointerMove = (e) => {
+    if (!dragging || !pointerStartRef.current) return;
+    const deltaY = e.clientY - pointerStartRef.current.y;
+    const newShade = Math.max(0, Math.min(1, pointerStartRef.current.fromShade + deltaY / TRAVEL_PX));
+
+    const now = performance.now();
+    const dt = (now - pointerStartRef.current.time) / 1000;
+    if (dt > 0) {
+      velocityRef.current = (newShade - shade) / dt;
+    }
+    pointerStartRef.current.time = now;
+    setShade(newShade);
+  };
+
+  const handlePointerUp = (e) => {
+    if (!dragging) return;
+    setDragging(false);
+    e.currentTarget.releasePointerCapture?.(e.pointerId);
+    pointerStartRef.current = null;
+
+    // Velocity-based snap or position-based snap
+    if (velocityRef.current > 0.8) {
+      animateTo(1);
+    } else if (velocityRef.current < -0.8) {
+      animateTo(0);
+    } else {
+      animateTo(shade > 0.5 ? 1 : 0);
+    }
+  };
+
+  const isClosed = shade > 0.92;
 
   return (
     <div
-      ref={containerRef}
-      onPointerMove={handlePointerMove}
-      onPointerLeave={() => {
-        setMousePos({ x: 0, y: 0 });
-        if (isDragging) setIsDragging(false);
-      }}
+      onContextMenu={(e) => e.preventDefault()}
+      onDragStart={(e) => e.preventDefault()}
       style={{
-        width: '100%',
-        height: '100%',
         position: 'relative',
-        userSelect: 'none',
-        touchAction: 'none'
+        width: `${W_WIDTH}px`,
+        height: `${W_HEIGHT}px`,
+        margin: '0 auto',
+        isolation: 'isolate',
+        WebkitTouchCallout: 'none',
+        WebkitUserSelect: 'none',
+        userSelect: 'none'
       }}
     >
-      {/* 3D WebGL Canvas Viewport */}
-      <Canvas
-        camera={{ position: [0, 0, 3.2], fov: 52 }}
-        gl={{ antialias: true, alpha: false, powerPreference: 'high-performance' }}
-        style={{ position: 'absolute', inset: 0 }}
-      >
-        <ParallaxCamera mousePos={mousePos} />
-        
-        {/* Sky Background Gradient (Day vs Night) */}
-        <color attach="background" args={[isDark ? '#090d16' : '#93c5fd']} />
-
-        {/* Sunlight vs Moonlight Lighting */}
-        <ambientLight intensity={isDark ? 0.6 : 1.9} color={isDark ? '#38bdf8' : '#bae6fd'} />
-        <directionalLight
-          position={[7, 9, 5]}
-          intensity={isDark ? 0.9 : 2.8}
-          color={isDark ? '#93c5fd' : '#fffbeb'}
-          castShadow
-        />
-        <pointLight position={[-4, 3, 2]} intensity={isDark ? 0.4 : 1.2} color={isDark ? '#1e3a8a' : '#60a5fa'} />
-
-        {/* Stars at night */}
-        {isDark && <StarsField />}
-
-        {/* Ocean Horizon Waves */}
-        <OceanShaderPlane isDark={isDark} />
-
-        {/* Airplane Wingtip with Strobe Beacon */}
-        <AirplaneWing isDark={isDark} />
-
-        {/* Drifting Volumetric Cloud Deck */}
-        <CloudDeck isDark={isDark} />
-      </Canvas>
-
-      {/* Double-Pane Airplane Glass Reflection Overlay */}
+      {/* 1. Sky & Cloud WebGL Aperture */}
       <div
         style={{
           position: 'absolute',
           inset: 0,
-          pointerEvents: 'none',
-          background: isDark
-            ? 'linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.01) 40%, transparent 60%, rgba(255,255,255,0.04) 100%)'
-            : 'linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.02) 40%, transparent 60%, rgba(255,255,255,0.08) 100%)',
-          boxShadow: 'inset 0 0 24px rgba(0,0,0,0.4)',
-          zIndex: 2
+          clipPath: clipGlass,
+          WebkitClipPath: clipGlass,
+          background: isDark ? skyGradientNight : skyGradientDay
         }}
-      />
+      >
+        <Suspense fallback={<CloudFallback isDark={isDark} />}>
+          <ThreeWindowViewport isDark={isDark} paused={isClosed} />
+        </Suspense>
+      </div>
 
-      {/* Draggable Airplane Window Shade / Blinds */}
+      {/* 2. Inner Recessed Bezel & Depth Layer */}
+      <WindowImage src="./window-back.webp" shade={shade} dim={0.86} />
+
+      {/* 3. Sliding Aircraft Sunblind Shutter */}
       <div
         style={{
           position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          height: `${shadeY}%`,
-          backgroundColor: isDark ? '#1f1e24' : '#e2e0dc',
-          backgroundImage: isDark
-            ? `
-              repeating-linear-gradient(
-                0deg,
-                #18171d 0px,
-                #18171d 6px,
-                #26252d 7px,
-                #26252d 18px
-              )
-            `
-            : `
-              repeating-linear-gradient(
-                0deg,
-                #d8d5cf 0px,
-                #d8d5cf 6px,
-                #ece9e4 7px,
-                #ece9e4 18px
-              )
-            `,
-          boxShadow: '0 8px 24px rgba(0, 0, 0, 0.55)',
-          borderBottom: isDark ? '4px solid #121116' : '4px solid #b8b4ad',
-          transition: isDragging ? 'none' : 'height 0.42s cubic-bezier(0.23, 1, 0.32, 1)',
-          zIndex: 5,
-          overflow: 'hidden',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'flex-end',
-          alignItems: 'center'
+          inset: 0,
+          clipPath: clipShutterTrack,
+          WebkitClipPath: clipShutterTrack,
+          pointerEvents: 'none'
         }}
       >
-        {/* Pull Handle at Bottom Edge of Shade */}
-        <div
-          onPointerDown={handlePointerDown}
-          onClick={toggleShade}
+        <WindowImage
+          src="./window-shutter.webp"
+          shade={shade}
+          dim={0.82}
           style={{
-            width: '64px',
-            height: '14px',
-            marginBottom: '4px',
-            borderRadius: '6px',
-            backgroundColor: isDark ? '#383742' : '#8a857e',
-            border: isDark ? '1.5px solid #4a4957' : '1.5px solid #6b6762',
-            boxShadow: '0 2px 6px rgba(0,0,0,0.4)',
-            cursor: 'ns-resize',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '4px'
+            transform: `translate3d(0, ${-(1 - shade) * vd * 100}%, 0)`
           }}
-          title={shadeY > 50 ? "Slide Up to Open Window (Switch to Light Mode)" : "Drag Down to Close Window (Switch to Dark Mode)"}
-        >
-          <div style={{ width: '20px', height: '2px', backgroundColor: isDark ? '#6b6978' : '#e2e0dc', borderRadius: '1px' }} />
-        </div>
-      </div>
+        />
 
-      {/* Floating Interactive Handle when Window is fully Open */}
-      {shadeY === 0 && (
+        {/* Shutter Track Inner Shadow Mask */}
         <div
-          onPointerDown={handlePointerDown}
-          onClick={toggleShade}
+          aria-hidden="true"
           style={{
             position: 'absolute',
-            top: '8px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: '68px',
-            height: '14px',
-            borderRadius: '6px',
-            backgroundColor: isDark ? 'rgba(30, 29, 36, 0.85)' : 'rgba(255, 255, 255, 0.75)',
-            backdropFilter: 'blur(4px)',
-            border: isDark ? '1.5px solid rgba(255,255,255,0.15)' : '1.5px solid rgba(0,0,0,0.15)',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
-            cursor: 'ns-resize',
-            zIndex: 6,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            transition: 'transform 0.2s ease, background-color 0.2s ease'
+            ...handleBoxStyle,
+            pointerEvents: 'none',
+            boxShadow: 'inset 0 0 11px rgba(28, 25, 22, 0.42), inset 0 0 3px rgba(28, 25, 22, 0.30)',
+            maskImage: 'url(./window-shutter.webp)',
+            WebkitMaskImage: 'url(./window-shutter.webp)',
+            maskSize: '200px 300px',
+            WebkitMaskSize: '200px 300px',
+            maskRepeat: 'no-repeat',
+            WebkitMaskRepeat: 'no-repeat',
+            maskPosition: `${-79 / 3}px ${-132 / 3 - (1 - shade) * TRAVEL_PX}px`,
+            WebkitMaskPosition: `${-79 / 3}px ${-132 / 3 - (1 - shade) * TRAVEL_PX}px`
           }}
-          title="Drag down to close shade (Dark Mode)"
+        />
+      </div>
+
+      {/* 4. Outer Fuselage Window Bezel Frame */}
+      <WindowImage src="./window-front.webp" shade={shade} dim={0.8} />
+
+      {/* 5. Ambient Occlusion Multiply Overlay */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          maskImage: 'url(./window-front.webp)',
+          WebkitMaskImage: 'url(./window-front.webp)',
+          maskSize: 'cover',
+          WebkitMaskSize: 'cover',
+          maskRepeat: 'no-repeat',
+          WebkitMaskRepeat: 'no-repeat',
+          pointerEvents: 'none',
+          mixBlendMode: 'multiply',
+          opacity: shade * 0.55,
+          background: 'linear-gradient(to bottom, #6a6e78 0%, #878b95 38%, #a2a7ae 100%)'
+        }}
+      />
+
+      {/* 6. Drag & Pull Handle Interactive Layer */}
+      <button
+        type="button"
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp}
+        onPointerCancel={handlePointerUp}
+        aria-pressed={shade > 0.5}
+        title={shade > 0.5 ? "Tarik ke atas untuk buka jendela (Day Mode)" : "Tarik ke bawah untuk tutup jendela (Night Mode)"}
+        style={{
+          position: 'absolute',
+          inset: 0,
+          clipPath: clipButton,
+          WebkitClipPath: clipButton,
+          background: 'none',
+          border: 0,
+          padding: 0,
+          cursor: dragging ? 'grabbing' : 'grab',
+          touchAction: 'none',
+          WebkitTapHighlightColor: 'transparent'
+        }}
+      >
+        <span
+          style={{
+            position: 'absolute',
+            width: 1,
+            height: 1,
+            overflow: 'hidden',
+            clip: 'rect(0 0 0 0)',
+            whiteSpace: 'nowrap'
+          }}
         >
-          <div style={{ width: '22px', height: '2px', backgroundColor: isDark ? '#94a3b8' : '#64748b', borderRadius: '1px' }} />
-        </div>
-      )}
+          {shade > 0.5 ? "Open the window shade" : "Close the window shade"}
+        </span>
+      </button>
     </div>
   );
 }

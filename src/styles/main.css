@@ -104,66 +104,42 @@ button {
   z-index: 2;
 }
 
-/* Plane Window Container */
+/* Photorealistic Aircraft Window Container */
 .folio-window {
-  width: 100%;
-  max-width: 480px;
-  height: 270px;
-  border-radius: 999px;
   position: relative;
-  overflow: hidden;
-  box-shadow: 
-    0 16px 40px rgba(var(--shadow-rgb), 0.16),
-    0 4px 12px rgba(var(--shadow-rgb), 0.08),
-    inset 0 0 0 10px rgba(255, 255, 255, 0.7),
-    inset 0 0 0 16px rgba(0, 0, 0, 0.08),
-    inset 0 0 24px rgba(0, 0, 0, 0.25);
-  border: 2px solid rgba(255, 255, 255, 0.85);
-  background: #0f172a;
-}
-
-[data-theme="dark"] .folio-window {
-  box-shadow: 
-    0 16px 44px rgba(0, 0, 0, 0.6),
-    0 4px 14px rgba(0, 0, 0, 0.4),
-    inset 0 0 0 10px rgba(255, 255, 255, 0.12),
-    inset 0 0 0 16px rgba(0, 0, 0, 0.4),
-    inset 0 0 28px rgba(0, 0, 0, 0.7);
-  border: 2px solid rgba(255, 255, 255, 0.15);
-}
-
-.window-inner {
-  width: 100%;
-  height: 100%;
-  position: relative;
+  width: 200px;
+  height: 300px;
+  margin: 0 auto 36px;
+  z-index: 6;
+  --reveal-delay: 0ms;
 }
 
 .window-hud {
   position: absolute;
-  bottom: 14px;
-  left: 24px;
-  right: 24px;
+  top: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  gap: 8px;
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: 10px;
   letter-spacing: 0.8px;
-  color: rgba(255, 255, 255, 0.9);
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
   pointer-events: none;
   z-index: 4;
+  white-space: nowrap;
 }
 
 .hud-pill {
-  background: rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(6px);
-  padding: 3px 8px;
+  background: var(--surface-sunken);
+  backdrop-filter: blur(8px);
+  padding: 3px 9px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid var(--card-border);
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  color: var(--folio-mute);
 }
 
 .hud-dot {
@@ -171,7 +147,8 @@ button {
   height: 6px;
   border-radius: 50%;
   background: #10b981;
-  box-shadow: 0 0 8px #10b981;
+  box-shadow: 0 0 6px #10b981;
+  margin-right: 5px;
   animation: pulseDot 2s infinite ease-in-out;
 }
 
@@ -697,10 +674,6 @@ button {
 }
 
 @media (max-width: 680px) {
-  .folio-window {
-    height: 190px;
-    border-radius: 40px;
-  }
   .folio-col {
     width: calc(100% - 2rem);
     gap: 32px;

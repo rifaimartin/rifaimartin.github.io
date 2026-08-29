@@ -22,20 +22,13 @@ export default function HeaderIntro({ isDark, onShadeChange }) {
     <>
       {/* 3D Airplane Window Frame with Interactive Sliding Shade */}
       <div className="folio-window reveal">
-        <div className="window-inner">
-          <PlaneWindowScene isDark={isDark} onShadeChange={onShadeChange} />
-        </div>
+        <PlaneWindowScene isDark={isDark} onShadeChange={onShadeChange} />
         
         {/* Aviation HUD Overlay */}
         <div className="window-hud">
           <div className="hud-pill">
             <div className="hud-dot" />
             <span>ALT 36,000 FT • {isDark ? 'NIGHT CRUISE' : 'DAYLIGHT CRUISE'}</span>
-          </div>
-
-          <div className="hud-pill" title="Global Profile Views (All Devices)">
-            <Eye size={11} style={{ marginRight: 2, color: '#38bdf8' }} />
-            <span>PAX #{formattedCount}</span>
           </div>
 
           <div className="hud-pill">
