@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
-import { X, Clock, BookOpen, ArrowLeft } from 'lucide-react';
+import { X, Clock, BookOpen } from 'lucide-react';
 import { soundFx } from '../../utils/audio';
+import { ArticleCharacter } from '../illustrations/ArticleCharacters';
 
 export default function ArticleModal({ article, onClose }) {
   useEffect(() => {
@@ -44,7 +45,7 @@ export default function ArticleModal({ article, onClose }) {
         style={{
           background: 'var(--surface-card)',
           border: '1px solid var(--card-border)',
-          borderRadius: '20px',
+          borderRadius: '24px',
           maxWidth: '680px',
           width: '100%',
           maxHeight: '85vh',
@@ -59,32 +60,49 @@ export default function ArticleModal({ article, onClose }) {
         }}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Top Header Bar */}
+        {/* Top Header Bar with 2D Character Hero */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
-              <span
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '11px',
-                  fontWeight: 600,
-                  textTransform: 'uppercase',
-                  letterSpacing: '1px',
-                  color: 'var(--folio-blue)',
-                  background: 'var(--surface-chip)',
-                  padding: '3px 8px',
-                  borderRadius: '4px'
-                }}
-              >
-                {article.category}
-              </span>
-              <span style={{ fontSize: '12px', color: 'var(--folio-mute)', fontFamily: 'var(--font-mono)' }}>
-                {article.date} • <Clock size={11} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 2 }} /> {article.readTime}
-              </span>
+          <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+            <div
+              style={{
+                flexShrink: 0,
+                padding: '6px',
+                borderRadius: '18px',
+                background: 'var(--surface-sunken)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.08)'
+              }}
+            >
+              <ArticleCharacter id={article.id} size="modal" />
             </div>
-            <h2 style={{ fontSize: '22px', fontWeight: 700, lineHeight: 1.35, color: 'var(--folio-ink)' }}>
-              {article.title}
-            </h2>
+
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+                <span
+                  style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '11px',
+                    fontWeight: 600,
+                    textTransform: 'uppercase',
+                    letterSpacing: '1px',
+                    color: 'var(--folio-blue)',
+                    background: 'var(--surface-chip)',
+                    padding: '3px 8px',
+                    borderRadius: '4px'
+                  }}
+                >
+                  {article.category}
+                </span>
+                <span style={{ fontSize: '12px', color: 'var(--folio-mute)', fontFamily: 'var(--font-mono)' }}>
+                  {article.date} • <Clock size={11} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 2 }} /> {article.readTime}
+                </span>
+              </div>
+              <h2 style={{ fontSize: '20px', fontWeight: 700, lineHeight: 1.35, color: 'var(--folio-ink)' }}>
+                {article.title}
+              </h2>
+            </div>
           </div>
 
           <button
