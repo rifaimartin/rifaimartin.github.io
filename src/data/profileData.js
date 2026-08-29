@@ -3,7 +3,7 @@ export const profileData = {
   preferredName: "Rifai Martin",
   title: "Squad Lead & IT Middleware Engineer",
   tagline: "Squad Lead & Distributed Banking Middleware Architect",
-  subTagline: "Leading engineering squads at BCA Digital, architecting resilient multi-biller payment gateways, QRIS multi-switchers, and high-throughput Kafka event-driven banking pipelines.",
+  subTagline: "Leading engineering squads at BCA Digital — architecting high-throughput national transfer switches (BI-FAST, RTGS, SKN), multi-biller payment gateways, QRIS multi-switchers, and event-driven microservices orchestrated on Kubernetes (K8s) handling millions of daily transactions.",
   location: "Jakarta, Indonesia",
   status: "Squad Lead & IT Middleware Engineer at BCA Digital",
   flightNumber: "RM-2026",
@@ -33,19 +33,37 @@ export const profileData = {
       href: "https://bcadigital.co.id",
       logo: "🏦",
       badgeColor: "#0060af",
-      desc: "Leading engineering squads, providing technical direction, code reviews, and mentorship while collaborating directly with product and business stakeholders to build high-concurrency digital banking systems.",
+      desc: "Leading engineering squads, driving microservices architecture on Kubernetes (K8s), and architecting core national fund transfers (BI-FAST, RTGS, SKN) and multi-biller payment gateways under extreme transactional concurrency.",
       highlights: [
         "Lead squad engineering teams (technical direction, architectural reviews, and mentorship) while collaborating cross-functionally with product and business units.",
+        "Architected and managed high-availability containerized microservices deployed on Kubernetes (K8s), ensuring 99.99% uptime, auto-scaling, and resilient production deployments.",
+        "Engineered mission-critical national fund transfer switches (BI-FAST Phase 1 & 2, RTGS Clearing, SKN, and Online Interbank Transfers) processing high-volume daily interbank settlements.",
         "Architected multi-biller payment platforms integrated with 10+ major national partners (Tokopedia, Garuda Indonesia, PLN ICON+, ALTO, Baznas, Mitracom, BCA, Artajasa, Alterra).",
         "Engineered QRIS payment solutions (MPM, CPM, NFC/TAP, Cross-Border) with intelligent multi-switcher routing connectivity.",
-        "Implemented national clearing systems including BI-FAST Phase 1 & 2, RTGS Clearing, SKN, and Online Switching.",
         "Built asynchronous event-driven architectures with Apache Kafka, slashing response latency by 50% on mission-critical payment workflows.",
         "Developed mock server simulators for parallel development and automated regression testing, reducing third-party partner dependencies by 80%.",
         "Implemented SNAP Bank Indonesia security encryption standards (symmetric/asymmetric) for robust inter-system banking integrations.",
         "Authored system architecture specifications and technical documentation across core digital banking domains."
       ],
-      stack: ["Java", "Spring Boot", "Go (Golang)", "Apache Kafka", "Redis", "Elasticsearch", "ISO 8583", "BI-FAST", "QRIS", "SNAP BI", "Docker", "Kubernetes"],
+      stack: ["Kubernetes (K8s)", "Java", "Spring Boot", "Go (Golang)", "Apache Kafka", "Redis", "Elasticsearch", "ISO 8583", "BI-FAST", "National Transfers", "QRIS", "SNAP BI", "Docker"],
       cases: [
+        {
+          id: "transfers-bifast",
+          title: "National Transfers & BI-FAST Phase 1 & 2 Engine",
+          category: "Interbank Settlement Rail",
+          desc: "24/7 real-time national interbank transfer infrastructure (BI-FAST, RTGS, SKN, Online Transfer) with SNAP BI Encryption.",
+          metrics: "Response Time -50% • Sub-Second SLA • Zero Data Loss",
+          shots: [
+            { title: "Transfer Router", color: "#1e3a8a", icon: "Network" },
+            { title: "K8s Microservices", color: "#2563eb", icon: "Cpu" },
+            { title: "Kafka Event Bus", color: "#3b82f6", icon: "Activity" }
+          ],
+          deepDive: {
+            overview: "Central bank real-time payment and national interbank clearing engine handling BI-FAST, RTGS, and SKN transactions with symmetric & asymmetric cryptographic signatures.",
+            challenge: "Ensuring strict balance consistency, atomicity, and high availability during national peak transfer spikes without latency degradation.",
+            solution: "Orchestrated containerized microservices on Kubernetes (K8s), decoupled ingestion and settlement layers via Apache Kafka, and implemented distributed saga patterns with automated fallback routing."
+          }
+        },
         {
           id: "multi-biller",
           title: "Multi-Biller Payment Gateway (10+ Partners)",
@@ -53,14 +71,14 @@ export const profileData = {
           desc: "Central aggregator biller architecture integrated with Tokopedia, Garuda, PLN ICON+, ALTO, Baznas, Mitracom, BCA, Artajasa, and Alterra.",
           metrics: "10+ National Aggregators • 99.99% SLA",
           shots: [
-            { title: "Partner Gateway", color: "#1e3a8a", icon: "Network" },
-            { title: "Biller Routing", color: "#2563eb", icon: "Cpu" },
-            { title: "Reconciliation", color: "#3b82f6", icon: "FileCheck" }
+            { title: "Partner Gateway", color: "#065f46", icon: "Network" },
+            { title: "Biller Routing", color: "#059669", icon: "Cpu" },
+            { title: "Reconciliation", color: "#10b981", icon: "FileCheck" }
           ],
           deepDive: {
             overview: "Centralized billing and payment aggregation hub connecting BCA Digital to national utility, marketplace, and biller providers.",
             challenge: "Handling protocol heterogeneity and response format variations from 10+ third-party partners under strict latency and reliability constraints.",
-            solution: "Designed dynamic adapter layers, automated multi-switcher fallback, mock server simulator testing, and self-healing circuit breakers."
+            solution: "Designed dynamic adapter layers, automated multi-switcher fallback, mock server simulator testing, and self-healing circuit breakers on K8s."
           }
         },
         {
@@ -70,31 +88,14 @@ export const profileData = {
           desc: "Unified QRIS payment engine supporting Merchant-Presented (MPM), Customer-Presented (CPM), NFC/TAP, and Cross-Border.",
           metrics: "MPM / CPM / NFC / Tuntas • Multi-Switcher",
           shots: [
-            { title: "QRIS Protocol", color: "#065f46", icon: "QrCode" },
-            { title: "Multi-Switch Router", color: "#059669", icon: "Shuffle" },
-            { title: "Settlement Engine", color: "#10b981", icon: "CreditCard" }
+            { title: "QRIS Protocol", color: "#7c2d12", icon: "QrCode" },
+            { title: "Multi-Switch Router", color: "#c2410c", icon: "Shuffle" },
+            { title: "Settlement Engine", color: "#ea580c", icon: "CreditCard" }
           ],
           deepDive: {
             overview: "Intelligent QR payment switching engine routing domestic and cross-border transactions across national clearing networks.",
             challenge: "Delivering sub-second checkout speeds across online and in-store merchant points while adhering to Bank Indonesia standards.",
             solution: "Decoupled verification and settlement pipelines utilizing in-memory Redis caches and Apache Kafka event streaming."
-          }
-        },
-        {
-          id: "bi-fast",
-          title: "BI-FAST Phase 1 & 2 Engine",
-          category: "National Clearing",
-          desc: "24/7 real-time national interbank settlement infrastructure with sub-second SLA, RTGS, SKN, and SNAP BI Encryption.",
-          metrics: "Response Time -50% • Partner Dep -80%",
-          shots: [
-            { title: "Saga Pipeline", color: "#7c2d12", icon: "Activity" },
-            { title: "SNAP Crypto", color: "#c2410c", icon: "ShieldCheck" },
-            { title: "Kafka Bus", color: "#ea580c", icon: "Database" }
-          ],
-          deepDive: {
-            overview: "Central bank real-time payment rail with symmetric & asymmetric cryptographic signatures.",
-            challenge: "Ensuring strict balance consistency and atomic transactions during extreme peak concurrency without latency spikes.",
-            solution: "Implemented distributed saga orchestration, mock simulator harnesses for isolated regression, and optimized database connection pooling."
           }
         }
       ]
@@ -261,11 +262,11 @@ export const profileData = {
 
   skills: {
     languages: ["Go (Golang)", "Java", "TypeScript", "JavaScript", "C / C++", "Rust", "Python", "SQL"],
-    backend: ["Spring Boot", "Node.js", "Express", "Microservices", "CQRS", "REST & gRPC", "Mock Simulator"],
+    backend: ["Kubernetes (K8s)", "Microservices", "Spring Boot", "Node.js", "Express", "CQRS", "REST & gRPC", "Mock Simulator"],
     messaging: ["Apache Kafka", "RabbitMQ", "Event-Driven Architecture", "Distributed Saga"],
     data: ["Redis", "Elasticsearch", "PostgreSQL", "MySQL", "MongoDB"],
-    finance: ["ISO 8583", "BI-FAST (Phase 1 & 2)", "QRIS (MPM/CPM/NFC/Cross Border)", "SNAP BI (Sym/Asym)", "RTGS / SKN", "Multi-Biller Switching"],
-    devops: ["Docker", "Kubernetes", "AWS", "CI/CD", "Linux Tuning", "Monitoring & Logging"]
+    finance: ["BI-FAST (Phase 1 & 2)", "National Transfers (RTGS / SKN / Online)", "QRIS (MPM/CPM/NFC/Cross Border)", "Multi-Biller Gateways", "ISO 8583", "SNAP BI (Sym/Asym)"],
+    devops: ["Kubernetes (K8s)", "Docker", "AWS", "CI/CD", "Linux Tuning", "Monitoring & Observability"]
   },
 
   education: [
@@ -288,14 +289,14 @@ export const profileData = {
     {
       title: "BCA Digital Squad Lead",
       year: "2021",
-      label: "Leadership & Scale",
-      desc: "Leading squad engineers architecting multi-biller gateways & QRIS multi-switchers."
+      label: "Leadership & K8s",
+      desc: "Leading squad engineers architecting transfer switches, multi-biller gateways & K8s microservices."
     },
     {
-      title: "BI-FAST Phase 1 & 2",
+      title: "BI-FAST & National Clearing",
       year: "2022",
       label: "National Settlement",
-      desc: "Real-time 24/7 central bank transfer engine with Kafka async streams."
+      desc: "Real-time 24/7 central bank transfer rail with Kafka async streams."
     },
     {
       title: "Kafka Speedup -50%",
