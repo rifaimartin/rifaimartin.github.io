@@ -22,7 +22,7 @@ function LinkedinIcon({ size = 14 }) {
   );
 }
 
-export default function ProgressiveBlurDock({ onResetGate, isDark, onToggleTheme }) {
+export default function ProgressiveBlurDock({ onResetGate, onOpenOpenGym, isDark, onToggleTheme }) {
   const { formattedCount } = useVisitorCount();
 
   const scrollToTop = () => {
@@ -78,15 +78,17 @@ export default function ProgressiveBlurDock({ onResetGate, isDark, onToggleTheme
             </button>
 
             {/* openGym App direct launcher */}
-            <a
+            <button
               className="ff-link"
-              href="./opengym/"
-              title="Launch openGym Fitness & Workout Tracker"
-              onClick={() => soundFx.playCardClick()}
+              onClick={() => {
+                soundFx.playCardClick();
+                if (onOpenOpenGym) onOpenOpenGym();
+              }}
+              title="Launch openGym Interactive App Simulator"
             >
               <Dumbbell size={13} color="#38bdf8" />
               <span>openGym</span>
-            </a>
+            </button>
 
             <div className="ff-divider" />
 

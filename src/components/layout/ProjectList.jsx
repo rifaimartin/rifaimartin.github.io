@@ -3,7 +3,7 @@ import { profileData } from '../../data/profileData';
 import { Code2, Star, ExternalLink, Terminal, Play, Sparkles } from 'lucide-react';
 import { soundFx } from '../../utils/audio';
 
-export default function ProjectList() {
+export default function ProjectList({ onOpenOpenGym }) {
   return (
     <div className="projects-block reveal">
       <div className="projects-title">
@@ -52,14 +52,31 @@ export default function ProjectList() {
                 </div>
 
                 {proj.featured ? (
-                  <div className="p-actions">
-                    <a
-                      href={proj.demoUrl || proj.repo}
+                  <div className="p-actions" style={{ flexWrap: 'wrap' }}>
+                    <button
                       className="p-btn-primary"
-                      onClick={() => soundFx.playCardClick()}
+                      onClick={() => {
+                        soundFx.playCardClick();
+                        if (proj.id === 'opengym' && onOpenOpenGym) {
+                          onOpenOpenGym();
+                        } else {
+                          window.open(proj.demoUrl || proj.repo, '_blank');
+                        }
+                      }}
+                      style={{ border: 'none', cursor: 'pointer' }}
                     >
                       <Play size={12} fill="currentColor" />
-                      <span>Open App</span>
+                      <span>Try Live in App</span>
+                    </button>
+                    <a
+                      href={proj.demoUrl || proj.repo}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="p-btn-secondary"
+                      onClick={() => soundFx.playCardClick()}
+                    >
+                      <ExternalLink size={12} />
+                      <span>Full Tab</span>
                     </a>
                     {proj.sourceRepo && (
                       <a

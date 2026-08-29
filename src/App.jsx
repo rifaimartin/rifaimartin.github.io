@@ -5,6 +5,7 @@ import FlightTimeline from './components/layout/FlightTimeline';
 import ProjectList from './components/layout/ProjectList';
 import InFlightMagazine from './components/layout/InFlightMagazine';
 import ArticleModal from './components/layout/ArticleModal';
+import OpenGymModal from './components/layout/OpenGymModal';
 import MemoriesPolaroid from './components/layout/MemoriesPolaroid';
 import ProgressiveBlurDock from './components/layout/ProgressiveBlurDock';
 import CaseStudyModal from './components/layout/CaseStudyModal';
@@ -27,6 +28,7 @@ export default function App() {
 
   const [activeCaseStudy, setActiveCaseStudy] = useState(null);
   const [activeArticle, setActiveArticle] = useState(null);
+  const [isOpenGymOpen, setIsOpenGymOpen] = useState(false);
 
   // Sync theme attribute with DOM
   useEffect(() => {
@@ -90,7 +92,7 @@ export default function App() {
         <FlightTimeline onOpenCase={(study) => setActiveCaseStudy(study)} />
 
         {/* Open Source & Systems Research */}
-        <ProjectList />
+        <ProjectList onOpenOpenGym={() => setIsOpenGymOpen(true)} />
 
         {/* In-Flight Magazine & Technical Essays */}
         <InFlightMagazine onOpenArticle={(article) => setActiveArticle(article)} />
@@ -111,9 +113,16 @@ export default function App() {
         onClose={() => setActiveArticle(null)}
       />
 
+      {/* openGym Interactive In-App Simulator Modal */}
+      <OpenGymModal
+        isOpen={isOpenGymOpen}
+        onClose={() => setIsOpenGymOpen(false)}
+      />
+
       {/* Floating Progressive Multi-Blur Dock */}
       <ProgressiveBlurDock
         onResetGate={handleResetGate}
+        onOpenOpenGym={() => setIsOpenGymOpen(true)}
         isDark={isDark}
         onToggleTheme={() => setIsDark((prev) => !prev)}
       />
