@@ -10,28 +10,37 @@
 
 .plan-head {
   position: absolute;
-  left: -2px;
-  top: -85px;
-  width: 52px;
+  left: var(--rail-x);
+  transform: translateX(-50%);
+  top: -74px;
+  width: 64px;
   text-align: center;
   color: var(--folio-blue);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  z-index: 3;
 }
 
 .plan-label {
   display: block;
   font-family: var(--font-mono);
-  font-weight: 600;
-  font-size: 8px;
-  line-height: 8px;
-  letter-spacing: 1px;
+  font-weight: 700;
+  font-size: 8.5px;
+  line-height: 9px;
+  letter-spacing: 1.2px;
   text-transform: uppercase;
+  color: var(--folio-blue);
 }
 
 .plan-plane {
   display: block;
   width: 18px;
   height: 18px;
-  margin: 6px auto 0;
+  margin: 0 auto;
+  color: var(--folio-blue);
+  filter: drop-shadow(0 2px 6px rgba(var(--path-blue-rgb), 0.35));
   animation: planeFloat 3s infinite ease-in-out;
 }
 
@@ -42,8 +51,9 @@
 
 .folio-path {
   position: absolute;
-  left: calc(var(--rail-x) - 0.5px);
-  top: -45px;
+  left: var(--rail-x);
+  transform: translateX(-50%);
+  top: -46px;
   bottom: 30px;
   width: 2px;
 }
@@ -62,12 +72,12 @@
   position: absolute;
   left: 0;
   top: 0;
-  width: 100%;
+  width: 2px;
   height: calc(var(--rail-p, 0) * 100%);
   background: var(--path-blue);
   box-shadow: 
-    0 0 6px rgba(var(--path-blue-rgb), 0.5),
-    0 0 16px rgba(var(--path-blue-rgb), 0.3);
+    0 0 6px rgba(var(--path-blue-rgb), 0.6),
+    0 0 16px rgba(var(--path-blue-rgb), 0.35);
   transition: height 0.1s linear;
 }
 
@@ -557,13 +567,13 @@
 
 @media (max-width: 760px) {
   .folio-track {
-    --rail-x: 6px;
+    --rail-x: 10px;
     --entry-indent: 32px;
   }
   .plan-head {
-    left: 50%;
+    left: var(--rail-x);
     transform: translateX(-50%);
-    top: -75px;
+    top: -70px;
   }
   .tl-entry {
     padding-left: var(--entry-indent);
