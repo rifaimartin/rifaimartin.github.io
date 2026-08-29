@@ -323,7 +323,7 @@ function WindowImage({ src, shade, dim, style }) {
 }
 
 // Main Interactive Aircraft Window Component
-export default function PlaneWindowScene({ isDark, onShadeChange }) {
+export default function PlaneWindowScene({ isDark, onShadeChange, onShadeDrag }) {
   // Shade ratio: 0 (fully open / daylight) to 1 (fully pulled down / dark mode)
   const [shade, setShade] = useState(() => (isDark ? 1 : 0));
   const [dragging, setDragging] = useState(false);
@@ -336,8 +336,9 @@ export default function PlaneWindowScene({ isDark, onShadeChange }) {
   useEffect(() => {
     if (!dragging) {
       setShade(isDark ? 1 : 0);
+      if (onShadeDrag) onShadeDrag(isDark ? 1 : 0);
     }
-  }, [isDark, dragging]);
+  }, [isDark, dragging, onShadeDrag]);
 
   // Spring animation to target position
   const animateTo = useCallback((target) => {
@@ -355,11 +356,13 @@ export default function PlaneWindowScene({ isDark, onShadeChange }) {
       const progress = Math.min((now - startTime) / duration, 1);
       const current = startVal + distance * easeOutCubic(progress);
       setShade(current);
+      if (onShadeDrag) onShadeDrag(current);
 
       if (progress < 1) {
         rafRef.current = requestAnimationFrame(step);
       } else {
         setShade(target);
+        if (onShadeDrag) onShadeDrag(target);
         if (onShadeChange) {
           onShadeChange(target > 0.5);
         }
@@ -367,7 +370,7 @@ export default function PlaneWindowScene({ isDark, onShadeChange }) {
     };
 
     rafRef.current = requestAnimationFrame(step);
-  }, [shade, onShadeChange]);
+  }, [shade, onShadeChange, onShadeDrag]);
 
   const handlePointerDown = (e) => {
     if (e.button != null && e.button !== 0) return;
@@ -394,6 +397,7 @@ export default function PlaneWindowScene({ isDark, onShadeChange }) {
     }
     pointerStartRef.current.time = now;
     setShade(newShade);
+    if (onShadeDrag) onShadeDrag(newShade);
   };
 
   const handlePointerUp = (e) => {

@@ -4,7 +4,7 @@ import { profileData } from '../../data/profileData';
 import { Plane, Clock, Eye, Users } from 'lucide-react';
 import { useVisitorCount } from '../../utils/visitorCounter';
 
-export default function HeaderIntro({ isDark, onShadeChange }) {
+export default function HeaderIntro({ isDark, onShadeChange, onShadeDrag }) {
   const [time, setTime] = useState('');
   const { formattedCount, loading } = useVisitorCount();
 
@@ -22,7 +22,7 @@ export default function HeaderIntro({ isDark, onShadeChange }) {
     <>
       {/* 3D Airplane Window Frame with Interactive Sliding Shade */}
       <div className="folio-window reveal">
-        <PlaneWindowScene isDark={isDark} onShadeChange={onShadeChange} />
+        <PlaneWindowScene isDark={isDark} onShadeChange={onShadeChange} onShadeDrag={onShadeDrag} />
         
         {/* Aviation HUD Overlay */}
         <div className="window-hud">

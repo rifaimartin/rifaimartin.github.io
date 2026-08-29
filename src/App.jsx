@@ -29,10 +29,12 @@ export default function App() {
   const [activeCaseStudy, setActiveCaseStudy] = useState(null);
   const [activeArticle, setActiveArticle] = useState(null);
   const [isOpenGymOpen, setIsOpenGymOpen] = useState(false);
+  const [shadeProgress, setShadeProgress] = useState(() => (isDark ? 1 : 0));
 
   // Sync theme attribute with DOM
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+    setShadeProgress(isDark ? 1 : 0);
   }, [isDark]);
 
   const handleGrantAccess = () => {
@@ -60,6 +62,15 @@ export default function App() {
 
   return (
     <div className="folio">
+      {/* Dynamic Cabin Ambient Darkening Backdrop during Window Shade Drag */}
+      <div
+        className="folio-ambient-dim"
+        style={{
+          opacity: shadeProgress * 0.96,
+          pointerEvents: 'none'
+        }}
+      />
+
       {/* 3D Gate Boarding Pass Verification Screen */}
       <GatePassOverlay
         isOpen={gateOpen}
@@ -85,7 +96,15 @@ export default function App() {
         {/* 3D Airplane Window & Intro Bio */}
         <HeaderIntro
           isDark={isDark}
-          onShadeChange={(dark) => setIsDark(dark)}
+          onShadeChange={(dark) => {
+            setIsDark(dark);
+            setShadeProgress(dark ? 1 : 0);
+          }}
+          onShadeDrag={(shade) => {
+            setShadeProgress(shade);
+            if (shade > 0.65 && !isDark) setIsDark(true);
+            else if (shade < 0.35 && isDark) setIsDark(false);
+          }}
         />
 
         {/* Flight Path Career Timeline */}
