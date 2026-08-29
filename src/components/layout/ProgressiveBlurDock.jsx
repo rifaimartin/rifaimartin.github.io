@@ -87,7 +87,7 @@ export default function ProgressiveBlurDock({ onResetGate, onOpenOpenGym, isDark
               title="Launch openGym Interactive App Simulator"
             >
               <Dumbbell size={13} color="#38bdf8" />
-              <span>openGym</span>
+              <span>Gym</span>
             </button>
 
             <div className="ff-divider" />
@@ -101,7 +101,7 @@ export default function ProgressiveBlurDock({ onResetGate, onOpenOpenGym, isDark
               title="GitHub Profile"
             >
               <GithubIcon size={13} />
-              <span>GitHub</span>
+              <span className="ff-label-desktop">GitHub</span>
             </a>
 
             <a
@@ -112,7 +112,7 @@ export default function ProgressiveBlurDock({ onResetGate, onOpenOpenGym, isDark
               title="LinkedIn Profile"
             >
               <LinkedinIcon size={13} />
-              <span>LinkedIn</span>
+              <span className="ff-label-desktop">LinkedIn</span>
             </a>
 
             <a
@@ -121,7 +121,7 @@ export default function ProgressiveBlurDock({ onResetGate, onOpenOpenGym, isDark
               title="Send Email"
             >
               <Mail size={13} />
-              <span>Contact</span>
+              <span className="ff-label-desktop">Contact</span>
             </a>
 
             <div className="ff-divider" />
@@ -137,26 +137,15 @@ export default function ProgressiveBlurDock({ onResetGate, onOpenOpenGym, isDark
               aria-label="Toggle theme"
             >
               {isDark ? <Sun size={13} color="#f59e0b" /> : <Moon size={13} color="#6366f1" />}
-              <span>{isDark ? 'Day' : 'Night'}</span>
+              <span className="ff-label-desktop">{isDark ? 'Day' : 'Night'}</span>
             </button>
 
             <div className="ff-divider" />
 
             {/* Global Live Views Counter Badge */}
             <div
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '5px',
-                padding: '4px 10px',
-                borderRadius: '999px',
-                background: 'var(--surface-sunken)',
-                fontFamily: 'var(--font-mono)',
-                fontSize: '11px',
-                fontWeight: 600,
-                color: 'var(--folio-ink)'
-              }}
-              title="Global Profile Views (Persistent Across All Devices)"
+              className="ff-badge-views"
+              title="Unique Visitors (Session Deduplicated)"
             >
               <span
                 style={{
@@ -164,10 +153,11 @@ export default function ProgressiveBlurDock({ onResetGate, onOpenOpenGym, isDark
                   height: '6px',
                   borderRadius: '50%',
                   backgroundColor: '#10b981',
-                  boxShadow: '0 0 6px #10b981'
+                  boxShadow: '0 0 6px #10b981',
+                  flexShrink: 0
                 }}
               />
-              <Eye size={12} color="var(--folio-blue)" />
+              <Eye size={12} color="var(--folio-blue)" style={{ flexShrink: 0 }} />
               <span>{formattedCount}</span>
             </div>
 
@@ -180,7 +170,7 @@ export default function ProgressiveBlurDock({ onResetGate, onOpenOpenGym, isDark
               title="Ascend to Top of Flight"
             >
               <ArrowUp size={13} />
-              <span>Top</span>
+              <span className="ff-label-desktop">Top</span>
             </button>
           </nav>
         </div>

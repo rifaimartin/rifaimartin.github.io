@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
 
-const BASE_OFFSET = 1240; // Base established visitor count
-const COUNTER_KEY = 'rifaimartin_portfolio_v2';
+// Unique counter key for authentic visitor counting without false base inflation
+const COUNTER_KEY = 'rifaimartin_portfolio_v3';
 const API_URL = `https://api.codetabs.com/v1/counter?key=${COUNTER_KEY}`;
 
 export function useVisitorCount() {
   const [count, setCount] = useState(() => {
     try {
       const cached = localStorage.getItem('rm_visitor_count');
-      return cached ? parseInt(cached, 10) : BASE_OFFSET + 12;
+      return cached ? parseInt(cached, 10) : 1;
     } catch {
-      return BASE_OFFSET + 12;
+      return 1;
     }
   });
 
@@ -19,37 +19,45 @@ export function useVisitorCount() {
   useEffect(() => {
     let isMounted = true;
 
-    async function fetchAndIncrement() {
+    async function handleVisit() {
       try {
+        const sessionCounted = sessionStorage.getItem('rm_session_counted');
+        const cachedCount = localStorage.getItem('rm_visitor_count');
+
+        // Prevent false increments on refresh / same browser session
+        if (sessionCounted && cachedCount) {
+          if (isMounted) {
+            setCount(parseInt(cachedCount, 10));
+            setLoading(false);
+          }
+          return;
+        }
+
+        // New session: increment counter once
         const response = await fetch(API_URL);
         if (!response.ok) throw new Error('Counter API error');
         const data = await response.json();
         
         if (data && typeof data.count === 'number' && isMounted) {
-          const totalViews = BASE_OFFSET + data.count;
+          const totalViews = data.count;
           setCount(totalViews);
           try {
             localStorage.setItem('rm_visitor_count', totalViews.toString());
+            sessionStorage.setItem('rm_session_counted', 'true');
           } catch {}
         }
       } catch (err) {
-        console.warn('Visitor counter fallback:', err);
-        // If offline/error, retain cached or local increment
+        console.warn('Visitor counter notice:', err);
         if (isMounted) {
-          setCount((prev) => {
-            const next = prev + 1;
-            try {
-              localStorage.setItem('rm_visitor_count', next.toString());
-            } catch {}
-            return next;
-          });
+          const cached = localStorage.getItem('rm_visitor_count');
+          if (cached) setCount(parseInt(cached, 10));
         }
       } finally {
         if (isMounted) setLoading(false);
       }
     }
 
-    fetchAndIncrement();
+    handleVisit();
 
     return () => {
       isMounted = false;
@@ -60,3 +68,4 @@ export function useVisitorCount() {
 
   return { count, formattedCount, loading };
 }
+
