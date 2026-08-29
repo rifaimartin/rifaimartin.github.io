@@ -4,7 +4,7 @@ export const profileData = {
   title: "Squad Lead & IT Middleware Engineer",
   tagline: "Squad Lead & Distributed Banking Middleware Architect",
   subTagline: "Leading engineering squads at BCA Digital, architecting resilient multi-biller payment gateways, QRIS multi-switchers, and high-throughput Kafka event-driven banking pipelines.",
-  location: "Jakarta Pusat, Jakarta Raya, Indonesia",
+  location: "Jakarta, Indonesia",
   status: "Squad Lead & IT Middleware Engineer at BCA Digital",
   flightNumber: "RM-2026",
   gate: "GATE 01 (BCA DIGITAL)",
@@ -25,24 +25,24 @@ export const profileData = {
       company: "PT Bank Digital BCA (BCA Digital)",
       companyShort: "BCA DIGITAL",
       role: "Squad Lead & IT Middleware Engineer",
-      period: "Mar 2021 – Saat ini (5 thn 6 bln)",
+      period: "Mar 2021 — Present (5 yrs 6 mos)",
       year: "2021",
       route: "CGK → PROD",
-      location: "Jakarta Pusat, Jakarta Raya, Indonesia",
+      location: "Central Jakarta, Indonesia",
       current: true,
       href: "https://bcadigital.co.id",
       logo: "🏦",
       badgeColor: "#0060af",
-      desc: "Memimpin tim squad engineering, memberikan panduan teknis, code review, mentorship, dan berkoordinasi langsung dengan tim produk & bisnis dalam membangun arsitektur perbankan digital berkecepatan tinggi.",
+      desc: "Leading engineering squads, providing technical direction, code reviews, and mentorship while collaborating directly with product and business stakeholders to build high-concurrency digital banking systems.",
       highlights: [
-        "Memimpin tim squad (panduan teknis, code review, dan mentorship) serta koordinasi langsung dengan tim produk dan bisnis.",
-        "Merancang arsitektur platform pembayaran multi-biller yang terintegrasi dengan 10+ mitra (Tokopedia, Garuda, PLN ICON+, ALTO, Baznas, Mitracom, BCA, Artajasa, Alterra).",
-        "Mengembangkan solusi pembayaran QRIS (MPM, CPM, NFC/TAP, Cross Border) dengan konektivitas multi-switcher.",
-        "Mengimplementasikan BI-FAST Phase 1 & 2, Kliring RTGS, SKN, dan Online Switching.",
-        "Membangun arsitektur async event-driven berbasis Apache Kafka, mengurangi waktu respons hingga 50% pada alur pembayaran krusial.",
-        "Membangun mock server simulator untuk pengembangan paralel dan regression testing, mengurangi ketergantungan pada mitra hingga 80%.",
-        "Mengimplementasikan enkripsi SNAP Bank Indonesia (simetris/asimetris) untuk integrasi antar-sistem yang aman.",
-        "Menyusun dokumentasi alur arsitektur dan spesifikasi teknis di berbagai domain perbankan."
+        "Lead squad engineering teams (technical direction, architectural reviews, and mentorship) while collaborating cross-functionally with product and business units.",
+        "Architected multi-biller payment platforms integrated with 10+ major national partners (Tokopedia, Garuda Indonesia, PLN ICON+, ALTO, Baznas, Mitracom, BCA, Artajasa, Alterra).",
+        "Engineered QRIS payment solutions (MPM, CPM, NFC/TAP, Cross-Border) with intelligent multi-switcher routing connectivity.",
+        "Implemented national clearing systems including BI-FAST Phase 1 & 2, RTGS Clearing, SKN, and Online Switching.",
+        "Built asynchronous event-driven architectures with Apache Kafka, slashing response latency by 50% on mission-critical payment workflows.",
+        "Developed mock server simulators for parallel development and automated regression testing, reducing third-party partner dependencies by 80%.",
+        "Implemented SNAP Bank Indonesia security encryption standards (symmetric/asymmetric) for robust inter-system banking integrations.",
+        "Authored system architecture specifications and technical documentation across core digital banking domains."
       ],
       stack: ["Java", "Spring Boot", "Go (Golang)", "Apache Kafka", "Redis", "Elasticsearch", "ISO 8583", "BI-FAST", "QRIS", "SNAP BI", "Docker", "Kubernetes"],
       cases: [
@@ -50,7 +50,7 @@ export const profileData = {
           id: "multi-biller",
           title: "Multi-Biller Payment Gateway (10+ Partners)",
           category: "Payment Infrastructure",
-          desc: "Arsitektur aggregator biller terintegrasi dengan Tokopedia, Garuda, PLN ICON+, ALTO, Baznas, Mitracom, BCA, Artajasa, dan Alterra.",
+          desc: "Central aggregator biller architecture integrated with Tokopedia, Garuda, PLN ICON+, ALTO, Baznas, Mitracom, BCA, Artajasa, and Alterra.",
           metrics: "10+ National Aggregators • 99.99% SLA",
           shots: [
             { title: "Partner Gateway", color: "#1e3a8a", icon: "Network" },
@@ -58,16 +58,16 @@ export const profileData = {
             { title: "Reconciliation", color: "#3b82f6", icon: "FileCheck" }
           ],
           deepDive: {
-            overview: "Platform sentral pemrosesan tagihan dan pembayaran multi-biller perbankan yang menghubungkan BCA Digital ke berbagai agregator skala nasional.",
-            challenge: "Menangani variasi protokol dan format respons dari 10+ mitra pihak ketiga dengan standar keandalan tinggi dan mitigasi latency spike.",
-            solution: "Merancang adapter layer dinamis, fallback multi-switcher, mock server simulator testing, serta circuit breaker otomatis."
+            overview: "Centralized billing and payment aggregation hub connecting BCA Digital to national utility, marketplace, and biller providers.",
+            challenge: "Handling protocol heterogeneity and response format variations from 10+ third-party partners under strict latency and reliability constraints.",
+            solution: "Designed dynamic adapter layers, automated multi-switcher fallback, mock server simulator testing, and self-healing circuit breakers."
           }
         },
         {
           id: "qris-engine",
           title: "QRIS Multi-Switcher & Cross Border",
           category: "Payment Switching",
-          desc: "Solusi pembayaran QRIS terpadu mendukung Merchant-Presented (MPM), Customer-Presented (CPM), NFC/TAP, dan Cross-Border.",
+          desc: "Unified QRIS payment engine supporting Merchant-Presented (MPM), Customer-Presented (CPM), NFC/TAP, and Cross-Border.",
           metrics: "MPM / CPM / NFC / Tuntas • Multi-Switcher",
           shots: [
             { title: "QRIS Protocol", color: "#065f46", icon: "QrCode" },
@@ -75,16 +75,16 @@ export const profileData = {
             { title: "Settlement Engine", color: "#10b981", icon: "CreditCard" }
           ],
           deepDive: {
-            overview: "Engine switching QRIS cerdas yang menghubungkan core perbankan dengan multi-switcher nasional dan jaringan cross-border.",
-            challenge: "Menghadirkan kecepatan transaksi sub-detik untuk transaksi offline maupun online dengan kepatuhan regulasi Bank Indonesia.",
-            solution: "Memisahkan jalur verifikasi dan settlement menggunakan Redis in-memory cache dan Apache Kafka asynchronous pipeline."
+            overview: "Intelligent QR payment switching engine routing domestic and cross-border transactions across national clearing networks.",
+            challenge: "Delivering sub-second checkout speeds across online and in-store merchant points while adhering to Bank Indonesia standards.",
+            solution: "Decoupled verification and settlement pipelines utilizing in-memory Redis caches and Apache Kafka event streaming."
           }
         },
         {
           id: "bi-fast",
           title: "BI-FAST Phase 1 & 2 Engine",
           category: "National Clearing",
-          desc: "Infrastruktur transfer antarbank 24/7 real-time, RTGS, SKN, dan SNAP BI Encryption.",
+          desc: "24/7 real-time national interbank settlement infrastructure with sub-second SLA, RTGS, SKN, and SNAP BI Encryption.",
           metrics: "Response Time -50% • Partner Dep -80%",
           shots: [
             { title: "Saga Pipeline", color: "#7c2d12", icon: "Activity" },
@@ -92,9 +92,9 @@ export const profileData = {
             { title: "Kafka Bus", color: "#ea580c", icon: "Database" }
           ],
           deepDive: {
-            overview: "Implementasi standar transfer nasional generasi baru Bank Indonesia dengan cryptographic signing simetris/asimetris.",
-            challenge: "Memastikan konsistensi saldo dan transaksi atomik dalam kondisi beban jaringan ekstrem tanpa bottleneck.",
-            solution: "Menerapkan distributed saga pattern, mock simulator untuk regresi independen mitra, serta optimasi connection pooling."
+            overview: "Central bank real-time payment rail with symmetric & asymmetric cryptographic signatures.",
+            challenge: "Ensuring strict balance consistency and atomic transactions during extreme peak concurrency without latency spikes.",
+            solution: "Implemented distributed saga orchestration, mock simulator harnesses for isolated regression, and optimized database connection pooling."
           }
         }
       ]
@@ -103,21 +103,21 @@ export const profileData = {
       id: "cashlez",
       company: "Cashlez Worldwide Indonesia",
       companyShort: "CASHLEZ",
-      role: "Back End Developer",
-      period: "Des 2020 – 2022 (1 thn 2 bln)",
+      role: "Backend Developer",
+      period: "Dec 2020 — 2022 (1 yr 2 mos)",
       year: "2020",
       route: "FINTECH → GW",
-      location: "Central Park, Jakarta Barat",
+      location: "Central Park, West Jakarta",
       current: false,
       href: "https://cashlez.com",
       logo: "💳",
       badgeColor: "#ea580c",
-      desc: "Membangun sistem manajemen kampanye end-to-end untuk DBS Bank, sistem otomatisasi klasifikasi BIN kartu, modul kelayakan pemegang kartu, dan analitik performa.",
+      desc: "Engineered end-to-end campaign management systems for DBS Bank, card BIN classification engines, cardholder eligibility services, and performance analytics reporting.",
       highlights: [
-        "Membangun sistem manajemen kampanye end-to-end untuk DBS Bank (operasional merchant, klasifikasi BIN kartu, kelayakan pemegang kartu, dan pelaporan analitik).",
-        "Mengembangkan sistem BIN kartu untuk otomatisasi klasifikasi jenis kartu perbankan.",
-        "Mengembangkan modul layanan pemegang kartu untuk logika kelayakan dan pendaftaran kampanye promo DBS Bank.",
-        "Membuat infrastruktur pelaporan analitik kampanye dan visualisasi metrik performa."
+        "Built end-to-end campaign management systems for DBS Bank (merchant operations, card BIN classification, cardholder eligibility, and analytical reporting).",
+        "Developed card BIN categorization engine for automated payment card type identification.",
+        "Engineered cardholder service modules for promotional eligibility criteria and DBS Bank promo campaign enrollments.",
+        "Constructed analytics reporting infrastructure to monitor campaign metrics and payment performance."
       ],
       stack: ["Java", "Spring Boot", "Redis", "Elasticsearch", "PostgreSQL", "mPOS APIs", "Microservices"],
       cases: [
@@ -125,7 +125,7 @@ export const profileData = {
           id: "dbs-campaign",
           title: "DBS Bank Campaign & Cardholder Engine",
           category: "Fintech & Card Acquiring",
-          desc: "Sistem otomasi kampanye promosi, klasifikasi BIN kartu kredit/debit, dan validasi kelayakan nasabah.",
+          desc: "Automated promo campaign validator, credit/debit card BIN classifier, and real-time eligibility evaluation.",
           metrics: "Real-time BIN Match • End-to-End Analytics",
           shots: [
             { title: "BIN Classifier", color: "#9a3412", icon: "CreditCard" },
@@ -133,7 +133,7 @@ export const profileData = {
             { title: "Analytics Reporter", color: "#ea580c", icon: "Database" }
           ],
           deepDive: {
-            overview: "Platform terintegrasi yang memvalidasi jenis kartu nasabah DBS Bank secara instan di terminal mPOS untuk mengaplikasikan diskon dan promo merchant secara otomatis."
+            overview: "Integrated service validating DBS Bank card types instantly at mPOS terminals to trigger automated merchant discounts."
           }
         }
       ]
@@ -142,8 +142,8 @@ export const profileData = {
       id: "telkom",
       company: "Telkom Indonesia",
       companyShort: "TELKOM",
-      role: "Junior Back End Developer",
-      period: "Jan 2020 – Des 2020 (1 thn)",
+      role: "Junior Backend Developer",
+      period: "Jan 2020 — Dec 2020 (1 yr)",
       year: "2020",
       route: "TELCO → BACKEND",
       location: "Menara Multimedia, Jl. Kebon Sirih, Jakarta · On-site",
@@ -151,11 +151,11 @@ export const profileData = {
       href: "https://telkom.co.id",
       logo: "📡",
       badgeColor: "#dc2626",
-      desc: "Merancang microservice runner/driver berarsitektur CQRS, infrastruktur real-time event messaging dengan Apache Kafka, dan optimasi caching data berskala besar.",
+      desc: "Architected CQRS-based runner/driver microservices, high-throughput real-time event messaging with Apache Kafka, and optimized high-frequency Redis caching.",
       highlights: [
-        "Merancang microservice runner/driver menggunakan pola CQRS untuk pemisahan command-query pada operasional pengiriman skala besar.",
-        "Membangun infrastruktur real-time event messaging menggunakan Apache Kafka untuk data streaming berthroughput tinggi.",
-        "Merancang strategi pengintaian (caching) Redis untuk mengoptimalkan performa pembacaan data berfrekuensi tinggi."
+        "Architected runner/driver microservices applying the CQRS pattern for command-query segregation in large-scale delivery operations.",
+        "Built real-time event messaging infrastructure utilizing Apache Kafka for high-throughput data streaming.",
+        "Engineered Redis caching strategies to maximize read throughput and minimize database load under heavy traffic."
       ],
       stack: ["Java", "Spring Boot", "Apache Kafka", "Redis", "CQRS Architecture", "MySQL", "REST APIs"],
       cases: [
@@ -163,7 +163,7 @@ export const profileData = {
           id: "cqrs-runner",
           title: "CQRS Delivery Runner & Kafka Data Stream",
           category: "Distributed Telecommunication",
-          desc: "Pemisahan command dan query untuk operasional pengiriman data masif dengan real-time streaming bus.",
+          desc: "Command and Query Responsibility Segregation for high-volume delivery operations with real-time stream processing.",
           metrics: "High-Throughput Streaming • Low-Latency Cache",
           shots: [
             { title: "CQRS Command", color: "#991b1b", icon: "Cpu" },
@@ -171,7 +171,7 @@ export const profileData = {
             { title: "Redis Cache", color: "#dc2626", icon: "Activity" }
           ],
           deepDive: {
-            overview: "Memisahkan alur tulis transaksi dari alur baca analitik pengiriman menggunakan CQRS dan Kafka event topics."
+            overview: "Segregated transactional write operations from analytical read workflows using CQRS and Kafka event topics."
           }
         }
       ]
@@ -181,18 +181,18 @@ export const profileData = {
       company: "Indonesia Cloud Computing Association (ACCI)",
       companyShort: "ACCI",
       role: "Frontend Developer & Cloud Developer",
-      period: "Nov 2018 – Des 2020 (2 thn 2 bln)",
+      period: "Nov 2018 — Dec 2020 (2 yrs 2 mos)",
       year: "2018",
       route: "CLOUD → INFRA",
-      location: "Jabodetabek",
+      location: "Greater Jakarta (Jabodetabek)",
       current: false,
       href: "https://opencloud.id",
       logo: "☁️",
       badgeColor: "#7c3aed",
-      desc: "Mengeksplorasi infrastruktur cloud dan sistem monitoring untuk layanan ekspedisi SiCepat serta mengembangkan aplikasi manajemen event komunitas cloud.",
+      desc: "Explored cloud infrastructure and monitoring systems for SiCepat logistics client services, and developed event management platforms for cloud community initiatives.",
       highlights: [
-        "Mengeksplorasi infrastruktur cloud dan sistem pemantauan (monitoring) untuk layanan klien ekspedisi SiCepat.",
-        "Mengembangkan aplikasi manajemen acara yang berfokus pada inisiatif komunitas komputasi awan di Indonesia."
+        "Researched cloud infrastructure architectures and monitoring systems for logistics client SiCepat.",
+        "Developed event management web applications supporting national cloud computing initiatives."
       ],
       stack: ["AWS", "Cloud Monitoring", "Linux", "Docker", "DevOps", "Event Platform", "Vue.js / React"],
       cases: []
@@ -201,19 +201,19 @@ export const profileData = {
       id: "ink-canvas",
       company: "INK & CANVAS",
       companyShort: "INK & CANVAS",
-      role: "Front End & Devops",
-      period: "Nov 2017 – Sep 2018 (11 bln)",
+      role: "Frontend & DevOps Engineer",
+      period: "Nov 2017 — Sep 2018 (11 mos)",
       year: "2017",
       route: "DEV → DIGITAL",
-      location: "Bogor",
+      location: "Bogor, Indonesia",
       current: false,
       href: "#",
       logo: "🎨",
       badgeColor: "#4f46e5",
-      desc: "Pengembang frontend untuk proyek transformasi digital Lembaga Bahasa LIA, memodernisasi operasional dan portal pendidikan.",
+      desc: "Frontend developer for LIA Language Institution digital transformation project, modernizing education portals and operational workflows.",
       highlights: [
-        "Pengembang frontend untuk proyek transformasi digital LIA, memodernisasi operasional lembaga bahasa.",
-        "Menyiapkan pipeline deployment dan server hosting Linux."
+        "Frontend engineer for LIA's digital transformation initiative, modernizing language institution operations.",
+        "Configured continuous deployment pipelines and Linux hosting environments."
       ],
       stack: ["JavaScript", "HTML5 / CSS3", "Linux Server", "DevOps", "UI/UX Implementation"],
       cases: []
@@ -301,7 +301,7 @@ export const profileData = {
       title: "Kafka Speedup -50%",
       year: "2023",
       label: "Latency Optimization",
-      desc: "Cut crucial payment processing response time by half with event-driven pipelines."
+      desc: "Cut crucial payment processing response times by half with event-driven pipelines."
     },
     {
       title: "QRIS Cross Border & NFC",
