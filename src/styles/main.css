@@ -354,6 +354,141 @@ button {
   color: var(--ink-faint);
 }
 
+/* In-Flight Magazine & Editorial Notes */
+.magazine-section {
+  width: 100%;
+  margin-top: 28px;
+  scroll-margin-top: 80px;
+}
+
+.magazine-head {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 16px;
+}
+
+.magazine-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.magazine-title {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--folio-blue);
+}
+
+.magazine-sub {
+  font-size: 12.5px;
+  color: var(--folio-mute);
+  font-style: normal;
+}
+
+.magazine-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.magazine-card {
+  background: var(--surface-card);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  padding: 16px 18px;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: all 0.25s var(--ease-out);
+  position: relative;
+}
+
+.magazine-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  box-shadow: 0 8px 24px rgba(var(--shadow-rgb), 0.08);
+}
+
+.mag-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.mag-category {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--folio-blue);
+  background: var(--surface-chip);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.mag-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--folio-mute);
+}
+
+.mag-heading {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--folio-ink);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.mag-arrow {
+  color: var(--folio-mute);
+  flex-shrink: 0;
+  margin-top: 3px;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.magazine-card:hover .mag-arrow {
+  transform: translate(2px, -2px);
+  color: var(--accent);
+}
+
+.mag-desc {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--ink-body);
+}
+
+.mag-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.mag-tag-chip {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--ink-faint);
+  background: var(--surface-sunken);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
 /* Animations */
 @keyframes itemReveal {
   0% {

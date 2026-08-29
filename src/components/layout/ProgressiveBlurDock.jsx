@@ -1,6 +1,6 @@
 import React from 'react';
 import { soundFx } from '../../utils/audio';
-import { Sun, Moon, Sparkles, Mail, ArrowUp, ExternalLink, Globe } from 'lucide-react';
+import { Sun, Moon, Sparkles, Mail, ArrowUp, BookOpen } from 'lucide-react';
 
 function GithubIcon({ size = 14 }) {
   return (
@@ -25,6 +25,14 @@ export default function ProgressiveBlurDock({ onResetGate, isDark, onToggleTheme
   const scrollToTop = () => {
     soundFx.playCardClick();
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const scrollToMagazine = () => {
+    soundFx.playCardClick();
+    const el = document.getElementById('in-flight-magazine');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
@@ -54,6 +62,16 @@ export default function ProgressiveBlurDock({ onResetGate, isDark, onToggleTheme
             >
               <Sparkles size={13} color="var(--folio-blue)" />
               <span>Gate</span>
+            </button>
+
+            {/* In-Flight Reads shortcut */}
+            <button
+              className="ff-link"
+              onClick={scrollToMagazine}
+              title="Jump to In-Flight Reading & Articles"
+            >
+              <BookOpen size={13} />
+              <span>Reads</span>
             </button>
 
             <div className="ff-divider" />

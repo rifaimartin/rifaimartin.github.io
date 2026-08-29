@@ -3,6 +3,7 @@ import confetti from 'canvas-confetti';
 import HeaderIntro from './components/layout/HeaderIntro';
 import FlightTimeline from './components/layout/FlightTimeline';
 import ProjectList from './components/layout/ProjectList';
+import InFlightMagazine from './components/layout/InFlightMagazine';
 import MemoriesPolaroid from './components/layout/MemoriesPolaroid';
 import ProgressiveBlurDock from './components/layout/ProgressiveBlurDock';
 import CaseStudyModal from './components/layout/CaseStudyModal';
@@ -88,6 +89,9 @@ export default function App() {
 
         {/* Open Source & Systems Research */}
         <ProjectList />
+
+        {/* In-Flight Magazine & Technical Essays */}
+        <InFlightMagazine />
 
         {/* Polaroid Memories Fan Outro */}
         <MemoriesPolaroid />

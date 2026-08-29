@@ -260,6 +260,59 @@ export const profileData = {
     }
   ],
 
+  articles: [
+    {
+      id: "bifast-architecture",
+      title: "Architecting Resilient National Payment Rails: Lessons from BI-FAST & ISO 8583",
+      category: "System Design",
+      readTime: "7 min read",
+      date: "2024",
+      desc: "Designing sub-second interbank payment settlement engines, symmetric/asymmetric SNAP encryption, and fault-tolerant distributed routing.",
+      url: "https://www.linkedin.com/in/rifai-martin/",
+      tags: ["BI-FAST", "ISO 8583", "System Design", "Fintech"]
+    },
+    {
+      id: "kafka-latency",
+      title: "Taming Latency in High-Throughput Financial Pipelines with Apache Kafka",
+      category: "Event-Driven",
+      readTime: "5 min read",
+      date: "2023",
+      desc: "How we cut critical payment response times by 50% using asynchronous event streaming, partition tuning, and in-memory idempotency guards.",
+      url: "https://www.linkedin.com/in/rifai-martin/",
+      tags: ["Kafka", "Concurrency", "Performance", "Microservices"]
+    },
+    {
+      id: "cqrs-microservices",
+      title: "Command-Query Segregation (CQRS) in Distributed High-Volume Systems",
+      category: "Architecture",
+      readTime: "6 min read",
+      date: "2022",
+      desc: "Separating transactional write paths from high-frequency read analytics to achieve massive horizontal scalability without database contention.",
+      url: "https://www.linkedin.com/in/rifai-martin/",
+      tags: ["CQRS", "Distributed Systems", "Redis", "Spring Boot"]
+    },
+    {
+      id: "engineering-leadership",
+      title: "The Engineering Mindset: Transitioning from Individual Contributor to Squad Lead",
+      category: "Leadership",
+      readTime: "4 min read",
+      date: "2024",
+      desc: "Practical reflections on technical mentoring, architectural alignment with product stakeholders, and fostering high-ownership engineering squads.",
+      url: "https://www.linkedin.com/in/rifai-martin/",
+      tags: ["Leadership", "Mentorship", "Engineering Culture"]
+    },
+    {
+      id: "colibri-moe",
+      title: "Running Mixture-of-Experts (MoE) LLMs Locally with Zero Dependencies in C",
+      category: "Deep Tech",
+      readTime: "8 min read",
+      date: "2025",
+      desc: "Memory-mapped weight streaming and sparse activation kernels to execute large MoE neural networks on everyday consumer hardware.",
+      url: "https://github.com/rifaimartin/colibri",
+      tags: ["AI Inference", "C / C++", "MoE", "Performance"]
+    }
+  ],
+
   skills: {
     languages: ["Go (Golang)", "Java", "TypeScript", "JavaScript", "C / C++", "Rust", "Python", "SQL"],
     backend: ["Kubernetes (K8s)", "Microservices", "Spring Boot", "Node.js", "Express", "CQRS", "REST & gRPC", "Mock Simulator"],
