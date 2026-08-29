@@ -15,7 +15,7 @@ export const profileData = {
   socials: [
     { label: "GitHub", url: "https://github.com/rifaimartin", username: "@rifaimartin" },
     { label: "LinkedIn", url: "https://www.linkedin.com/in/rifai-martin/", username: "rifai-martin" },
-    { label: "Email", url: "mailto:rifaimartin@gmail.com", username: "rifaimartin@gmail.com" },
+    { label: "Email", url: "mailto:rifaimartinjham@gmail.com", username: "rifaimartinjham@gmail.com" },
     { label: "Website", url: "https://rifaimartin.github.io", username: "rifaimartin.github.io" }
   ],
 

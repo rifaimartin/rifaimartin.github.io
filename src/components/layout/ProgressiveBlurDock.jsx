@@ -83,7 +83,7 @@ export default function ProgressiveBlurDock({ onResetGate, isDark, onToggleTheme
 
             <a
               className="ff-link"
-              href="mailto:rifaimartin@gmail.com"
+              href="mailto:rifaimartinjham@gmail.com"
               title="Send Email"
             >
               <Mail size={13} />
