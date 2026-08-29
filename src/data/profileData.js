@@ -266,83 +266,140 @@ export const profileData = {
       title: "Ini Bukan Akhir — Perjalanan 1 Tahun & Sejarah Masuk Telkom Indonesia",
       category: "Career Journey",
       readTime: "4 min read",
-      date: "Nov 2020",
+      date: "25 Nov 2020",
       desc: "Kisah masuk Telkom Indonesia di usia 18 tahun mewujudkan harapan orang tua, adaptasi WFH, hingga refleksi penting: 'Jangan buru-buru jadi jago, jadi jago butuh waktu.'",
       tags: ["Telkom Indonesia", "Career Story", "Backend Dev", "Personal Growth"],
       content: `Hampir 1 tahun di Telkom Indonesia menjadi seorang Backend Developer.
 
-Berawal dari keinginan orang tua (babeh gue) yang ingin salah satu anaknya bekerja di BUMN, dan akhirnya gue bisa mewujudkan hal itu di usia 18 tahun (Januari 2020). Rasa bangga terhadap pencapaian ini menjadi batu loncatan besar dalam perjalanan karier gue.
+Berawal dari keinginan babeh gue, beliau ingin salah satu anaknya bekerja di BUMN, dan akhirnya gue bisa mewujudkan hal itu. Di usia gue yang saat itu masih berusia 18 tahun (Januari 2020) dan sekarang 19 tahun (November 2020), gue merasa bangga terhadap diri gue sendiri karena telah mencapai sesuatu yang memang agak sulit dicapai oleh anak seusia gue saat itu.
 
-Di usia tersebut, gue belajar banyak tentang bagaimana menjadi dewasa dalam dunia kerja profesional: berkolaborasi dalam tim skala enterprise, berani speak up dalam diskusi arsitektur, dan terus belajar dari setiap kesalahan.
+Di usia tersebut pun gue belajar menjadi dewasa dalam hal bekerja yang baik itu seperti apa: bagaimana berkolaborasi di lingkungan korporasi besar, berani speak up di forum diskusi arsitektur, dan belajar dari setiap kesalahan. Ada banyak sekali pelajaran yang gue dapat, di mana tidak bisa gue tuliskan satu per satu di sini karena memang sangat banyak, dan itu yang membentuk kepribadian gue hari ini.
 
-Menjalani WFH sekitar 8 bulan lebih memberikan pengalaman unik yang membentuk kepribadian dan disiplin kerja gue hingga hari ini.
+Menjalani WFH sekitar 8 bulan lebih memberikan pengalaman kerja remote yang seru dan penuh tantangan.
 
-Pesan penting dari gue saat itu untuk masa depan:
-"Jangan buru-buru jadi jago, jadi jago butuh waktu. Jangan menyerah dengan keadaan; situasi yang sulit menentukan apakah kamu yang terpilih untuk bisa beradaptasi di dalamnya. Permasalahan akan terus ada berdampingan dengan bertambahnya usia. Jangan terlalu dipusingkan dengan segala sesuatu di luar kendali pengaruhmu, karena kamu berhak memilih hidupmu akan seperti apa. Bangun, lakukan, dan teruslah berkarya."`
+Pesan penting dari gue di masa sekarang, untuk diri gue di masa depan:
+
+"Jangan buru-buru jadi jago, jadi jago butuh waktu. Jangan menyerah dengan keadaan; situasi yang sulit menentukan apakah kamu yang terpilih untuk bisa beradaptasi di dalamnya.
+
+Permasalahan akan terus ada berdampingan dengan umur kamu yang sebentar lagi kepala dua. Pesanku jangan terlalu dipusingkan dengan segala sesuatu di luar kendali pengaruhmu, karena kamu berhak memilih hidupmu akan seperti apa."
+
+Masih banyak hal yang harus diperbaiki dalam hidup kamu Rifai, temukan solusinya dan sibuklah pada hal itu. Ingat, hidupmu bukan hidup orang lain. Bangun dan lakukan. Suatu hari nanti kamu harus bercerita dan membagikan pengalaman hidup kamu kepada yang lain. Maju dan terus berkembang berkarya!`
+    },
+    {
+      id: "19-tahun-kesepian",
+      title: "Refleksi Usia 19 Tahun: Menolong Teman, Berproses & Mengambil Harapan",
+      category: "Personal Reflections",
+      readTime: "5 min read",
+      date: "17 Jul 2021",
+      desc: "Catatan malam sabtu saat membantu teman SMP belajar coding, kilas balik masa lalu saat diremehkan, dan rasa syukur atas orang-orang yang pernah mengulurkan tangan.",
+      tags: ["Reflections", "Growth", "Mentorship", "Gratitude"],
+      content: `Kemarin malam sangat senang sekali ada teman SMP berkunjung sambil membawa laptopnya ke rumah, berharap aku bisa membantu kesulitan teknis yang sedang dia hadapi seputar pemrograman. Malam sabtuku ditemani olehnya sambil aku membantunya menyelesaikan permasalahan coding dan menambahkan fitur yang membuat dirinya tersenyum senang. Aku pun ikut bahagia.
+
+Aku banyak menceritakan pengalaman hidupku kepadanya, dengan harapan dia bisa belajar bahwa aku pun sama pernah berada di posisi sulit seperti dirinya dulu. Aku seperti melihat cerminan diriku di masa lalu, dan melihat kembali orang-orang yang pernah menolongku serta mengajariku sehingga membuatku terus semangat belajar.
+
+Aku akan selalu mengingat mereka dan berharap tidak pernah kehilangan mereka dalam hidupku: orang-orang yang pernah ada di sisiku saat aku sulit dan mau menjulurkan tangannya untuk membuatku berdiri kembali. Terima kasih, terima kasih, terima kasih.
+
+Aku yang dulunya hanya seorang pemuda yang terkadang sering sekali diremehkan bahkan pernah dibilang hanya jadi 'beban tim', kini diberi apresiasi sederhana dari teman lama yang justru membuat semangat belajarku semakin meningkat. Aku mulai mengerti: cacian dan remehan orang di luar sana akan selalu ada. Tinggal bagaimana kita pintar menahan diri dan menjadikannya pemantik untuk bangkit menjadi pribadi yang jauh lebih berkembang.
+
+Kini aku melihat diriku semakin bertumbuh dari hari ke hari bersama banyaknya orang hebat yang kujumpai. Seiring berjalannya waktu, kini aku berani menyampaikan ide arsitektur, memberikan concern teknis, dan pendapatku kini didengar serta dihormati.
+
+Aku sangat bersyukur atas proses ini. Kini mimpi itu terasa semakin dekat. Akan aku genggam terus semakin kuat tanpa takut akan kegagalan, karena jatuh saat berproses sudah menjadi bagian tak terpisahkan dari proses itu sendiri.
+
+Untuk diriku yang sebentar lagi menginjak usia 20 tahun di tanggal 4 Agustus: semoga semakin banyak orang yang bisa kamu bantu di luar sana.`
     },
     {
       id: "belajar-dari-tech-lead",
       title: "Belajar Dari Tech Lead: Framework Speak Up (Fact - Story - Ask)",
       category: "Engineering Culture",
       readTime: "3 min read",
-      date: "Des 2020",
-      desc: "Metode terstruktur saat berbicara di meeting virtual dan diskusi teknis menggunakan formula Fact - Story - Ask yang terinspirasi dari Tech Lead.",
+      date: "06 Des 2020",
+      desc: "Framework komunikasi teknis saat berbicara di forum kantor dan meeting virtual menggunakan metode Fact — Story — Ask yang terinspirasi dari Tech Lead.",
       tags: ["Communication", "Tech Lead", "Soft Skills", "Meetings"],
-      content: `Seringkali developer merasa bingung harus mulai dari mana ketika ingin speak up dalam forum meeting virtual maupun diskusi arsitektur kantor.
+      content: `Happy weekend guys! Di tulisan kali ini gue mau sedikit membagikan sebuah framework speak up yang sangat powerful.
 
-Ternyata ada framework elegan yang bisa kita terapkan: Fact — Story — Ask.
+Gue yakin di antara kalian kadang suka bingung dan nggak tahu harus mulai dari mana ketika coba speak up di kantor, meeting virtual, maupun forum arsitektur engineering.
 
-1. Fact (Fakta) = Ceritakan sebuah fakta konkret berupa data atau temuan teknis.
-2. Story (Cerita / Analogi) = Sampaikan konteks data tersebut melalui cerita atau analogi yang mudah dipahami.
-3. Ask (Pertanyaan Solutif) = Ajukan pertanyaan terarah untuk menemukan solusi dan best practice bersama.
+Ternyata kita bisa mengimplementasikan metode terstruktur ini saat mulai menyampaikan gagasan:
 
-Contoh Praktis:
-"Fact: Kemarin saya menemukan rekomendasi perhitungan di buku rujukan A.
-Story: Saat coba saya implementasikan ke studi kasus kita dan dibandingkan dengan output AI generator, hasilnya berbeda.
-Ask: Apakah pendekatan perhitungan saya yang perlu disesuaikan, ataukah engine generator tersebut menggunakan formula yang berbeda?"
+1. Fact = Ceritakan sebuah fakta konkret berupa data atau temuan teknis riil.
+2. Story = Ceritakan data tersebut dengan sebuah cerita atau analogi yang kontekstual (storytelling).
+3. Ask = Ajukan sebuah pertanyaan terarah untuk mencari solusi dan best practice bersama.
 
-Metode ini terbukti membuat penyampaian ide teknis menjadi rapi, profesional, dan fokus pada pemecahan masalah.`
+Contoh Penerapan:
+"Fact: Pak, kemarin saya menemukan rekomendasi rumus perhitungan studi kasus kita di buku rujukan A halaman 63.
+Story: Saat coba saya implementasikan ke dalam studi kasus kita dan saya compare hasilnya menggunakan engine generator AI, ternyata hasilnya tidak sama.
+Ask: Apakah pendekatan perhitungan saya yang perlu dikoreksi, ataukah mesin generator AI tersebut yang menggunakan formula dasar berbeda?"
+
+Tulisan ini terinspirasi langsung dari Tech Lead gue di kantor yang super keren dalam menyampaikan sesuatu secara tertata rapi dan objektif.`
+    },
+    {
+      id: "podcast-indonesia-belajar",
+      title: "Catatan Podcast Indonesia Belajar: Problem Solving, Git Commits & Open Minded",
+      category: "Learning Notes",
+      readTime: "5 min read",
+      date: "18 Des 2020",
+      desc: "Poin-poin penting sesi diskusi bersama Mas Fauzan & Mas Setia Budi seputar hiring engineer, kualitas commit GitHub, dan esensi problem solving.",
+      tags: ["Podcast", "Best Practices", "Git History", "Problem Solving"],
+      content: `Belajar bareng Mas Fauzan dan Mas Setia Budi di podcast INDONESIA BELAJAR. Berikut rangkuman poin-poin krusial yang sangat berharga bagi developer:
+
+1. Fondasi Fundamental: Kalau kalian punya basic data structure dan algoritma yang bagus, kalian akan sangat mudah berpindah ke bahasa pemrograman apa pun.
+2. Team Player yang Solid: Belajar kelompok yang benar sejak dini, bukan hanya satu orang yang mengerjakan. Kerja tim yang solid di sekolah/kampus adalah simulasi penting sebelum masuk ke industri.
+3. Sudut Pandang Hiring Tech Lead:
+   - Tidak melihat ijazah semata, melainkan esensi rekayasa perangkat lunak (*software engineering mindset*).
+   - Memberikan satu problem riil dan menyelesaikannya bersama untuk melihat naming variable, struktur kode, dan collaborative point.
+4. Jejak Git History di GitHub: Commit history di GitHub sangat mencerminkan cara kerja dan alur berpikir seorang developer.
+5. Good Engineer vs Average Engineer: Good engineer selalu fokus mencari solusi secara pragmatis, berani berdiskusi dengan argumen kuat namun tetap open-minded, dan tidak memaksakan ego (*showing off*).
+6. Menulis Kode untuk Orang Lain: Kita menulis kode bukan hanya untuk komputer atau diri sendiri, tapi untuk dibaca dan dikembangkan oleh rekan tim di masa depan.
+
+"Pada akhirnya semua adalah tentang problem solving. Dan masing-masing individu pasti punya cara yang unik untuk menyelesaikannya. Teruslah berlatih, karena Indonesia hanya butuh satu generasi untuk benar-benar menjadi negara yang maju. Mari terus belajar dan berkarya!"`
+    },
+    {
+      id: "kematian-seneca",
+      title: "Tentang Waktu & Kematian: Refleksi Stoikisme dari Seneca dan Film Coco",
+      category: "Philosophy",
+      readTime: "4 min read",
+      date: "10 Mei 2020",
+      desc: "Perenungan mendalam tentang Stoikisme, nilai hidup, dan kutipan Seneca: 'Life is long if you know how to use it... kita yang menjadikannya pendek.'",
+      tags: ["Philosophy", "Stoicism", "Seneca", "Mindset"],
+      content: `Segala ketakutan manusia akan kematian bukanlah karena kematian itu sendiri, melainkan atas anggapan (value judgment) dan gambaran pikiran kita mengenai hal tersebut.
+
+Jika gambaran kita mengenai kematian adalah sesuatu yang menakutkan, reaksi kita akan menjadi negatif dan selalu ingin menghindarinya. Sebaliknya, jika kita melihatnya dengan tenang dan bijak, kita pun akan lebih damai dalam menjalaninya. Nalar dan rasio kitalah yang menentukan kedamaian atau kecemasan kita.
+
+Yang terpenting bukanlah panjangnya umur, melainkan seberapa berkualitas dan bermakna hidup yang kita jalani.
+
+"Life is long if you know how to use it… we are not given a short life but we make it short, and wasteful of it." — Seneca
+
+Hidup ini panjang jika kita tahu bagaimana menggunakannya. Kita tidak diberikan hidup yang pendek, tetapi kitalah yang menjadikannya pendek dan terbuang untuk hal-hal yang sia-sia: kekhawatiran berlebih pada hal di luar kendali, obsesi materi berlebihan, atau terus memikirkan opini orang yang tidak seharusnya diberi porsi banyak.
+
+Percuma diberikan 100 tahun kehidupan jika isinya hanya cemas, iri, dan amarah tanpa pernah mengasah kebijaksanaan, keberanian, pengendalian diri, dan keadilan.`
     },
     {
       id: "message-broker-otak",
       title: "Filosofi Message Broker: Mengapa Otak Kita Butuh Konsep Kafka",
       category: "Mental Models",
       readTime: "3 min read",
-      date: "Mei 2020",
+      date: "05 Mei 2020",
       desc: "Analogi arsitektur Apache Kafka (Publish/Subscribe) untuk menyaring arus deras informasi harian agar otak tetap fokus menghasilkan output berkualitas.",
       tags: ["Kafka", "Philosophy", "Mental Models", "Focus"],
-      content: `Tiba-tiba terbesit analogi menarik saat mendalami arsitektur event-driven: bagaimana jika konsep Message Broker seperti Apache Kafka kita terapkan pada cara kerja otak manusia?
+      content: `Tiba-tiba gue membayangkan konsep Message Broker di dalam cara kerja otak manusia saat asyik membaca artikel arsitektur software.
 
-Dunia di sekitar kita bertindak sebagai Publisher yang terus-menerus mem-publish ribuan informasi setiap detik. Namun sebagai Consumer, kitalah yang memiliki kendali penuh untuk menentukan topik dan pesan apa yang ingin kita 'subscribe' dan cerna.
+Kenapa kita tidak menerapkan konsep Apache Kafka (platform messaging publish/subscribe) ke dalam pikiran kita untuk meminimalisir informasi sampah yang masuk ke kepala?
 
-Ketika otak menerima terlalu banyak pesan yang tidak relevan (noise), maka output yang dihasilkan pun cenderung tidak optimal. Dengan membangun 'partition' dan filter yang ketat dalam pikiran, kita bisa menjaga fokus pada hal-hal yang benar-benar esensial untuk pertumbuhan diri.`
-    },
-    {
-      id: "podcast-indonesia-belajar",
-      title: "Insight Podcast Indonesia Belajar: Problem Solving, Git Commits & Open Minded",
-      category: "Learning Notes",
-      readTime: "5 min read",
-      date: "Des 2020",
-      desc: "Poin-poin penting seputar fondasi data structure & algoritma, attitude team player, kebersihan git commit history, dan mentalitas problem solving.",
-      tags: ["Podcast", "Best Practices", "Git History", "Problem Solving"],
-      content: `Catatan penting dari sesi belajar di podcast Indonesia Belajar:
+Biarlah dunia di sekitar kita mem-publish ribuan informasi setiap detiknya, tetapi tetap kitalah yang memegang kendali penuh untuk menentukan pesan mana yang ingin kita 'subscribe' dan cerna.
 
-1. Kuasai Fundamental: Jika memiliki dasar struktur data dan algoritma yang kuat, berpindah bahasa pemrograman apa pun akan terasa jauh lebih mudah.
-2. Kebersihan Git History: Commit history di GitHub mencerminkan bagaimana cara kita berpikir, memecah fitur, dan bekerja secara terstruktur.
-3. Menulis Kode untuk Tim: Kita tidak menulis kode untuk diri sendiri; keterbacaan kode (clean code & naming convention) adalah bentuk empati kepada rekan tim.
-4. Problem Solver vs Showing Off: Pembeda utama antara good engineer dan average engineer bukan hanya hard skill, melainkan sikap yang terbuka (open minded), fokus mencari solusi terbaik, dan tidak memaksakan ego.
-
-"Pada akhirnya semua adalah tentang problem solving. Masing-masing individu memiliki cara unik untuk menyelesaikannya — teruslah berlatih dan belajar."`
+Selama ini sering kali otak menerima terlalu banyak informasi yang tidak penting, sehingga output yang keluar pun menjadi tidak terarah. Dengan membangun filter dan partisi topik yang disiplin di pikiran, kita bisa menjaga ketenangan dan fokus menghasilkan karya terbaik.`
     },
     {
       id: "meeting-sampe-sahur",
       title: "Meeting Sampe Sahur: Dinamika Arsitektur & Dedikasi Engineering",
       category: "Engineering Life",
       readTime: "2 min read",
-      date: "Mei 2020",
+      date: "10 Mei 2020",
       desc: "Pengalaman maraton meeting teknis hingga 4 jam saat perombakan arsitektur dan dedikasi dalam membangun sistem yang andal.",
       tags: ["Architecture", "Teamwork", "Engineering Life", "Sprint"],
-      content: `Perubahan mendasar pada arsitektur sistem menuntut ekstra effort dari seluruh tim engineering. Rekor meeting teknis maraton hingga 4 jam sampai menjelang sahur menjadi pengalaman berharga tentang arti komitmen dan ketelitian dalam merancang sistem skala besar.
+      content: `Akibat perubahan arsitektur mendasar pada sistem, tim kami harus mengerahkan ekstra effort yang cukup intens... seru juga menjalaninya!
+
+Rekor meeting teknis maraton hingga 4 jam sampai menjelang sahur dan pergantian hari menjadi pengalaman berharga tentang arti dedikasi dan komitmen tim dalam menghadirkan fitur yang stabil dan tepat waktu.
 
 Momen-momen seperti ini yang memperkaya jam terbang, memperluas wawasan teknis, dan memperkuat rasa cinta terhadap apa yang dikerjakan.`
     }

@@ -39,6 +39,61 @@ export function ArticleCharacter({ id, size = 'card' }) {
         </svg>
       );
 
+    case '19-tahun-kesepian':
+      // Mentorship, Helping Hands & Gratitude Character
+      return (
+        <svg width={width} height={height} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="46" fill="url(#grad-growth)" />
+          {/* Warm Heart & Sprout */}
+          <path d="M70 26 C66 22, 60 24, 58 28 C56 24, 50 22, 46 26 C40 32, 50 42, 58 48 C66 42, 76 32, 70 26 Z" fill="#ec4899" fillOpacity="0.85" />
+          {/* Golden Sparkles */}
+          <circle cx="28" cy="32" r="2" fill="#fef08a" />
+          <circle cx="34" cy="22" r="1.5" fill="#fef08a" />
+          <circle cx="80" cy="42" r="2" fill="#fef08a" />
+          {/* Character Head */}
+          <circle cx="48" cy="52" r="16" fill="#fde047" />
+          {/* Kind Smiling Eyes */}
+          <path d="M41 50 Q45 47 49 50" stroke="#1e293b" strokeWidth="2.5" strokeLinecap="round" />
+          <path d="M51 50 Q55 47 59 50" stroke="#1e293b" strokeWidth="2.5" strokeLinecap="round" />
+          <path d="M45 58 Q50 63 55 58" stroke="#1e293b" strokeWidth="2.5" strokeLinecap="round" />
+          {/* Warm Hoodie Body */}
+          <path d="M32 68 C32 62, 64 62, 64 68 L68 86 L28 86 Z" fill="#db2777" />
+          <defs>
+            <linearGradient id="grad-growth" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#f472b6" />
+              <stop offset="1" stopColor="#9d174d" />
+            </linearGradient>
+          </defs>
+        </svg>
+      );
+
+    case 'kematian-seneca':
+      // Stoic Philosopher Seneca with Hourglass & Laurel
+      return (
+        <svg width={width} height={height} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="46" fill="url(#grad-seneca)" />
+          {/* Hourglass */}
+          <polygon points="70,22 84,22 77,32 84,42 70,42 77,32" fill="#fef08a" stroke="#ca8a04" strokeWidth="1.5" />
+          {/* Character Head */}
+          <circle cx="48" cy="46" r="16" fill="#fde047" />
+          {/* Laurel Wreath */}
+          <path d="M34 40 C34 32, 46 28, 48 30 C50 28, 62 32, 62 40" stroke="#16a34a" strokeWidth="3" strokeLinecap="round" />
+          {/* Wise Calm Eyes */}
+          <line x1="40" y1="45" x2="46" y2="45" stroke="#1e293b" strokeWidth="2.5" strokeLinecap="round" />
+          <line x1="50" y1="45" x2="56" y2="45" stroke="#1e293b" strokeWidth="2.5" strokeLinecap="round" />
+          <path d="M45 53 Q48 56 51 53" stroke="#1e293b" strokeWidth="2" strokeLinecap="round" />
+          {/* Stoic Toga */}
+          <path d="M32 62 C32 56, 64 56, 64 62 L68 84 L28 84 Z" fill="#f8fafc" />
+          <path d="M36 62 L60 84" stroke="#e2e8f0" strokeWidth="3" />
+          <defs>
+            <linearGradient id="grad-seneca" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#94a3b8" />
+              <stop offset="1" stopColor="#334155" />
+            </linearGradient>
+          </defs>
+        </svg>
+      );
+
     case 'belajar-dari-tech-lead':
       // Presenting Architect with Lightbulb & Whiteboard Chart
       return (
