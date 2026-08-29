@@ -1,0 +1,74 @@
+:root {
+  /* Colors - Light Theme */
+  --bg: #faf5f5;
+  --veil-light: #faf5f5;
+  --veil-dark: #121214;
+  --ink: #17160f;
+  --ink-body: #434445;
+  --ink-muted: rgba(23, 22, 15, 0.55);
+  --ink-faint: #8c8b82;
+  --ink-faint-hover: #5c5b5b;
+  --accent: #2c6fff;
+  --accent-rgb: 44, 111, 255;
+  
+  --folio-blue: #2c6fff;
+  --path-blue-rgb: 44, 111, 255;
+  --path-blue: rgb(var(--path-blue-rgb));
+  --folio-mute: #9b9b9b;
+  --folio-ink: #0d0d0f;
+  --folio-rule: #dbd8e3;
+  --surface-card: #ffffff;
+  --surface-card-subtle: #f8f6f6;
+  --surface-sunken: #ede8e8;
+  --surface-hover: rgba(23, 22, 15, 0.04);
+  --surface-chip: #f0ecec;
+  --card-border: rgba(17, 17, 17, 0.08);
+  --shadow-rgb: 0, 0, 0;
+  --footer-tint-rgb: 250, 245, 245;
+
+  /* Typography */
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-lcd: "Share Tech Mono", monospace;
+
+  /* Layout & Sizing */
+  --folio-col-w: 600px;
+  --rail-x: -24px;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  /* Timeline */
+  --tl-dot-line: #c3c1c1;
+  --tl-dot-fill: #b4b2b2;
+  --tl-route: #a09fa4;
+}
+
+[data-theme="dark"] {
+  --bg: #121214;
+  --ink: #f2efe9;
+  --ink-body: #b8b7ba;
+  --ink-muted: rgba(242, 239, 233, 0.55);
+  --ink-faint: #767575;
+  --ink-faint-hover: #a19f9f;
+  --accent: #3b82f6;
+  --accent-rgb: 59, 130, 246;
+  
+  --folio-blue: #3b82f6;
+  --path-blue-rgb: 59, 130, 246;
+  --path-blue: rgb(var(--path-blue-rgb));
+  --folio-mute: #7a7980;
+  --folio-ink: #f8f6f2;
+  --folio-rule: #2a2930;
+  --surface-card: #1c1b1f;
+  --surface-card-subtle: #17161a;
+  --surface-sunken: #18171b;
+  --surface-hover: rgba(255, 255, 255, 0.05);
+  --surface-chip: #25242a;
+  --card-border: rgba(255, 255, 255, 0.08);
+  --shadow-rgb: 0, 0, 0;
+  --footer-tint-rgb: 18, 18, 20;
+
+  --tl-dot-line: #45444b;
+  --tl-dot-fill: #5b5a63;
+  --tl-route: #6b6973;
+}
