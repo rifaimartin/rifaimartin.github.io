@@ -473,6 +473,68 @@ button {
   color: var(--ink-body);
 }
 
+.mag-read-action {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--folio-blue);
+  background: var(--surface-chip);
+  padding: 3px 8px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.magazine-card:hover .mag-read-action {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+.article-reader-modal {
+  max-width: 600px !important;
+}
+
+.article-headline {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--folio-ink);
+  margin-bottom: 12px;
+}
+
+.article-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.article-body-text {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.article-p {
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: var(--ink-body);
+}
+
+.article-quote {
+  font-style: italic;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--folio-ink);
+  background: var(--surface-chip);
+  border-left: 3px solid var(--folio-blue);
+  padding: 12px 16px;
+  border-radius: 0 8px 8px 0;
+  margin: 6px 0;
+}
+
 .mag-tags {
   display: flex;
   flex-wrap: wrap;

@@ -4,6 +4,7 @@ import HeaderIntro from './components/layout/HeaderIntro';
 import FlightTimeline from './components/layout/FlightTimeline';
 import ProjectList from './components/layout/ProjectList';
 import InFlightMagazine from './components/layout/InFlightMagazine';
+import ArticleModal from './components/layout/ArticleModal';
 import MemoriesPolaroid from './components/layout/MemoriesPolaroid';
 import ProgressiveBlurDock from './components/layout/ProgressiveBlurDock';
 import CaseStudyModal from './components/layout/CaseStudyModal';
@@ -25,6 +26,7 @@ export default function App() {
   });
 
   const [activeCaseStudy, setActiveCaseStudy] = useState(null);
+  const [activeArticle, setActiveArticle] = useState(null);
 
   // Sync theme attribute with DOM
   useEffect(() => {
@@ -91,7 +93,7 @@ export default function App() {
         <ProjectList />
 
         {/* In-Flight Magazine & Technical Essays */}
-        <InFlightMagazine />
+        <InFlightMagazine onOpenArticle={(article) => setActiveArticle(article)} />
 
         {/* Polaroid Memories Fan Outro */}
         <MemoriesPolaroid />
@@ -101,6 +103,12 @@ export default function App() {
       <CaseStudyModal
         study={activeCaseStudy}
         onClose={() => setActiveCaseStudy(null)}
+      />
+
+      {/* Article Reader Lightbox Modal */}
+      <ArticleModal
+        article={activeArticle}
+        onClose={() => setActiveArticle(null)}
       />
 
       {/* Floating Progressive Multi-Blur Dock */}

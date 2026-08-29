@@ -262,54 +262,89 @@ export const profileData = {
 
   articles: [
     {
-      id: "bifast-architecture",
-      title: "Architecting Resilient National Payment Rails: Lessons from BI-FAST & ISO 8583",
-      category: "System Design",
-      readTime: "7 min read",
-      date: "2024",
-      desc: "Designing sub-second interbank payment settlement engines, symmetric/asymmetric SNAP encryption, and fault-tolerant distributed routing.",
-      url: "https://www.linkedin.com/in/rifai-martin/",
-      tags: ["BI-FAST", "ISO 8583", "System Design", "Fintech"]
-    },
-    {
-      id: "kafka-latency",
-      title: "Taming Latency in High-Throughput Financial Pipelines with Apache Kafka",
-      category: "Event-Driven",
-      readTime: "5 min read",
-      date: "2023",
-      desc: "How we cut critical payment response times by 50% using asynchronous event streaming, partition tuning, and in-memory idempotency guards.",
-      url: "https://www.linkedin.com/in/rifai-martin/",
-      tags: ["Kafka", "Concurrency", "Performance", "Microservices"]
-    },
-    {
-      id: "cqrs-microservices",
-      title: "Command-Query Segregation (CQRS) in Distributed High-Volume Systems",
-      category: "Architecture",
-      readTime: "6 min read",
-      date: "2022",
-      desc: "Separating transactional write paths from high-frequency read analytics to achieve massive horizontal scalability without database contention.",
-      url: "https://www.linkedin.com/in/rifai-martin/",
-      tags: ["CQRS", "Distributed Systems", "Redis", "Spring Boot"]
-    },
-    {
-      id: "engineering-leadership",
-      title: "The Engineering Mindset: Transitioning from Individual Contributor to Squad Lead",
-      category: "Leadership",
+      id: "ini-bukan-akhir",
+      title: "Ini Bukan Akhir — Perjalanan 1 Tahun & Sejarah Masuk Telkom Indonesia",
+      category: "Career Journey",
       readTime: "4 min read",
-      date: "2024",
-      desc: "Practical reflections on technical mentoring, architectural alignment with product stakeholders, and fostering high-ownership engineering squads.",
-      url: "https://www.linkedin.com/in/rifai-martin/",
-      tags: ["Leadership", "Mentorship", "Engineering Culture"]
+      date: "Nov 2020",
+      desc: "Kisah masuk Telkom Indonesia di usia 18 tahun mewujudkan harapan orang tua, adaptasi WFH, hingga refleksi penting: 'Jangan buru-buru jadi jago, jadi jago butuh waktu.'",
+      tags: ["Telkom Indonesia", "Career Story", "Backend Dev", "Personal Growth"],
+      content: `Hampir 1 tahun di Telkom Indonesia menjadi seorang Backend Developer.
+
+Berawal dari keinginan orang tua (babeh gue) yang ingin salah satu anaknya bekerja di BUMN, dan akhirnya gue bisa mewujudkan hal itu di usia 18 tahun (Januari 2020). Rasa bangga terhadap pencapaian ini menjadi batu loncatan besar dalam perjalanan karier gue.
+
+Di usia tersebut, gue belajar banyak tentang bagaimana menjadi dewasa dalam dunia kerja profesional: berkolaborasi dalam tim skala enterprise, berani speak up dalam diskusi arsitektur, dan terus belajar dari setiap kesalahan.
+
+Menjalani WFH sekitar 8 bulan lebih memberikan pengalaman unik yang membentuk kepribadian dan disiplin kerja gue hingga hari ini.
+
+Pesan penting dari gue saat itu untuk masa depan:
+"Jangan buru-buru jadi jago, jadi jago butuh waktu. Jangan menyerah dengan keadaan; situasi yang sulit menentukan apakah kamu yang terpilih untuk bisa beradaptasi di dalamnya. Permasalahan akan terus ada berdampingan dengan bertambahnya usia. Jangan terlalu dipusingkan dengan segala sesuatu di luar kendali pengaruhmu, karena kamu berhak memilih hidupmu akan seperti apa. Bangun, lakukan, dan teruslah berkarya."`
     },
     {
-      id: "colibri-moe",
-      title: "Running Mixture-of-Experts (MoE) LLMs Locally with Zero Dependencies in C",
-      category: "Deep Tech",
-      readTime: "8 min read",
-      date: "2025",
-      desc: "Memory-mapped weight streaming and sparse activation kernels to execute large MoE neural networks on everyday consumer hardware.",
-      url: "https://github.com/rifaimartin/colibri",
-      tags: ["AI Inference", "C / C++", "MoE", "Performance"]
+      id: "belajar-dari-tech-lead",
+      title: "Belajar Dari Tech Lead: Framework Speak Up (Fact - Story - Ask)",
+      category: "Engineering Culture",
+      readTime: "3 min read",
+      date: "Des 2020",
+      desc: "Metode terstruktur saat berbicara di meeting virtual dan diskusi teknis menggunakan formula Fact - Story - Ask yang terinspirasi dari Tech Lead.",
+      tags: ["Communication", "Tech Lead", "Soft Skills", "Meetings"],
+      content: `Seringkali developer merasa bingung harus mulai dari mana ketika ingin speak up dalam forum meeting virtual maupun diskusi arsitektur kantor.
+
+Ternyata ada framework elegan yang bisa kita terapkan: Fact — Story — Ask.
+
+1. Fact (Fakta) = Ceritakan sebuah fakta konkret berupa data atau temuan teknis.
+2. Story (Cerita / Analogi) = Sampaikan konteks data tersebut melalui cerita atau analogi yang mudah dipahami.
+3. Ask (Pertanyaan Solutif) = Ajukan pertanyaan terarah untuk menemukan solusi dan best practice bersama.
+
+Contoh Praktis:
+"Fact: Kemarin saya menemukan rekomendasi perhitungan di buku rujukan A.
+Story: Saat coba saya implementasikan ke studi kasus kita dan dibandingkan dengan output AI generator, hasilnya berbeda.
+Ask: Apakah pendekatan perhitungan saya yang perlu disesuaikan, ataukah engine generator tersebut menggunakan formula yang berbeda?"
+
+Metode ini terbukti membuat penyampaian ide teknis menjadi rapi, profesional, dan fokus pada pemecahan masalah.`
+    },
+    {
+      id: "message-broker-otak",
+      title: "Filosofi Message Broker: Mengapa Otak Kita Butuh Konsep Kafka",
+      category: "Mental Models",
+      readTime: "3 min read",
+      date: "Mei 2020",
+      desc: "Analogi arsitektur Apache Kafka (Publish/Subscribe) untuk menyaring arus deras informasi harian agar otak tetap fokus menghasilkan output berkualitas.",
+      tags: ["Kafka", "Philosophy", "Mental Models", "Focus"],
+      content: `Tiba-tiba terbesit analogi menarik saat mendalami arsitektur event-driven: bagaimana jika konsep Message Broker seperti Apache Kafka kita terapkan pada cara kerja otak manusia?
+
+Dunia di sekitar kita bertindak sebagai Publisher yang terus-menerus mem-publish ribuan informasi setiap detik. Namun sebagai Consumer, kitalah yang memiliki kendali penuh untuk menentukan topik dan pesan apa yang ingin kita 'subscribe' dan cerna.
+
+Ketika otak menerima terlalu banyak pesan yang tidak relevan (noise), maka output yang dihasilkan pun cenderung tidak optimal. Dengan membangun 'partition' dan filter yang ketat dalam pikiran, kita bisa menjaga fokus pada hal-hal yang benar-benar esensial untuk pertumbuhan diri.`
+    },
+    {
+      id: "podcast-indonesia-belajar",
+      title: "Insight Podcast Indonesia Belajar: Problem Solving, Git Commits & Open Minded",
+      category: "Learning Notes",
+      readTime: "5 min read",
+      date: "Des 2020",
+      desc: "Poin-poin penting seputar fondasi data structure & algoritma, attitude team player, kebersihan git commit history, dan mentalitas problem solving.",
+      tags: ["Podcast", "Best Practices", "Git History", "Problem Solving"],
+      content: `Catatan penting dari sesi belajar di podcast Indonesia Belajar:
+
+1. Kuasai Fundamental: Jika memiliki dasar struktur data dan algoritma yang kuat, berpindah bahasa pemrograman apa pun akan terasa jauh lebih mudah.
+2. Kebersihan Git History: Commit history di GitHub mencerminkan bagaimana cara kita berpikir, memecah fitur, dan bekerja secara terstruktur.
+3. Menulis Kode untuk Tim: Kita tidak menulis kode untuk diri sendiri; keterbacaan kode (clean code & naming convention) adalah bentuk empati kepada rekan tim.
+4. Problem Solver vs Showing Off: Pembeda utama antara good engineer dan average engineer bukan hanya hard skill, melainkan sikap yang terbuka (open minded), fokus mencari solusi terbaik, dan tidak memaksakan ego.
+
+"Pada akhirnya semua adalah tentang problem solving. Masing-masing individu memiliki cara unik untuk menyelesaikannya — teruslah berlatih dan belajar."`
+    },
+    {
+      id: "meeting-sampe-sahur",
+      title: "Meeting Sampe Sahur: Dinamika Arsitektur & Dedikasi Engineering",
+      category: "Engineering Life",
+      readTime: "2 min read",
+      date: "Mei 2020",
+      desc: "Pengalaman maraton meeting teknis hingga 4 jam saat perombakan arsitektur dan dedikasi dalam membangun sistem yang andal.",
+      tags: ["Architecture", "Teamwork", "Engineering Life", "Sprint"],
+      content: `Perubahan mendasar pada arsitektur sistem menuntut ekstra effort dari seluruh tim engineering. Rekor meeting teknis maraton hingga 4 jam sampai menjelang sahur menjadi pengalaman berharga tentang arti komitmen dan ketelitian dalam merancang sistem skala besar.
+
+Momen-momen seperti ini yang memperkaya jam terbang, memperluas wawasan teknis, dan memperkuat rasa cinta terhadap apa yang dikerjakan.`
     }
   ],
 

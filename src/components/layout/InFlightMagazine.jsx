@@ -1,9 +1,9 @@
 import React from 'react';
 import { profileData } from '../../data/profileData';
-import { BookOpen, ArrowUpRight, Clock, Bookmark } from 'lucide-react';
+import { BookOpen, ArrowUpRight, Clock, Eye } from 'lucide-react';
 import { soundFx } from '../../utils/audio';
 
-export default function InFlightMagazine() {
+export default function InFlightMagazine({ onOpenArticle }) {
   if (!profileData.articles || profileData.articles.length === 0) return null;
 
   return (
@@ -12,22 +12,23 @@ export default function InFlightMagazine() {
       <div className="magazine-head">
         <div className="magazine-title-wrap">
           <BookOpen size={16} color="var(--folio-blue)" />
-          <h2 className="magazine-title">In-Flight Reading & Engineering Notes</h2>
+          <h2 className="magazine-title">In-Flight Reading & Tech Journal</h2>
         </div>
-        <span className="magazine-sub">Selected technical essays, system design teardowns & reflections</span>
+        <span className="magazine-sub">Kumpulan catatan perjalanan, sejarah karier & mindset engineering</span>
       </div>
 
       {/* Grid of Articles */}
       <div className="magazine-grid">
         {profileData.articles.map((article) => (
-          <a
+          <div
             key={article.id}
-            href={article.url}
-            target="_blank"
-            rel="noreferrer noopener"
             className="magazine-card"
+            style={{ cursor: 'pointer' }}
             onMouseEnter={() => soundFx.playHover()}
-            onClick={() => soundFx.playCardClick()}
+            onClick={() => {
+              soundFx.playCardClick();
+              if (onOpenArticle) onOpenArticle(article);
+            }}
           >
             {/* Top Bar: Category & Read Time */}
             <div className="mag-top">
@@ -45,7 +46,10 @@ export default function InFlightMagazine() {
             {/* Article Headline */}
             <h3 className="mag-heading">
               <span>{article.title}</span>
-              <ArrowUpRight size={15} className="mag-arrow" />
+              <span className="mag-read-action">
+                <Eye size={13} style={{ marginRight: 4 }} />
+                Read Story
+              </span>
             </h3>
 
             {/* Excerpt */}
@@ -59,7 +63,7 @@ export default function InFlightMagazine() {
                 </span>
               ))}
             </div>
-          </a>
+          </div>
         ))}
       </div>
     </section>
