@@ -1,7 +1,7 @@
 import React from 'react';
 import { soundFx } from '../../utils/audio';
-import { Sun, Moon, Sparkles, Mail, ArrowUp, BookOpen, Eye, Dumbbell } from 'lucide-react';
 import { useVisitorCount } from '../../utils/visitorCounter';
+import { Sun, Moon, Sparkles, Mail, ArrowUp, BookOpen, Eye, Dumbbell, Award } from 'lucide-react';
 
 function GithubIcon({ size = 14 }) {
   return (
