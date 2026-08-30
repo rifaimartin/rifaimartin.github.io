@@ -138,7 +138,7 @@ export default function EducationSection() {
               <span>🏛️ {edu.faculty}</span>
               <span>•</span>
               <span style={{ color: 'var(--folio-ink)', fontWeight: 600 }}>
-                🎯 GPA: {edu.gpa}
+                {edu.gpa.includes('3.') ? `🎯 GPA: ${edu.gpa}` : `🏆 ${edu.gpa}`}
               </span>
             </div>
 

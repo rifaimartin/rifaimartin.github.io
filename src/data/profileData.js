@@ -456,15 +456,16 @@ Momen-momen seperti ini yang memperkaya jam terbang, memperluas wawasan teknis, 
       degree: "Vocational Diploma — Software Engineering (RPL)",
       faculty: "Computer Science & Informatics",
       period: "2016 — 2019",
-      gpa: "Honor Graduate",
+      gpa: "Top Graduate with Honors (Golden Generation)",
       location: "Bogor, Indonesia",
-      badge: "ASEAN Top 10 Game Dev",
+      badge: "Golden Generation • Top Graduate",
       highlights: [
-        "Web Engineering & Developer Community: Mastered core software engineering fundamentals (HTML5, CSS3, JavaScript, data structures); co-founded a peer web developer community with fellow interns to deliver technical mentoring and knowledge-sharing workshops.",
-        "ASEAN Top 10 Game Developer: Clinched Top 10 Finalist standing in an ASEAN-level Game Development Championship, securing institutional development grants dedicated to upgrading the school's Software Engineering (RPL) Computer Lab.",
+        "Golden Generation & Top Graduate: Recognized as one of the best graduates of the acclaimed 'Golden Generation' cohort with exceptional academic and practical software engineering achievements.",
+        "ASEAN Top 10 Game Development: Clinched Top 10 Finalist standing in an ASEAN-level Game Development Championship, securing institutional development grants dedicated to upgrading and modernizing the school's Software Engineering (RPL) Computer Lab.",
+        "Web Engineering & Developer Community: Mastered core software engineering fundamentals (HTML5, CSS3, JavaScript, algorithms, data structures); co-founded a peer web developer community with fellow interns to conduct technical mentoring and workshops.",
         "Student Leadership (OSIS): Active leadership member of the Student Council (OSIS), organizing school-wide technology initiatives and cultivating collaborative leadership skills."
       ],
-      tags: ["Software Engineering", "Game Development", "Web Technologies", "Algorithms", "Leadership (OSIS)", "Community Mentorship"]
+      tags: ["Golden Generation", "Top Graduate with Honors", "Software Engineering (RPL)", "ASEAN Top 10 Game Dev", "Web Technologies", "Algorithms", "Leadership (OSIS)", "Community Mentorship"]
     }
   ],
 
