@@ -342,6 +342,13 @@ button {
   box-shadow: 0 10px 30px rgba(56, 189, 248, 0.18);
 }
 
+/* Education Section Cards */
+.edu-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(var(--path-blue-rgb), 0.45);
+  box-shadow: 0 12px 32px rgba(var(--shadow-rgb), 0.08), 0 0 0 1px rgba(var(--path-blue-rgb), 0.15);
+}
+
 .p-badge-featured {
   background: rgba(56, 189, 248, 0.15) !important;
   color: #0284c7 !important;

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import HeaderIntro from './components/layout/HeaderIntro';
 import FlightTimeline from './components/layout/FlightTimeline';
+import EducationSection from './components/layout/EducationSection';
 import ProjectList from './components/layout/ProjectList';
 import InFlightMagazine from './components/layout/InFlightMagazine';
 import ArticleModal from './components/layout/ArticleModal';
@@ -109,6 +110,9 @@ export default function App() {
 
         {/* Flight Path Career Timeline */}
         <FlightTimeline onOpenCase={(study) => setActiveCaseStudy(study)} />
+
+        {/* Flight Academy & Academic Foundations */}
+        <EducationSection />
 
         {/* Open Source & Systems Research */}
         <ProjectList onOpenOpenGym={() => setIsOpenGymOpen(true)} />

@@ -429,17 +429,42 @@ Momen-momen seperti ini yang memperkaya jam terbang, memperluas wawasan teknis, 
 
   education: [
     {
+      id: "uph",
       school: "Universitas Pelita Harapan (UPH)",
-      degree: "Bachelor of Engineering — Computer Engineering",
+      degree: "Bachelor of Engineering (B.Eng.) — Computer Engineering",
+      faculty: "Department of Information Technology",
       period: "2022 — 2026",
-      gpa: "3.5 / 4.0",
-      focus: "DNA Data Storage, GPU CUDA Computing, Distributed Architecture"
+      gpa: "3.6 / 4.0",
+      location: "Tangerang, Indonesia",
+      badge: "DNA Storage & GPU CUDA Research",
+      highlights: [
+        "High-Performance Computing & DNA Storage: Joined an advanced interdisciplinary research team investigating synthetic DNA Data Storage as an ultra-high-density biological memory medium, engineering parallel computing pipelines and high-throughput biological data processing accelerated with NVIDIA GPU CUDA.",
+        "Springer Nature Publication: Co-authored and published a peer-reviewed academic research paper in Springer Nature — Communications in Computer and Information Science (CCIS) Series exploring string-matching algorithmic optimizations and KMP algorithm limitations for SQL Injection detection using Aho-Corasick algorithms."
+      ],
+      publications: [
+        {
+          title: "Comparative Analysis of String Matching Algorithms for SQL Injection Detection in Modern Web Architectures",
+          publisher: "Springer Nature (CCIS Series)",
+          type: "Peer-Reviewed Conference Paper"
+        }
+      ],
+      tags: ["DNA Data Storage", "NVIDIA CUDA (C++)", "High-Performance Computing", "Bioinformatics", "Parallel Processing", "Springer Nature", "Algorithm Optimization"]
     },
     {
-      school: "SMKN 1 CIOMAS",
-      degree: "Vocational Diploma — Software Engineering",
+      id: "smkn1-ciomas",
+      school: "SMK Negeri 1 Ciomas",
+      degree: "Vocational Diploma — Software Engineering (RPL)",
+      faculty: "Computer Science & Informatics",
       period: "2016 — 2019",
-      focus: "Software Development, Algorithms & Computer Systems"
+      gpa: "Honor Graduate",
+      location: "Bogor, Indonesia",
+      badge: "ASEAN Top 10 Game Dev",
+      highlights: [
+        "Web Engineering & Developer Community: Mastered core software engineering fundamentals (HTML5, CSS3, JavaScript, data structures); co-founded a peer web developer community with fellow interns to deliver technical mentoring and knowledge-sharing workshops.",
+        "ASEAN Top 10 Game Developer: Clinched Top 10 Finalist standing in an ASEAN-level Game Development Championship, securing institutional development grants dedicated to upgrading the school's Software Engineering (RPL) Computer Lab.",
+        "Student Leadership (OSIS): Active leadership member of the Student Council (OSIS), organizing school-wide technology initiatives and cultivating collaborative leadership skills."
+      ],
+      tags: ["Software Engineering", "Game Development", "Web Technologies", "Algorithms", "Leadership (OSIS)", "Community Mentorship"]
     }
   ],
 
