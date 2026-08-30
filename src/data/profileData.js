@@ -38,7 +38,7 @@ export const profileData = {
         "Lead squad engineering teams (technical direction, architectural reviews, and mentorship) while collaborating cross-functionally with product and business units.",
         "Architected and managed high-availability containerized microservices deployed on Kubernetes (K8s), ensuring 99.99% uptime, auto-scaling, and resilient production deployments.",
         "Engineered mission-critical national fund transfer switches (BI-FAST Phase 1 & 2, RTGS Clearing, SKN, and Online Interbank Transfers) processing high-volume daily interbank settlements.",
-        "Architected multi-biller payment platforms integrated with 10+ major national partners (Tokopedia, Garuda Indonesia, PLN ICON+, ALTO, Baznas, Mitracom, BCA, Artajasa, Alterra).",
+        "Architected multi-biller payment platforms integrated with 12+ major national partners (Tokopedia, Garuda Indonesia, DANA, GoPay, PLN ICON+, ALTO, Baznas, Mitracom, BCA, Artajasa, Alterra).",
         "Engineered QRIS payment solutions (MPM, CPM, NFC/TAP, Cross-Border) with intelligent multi-switcher routing connectivity.",
         "Built asynchronous event-driven architectures with Apache Kafka, slashing response latency by 50% on mission-critical payment workflows.",
         "Developed mock server simulators for parallel development and automated regression testing, reducing third-party partner dependencies by 80%.",
@@ -66,18 +66,18 @@ export const profileData = {
         },
         {
           id: "multi-biller",
-          title: "Multi-Biller Payment Gateway (10+ Partners)",
+          title: "Multi-Biller Payment Gateway (12+ Partners)",
           category: "Payment Infrastructure",
-          desc: "Central aggregator biller architecture integrated with Tokopedia, Garuda, PLN ICON+, ALTO, Baznas, Mitracom, BCA, Artajasa, and Alterra.",
-          metrics: "10+ National Aggregators • 99.99% SLA",
+          desc: "Central aggregator biller architecture integrated with Tokopedia, Garuda Indonesia, DANA, GoPay, PLN ICON+, ALTO, Baznas, Mitracom, BCA, Artajasa, and Alterra.",
+          metrics: "12+ National Aggregators • 99.99% SLA",
           shots: [
             { title: "Partner Gateway", color: "#065f46", icon: "Network" },
             { title: "Biller Routing", color: "#059669", icon: "Cpu" },
             { title: "Reconciliation", color: "#10b981", icon: "FileCheck" }
           ],
           deepDive: {
-            overview: "Centralized billing and payment aggregation hub connecting BCA Digital to national utility, marketplace, and biller providers.",
-            challenge: "Handling protocol heterogeneity and response format variations from 10+ third-party partners under strict latency and reliability constraints.",
+            overview: "Centralized billing and payment aggregation hub connecting BCA Digital to national e-wallets (DANA, GoPay), marketplace (Tokopedia), airline (Garuda Indonesia), utilities (PLN ICON+), and institutional biller providers.",
+            challenge: "Handling protocol heterogeneity and response format variations from 12+ third-party partners under strict latency and reliability constraints.",
             solution: "Designed dynamic adapter layers, automated multi-switcher fallback, mock server simulator testing, and self-healing circuit breakers on K8s."
           }
         },
