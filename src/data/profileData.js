@@ -32,6 +32,9 @@ export const profileData = {
       current: true,
       href: "https://bcadigital.co.id",
       logo: "🏦",
+      logos: [
+        { src: "./blu-bca.png", name: "blu by BCA Digital" }
+      ],
       badgeColor: "#0060af",
       desc: "Leading engineering squads, driving microservices architecture on Kubernetes (K8s), and architecting core national fund transfers (BI-FAST, RTGS, SKN) and multi-biller payment gateways under extreme transactional concurrency.",
       highlights: [
@@ -112,6 +115,9 @@ export const profileData = {
       current: false,
       href: "https://cashlez.com",
       logo: "💳",
+      logos: [
+        { src: "./cashlez.png", name: "Cashlez Worldwide Indonesia" }
+      ],
       badgeColor: "#ea580c",
       desc: "Engineered end-to-end campaign management systems for DBS Bank, card BIN classification engines, cardholder eligibility services, and performance analytics reporting.",
       highlights: [
@@ -151,6 +157,10 @@ export const profileData = {
       current: false,
       href: "https://telkom.co.id",
       logo: "📡",
+      logos: [
+        { src: "./telkom.png", name: "Telkom Indonesia" },
+        { src: "./mypertamina.png", name: "MyPertamina" }
+      ],
       badgeColor: "#dc2626",
       desc: "Architected CQRS-based delivery runner & fleet microservices for the flagship MyPertamina ecosystem, engineered high-throughput real-time event messaging with Apache Kafka, and optimized sub-second Redis caching across distributed order & loyalty pipelines.",
       highlights: [
@@ -192,6 +202,9 @@ export const profileData = {
       current: false,
       href: "https://opencloud.id",
       logo: "☁️",
+      logos: [
+        { src: "./favicon.svg", fallback: "☁️", name: "ACCI (Indonesia Cloud Computing Association)" }
+      ],
       badgeColor: "#7c3aed",
       desc: "Explored cloud infrastructure and monitoring systems for SiCepat logistics client services, and developed event management platforms for cloud community initiatives.",
       highlights: [
@@ -213,6 +226,9 @@ export const profileData = {
       current: false,
       href: "#",
       logo: "🎨",
+      logos: [
+        { src: "./favicon.svg", fallback: "🎨", name: "INK & CANVAS" }
+      ],
       badgeColor: "#4f46e5",
       desc: "Frontend developer for LIA Language Institution digital transformation project, modernizing education portals and operational workflows.",
       highlights: [

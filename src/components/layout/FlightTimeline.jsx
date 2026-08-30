@@ -17,6 +17,36 @@ function FlightPlaneIcon() {
   );
 }
 
+// Render Company Logo Avatars with Hover Elevation & Tooltips
+function CompanyLogoAvatars({ logos = [], fallbackEmoji, company }) {
+  if (!logos || logos.length === 0) {
+    return <span style={{ fontSize: '18px', marginRight: '4px' }}>{fallbackEmoji}</span>;
+  }
+
+  return (
+    <div className="tl-logos" title={company}>
+      {logos.map((logo, idx) => (
+        <span key={idx} className="tl-avatar t-avatar" title={logo.name || company}>
+          <span className="tl-logo">
+            {logo.src ? (
+              <img
+                src={logo.src}
+                alt={logo.name || company}
+                draggable="false"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                }}
+              />
+            ) : (
+              <span style={{ fontSize: '14px' }}>{logo.fallback || fallbackEmoji}</span>
+            )}
+          </span>
+        </span>
+      ))}
+    </div>
+  );
+}
+
 export default function FlightTimeline({ onOpenCase }) {
   const trackRef = useRef(null);
   const pathSvgRef = useRef(null);
@@ -135,9 +165,11 @@ export default function FlightTimeline({ onOpenCase }) {
               {/* Glowing Waypoint Dot on Rail */}
               <div className={`tl-dot ${isLit ? 'is-lit' : ''}`} />
 
+              {/* Company Logo Avatars */}
+              <CompanyLogoAvatars logos={exp.logos} fallbackEmoji={exp.logo} company={exp.company} />
+
               {/* Company & Role Header */}
               <div className="tl-head">
-                <span style={{ fontSize: '18px', marginRight: '4px' }}>{exp.logo}</span>
                 <a
                   className="tl-company"
                   href={exp.href}
