@@ -24,82 +24,38 @@ export default function ArticleModal({ article, onClose }) {
 
   return (
     <div
-      style={{
-        position: 'fixed',
-        inset: 0,
-        zIndex: 100,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '20px',
-        backgroundColor: 'rgba(0, 0, 0, 0.75)',
-        backdropFilter: 'blur(12px)',
-        WebkitBackdropFilter: 'blur(12px)',
-        animation: 'fadeIn 0.2s ease-out'
-      }}
+      className="article-modal-overlay"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
     >
       <div
-        style={{
-          background: 'var(--surface-card)',
-          border: '1px solid var(--card-border)',
-          borderRadius: '24px',
-          maxWidth: '680px',
-          width: '100%',
-          maxHeight: '85vh',
-          overflowY: 'auto',
-          padding: '32px 28px',
-          boxShadow: '0 24px 60px rgba(0,0,0,0.45)',
-          position: 'relative',
-          color: 'var(--ink)',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '20px'
-        }}
+        className="article-modal-card"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Header Bar with 2D Character Hero */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-          <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-            <div
-              style={{
-                flexShrink: 0,
-                padding: '6px',
-                borderRadius: '18px',
-                background: 'var(--surface-sunken)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                boxShadow: '0 4px 12px rgba(0,0,0,0.08)'
-              }}
-            >
+        <div className="article-modal-header">
+          <div className="article-modal-hero">
+            <div className="article-avatar-wrap">
               <ArticleCharacter id={article.id} size="modal" />
             </div>
 
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
-                <span
-                  style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '11px',
-                    fontWeight: 600,
-                    textTransform: 'uppercase',
-                    letterSpacing: '1px',
-                    color: 'var(--folio-blue)',
-                    background: 'var(--surface-chip)',
-                    padding: '3px 8px',
-                    borderRadius: '4px'
-                  }}
-                >
+            <div className="article-header-text">
+              <div className="article-meta-row">
+                <span className="article-category-badge">
                   {article.category}
                 </span>
-                <span style={{ fontSize: '12px', color: 'var(--folio-mute)', fontFamily: 'var(--font-mono)' }}>
-                  {article.date} • <Clock size={11} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 2 }} /> {article.readTime}
+                <span className="article-time-badge">
+                  <span>{article.date}</span>
+                  <span>•</span>
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '3px' }}>
+                    <Clock size={11} />
+                    {article.readTime}
+                  </span>
                 </span>
               </div>
-              <h2 style={{ fontSize: '20px', fontWeight: 700, lineHeight: 1.35, color: 'var(--folio-ink)' }}>
+
+              <h2 className="article-title-heading">
                 {article.title}
               </h2>
             </div>
@@ -110,20 +66,7 @@ export default function ArticleModal({ article, onClose }) {
               soundFx.playCardClick();
               onClose();
             }}
-            style={{
-              background: 'var(--surface-chip)',
-              border: 'none',
-              borderRadius: '50%',
-              width: '34px',
-              height: '34px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              cursor: 'pointer',
-              color: 'var(--ink)',
-              flexShrink: 0,
-              marginLeft: '12px'
-            }}
+            className="article-close-btn"
             aria-label="Close article"
           >
             <X size={18} />

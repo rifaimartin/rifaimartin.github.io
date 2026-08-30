@@ -1,9 +1,9 @@
 import React from 'react';
 
-export function ArticleCharacter({ id, size = 'card' }) {
+export function ArticleCharacter({ id, size = 'card', width: customWidth, height: customHeight, className }) {
   const isModal = size === 'modal';
-  const width = isModal ? 120 : 64;
-  const height = isModal ? 120 : 64;
+  const width = customWidth || (isModal ? 80 : 64);
+  const height = customHeight || (isModal ? 80 : 64);
 
   switch (id) {
     case 'ini-bukan-akhir':
