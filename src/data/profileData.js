@@ -152,27 +152,30 @@ export const profileData = {
       href: "https://telkom.co.id",
       logo: "📡",
       badgeColor: "#dc2626",
-      desc: "Architected CQRS-based runner/driver microservices, high-throughput real-time event messaging with Apache Kafka, and optimized high-frequency Redis caching.",
+      desc: "Architected CQRS-based delivery runner & fleet microservices for the flagship MyPertamina ecosystem, engineered high-throughput real-time event messaging with Apache Kafka, and optimized sub-second Redis caching across distributed order & loyalty pipelines.",
       highlights: [
-        "Architected runner/driver microservices applying the CQRS pattern for command-query segregation in large-scale delivery operations.",
-        "Built real-time event messaging infrastructure utilizing Apache Kafka for high-throughput data streaming.",
-        "Engineered Redis caching strategies to maximize read throughput and minimize database load under heavy traffic."
+        "Architected and developed core microservices for the MyPertamina nationwide delivery and fueling platform, implementing Command Query Responsibility Segregation (CQRS) for high-scale order and fleet lifecycle management.",
+        "Engineered specialized microservices including: Command Order Service (transactional state writes), Query Order Service (high-speed projection reads), Runner Service & Fleet Dispatcher, Point & Loyalty Service, and Real-Time Notification Service.",
+        "Streamed real-time order state transitions and runner telemetry using Apache Kafka event topics, enabling decoupled asynchronous processing and sub-second dispatch notification delivery.",
+        "Implemented multi-tiered Redis caching and optimistic concurrency control, slashing database write contention and ensuring instantaneous order updates for delivery runners."
       ],
-      stack: ["Java", "Spring Boot", "Apache Kafka", "Redis", "CQRS Architecture", "MySQL", "REST APIs"],
+      stack: ["Java", "Spring Boot", "MyPertamina Ecosystem", "Apache Kafka", "Redis", "CQRS Architecture", "Microservices", "MySQL", "REST APIs", "Event-Driven Architecture"],
       cases: [
         {
           id: "cqrs-runner",
-          title: "CQRS Delivery Runner & Kafka Data Stream",
-          category: "Distributed Telecommunication",
-          desc: "Command and Query Responsibility Segregation for high-volume delivery operations with real-time stream processing.",
-          metrics: "High-Throughput Streaming • Low-Latency Cache",
+          title: "CQRS Delivery Runner & Kafka Data Stream (MyPertamina)",
+          category: "Enterprise Delivery & Energy Platform",
+          desc: "High-throughput CQRS microservices ecosystem for MyPertamina, powering Command & Query Order Services, Runner Fleet Dispatch, Points & Loyalty Engine, and Real-Time Push Notifications over Kafka.",
+          metrics: "MyPertamina Scale • 5+ Core Services • Sub-Second Dispatch",
           shots: [
-            { title: "CQRS Command", color: "#991b1b", icon: "Cpu" },
-            { title: "Kafka Bus", color: "#b91c1c", icon: "Network" },
-            { title: "Redis Cache", color: "#dc2626", icon: "Activity" }
+            { title: "Command & Query Order", color: "#991b1b", icon: "Cpu" },
+            { title: "Kafka Event Bus", color: "#b91c1c", icon: "Network" },
+            { title: "Runner & Points Engine", color: "#dc2626", icon: "Activity" }
           ],
           deepDive: {
-            overview: "Segregated transactional write operations from analytical read workflows using CQRS and Kafka event topics."
+            overview: "Engineered the distributed backend microservices powering the MyPertamina delivery runner and fuel distribution ecosystem, segregating stateful transactional writes and analytical query projections via the CQRS pattern and Apache Kafka event streaming.",
+            challenge: "Handling extreme transactional surges during nationwide fueling requests, coordinating simultaneous runner fleet matching, tracking real-time delivery telemetry, and updating customer loyalty points without database contention or dropped events.",
+            solution: "Architected a decoupled microservices suite composed of: (1) Command Order Service managing stateful transactional writes, order validation, and saga rollbacks, (2) Query Order Service maintaining denormalized read models in Redis for instant query lookups, (3) Runner Service coordinating fleet availability, spatial matching, and real-time delivery tracking, (4) Point Service automating real-time reward accrual, and (5) Notification Service delivering instant push and SMS alerts. All inter-service communications were asynchronously orchestrated over Apache Kafka."
           }
         }
       ]
