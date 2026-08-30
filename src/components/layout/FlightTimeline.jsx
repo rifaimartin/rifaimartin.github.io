@@ -1,10 +1,10 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { profileData } from '../../data/profileData';
 import CaseStudyItem from './CaseStudyItem';
 import { ExternalLink, CheckCircle } from 'lucide-react';
 import '../../styles/timeline.css';
 
-const CURVE_PATH = "M43 0V7.3A39 39 0 0 1 21.71 42.05A39 39 0 0 0 0.5 76.75V110";
+const DESKTOP_CURVE = "M43 0V7.3A39 39 0 0 1 21.71 42.05A39 39 0 0 0 0.5 76.75V110";
 
 function FlightPlaneIcon() {
   return (
@@ -19,7 +19,52 @@ function FlightPlaneIcon() {
 
 export default function FlightTimeline({ onOpenCase }) {
   const trackRef = useRef(null);
+  const pathSvgRef = useRef(null);
+  const pathDotsRef = useRef(null);
+  const pathLitRef = useRef(null);
+  const railRef = useRef(null);
   const [scrollProgress, setScrollProgress] = useState(0);
+
+  // Dynamic S-curve calculation ensuring seamless connection to the airplane tail on all devices
+  const updateCurve = useCallback(() => {
+    if (!trackRef.current || !pathSvgRef.current || !pathDotsRef.current || !pathLitRef.current) return;
+    
+    const isMobile = window.innerWidth <= 760;
+    
+    if (!isMobile) {
+      pathSvgRef.current.setAttribute("viewBox", "0 0 44 110");
+      pathSvgRef.current.style.width = "44px";
+      pathSvgRef.current.style.height = "110px";
+      pathDotsRef.current.setAttribute("d", DESKTOP_CURVE);
+      pathLitRef.current.setAttribute("d", DESKTOP_CURVE);
+    } else {
+      const plane = trackRef.current.querySelector(".plan-plane");
+      const rail = railRef.current;
+      if (!plane || !rail) return;
+      
+      const planeRect = plane.getBoundingClientRect();
+      const railRect = rail.getBoundingClientRect();
+      const dx = Math.max(60, (planeRect.left + planeRect.width / 2) - (railRect.left + railRect.width / 2));
+      
+      const height = 75;
+      const wi = 15;
+      const Ge = 30;
+      const t = dx + 0.5;
+      const curveD = `M${t} 0V${wi}A${Ge} ${Ge} 0 0 1 ${t - Ge} ${wi + Ge}H${0.5 + Ge}A${Ge} ${Ge} 0 0 0 0.5 ${height}`;
+      
+      pathSvgRef.current.setAttribute("viewBox", `0 0 ${dx + 1} ${height}`);
+      pathSvgRef.current.style.width = `${dx + 1}px`;
+      pathSvgRef.current.style.height = `${height}px`;
+      pathDotsRef.current.setAttribute("d", curveD);
+      pathLitRef.current.setAttribute("d", curveD);
+    }
+  }, []);
+
+  useEffect(() => {
+    updateCurve();
+    window.addEventListener('resize', updateCurve);
+    return () => window.removeEventListener('resize', updateCurve);
+  }, [updateCurve]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -58,14 +103,14 @@ export default function FlightTimeline({ onOpenCase }) {
 
       {/* Dynamic Curved & Straight Flight Path Line */}
       <div className="folio-path" aria-hidden="true">
-        {/* Slanted Curved Path originating right under the plane tail at (43, 0) */}
-        <svg className="path-curve" viewBox="0 0 44 110" fill="none">
-          <path className="pc-dots" d={CURVE_PATH} />
-          <path className="pc-lit" d={CURVE_PATH} pathLength="1" />
+        {/* Slanted Curved Path originating right under the plane tail */}
+        <svg className="path-curve" ref={pathSvgRef} viewBox="0 0 44 110" fill="none">
+          <path className="pc-dots" ref={pathDotsRef} d={DESKTOP_CURVE} />
+          <path className="pc-lit" ref={pathLitRef} d={DESKTOP_CURVE} pathLength="1" />
         </svg>
 
-        {/* Straight Vertical Rail continuing from y=110 */}
-        <div className="path-rail">
+        {/* Straight Vertical Rail continuing from the curve */}
+        <div className="path-rail" ref={railRef}>
           <div className="path-lit" />
         </div>
 
@@ -129,33 +174,35 @@ export default function FlightTimeline({ onOpenCase }) {
               {/* Tech Stack Chips */}
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: '12px' }}>
                 {exp.stack.map((st, i) => (
-                  <span
-                    key={i}
-                    style={{
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '11px',
-                      padding: '2px 8px',
-                      borderRadius: '4px',
-                      background: 'var(--surface-sunken)',
-                      color: 'var(--ink-faint)'
-                    }}
-                  >
+                  <span key={i} className="skill-tag" style={{ fontSize: '11px', padding: '2px 8px' }}>
                     {st}
                   </span>
                 ))}
               </div>
 
-              {/* Sub Case Studies with 3D Preview Cards */}
+              {/* Deep Dive Case Study Cards */}
               {exp.cases && exp.cases.length > 0 && (
-                <ul className="tl-cases">
-                  {exp.cases.map((cs) => (
-                    <CaseStudyItem
-                      key={cs.id}
-                      study={cs}
-                      onOpen={onOpenCase}
-                    />
-                  ))}
-                </ul>
+                <div style={{ marginTop: '20px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                  <div style={{
+                    fontSize: '11px',
+                    fontFamily: 'var(--font-mono)',
+                    fontWeight: 700,
+                    textTransform: 'uppercase',
+                    color: 'var(--folio-mute)',
+                    letterSpacing: '0.8px'
+                  }}>
+                    Featured Flight Systems & Architecture Cases:
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                    {exp.cases.map((study) => (
+                      <CaseStudyItem
+                        key={study.id}
+                        study={study}
+                        onOpen={() => onOpenCase(study)}
+                      />
+                    ))}
+                  </div>
+                </div>
               )}
             </li>
           );
