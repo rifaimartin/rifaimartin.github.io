@@ -22,7 +22,7 @@ function LinkedinIcon({ size = 14 }) {
   );
 }
 
-export default function ProgressiveBlurDock({ onResetGate, onOpenOpenGym, isDark, onToggleTheme }) {
+export default function ProgressiveBlurDock({ onResetGate, onOpenOpenGym, onOpenPsikotest, isDark, onToggleTheme }) {
   const { formattedCount } = useVisitorCount();
 
   const scrollToTop = () => {
@@ -88,6 +88,19 @@ export default function ProgressiveBlurDock({ onResetGate, onOpenOpenGym, isDark
             >
               <Dumbbell size={13} color="#38bdf8" />
               <span>Gym</span>
+            </button>
+
+            {/* Psikotest Bank Simulator direct launcher */}
+            <button
+              className="ff-link"
+              onClick={() => {
+                soundFx.playCardClick();
+                if (onOpenPsikotest) onOpenPsikotest();
+              }}
+              title="Launch Banking Psychometric Test Simulator"
+            >
+              <Award size={13} color="#10b981" />
+              <span>Psiko</span>
             </button>
 
             <div className="ff-divider" />

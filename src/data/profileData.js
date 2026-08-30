@@ -242,6 +242,17 @@ export const profileData = {
 
   projects: [
     {
+      id: "psikotest",
+      title: "Psikotest Bank — In-App ODP Assessment Arena",
+      category: "Interactive Psychometrics & AI Coaching",
+      desc: "Full interactive banking assessment simulator featuring 5 modules (Numerik, Verbal, Figural, Ketelitian Clerical, SJT Perbankan), real-time countdown timer, radar score analytics, and actionable improvement feedback.",
+      repo: "#",
+      isInteractiveApp: true,
+      tech: ["React 19", "Psychometrics", "Banking Standards", "Speed Test", "AI Coaching", "Analytics"],
+      stars: "In-App Arena",
+      featured: true
+    },
+    {
       id: "opengym",
       title: "openGym — Self-Hosted Fitness & Workout Tracker",
       category: "Fullstack PWA & Distributed Sync",

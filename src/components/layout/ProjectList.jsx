@@ -3,7 +3,7 @@ import { profileData } from '../../data/profileData';
 import { Code2, Star, ExternalLink, Terminal, Play, Sparkles } from 'lucide-react';
 import { soundFx } from '../../utils/audio';
 
-export default function ProjectList({ onOpenOpenGym }) {
+export default function ProjectList({ onOpenOpenGym, onOpenPsikotest }) {
   return (
     <div className="projects-block reveal">
       <div className="projects-title">
@@ -51,7 +51,21 @@ export default function ProjectList({ onOpenOpenGym }) {
                   ))}
                 </div>
 
-                {proj.featured ? (
+                {proj.id === 'psikotest' ? (
+                  <div className="p-actions">
+                    <button
+                      className="p-btn-primary"
+                      onClick={() => {
+                        soundFx.playCardClick();
+                        if (onOpenPsikotest) onOpenPsikotest();
+                      }}
+                      style={{ border: 'none', cursor: 'pointer', width: '100%', justifyContent: 'center' }}
+                    >
+                      <Play size={12} fill="currentColor" />
+                      <span>Launch Psikotest Arena (In-App)</span>
+                    </button>
+                  </div>
+                ) : proj.featured ? (
                   <div className="p-actions" style={{ flexWrap: 'wrap' }}>
                     <button
                       className="p-btn-primary"

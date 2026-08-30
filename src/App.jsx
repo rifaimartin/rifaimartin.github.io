@@ -8,6 +8,7 @@ import ProjectList from './components/layout/ProjectList';
 import InFlightMagazine from './components/layout/InFlightMagazine';
 import ArticleModal from './components/layout/ArticleModal';
 import OpenGymModal from './components/layout/OpenGymModal';
+import PsikotestModal from './components/layout/PsikotestModal';
 import MemoriesPolaroid from './components/layout/MemoriesPolaroid';
 import ProgressiveBlurDock from './components/layout/ProgressiveBlurDock';
 import CaseStudyModal from './components/layout/CaseStudyModal';
@@ -31,6 +32,7 @@ export default function App() {
   const [activeCaseStudy, setActiveCaseStudy] = useState(null);
   const [activeArticle, setActiveArticle] = useState(null);
   const [isOpenGymOpen, setIsOpenGymOpen] = useState(false);
+  const [isPsikotestOpen, setIsPsikotestOpen] = useState(false);
   const [shadeProgress, setShadeProgress] = useState(() => (isDark ? 1 : 0));
 
   // Sync theme attribute with DOM
@@ -119,7 +121,10 @@ export default function App() {
         <PublicProjectsSection />
 
         {/* Open Source & Systems Research */}
-        <ProjectList onOpenOpenGym={() => setIsOpenGymOpen(true)} />
+        <ProjectList
+          onOpenOpenGym={() => setIsOpenGymOpen(true)}
+          onOpenPsikotest={() => setIsPsikotestOpen(true)}
+        />
 
         {/* In-Flight Magazine & Technical Essays */}
         <InFlightMagazine onOpenArticle={(article) => setActiveArticle(article)} />
@@ -146,10 +151,17 @@ export default function App() {
         onClose={() => setIsOpenGymOpen(false)}
       />
 
+      {/* Psikotest Bank Interactive In-App Simulator Modal */}
+      <PsikotestModal
+        isOpen={isPsikotestOpen}
+        onClose={() => setIsPsikotestOpen(false)}
+      />
+
       {/* Floating Progressive Multi-Blur Dock */}
       <ProgressiveBlurDock
         onResetGate={handleResetGate}
         onOpenOpenGym={() => setIsOpenGymOpen(true)}
+        onOpenPsikotest={() => setIsPsikotestOpen(true)}
         isDark={isDark}
         onToggleTheme={() => setIsDark((prev) => !prev)}
       />
