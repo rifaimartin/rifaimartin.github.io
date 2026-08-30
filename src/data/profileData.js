@@ -488,6 +488,43 @@ Momen-momen seperti ini yang memperkaya jam terbang, memperluas wawasan teknis, 
     }
   ],
 
+  publicProjects: [
+    {
+      id: "potretin",
+      title: "Potretin — Indonesia's Premier Photography Marketplace",
+      category: "Digital Marketplace & Media Licensing",
+      url: "https://potretin.com/",
+      domain: "potretin.com",
+      status: "Production Live",
+      badgeColor: "#2563eb",
+      tagline: "Marketplace Foto Terbaik Indonesia — Jual & Beli Foto Berkualitas Tinggi dari Fotografer Profesional",
+      desc: "Fullstack digital photography marketplace connecting curated professional photographers with commercial and editorial buyers across Indonesia. Engineered with Next.js App Router, responsive galleries, instant category filtering, secure digital asset storage, multi-tier photo licensing, and automated payment gateway processing for direct instant downloads.",
+      highlights: [
+        "Modern Fullstack Architecture: Engineered high-performance responsive web application using Next.js App Router, React, TypeScript, and Radix UI components.",
+        "Digital Asset & Licensing Engine: Built protected media storage, automated preview watermarking, tiered commercial licensing, and instant download fulfillment.",
+        "Payment Gateway Integration: Integrated automated payment processing supporting multi-channel checkout (QRIS, e-Wallets, Virtual Accounts) with instant license delivery."
+      ],
+      tech: ["Next.js (App Router)", "React", "TypeScript", "Tailwind CSS", "Cloud Storage", "Payment Gateway", "Radix UI", "Digital Licensing"]
+    },
+    {
+      id: "alamnatura",
+      title: "AlamNatura — Premium Sustainable Products & Botanical Export",
+      category: "International E-Commerce & Export Logistics",
+      url: "https://alamnatura.com/",
+      domain: "alamnatura.com",
+      status: "Production Live",
+      badgeColor: "#16a34a",
+      tagline: "Global Marketplace for Premium Sustainable Goods & Direct-from-Origin Indonesian Plants",
+      desc: "International botanical & eco-friendly e-commerce platform connecting Indonesian artisan growers with collectors worldwide. Features group delivery logistics programs with automated export paperwork, phytosanitary certificate handling, multi-currency pricing, and secure global payment rails (Visa, Mastercard, PayPal).",
+      highlights: [
+        "Global Export & Logistics Workflow: Architected specialized group delivery logistics engine, handling automated export clearance, phytosanitary documentation, and international parcel tracking.",
+        "High-Performance E-Commerce Experience: Developed ultra-fast storefront with Next.js App Router, Turbopack, dynamic category indexing (Monstera, Philodendron, Anthurium, Hoya), and multi-currency checkout.",
+        "Wholesale & Retail Architecture: Engineered flexible purchasing tiers supporting single-item retail purchases with zero minimum order and high-volume wholesale export orders."
+      ],
+      tech: ["Next.js (App Router)", "React 19", "Tailwind CSS", "Turbopack", "Export Logistics", "International Payments", "Global E-Commerce"]
+    }
+  ],
+
   memories: [
     {
       title: "BCA Digital Squad Lead",

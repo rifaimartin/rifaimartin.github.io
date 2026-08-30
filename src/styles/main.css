@@ -876,3 +876,15 @@ button {
     height: 32px;
   }
 }
+
+/* Public Projects & Web Productions Cards */
+.public-project-card {
+  transition: transform 0.25s var(--ease-out), border-color 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
+}
+
+.public-project-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(44, 111, 255, 0.4) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) !important;
+}
+

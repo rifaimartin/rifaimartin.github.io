@@ -78,18 +78,6 @@ export default function ProjectList({ onOpenOpenGym }) {
                       <ExternalLink size={12} />
                       <span>Full Tab</span>
                     </a>
-                    {proj.sourceRepo && (
-                      <a
-                        href={proj.sourceRepo}
-                        target="_blank"
-                        rel="noreferrer noopener"
-                        className="p-btn-secondary"
-                        onClick={() => soundFx.playCardClick()}
-                      >
-                        <ExternalLink size={12} />
-                        <span>Source Code</span>
-                      </a>
-                    )}
                   </div>
                 ) : (
                   <div className="p-actions">

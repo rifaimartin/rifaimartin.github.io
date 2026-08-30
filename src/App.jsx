@@ -3,6 +3,7 @@ import confetti from 'canvas-confetti';
 import HeaderIntro from './components/layout/HeaderIntro';
 import FlightTimeline from './components/layout/FlightTimeline';
 import EducationSection from './components/layout/EducationSection';
+import PublicProjectsSection from './components/layout/PublicProjectsSection';
 import ProjectList from './components/layout/ProjectList';
 import InFlightMagazine from './components/layout/InFlightMagazine';
 import ArticleModal from './components/layout/ArticleModal';
@@ -113,6 +114,9 @@ export default function App() {
 
         {/* Flight Academy & Academic Foundations */}
         <EducationSection />
+
+        {/* Public Ventures & Web Productions (Potretin & AlamNatura) */}
+        <PublicProjectsSection />
 
         {/* Open Source & Systems Research */}
         <ProjectList onOpenOpenGym={() => setIsOpenGymOpen(true)} />

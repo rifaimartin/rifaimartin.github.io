@@ -172,9 +172,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--surface-card);
-  border: 1.5px solid var(--card-border);
-  box-shadow: 0 2px 8px rgba(var(--shadow-rgb), 0.08);
+  background: #ffffff !important;
+  border: 1.5px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
   padding: 3px;
 }
 
