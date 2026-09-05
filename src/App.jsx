@@ -9,6 +9,7 @@ import InFlightMagazine from './components/layout/InFlightMagazine';
 import ArticleModal from './components/layout/ArticleModal';
 import OpenGymModal from './components/layout/OpenGymModal';
 import PsikotestModal from './components/layout/PsikotestModal';
+import TpdBiModal from './components/layout/TpdBiModal';
 import MemoriesPolaroid from './components/layout/MemoriesPolaroid';
 import ProgressiveBlurDock from './components/layout/ProgressiveBlurDock';
 import CaseStudyModal from './components/layout/CaseStudyModal';
@@ -33,6 +34,7 @@ export default function App() {
   const [activeArticle, setActiveArticle] = useState(null);
   const [isOpenGymOpen, setIsOpenGymOpen] = useState(false);
   const [isPsikotestOpen, setIsPsikotestOpen] = useState(false);
+  const [isTpdBiOpen, setIsTpdBiOpen] = useState(false);
   const [shadeProgress, setShadeProgress] = useState(() => (isDark ? 1 : 0));
 
   // Sync theme attribute with DOM
@@ -124,6 +126,7 @@ export default function App() {
         <ProjectList
           onOpenOpenGym={() => setIsOpenGymOpen(true)}
           onOpenPsikotest={() => setIsPsikotestOpen(true)}
+          onOpenTpdBi={() => setIsTpdBiOpen(true)}
         />
 
         {/* In-Flight Magazine & Technical Essays */}
@@ -157,11 +160,18 @@ export default function App() {
         onClose={() => setIsPsikotestOpen(false)}
       />
 
+      {/* TPD Bank Indonesia Interactive In-App Simulator Modal */}
+      <TpdBiModal
+        isOpen={isTpdBiOpen}
+        onClose={() => setIsTpdBiOpen(false)}
+      />
+
       {/* Floating Progressive Multi-Blur Dock */}
       <ProgressiveBlurDock
         onResetGate={handleResetGate}
         onOpenOpenGym={() => setIsOpenGymOpen(true)}
         onOpenPsikotest={() => setIsPsikotestOpen(true)}
+        onOpenTpdBi={() => setIsTpdBiOpen(true)}
         isDark={isDark}
         onToggleTheme={() => setIsDark((prev) => !prev)}
       />

@@ -253,6 +253,19 @@ export const profileData = {
       featured: true
     },
     {
+      id: "tpd-bi",
+      title: "TPD Bank Indonesia — PCPM Experd Assessment Simulator",
+      category: "Central Bank Interactive Assessment & Profiling",
+      desc: "Simulasi & Profiling Tes Potensi Dasar (TPD) PCPM Bank Indonesia standar Experd 2026. Lengkap dengan 5 subtes (Verbal Analogi & Bahasa Buatan, Numerik Deret/Aritmetika, Diagrammatic Figural, Digit Symbol Kecermatan, dan POF Sikap Kerja), countdown timer 40 menit, auto-scoring, serta diagnosis preskripsi kilat.",
+      repo: "./tpd-bi/",
+      isInteractiveApp: true,
+      isLocalRoute: true,
+      demoUrl: "./tpd-bi/",
+      tech: ["Interactive In-App", "Bank Indonesia PCPM", "Standar Experd", "Timer Engine", "Radar Profiling"],
+      stars: "In-App App",
+      featured: true
+    },
+    {
       id: "opengym",
       title: "openGym — Self-Hosted Fitness & Workout Tracker",
       category: "Fullstack PWA & Distributed Sync",

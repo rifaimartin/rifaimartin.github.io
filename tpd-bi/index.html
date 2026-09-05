@@ -1,0 +1,1744 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+  <title>Simulasi & Profiling TPD PCPM Bank Indonesia - Standar Experd</title>
+  <style>
+    :root {
+      --primary: #002d62;
+      --primary-light: #0d47a1;
+      --secondary: #059669;
+      --accent: #f59e0b;
+      --danger: #dc2626;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+    body {
+      font-family: var(--font-family);
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.5;
+      padding-bottom: calc(60px + env(safe-area-inset-bottom, 16px));
+      touch-action: manipulation;
+    }
+
+    header {
+      background: linear-gradient(135deg, #001f3f 0%, #002d62 100%);
+      color: white;
+      padding: 16px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    }
+
+    .header-container {
+      max-width: 1060px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .logo-area { display: flex; align-items: center; gap: 12px; }
+
+    .badge-bi {
+      background: #fbbf24;
+      color: #002d62;
+      font-weight: 800;
+      font-size: 11px;
+      padding: 4px 9px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    .title-area h1 { font-size: 1.15rem; font-weight: 700; letter-spacing: -0.02em; }
+    .title-area p { font-size: 0.8rem; color: #94a3b8; }
+
+    .header-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+
+    .timer-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .timer-badge.warning {
+      background: #dc2626;
+      border-color: #ef4444;
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    /* FILTER BAR */
+    .filter-bar {
+      max-width: 1060px;
+      margin: 16px auto 0;
+      padding: 0 16px;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+    }
+
+    .filter-btn {
+      padding: 6px 14px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s;
+    }
+
+    .filter-btn:hover { background: #f1f5f9; color: var(--text-main); }
+    .filter-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+    main {
+      max-width: 1060px;
+      margin: 16px auto;
+      padding: 0 16px;
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 20px;
+    }
+
+    @media (max-width: 880px) {
+      main { grid-template-columns: 1fr; margin: 12px auto; padding: 0 12px; }
+      .grid-nav { grid-template-columns: repeat(8, 1fr) !important; max-height: 200px; }
+    }
+
+    @media (max-width: 640px) {
+      header { padding: 12px 14px; }
+      .header-container { flex-direction: column; align-items: stretch; gap: 10px; }
+      .logo-area { justify-content: space-between; }
+      .header-actions { justify-content: space-between; width: 100%; }
+      .timer-badge { font-size: 0.95rem; padding: 5px 12px; }
+      .quiz-card { padding: 16px 14px; }
+      .question-title { font-size: 0.98rem; }
+      .option-btn { min-height: 48px; padding: 10px 12px; font-size: 0.9rem; }
+      .option-btn:active { transform: scale(0.98); background: #e2e8f0; }
+      .action-row { flex-direction: column; gap: 10px; }
+      .action-row .btn { width: 100%; justify-content: center; }
+      .modal-card { padding: 20px 14px; }
+      .score-banner { gap: 14px; padding: 12px; }
+      .score-circle { width: 80px; height: 80px; }
+      .score-number { font-size: 1.5rem; }
+      .grid-nav { grid-template-columns: repeat(6, 1fr) !important; }
+    }
+
+    .quiz-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+    }
+
+    .category-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      background: #e0f2fe;
+      color: #0369a1;
+    }
+
+    .progress-text { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
+
+    .question-box { margin-bottom: 24px; }
+
+    .question-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 16px;
+      line-height: 1.6;
+      white-space: pre-line;
+    }
+
+    /* WIDGET DIGIT SYMBOL */
+    .symbol-key-box {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-bottom: 18px;
+    }
+
+    .symbol-key-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #475569;
+      margin-bottom: 8px;
+    }
+
+    .symbol-grid {
+      display: grid;
+      grid-template-columns: repeat(9, 1fr);
+      gap: 6px;
+      text-align: center;
+    }
+
+    @media (max-width: 500px) {
+      .symbol-grid { grid-template-columns: repeat(5, 1fr); }
+    }
+
+    .symbol-pair {
+      border: 1px solid #cbd5e1;
+      background: white;
+      border-radius: 6px;
+      padding: 4px 2px;
+    }
+
+    .symbol-glyph { font-size: 1.1rem; font-weight: bold; color: #002d62; }
+    .symbol-digit {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #64748b;
+      border-top: 1px solid #e2e8f0;
+      margin-top: 2px;
+      padding-top: 2px;
+    }
+
+    .visual-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 16px 0;
+      background: #f8fafc;
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px dashed #cbd5e1;
+    }
+
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .option-btn {
+      background: #f8fafc;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 0.95rem;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      transition: all 0.2s ease;
+      color: var(--text-main);
+      width: 100%;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+      transform: translateY(-1px);
+    }
+
+    .option-key {
+      font-weight: 700;
+      background: #e2e8f0;
+      color: #334155;
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.85rem;
+    }
+
+    .option-btn.correct {
+      border-color: var(--secondary) !important;
+      background: #ecfdf5 !important;
+      color: #065f46 !important;
+    }
+
+    .option-btn.correct .option-key { background: var(--secondary); color: white; }
+
+    .option-btn.wrong {
+      border-color: var(--danger) !important;
+      background: #fef2f2 !important;
+      color: #991b1b !important;
+    }
+
+    .option-btn.wrong .option-key { background: var(--danger); color: white; }
+
+    /* TRIK & PEMBAHASAN */
+    .feedback-panel {
+      margin-top: 20px;
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .trick-box {
+      background: #fffbeb;
+      border: 1.5px solid #fde68a;
+      border-left: 5px solid #f59e0b;
+      padding: 14px 16px;
+      border-radius: 8px;
+      margin-bottom: 14px;
+    }
+
+    .trick-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 800;
+      color: #92400e;
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .trick-content { font-size: 0.92rem; color: #78350f; line-height: 1.55; white-space: pre-line; }
+
+    .explanation-box {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-left: 5px solid var(--primary-light);
+      padding: 14px 16px;
+      border-radius: 8px;
+    }
+
+    .explanation-header { font-weight: 700; color: var(--primary); font-size: 0.9rem; margin-bottom: 6px; }
+    .explanation-content { font-size: 0.9rem; color: #334155; line-height: 1.55; white-space: pre-line; }
+
+    /* NAV BUTTONS */
+    .action-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 24px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--primary-light); }
+    .btn-success { background: var(--secondary); color: white; }
+    .btn-success:hover { background: #047857; }
+    .btn-secondary { background: #f1f5f9; color: #475569; border: 1px solid var(--border); }
+    .btn-secondary:hover { background: #e2e8f0; }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* SIDEBAR */
+    .sidebar { display: flex; flex-direction: column; gap: 16px; }
+
+    .side-card {
+      background: white;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .side-card h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text-main);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .grid-nav {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      max-height: 280px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .grid-btn {
+      aspect-ratio: 1;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+
+    .grid-btn.current { border-color: var(--primary); background: var(--primary); color: white; }
+    .grid-btn.done { background: #ecfdf5; border-color: var(--secondary); color: var(--secondary); }
+    .grid-btn.done-wrong { background: #fef2f2; border-color: var(--danger); color: var(--danger); }
+
+    .cheat-pill {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 8px;
+      font-size: 0.8rem;
+    }
+
+    .cheat-pill strong { display: block; color: #1e40af; margin-bottom: 2px; font-size: 0.85rem; }
+
+    /* ========================================================
+       MODAL DIAGNOSIS & PROFILING KANDIDAT LENGKAP
+       ======================================================== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 16px;
+      overflow-y: auto;
+    }
+
+    .modal-card {
+      background: white;
+      border-radius: 16px;
+      max-width: 720px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 28px;
+      box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.2);
+    }
+
+    .profile-header {
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 18px;
+      margin-bottom: 20px;
+    }
+
+    .profile-header h2 { font-size: 1.4rem; color: var(--primary); font-weight: 800; }
+    .profile-header p { font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; }
+
+    .score-banner {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 24px;
+      margin: 16px 0;
+      background: #f8fafc;
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+
+    .score-circle {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      background: #eff6ff;
+      border: 5px solid var(--primary);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .score-number { font-size: 1.8rem; font-weight: 800; color: var(--primary); line-height: 1; }
+    .score-total { font-size: 0.75rem; color: var(--text-muted); }
+
+    .score-info { text-align: left; }
+    .score-badge {
+      display: inline-block;
+      font-weight: 800;
+      padding: 5px 12px;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      margin-bottom: 6px;
+    }
+
+    /* PROFILING CARDS (KELEMAHAN & KEKUATAN) */
+    .profile-section { margin-bottom: 20px; text-align: left; }
+    .profile-section-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .subtest-bars { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+    .subtest-row {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      border-radius: 8px;
+    }
+    .subtest-row-top { display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; }
+    .progress-track {
+      background: #e2e8f0;
+      height: 8px;
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+    .progress-fill { height: 100%; border-radius: 9999px; transition: width 0.5s ease; }
+
+    /* CARD KELEMAHAN / BLINDSPOT */
+    .weakness-card {
+      background: #fef2f2;
+      border: 1.5px solid #fca5a5;
+      border-left: 5px solid #ef4444;
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-bottom: 12px;
+    }
+    .weakness-card h4 { color: #991b1b; font-size: 0.88rem; font-weight: 800; margin-bottom: 4px; }
+    .weakness-card p { font-size: 0.83rem; color: #7f1d1d; line-height: 1.45; }
+
+    /* CARD KEKUATAN */
+    .strength-card {
+      background: #ecfdf5;
+      border: 1.5px solid #a7f3d0;
+      border-left: 5px solid #10b981;
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-bottom: 12px;
+    }
+    .strength-card h4 { color: #065f46; font-size: 0.88rem; font-weight: 800; margin-bottom: 4px; }
+    .strength-card p { font-size: 0.83rem; color: #047857; line-height: 1.45; }
+
+    .wrong-review-list {
+      max-height: 160px;
+      overflow-y: auto;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px;
+      background: #f8fafc;
+      font-size: 0.8rem;
+    }
+
+    .wrong-item {
+      padding: 6px 8px;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .wrong-item:last-child { border-bottom: none; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-container">
+      <div class="logo-area">
+        <span class="badge-bi">PCPM BI 39/40</span>
+        <div class="title-area">
+          <h1>Simulasi & Profiling Lengkap TPD Experd</h1>
+          <p>40 Soal Komprehensif • Analisis Kelemahan & Rekomendasi Kilat</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div class="timer-badge" id="timer">⏳ 40:00</div>
+        <button class="btn btn-secondary" onclick="openBriefingModal()" style="font-size: 0.8rem; padding: 6px 12px;">🎯 Arahan & Mindset</button>
+        <button class="btn btn-success" onclick="openProfilingModal()" style="font-size: 0.8rem; padding: 6px 12px;">📊 Cek Profiling Saya</button>
+        <button class="btn btn-secondary" onclick="toggleCheatSheet()" style="font-size: 0.8rem; padding: 6px 12px;">📖 Rumus Cepat</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- FILTER KATEGORI -->
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterCategory('ALL')">Semua Subtes (40 Soal)</button>
+    <button class="filter-btn" onclick="filterCategory('Verbal')">1. Verbal & Bahasa Buatan (8 Soal)</button>
+    <button class="filter-btn" onclick="filterCategory('Numerik')">2. Numerik & Aritmatika (10 Soal)</button>
+    <button class="filter-btn" onclick="filterCategory('Diagrammatic')">3. Diagrammatic Figural (8 Soal)</button>
+    <button class="filter-btn" onclick="filterCategory('Digit Symbol')">4. Digit Symbol & Kecermatan (8 Soal)</button>
+    <button class="filter-btn" onclick="filterCategory('POF')">5. POF & Sikap Kerja BI (6 Soal)</button>
+  </div>
+
+  <main>
+    <!-- AREA SOAL UTAMA -->
+    <div class="quiz-card">
+      <div class="card-top">
+        <span class="category-tag" id="q-category">Kategori</span>
+        <span class="progress-text" id="q-progress">Soal 1 dari 40</span>
+      </div>
+
+      <!-- KOTAK KUNCI SIMBOL (MUNCUL OTOMATIS KHUSUS DIGIT SYMBOL) -->
+      <div class="symbol-key-box" id="symbol-legend" style="display: none;">
+        <div class="symbol-key-title">🔑 Kunci Sandi Simbol - Angka (Digit Symbol Key Experd):</div>
+        <div class="symbol-grid">
+          <div class="symbol-pair"><div class="symbol-glyph">★</div><div class="symbol-digit">1</div></div>
+          <div class="symbol-pair"><div class="symbol-glyph">▲</div><div class="symbol-digit">2</div></div>
+          <div class="symbol-pair"><div class="symbol-glyph">◆</div><div class="symbol-digit">3</div></div>
+          <div class="symbol-pair"><div class="symbol-glyph">✦</div><div class="symbol-digit">4</div></div>
+          <div class="symbol-pair"><div class="symbol-glyph">⬟</div><div class="symbol-digit">5</div></div>
+          <div class="symbol-pair"><div class="symbol-glyph">✖</div><div class="symbol-digit">6</div></div>
+          <div class="symbol-pair"><div class="symbol-glyph">⬤</div><div class="symbol-digit">7</div></div>
+          <div class="symbol-pair"><div class="symbol-glyph">✚</div><div class="symbol-digit">8</div></div>
+          <div class="symbol-pair"><div class="symbol-glyph">☁</div><div class="symbol-digit">9</div></div>
+        </div>
+      </div>
+
+      <div class="question-box">
+        <div class="question-title" id="q-text">Pertanyaan dimuat...</div>
+        <div class="visual-container" id="q-visual" style="display: none;"></div>
+      </div>
+
+      <div class="options-list" id="options-container">
+        <!-- Opsi jawaban dimuat lewat JS -->
+      </div>
+
+      <!-- PANEL TRIK & PEMBAHASAN -->
+      <div class="feedback-panel" id="feedback-panel">
+        <div class="trick-box">
+          <div class="trick-header">⚡ Trik Kilat (&lt;30 Detik)</div>
+          <div class="trick-content" id="trick-text">-</div>
+        </div>
+
+        <div class="explanation-box">
+          <div class="explanation-header">💡 Pembahasan & Rasional Logika</div>
+          <div class="explanation-content" id="explanation-text">-</div>
+        </div>
+      </div>
+
+      <div class="action-row">
+        <button class="btn btn-secondary" id="btn-prev" onclick="prevQuestion()" disabled>← Soal Sebelumnya</button>
+        <button class="btn btn-primary" id="btn-next" onclick="nextQuestion()">Soal Berikutnya →</button>
+      </div>
+    </div>
+
+    <!-- SIDEBAR NAVIGASI & CHEAT SHEET -->
+    <div class="sidebar">
+      <div class="side-card">
+        <h3>Daftar Soal <span style="font-size: 0.8rem; font-weight: 500; color: var(--text-muted);" id="answered-count">0/40 Terjawab</span></h3>
+        <div class="grid-nav" id="grid-nav"></div>
+      </div>
+
+      <div class="side-card" id="cheat-card">
+        <h3>⚡ Golden Rules FR PCPM BI</h3>
+        <div class="cheat-pill">
+          <strong>1. Digit Symbol (Paling Menyita Waktu)</strong>
+          Cocokkan digit paling kiri dan paling kanan dulu. Cukup scan bola mata tanpa mengarahkan jari ke layar.
+        </div>
+        <div class="cheat-pill">
+          <strong>2. Bahasa Buatan (Experd)</strong>
+          Cari 2 kata dengan morfem sama, eliminasi opsi yang tidak mengandung morfem tersebut.
+        </div>
+        <div class="cheat-pill">
+          <strong>3. Person-Job Fit (POF) BI</strong>
+          Pilih opsi dengan Integritas Mutlak, Anti-Gratifikasi, dan Kerjasama Tim. Hindari opsi yang membenarkan kecurangan kecil.
+        </div>
+        <div class="cheat-pill">
+          <strong>4. Cermin vs Air</strong>
+          Cermin (Sumbu Y Tegak) = Kiri-Kanan balik. Air (Sumbu X Datar) = Atas-Bawah balik.
+        </div>
+        <div class="cheat-pill">
+          <strong>5. KABATAKU & Geser Koma</strong>
+          Bagi desimal senama terlebih dahulu agar menjadi bilangan bulat sederhana.
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ========================================================
+       MODAL DISCLAIMER & BRIEFING STRATEGIS SEBELUM MULAI
+       ======================================================== -->
+  <div class="modal-overlay" id="briefing-modal" style="display: flex;">
+    <div class="modal-card" style="max-width: 760px; text-align: left;">
+      <div style="text-align: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 16px; margin-bottom: 20px;">
+        <span style="background: #fbbf24; color: #002d62; font-weight: 800; font-size: 11px; padding: 4px 10px; border-radius: 4px; letter-spacing: 0.5px;">PCPM BANK INDONESIA • EXPERD PREP</span>
+        <h2 style="color: #002d62; font-size: 1.35rem; font-weight: 800; margin-top: 8px;">🎯 Briefing Strategis & Mindset Sukses TPD</h2>
+        <p style="font-size: 0.85rem; color: #64748b;">Wajib diresapi sebelum menekan tombol mulai agar Anda tenang dan fokus penuh!</p>
+      </div>
+
+      <!-- 1. MINDSET PEMENANG -->
+      <div style="background: #eff6ff; border-left: 5px solid #2563eb; border-radius: 8px; padding: 14px 18px; margin-bottom: 14px;">
+        <h4 style="color: #1e40af; font-size: 0.95rem; font-weight: 800; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+          🧠 1. Mindset Pemenang: Bukan Mencari Sempurna, tapi Efisiensi Waktu!
+        </h4>
+        <ul style="font-size: 0.84rem; color: #1e3a8a; line-height: 1.55; margin-left: 18px;">
+          <li><strong>Tes ini didesain 'Over-Capacity':</strong> Jumlah soal banyak dan waktu yang sangat ketat sengaja dirancang untuk menguji ketahanan mental di bawah tekanan (*stress resilience*). Jangan terbebani harus benar 100%.</li>
+          <li><strong>Hukum 30 Detik (Relakan & Tembak):</strong> Jika dalam 30–40 detik Anda belum menemukan pola deret atau logika gambar, <em>eliminasi 2 opsi yang mustahil, pilih 1 opsi terbaik, lalu langsung NEXT</em>. Menghabiskan 2 menit di 1 soal sulit akan membuang peluang menjawab 3 soal mudah di belakang!</li>
+          <li><strong>Hapus Kata 'Sulit':</strong> Mengatakan "soal ini susah" di dalam hati memicu kepanikan dan memperlambat respon analisis otak. Ganti dengan: <em>"Polanya pasti ada, saya temukan petunjuk kuncinya sekarang."</em></li>
+        </ul>
+      </div>
+
+      <!-- 2. ATURAN KRUSIAL SISTEM EXPERD -->
+      <div style="background: #fffbeb; border-left: 5px solid #f59e0b; border-radius: 8px; padding: 14px 18px; margin-bottom: 14px;">
+        <h4 style="color: #92400e; font-size: 0.95rem; font-weight: 800; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+          ⚠️ 2. Aturan Krusial Sistem Ujian Online Experd
+        </h4>
+        <ul style="font-size: 0.84rem; color: #78350f; line-height: 1.55; margin-left: 18px;">
+          <li><strong>Timer per Subtes (Auto-Submit):</strong> Tiap subtes memiliki waktu mundur sendiri. Jika waktu habis, sistem otomatis mengunci dan berpindah ke subtes berikutnya (tidak bisa kembali).</li>
+          <li><strong>Jangan Biarkan Jawaban Kosong:</strong> Umumnya TPD tidak memakai sistem minus. Jika tersisa 30 detik terakhir dan masih ada soal kosong, segera klik opsi terbaik sebelum waktu habis.</li>
+          <li><strong>Proctoring & Gerakan Tubuh:</strong> Webcam aktif merekam. Jangan mengarahkan jari menunjuk layar monitor (terutama saat tes Digit Symbol), jangan menoleh berulang kali, dan jangan switch tab/jendela.</li>
+        </ul>
+      </div>
+
+      <!-- 3. SENJATA TRIK KILAT PER SUBTES -->
+      <div style="background: #ecfdf5; border-left: 5px solid #10b981; border-radius: 8px; padding: 14px 18px; margin-bottom: 18px;">
+        <h4 style="color: #065f46; font-size: 0.95rem; font-weight: 800; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+          ⚡ 3. Ringkasan Senjata Trik Kilat (<30 Detik)
+        </h4>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 0.82rem; color: #047857; margin-top: 6px;">
+          <div style="background: white; padding: 8px 10px; border-radius: 6px; border: 1px solid #a7f3d0;">
+            <strong>Verbal & Sandi:</strong> Jembatan kalimat (Profesi : Hasil). Bahasa Buatan: cari kata kembar di 2 baris lalu eliminasi opsi!
+          </div>
+          <div style="background: white; padding: 8px 10px; border-radius: 6px; border: 1px solid #a7f3d0;">
+            <strong>Numerik:</strong> Geser koma desimal, deret lompat (pisahkan ganjil/genap), pecahan istimewa (37,5% = 3/8).
+          </div>
+          <div style="background: white; padding: 8px 10px; border-radius: 6px; border: 1px solid #a7f3d0;">
+            <strong>Figural:</strong> Cermin vertikal = kiri-kanan balik. Air mendatar = atas-bawah balik. Matriks = cek baris/kolom.
+          </div>
+          <div style="background: white; padding: 8px 10px; border-radius: 6px; border: 1px solid #a7f3d0;">
+            <strong>Digit Symbol & POF:</strong> Scan ujung karakter (waspada O vs 0). POF: Integritas mutlak, anti-gratifikasi, kerja tim!
+          </div>
+        </div>
+      </div>
+
+      <!-- CHECKBOX & ACTION -->
+      <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; border: 1px solid #cbd5e1; margin-bottom: 18px; display: flex; align-items: center; gap: 10px;">
+        <input type="checkbox" id="briefing-check" checked style="width: 18px; height: 18px; cursor: pointer;" />
+        <label for="briefing-check" style="font-size: 0.84rem; font-weight: 600; color: #334155; cursor: pointer;">
+          Saya telah meresapi arahan di atas, siap menjaga ketenangan emosi, dan fokus mengeksekusi trik kilat.
+        </label>
+      </div>
+
+      <button class="btn btn-primary" onclick="startExamFromBriefing()" style="width: 100%; justify-content: center; padding: 14px; font-size: 1rem; font-weight: 800; background: #002d62; border-radius: 10px;">
+        🚀 SAYA SIAP TEMPUR - MULAI SIMULASI TES
+      </button>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       MODAL DIAGNOSIS KANDIDAT & PROFILING LENGKAP
+       ======================================================== -->
+  <div class="modal-overlay" id="result-modal">
+    <div class="modal-card">
+      <div class="profile-header">
+        <h2>📊 Laporan Profiling & Diagnosis Kandidat</h2>
+        <p>Evaluasi Kemampuan Kognitif & Person-Job Fit PCPM Bank Indonesia</p>
+      </div>
+
+      <div class="score-banner">
+        <div class="score-circle">
+          <div class="score-number" id="final-score">0</div>
+          <div class="score-total">/ 100 Poin</div>
+        </div>
+        <div class="score-info">
+          <div id="status-badge" class="score-badge">STATUS EVALUASI</div>
+          <div style="font-size: 0.85rem; color: var(--text-muted);" id="progress-summary">Soal Dijawab: 0 dari 40</div>
+          <div style="font-size: 0.85rem; color: var(--text-muted);" id="time-spent-summary">Kecepatan Rata-rata: ~35 detik/soal</div>
+        </div>
+      </div>
+
+      <!-- RADAR KOMPETENSI / SUBTEST PROFICIENCY -->
+      <div class="profile-section">
+        <div class="profile-section-title">🎯 Skor Akurasi per Kompetensi Subtes</div>
+        <div class="subtest-bars" id="subtest-bars-container">
+          <!-- Di-generate lewat JS -->
+        </div>
+      </div>
+
+      <!-- ANALISIS KELEMAHAN & TITIK KRITIS -->
+      <div class="profile-section">
+        <div class="profile-section-title">⚠️ Diagnosis Titik Lemah & Blindspot Anda</div>
+        <div id="weakness-container">
+          <!-- Rekomendasi kelemahan spesifik -->
+        </div>
+      </div>
+
+      <!-- KEKUATAN UTAMA -->
+      <div class="profile-section">
+        <div class="profile-section-title">🌟 Kekuatan Utama Anda (Keunggulan Kompetitif)</div>
+        <div id="strength-container">
+          <!-- Kekuatan spesifik -->
+        </div>
+      </div>
+
+      <!-- DAFTAR SOAL YANG SALAH UNTUK DIREVIEW -->
+      <div class="profile-section" id="wrong-section" style="display:none;">
+        <div class="profile-section-title">🔍 Soal yang Terjawab Keliru (Klik untuk Review Trik)</div>
+        <div class="wrong-review-list" id="wrong-items-list"></div>
+      </div>
+
+      <div style="display: flex; gap: 12px; margin-top: 24px;">
+        <button class="btn btn-secondary" onclick="closeProfilingModal()" style="flex: 1; justify-content: center;">Tutup & Lanjut Latihan</button>
+        <button class="btn btn-primary" onclick="restartQuiz()" style="flex: 1; justify-content: center;">Ulangi Tes dari Awal</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ==========================================================
+    // BANK SOAL TPD PCPM BI (40 SOAL HIGH-YIELD KOMPREHENSIF)
+    // ==========================================================
+    const allQuestions = [
+      // --- SUBTES 1: VERBAL & BAHASA BUATAN (8 SOAL) ---
+      {
+        id: 1,
+        category: "Verbal",
+        subCategory: "Analogi Kata (Profesi : Hasil)",
+        question: "APOTEKER : OBAT = ...",
+        options: ["Pesawat : Pilot", "Koki : Masakan", "Montir : Obeng", "Penyair : Puisi", "Masinis : Kereta Api"],
+        correct: 1,
+        trick: "Jembatan Kalimat: 'Apoteker meracik produk berupa obat'. Cari pasangan Profesi : Produk buatan. Koki meracik masakan.",
+        explanation: "Hubungan fungsional asosiatif antara pelaku profesi dan benda yang diracik/dihasilkan."
+      },
+      {
+        id: 2,
+        category: "Verbal",
+        subCategory: "Analogi Kata (Tingkat Intensitas)",
+        question: "HANGAT : PANAS = ...",
+        options: ["Sejuk : Dingin", "Terang : Gelap", "Lari : Jalan", "Makan : Kenyang", "Basah : Lembab"],
+        correct: 0,
+        trick: "Jembatan Kalimat: 'Hangat adalah tingkatan intensitas lebih rendah dari Panas'. Pola yang sama: 'Sejuk adalah tingkatan lebih rendah dari Dingin'.",
+        explanation: "Hubungan derajat tingkatan suhu: Hangat -> Panas setara dengan Sejuk -> Dingin."
+      },
+      {
+        id: 3,
+        category: "Verbal",
+        subCategory: "Sinonim Istilah Finansial / Formal",
+        question: "EVOKASI = ...",
+        options: ["Pengungsian", "Penggugah rasa", "Penilaian berkala", "Pencegahan dini", "Penyelamatan"],
+        correct: 1,
+        trick: "Konteks Kalimat: Jangan terkecoh dengan 'Evakuasi'. Evokasi berasal dari kata 'evoke', yaitu daya untuk menggugah kenangan atau perasaan.",
+        explanation: "KBBI: Evokasi adalah daya (daya penggugah) yang menumbuhkan kenangan atau membangkitkan emosi."
+      },
+      {
+        id: 4,
+        category: "Verbal",
+        subCategory: "Antonim Kata Formal",
+        question: "SPORADIS >< ...",
+        options: ["Jarang", "Berpindah-pindah", "Kerap / Berkelanjutan", "Terisolasi", "Menyebar"],
+        correct: 2,
+        trick: "Lawan Kata: Sporadis artinya kadang-kadang atau jarang. Lawan katanya adalah kerap, rutin, atau berkelanjutan.",
+        explanation: "Sporadis bermakna keadaan yang timbul tidak tentu dan jarang. Lawan katanya adalah berkelanjutan/kerap."
+      },
+      {
+        id: 5,
+        category: "Verbal",
+        subCategory: "Bahasa Buatan (Experd Morfem)",
+        question: "Perhatikan terjemahan bahasa buatan berikut:\n• 'morpirter' berarti 'burung biru'\n• 'slorpirter' berarti 'burung merah'\n• 'slorvanti' berarti 'apel merah'\n\nBerdasarkan pola di atas, kata apakah yang berarti 'apel biru'?",
+        options: ["morvanti", "vantimor", "pirtervanti", "slormor", "vantipirter"],
+        correct: 0,
+        trick: "Cari Morfem Sama: 'pirter' = burung, 'slor' = merah, 'mor' = biru, 'vanti' = apel. Awalan sifat di depan -> apel biru = morvanti.",
+        explanation: "Struktur: kata sifat di awal (mor = biru, slor = merah), kata benda di akhir (pirter = burung, vanti = apel)."
+      },
+      {
+        id: 6,
+        category: "Verbal",
+        subCategory: "Bahasa Buatan (Experd Objek)",
+        question: "Perhatikan pola bahasa buatan berikut:\n• 'drelkatu' berarti 'rumah kayu'\n• 'morkatu' berarti 'rumah batu'\n• 'drelpanto' berarti 'kursi kayu'\n\nManakah yang berarti 'kursi batu'?",
+        options: ["kantodrel", "morpanto", "pantomor", "katupanto", "drelmor"],
+        correct: 1,
+        trick: "Eliminasi Cepat: katu = rumah, drel = kayu, mor = batu, panto = kursi. Kursi batu = mor (batu) + panto (kursi) = morpanto.",
+        explanation: "Kata sifat (mor) + kata benda (panto) = morpanto."
+      },
+      {
+        id: 7,
+        category: "Verbal",
+        subCategory: "Silogisme Semua & Sebagian",
+        question: "Semua analis ekonomi Bank Indonesia memahami kebijakan moneter.\nSebagian sarjana akuntansi adalah analis ekonomi Bank Indonesia.\n\nKesimpulan yang paling tepat adalah:",
+        options: [
+          "Semua sarjana akuntansi memahami kebijakan moneter.",
+          "Sebagian sarjana akuntansi memahami kebijakan moneter.",
+          "Semua yang memahami kebijakan moneter adalah sarjana akuntansi.",
+          "Sebagian analis ekonomi Bank Indonesia bukan sarjana akuntansi dan tidak paham kebijakan moneter.",
+          "Tidak ada sarjana akuntansi yang memahami kebijakan moneter."
+        ],
+        correct: 1,
+        trick: "Kaidah Baku Silogisme: 'Semua + Sebagian = Sebagian'. Jawaban pasti diawali kata 'Sebagian'. Langsung eliminasi opsi A, C, E.",
+        explanation: "Irisan antara sarjana akuntansi dan analis BI menghasilkan simpulan: sebagian sarjana akuntansi memahami kebijakan moneter."
+      },
+      {
+        id: 8,
+        category: "Verbal",
+        subCategory: "Logika Analitis Urutan Duduk",
+        question: "Lima staf deputi (A, B, C, D, E) duduk berjajar dari kiri ke kanan. Syarat:\n1. B tidak boleh duduk di paling ujung.\n2. C duduk tepat di sebelah kanan A.\n3. E duduk di paling kiri.\n\nManakah susunan duduk yang memenuhi syarat?",
+        options: ["E - A - C - D - B", "E - B - A - C - D", "A - C - E - B - D", "E - D - A - B - C", "B - E - A - C - D"],
+        correct: 1,
+        trick: "Uji Opsi Langsung: Syarat 3 (E paling kiri) coret C & E. Syarat 1 (B tidak di ujung) coret A. Syarat 2 (C di kanan A/urutan AC) coret D. Sisa Opsi B!",
+        explanation: "Susunan E - B - A - C - D memenuhi seluruh ketentuan premis soal."
+      },
+
+      // --- SUBTES 2: NUMERIK & ARITMATIKA (10 SOAL) ---
+      {
+        id: 9,
+        category: "Numerik",
+        subCategory: "Deret Angka Bertingkat",
+        question: "3, 5, 9, 17, 33, ...",
+        options: ["49", "57", "65", "72", "81"],
+        correct: 2,
+        trick: "Pola Selisih Dikali Dua: +2, +4, +8, +16, +32. Nilai berikutnya = 33 + 32 = 65.",
+        explanation: "Pola selisih antar-suku merupakan perpangkatan dua: 2, 4, 8, 16, 32. 33 + 32 = 65."
+      },
+      {
+        id: 10,
+        category: "Numerik",
+        subCategory: "Deret Lompat Dua Jalur",
+        question: "4, 18, 8, 15, 12, 12, 16, 9, ..., ...",
+        options: ["20 dan 6", "18 dan 6", "20 dan 7", "22 dan 6", "19 dan 5"],
+        correct: 0,
+        trick: "Pisahkan Jalur Ganjil-Genap: Ganjil: 4, 8, 12, 16, [20] (+4). Genap: 18, 15, 12, 9, [6] (-3). Jawab: 20 dan 6.",
+        explanation: "Deret berselang dua aritmatika bertambah 4 dan berkurang 3."
+      },
+      {
+        id: 11,
+        category: "Numerik",
+        subCategory: "Deret Fibonacci",
+        question: "2, 3, 5, 8, 13, 21, ...",
+        options: ["29", "34", "38", "42", "45"],
+        correct: 1,
+        trick: "Pola Fibonacci: Tiap angka adalah penjumlahan dari 2 angka sebelumnya! 8 + 13 = 21. Suku berikutnya = 13 + 21 = 34.",
+        explanation: "Deret Fibonacci: 2+3=5, 3+5=8, 5+8=13, 8+13=21, 13+21=34."
+      },
+      {
+        id: 12,
+        category: "Numerik",
+        subCategory: "Deret Huruf Alfabet",
+        question: "A, C, F, J, O, ...",
+        options: ["R", "S", "T", "U", "V"],
+        correct: 3,
+        trick: "Ubah ke Angka Urutan: A(1), C(3), F(6), J(10), O(15). Pola loncatan: +2, +3, +4, +5, +6. Maka 15 + 6 = 21 = huruf U!",
+        explanation: "Urutan alfabet: 1 (+2) 3 (+3) 6 (+4) 10 (+5) 15 (+6) = 21. Huruf ke-21 adalah U."
+      },
+      {
+        id: 13,
+        category: "Numerik",
+        subCategory: "KABATAKU & Geser Koma Desimal",
+        question: "Berapakah hasil dari: (0,036 × 0,25) / 0,009 ?",
+        options: ["0,1", "0,5", "1,0", "2,5", "4,0"],
+        correct: 2,
+        trick: "Bagi Desimal Senama: (0,036 / 0,009) = 36 / 9 = 4. Lalu 4 × 0,25 = 4 × (1/4) = 1,0.",
+        explanation: "Sifat asosiatif perkalian dan pembagian: (0,036 / 0,009) × 0,25 = 4 × 0,25 = 1,0."
+      },
+      {
+        id: 14,
+        category: "Numerik",
+        subCategory: "Pecahan Istimewa",
+        question: "Nilai dari 37,5% dari 640 adalah ...",
+        options: ["210", "240", "260", "280", "320"],
+        correct: 1,
+        trick: "Pecahan Istimewa: 37,5% = 3/8. Maka 3/8 × 640 = 3 × 80 = 240.",
+        explanation: "640 dibagi 8 = 80, dikali 3 = 240."
+      },
+      {
+        id: 15,
+        category: "Numerik",
+        subCategory: "Pecahan Campuran Cepat",
+        question: "Berapakah nilai dari: (2 1/2 + 1 1/4) × 4/5 ?",
+        options: ["2", "3", "3 1/2", "4", "4 1/4"],
+        correct: 1,
+        trick: "Ubah ke Desimal Sederhana: 2,5 + 1,25 = 3,75 = 15/4. Lalu (15/4) × (4/5) = 15/5 = 3.",
+        explanation: "(5/2 + 5/4) = 15/4. Kemudian 15/4 × 4/5 = 15/5 = 3."
+      },
+      {
+        id: 16,
+        category: "Numerik",
+        subCategory: "Perbandingan Berbalik Nilai",
+        question: "Renovasi ruang server Bank Indonesia ditargetkan selesai dalam 20 hari oleh 12 pekerja. Jika pimpinan menghendaki renovasi selesai dalam 15 hari, berapa TAMBAHAN pekerja yang dibutuhkan?",
+        options: ["4 orang", "6 orang", "16 orang", "8 orang", "5 orang"],
+        correct: 0,
+        trick: "Hari1 × Org1 = Hari2 × Org2 -> 20 × 12 = 15 × Org2 -> Org2 = 16. TAMBAHAN = 16 - 12 = 4 orang!",
+        explanation: "Total pekerja = 16. Tambahan pekerja dari jumlah semula = 16 - 12 = 4 orang."
+      },
+      {
+        id: 17,
+        category: "Numerik",
+        subCategory: "Kecepatan Berpapasan",
+        question: "Jarak Jakarta ke Bandung adalah 150 km. Mobil A berangkat dari Jakarta pukul 07.00 dengan kecepatan 60 km/jam. Pada saat yang sama, Mobil B berangkat dari Bandung menuju Jakarta dengan kecepatan 40 km/jam pada rute yang sama. Pukul berapa kedua mobil akan berpapasan?",
+        options: ["08.00", "08.15", "08.30", "08.45", "09.00"],
+        correct: 2,
+        trick: "Rumus Berpapasan: t = Jarak / (V1 + V2) = 150 / (60 + 40) = 1,5 jam (1 jam 30 menit). 07.00 + 01.30 = 08.30.",
+        explanation: "Kecepatan relatif = 100 km/jam. Waktu = 150/100 = 1,5 jam. Berpapasan pukul 08.30."
+      },
+      {
+        id: 18,
+        category: "Numerik",
+        subCategory: "Persentase Laba / Rugi",
+        question: "Sebuah aset instrumen pasar uang dibeli seharga Rp8.000.000 dan dijual kembali seharga Rp10.000.000. Berapakah persentase keuntungan yang diperoleh?",
+        options: ["15%", "20%", "25%", "30%", "33,3%"],
+        correct: 2,
+        trick: "Untung = Rp2.000.000. %Untung = (Untung / Modal Beli) × 100% = 2 jt / 8 jt = 1/4 = 25%.",
+        explanation: "Keuntungan 2.000.000 dari harga beli 8.000.000 adalah 25%."
+      },
+
+      // --- SUBTES 3: DIAGRAMMATIC / FIGURAL (8 SOAL) ---
+      {
+        id: 19,
+        category: "Diagrammatic",
+        subCategory: "Refleksi Cermin Sumbu Y",
+        question: "Sebuah simbol panah condong ke KANAN ATAS dengan lingkaran hitam di pangkal KIRI BAWAH dicerminkan terhadap cermin vertikal (tegak). Bagaimanakah wujud bayangannya?",
+        visual: `<svg width="180" height="100" viewBox="0 0 180 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="30" cy="70" r="10" fill="#002d62" />
+          <line x1="37" y1="63" x2="65" y2="35" stroke="#002d62" stroke-width="6" />
+          <polygon points="65,26 74,40 56,40" fill="#002d62" transform="rotate(45 65 35)" />
+          <line x1="90" y1="10" x2="90" y2="90" stroke="#ef4444" stroke-width="2" stroke-dasharray="4 4" />
+          <text x="75" y="98" font-size="10" fill="#ef4444">Cermin</text>
+          <rect x="110" y="20" width="55" height="60" rx="6" stroke="#94a3b8" stroke-width="2" stroke-dasharray="2 2" fill="#fff" />
+          <text x="132" y="56" font-size="20" fill="#94a3b8" font-weight="bold">?</text>
+        </svg>`,
+        options: [
+          "Panah condong ke KIRI ATAS, lingkaran hitam di KANAN BAWAH",
+          "Panah condong ke KANAN BAWAH, lingkaran hitam di KIRI ATAS",
+          "Panah condong ke KIRI BAWAH, lingkaran hitam di KANAN ATAS",
+          "Bentuk sama persis tidak ada yang berubah",
+          "Panah mengarah tegak lurus ke atas"
+        ],
+        correct: 0,
+        trick: "Cermin Vertikal (Sumbu Y): KIRI & KANAN bertukar tempat, atas-bawah TETAP. Kanan atas jadi Kiri atas, kiri bawah jadi Kanan bawah.",
+        explanation: "Sifat cermin vertikal membalik sumbu horizontal (kiri-kanan)."
+      },
+      {
+        id: 20,
+        category: "Diagrammatic",
+        subCategory: "Refleksi Air Sumbu X",
+        question: "Huruf 'M' dicerminkan ke permukaan air tenang di bawahnya (garis cermin mendatar / horizontal). Bagaimanakah hasil pantulannya?",
+        visual: `<svg width="180" height="90" viewBox="0 0 180 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <text x="78" y="38" font-size="34" font-weight="900" fill="#002d62">M</text>
+          <line x1="20" y1="46" x2="160" y2="46" stroke="#0284c7" stroke-width="3" stroke-dasharray="5 3" />
+          <text x="115" y="42" font-size="10" fill="#0284c7">Garis Air</text>
+          <text x="82" y="76" font-size="22" font-weight="bold" fill="#94a3b8">?</text>
+        </svg>`,
+        options: ["Tetap huruf 'M'", "Menjadi huruf 'W'", "Menjadi huruf 'E'", "Menjadi huruf '3'", "Berputar 90 derajat"],
+        correct: 1,
+        trick: "Cermin Datar Air (Sumbu X): ATAS & BAWAH bertukar tempat, kiri-kanan TETAP. Huruf M dibalik vertikal menjadi huruf W.",
+        explanation: "Refleksi horizontal membalik orientasi atas menjadi bawah."
+      },
+      {
+        id: 21,
+        category: "Diagrammatic",
+        subCategory: "Serial Rotasi Sudut",
+        question: "Perhatikan pola rotasi pada baris gambar berikut:\n• Kotak 1: Tanda panah menunjuk ke Pukul 12 (0°)\n• Kotak 2: Tanda panah menunjuk ke Pukul 3 (90° searah jarum jam)\n• Kotak 3: Tanda panah menunjuk ke Pukul 6 (180° searah jarum jam)\n\nKotak ke-4 seharusnya menunjuk ke arah:",
+        options: ["Pukul 12", "Pukul 9 (270° searah jarum jam)", "Pukul 6", "Pukul 4", "Pukul 1"],
+        correct: 1,
+        trick: "Rotasi 90° Searah Jarum Jam: 12 -> 3 -> 6 -> 9.",
+        explanation: "Pertambahan sudut putar 90 derajat searah jarum jam."
+      },
+      {
+        id: 22,
+        category: "Diagrammatic",
+        subCategory: "Irisan Diagram Venn",
+        question: "Dari 50 staf di Departemen Kebijakan Moneter Bank Indonesia:\n• 30 orang menguasai Ekonometrika\n• 25 orang menguasai Pemrograman FinTech\n• 10 orang menguasai keduanya\n\nBerapa banyak staf yang TIDAK menguasai keduanya?",
+        options: ["5 orang", "10 orang", "15 orang", "20 orang", "25 orang"],
+        correct: 0,
+        trick: "Rumus Venn: Total = (A + B - Irisan) + Luar -> 50 = (30 + 25 - 10) + Luar -> 50 = 45 + Luar -> Luar = 5 orang!",
+        explanation: "Staf yang menguasai minimal satu bidang adalah 45. Sisanya 50 - 45 = 5 orang."
+      },
+      {
+        id: 23,
+        category: "Diagrammatic",
+        subCategory: "Matriks 3x3 Pertambahan Elemen",
+        question: "Perhatikan aturan matriks gambar 3x3 berikut:\n• Baris 1: 1 lingkaran hitam, 2 lingkaran hitam, 3 lingkaran hitam.\n• Baris 2: 1 segitiga hitam, 2 segitiga hitam, 3 segitiga hitam.\n• Baris 3: 1 persegi hitam, 2 persegi hitam, [ ? ].\n\nBentuk yang tepat untuk mengisi kotak tanda tanya adalah:",
+        options: ["4 persegi hitam", "3 persegi hitam", "3 lingkaran putih", "2 persegi hitam dan 1 lingkaran", "3 segitiga hitam"],
+        correct: 1,
+        trick: "Aturan Baris: Bentuk konsisten di baris yang sama, kuantitas bertambah +1 (1, 2, 3). Baris 3 = 3 persegi hitam.",
+        explanation: "Pola baris 3 adalah pertambahan jumlah persegi hitam menjadi 3 buah."
+      },
+      {
+        id: 24,
+        category: "Diagrammatic",
+        subCategory: "Matriks 3x3 Operasi Penggabungan (XOR)",
+        question: "Pada matriks 3x3, kotak baris 3 kolom 3 merupakan hasil tumpukan kotak kolom 1 dan kolom 2. Garis yang sama di kedua kotak akan MENGHILANG, sedangkan garis yang berbeda akan BERTAHAN. Jika Kotak 1 memiliki garis vertikal dan Kotak 2 memiliki garis vertikal dan garis horizontal, maka Kotak 3 menghasilkan:",
+        options: ["Hanya garis horizontal", "Hanya garis vertikal", "Bentuk tanda tambah (+)", "Kotak kosong tanpa garis", "Bentuk silang (x)"],
+        correct: 0,
+        trick: "Logika XOR (Exclusive OR) Psikotes: Garis yang sama di kedua kotak saling meniadakan/hilang. Garis vertikal ada di keduanya -> hilang. Garis horizontal hanya ada di Kotak 2 -> bertahan. Hasil: Hanya garis horizontal!",
+        explanation: "Operasi pembatalan garis yang bertumpuk (XOR) adalah tipe soal matriks tingkat lanjut yang sering muncul di level officer/analis."
+      },
+      {
+        id: 25,
+        category: "Diagrammatic",
+        subCategory: "Jaring-Jaring Kubus 3D",
+        question: "Sebuah jaring-jaring kubus memiliki 6 sisi bernomor 1 sampai 6 dalam bentuk tanda palang (+). Jika sisi nomor 2 berada di tengah sebagai alas, nomor 1 di atasnya, nomor 3 di kanannya, nomor 4 di bawahnya, dan nomor 5 di kirinya, sisi manakah yang akan menjadi ATAP (berhadapan langsung dengan sisi nomor 2)?",
+        options: ["Sisi nomor 1", "Sisi nomor 4", "Sisi nomor 6 (sisi lipatan lanjutan)", "Sisi nomor 3", "Sisi nomor 5"],
+        correct: 2,
+        trick: "Kaidah Berhadapan Kubus: Dua sisi yang berhadapan pada jaring-jaring selalu diselingi oleh tepat 1 sisi perantara! Sisi 1 berhadapan dengan 4, Sisi 3 berhadapan dengan 5. Maka sisi alas 2 berhadapan dengan sisi penutup 6!",
+        explanation: "Pada jaring kubus salib, sisi sayap atas-bawah dan kiri-kanan saling menutup satu sama lain, menyisakan sisi ke-6 sebagai atap penutup sisi alas."
+      },
+      {
+        id: 26,
+        category: "Diagrammatic",
+        subCategory: "Pengelompokan Bentuk (Odd One Out)",
+        question: "Manakah di antara bangun datar berikut yang TIDAK SESUAI dengan kelompoknya?",
+        options: ["Segitiga Sama Sisi", "Bujursangkar", "Segilima Beraturan", "Persegi Panjang", "Segienam Beraturan"],
+        correct: 3,
+        trick: "Sifat Geometri: Pilihan A, B, C, E adalah POLIGON BERATURAN (semua sisi sama panjang dan sudutnya sama besar). Persegi Panjang bukan poligon beraturan karena panjang sisi-sisinya tidak sama!",
+        explanation: "Persegi panjang memiliki sepasang sisi panjang dan sepasang sisi lebar, tidak beraturan seperti opsi lainnya."
+      },
+
+      // --- SUBTES 4: DIGIT SYMBOL & KECERMATAN (8 SOAL) ---
+      {
+        id: 27,
+        category: "Digit Symbol",
+        subCategory: "Pencocokan Sandi Simbol",
+        question: "Gunakan Kunci Sandi Simbol di atas!\nKombinasi simbol: 【 ▲ ✦ ⬤ 】 mewakili deretan angka berapakah?",
+        options: ["2 - 4 - 7", "2 - 3 - 7", "1 - 4 - 8", "3 - 5 - 7", "2 - 4 - 9"],
+        correct: 0,
+        trick: "Scan Cepat Ujung: ▲ = 2, ⬤ = 7. Simbol tengah ✦ = 4. Jawab: 2 - 4 - 7.",
+        explanation: "Tabel kunci: ▲ = 2, ✦ = 4, ⬤ = 7."
+      },
+      {
+        id: 28,
+        category: "Digit Symbol",
+        subCategory: "Pencocokan Sandi Simbol",
+        question: "Gunakan Kunci Sandi Simbol di atas!\nKombinasi angka: 【 9 - 1 - 6 】 diwakili oleh urutan simbol yang mana?",
+        options: ["☁ - ★ - ✖", "☁ - ▲ - ✖", "⬟ - ★ - ✖", "☁ - ★ - ✚", "◆ - ★ - ✖"],
+        correct: 0,
+        trick: "9 = ☁ (Awan), 1 = ★ (Bintang), 6 = ✖ (Silang). Opsi A.",
+        explanation: "9 = ☁, 1 = ★, 6 = ✖."
+      },
+      {
+        id: 29,
+        category: "Digit Symbol",
+        subCategory: "Pencocokan Sandi Simbol 4 Digit",
+        question: "Gunakan Kunci Sandi Simbol di atas!\nKombinasi simbol: 【 ◆ ⬟ ✚ ★ 】 mewakili angka:",
+        options: ["3 - 5 - 8 - 1", "3 - 4 - 8 - 1", "2 - 5 - 8 - 1", "3 - 5 - 6 - 1", "3 - 5 - 8 - 2"],
+        correct: 0,
+        trick: "◆ = 3, ⬟ = 5, ✚ = 8, ★ = 1. Jawaban: 3 - 5 - 8 - 1 dalam 2 detik!",
+        explanation: "Tabel sandi: 3 - 5 - 8 - 1."
+      },
+      {
+        id: 30,
+        category: "Digit Symbol",
+        subCategory: "Cek Pasangan Identik",
+        question: "Tentukan apakah kedua pasangan kode ini SAMA atau BEDA:\n\nKode 1:  XP9808Qa2\nKode 2:  XP9808Qa2",
+        options: ["SAMA (Identik 100%)", "BEDA (Ada perbedaan karakter)"],
+        correct: 0,
+        trick: "Scan Cepat Tiga Blok: Awal (XP), Tengah (9808), Akhir (Qa2). Keduanya identik 100%.",
+        explanation: "Tidak terdapat perbedaan karakter sama sekali."
+      },
+      {
+        id: 31,
+        category: "Digit Symbol",
+        subCategory: "Pengecoh Huruf O vs Angka 0",
+        question: "Tentukan apakah kedua pasangan kode ini SAMA atau BEDA:\n\nKode 1:  MWV80811O\nKode 2:  MWV808110",
+        options: ["SAMA (Identik 100%)", "BEDA (Ada perbedaan karakter)"],
+        correct: 1,
+        trick: "Scan Ujung Belakang: Kode 1 berakhiran huruf kapital 'O', kode 2 berakhiran angka '0' (nol). BEDA!",
+        explanation: "Perbedaan pada huruf 'O' vs angka '0'."
+      },
+      {
+        id: 32,
+        category: "Digit Symbol",
+        subCategory: "Pengecoh Huruf l vs Angka 1",
+        question: "Tentukan apakah kedua pasangan kode ini SAMA atau BEDA:\n\nKode 1:  B1nd0N3s1A\nKode 2:  Blnd0N3s1A",
+        options: ["SAMA (Identik 100%)", "BEDA (Ada perbedaan karakter)"],
+        correct: 1,
+        trick: "Scan Karakter Kedua: B1... (angka satu) vs Bl... (huruf kecil l). BEDA!",
+        explanation: "Karakter kedua berbeda: angka 1 vs huruf l."
+      },
+      {
+        id: 33,
+        category: "Digit Symbol",
+        subCategory: "Pengecoh Huruf rn vs Huruf m",
+        question: "Tentukan apakah kedua pasangan kata ini SAMA atau BEDA:\n\nKata 1:  kornpensasi\nKata 2:  kompensasi",
+        options: ["SAMA (Identik 100%)", "BEDA (Ada perbedaan karakter)"],
+        correct: 1,
+        trick: "Pengecoh Tipografi: 'rn' (r dan n rapat) menyerupai huruf 'm'. Kata 1 menggunakan huruf r+n, kata 2 menggunakan m. BEDA!",
+        explanation: "Huruf 'rn' pada kata 1 berbeda dengan huruf 'm' pada kata 2."
+      },
+      {
+        id: 34,
+        category: "Digit Symbol",
+        subCategory: "Cek Kesamaan Deret Angka Panjang",
+        question: "Tentukan apakah deretan angka berikut SAMA atau BEDA:\n\nDeret 1:  78239014562\nDeret 2:  78239014562",
+        options: ["SAMA (Identik 100%)", "BEDA (Ada perbedaan karakter)"],
+        correct: 0,
+        trick: "Chunking (Bagi Tiga Angka): 782 - 390 - 145 - 62. Keduanya identik sempurna!",
+        explanation: "Teknik chunking mempermudah verifikasi deret angka panjang."
+      },
+
+      // --- SUBTES 5: PERSON-ORGANIZATION FIT (POF) / SIKAP KERJA BI (6 SOAL) ---
+      {
+        id: 35,
+        category: "POF",
+        subCategory: "Integritas & Anti-Gratifikasi",
+        question: "Seorang rekanan penyedia vendor TI mengirimkan parsel mewah ke alamat rumah Anda menjelang hari raya, bertepatan dengan proses lelang pengadaan server Bank Indonesia yang sedang Anda evaluasi. Sikap Anda:",
+        options: [
+          "Menerimanya karena dikirim ke rumah pribadi dan menganggapnya sekadar silaturahmi hari raya.",
+          "Menolak dengan sopan dan melaporkan pemberian gratifikasi tersebut ke Unit Kepatuhan / Pengendalian Gratifikasi internal BI.",
+          "Menerimanya lalu membagikannya kepada seluruh anggota tim agar tidak dinikmati sendiri.",
+          "Menyimpannya tanpa memberitahu siapapun agar rekanan tidak merasa tersinggung.",
+          "Menerimanya namun tetap berjanji dalam hati untuk menilai vendor tersebut secara objektif."
+        ],
+        correct: 1,
+        trick: "Zero Tolerance Gratifikasi BI: Jangan pilih opsi 'terima lalu bagi-bagi'. Jawaban berintegritas mutlak: MENOLAK & MELAPORKAN ke unit kepatuhan.",
+        explanation: "Kode Etik BI melarang keras penerimaan hadiah berkaitan jabatan dan pengadaan barang/jasa."
+      },
+      {
+        id: 36,
+        category: "POF",
+        subCategory: "Akuntabilitas & Presisi Data",
+        question: "Anda menemukan kesalahan kecil dalam data inflasi bulanan yang Anda susun 15 menit sebelum dokumen dipresentasikan ke Dewan Gubernur. Perbaikan memerlukan waktu sekitar 10 menit. Tindakan terbaik Anda:",
+        options: [
+          "Membiarkannya karena kesalahannya kecil dan kemungkinan besar tidak disadari oleh pimpinan.",
+          "Segera memberitahu atasan mengenai temuan tersebut dan langsung melakukan revisi data sebelum materi dipaparkan.",
+          "Menunggu sampai ada yang bertanya saat sesi presentasi, baru menjelaskan bahwa ada salah ketik.",
+          "Menyalahkan staf magang yang sebelumnya membantu menginput data mentah.",
+          "Mengganti data tersebut nanti setelah rapat selesai tanpa memberitahu siapa-siapa."
+        ],
+        correct: 1,
+        trick: "Presisi & Transparansi BI: Kebijakan moneter bertumpu pada presisi data. Mengakui kesalahan dan langsung memperbaikinya menunjukkan akuntabilitas tertinggi.",
+        explanation: "Integritas profesional menuntut transparansi dan perbaikan segera sebelum keputusan strategis diambil."
+      },
+      {
+        id: 37,
+        category: "POF",
+        subCategory: "Soliditas Tim & Tekanan Kerja",
+        question: "Departemen Anda menghadapi tenggat waktu perumusan kebijakan yang sangat mendesak. Salah seorang rekan satu tim Anda tiba-tiba jatuh sakit. Sikap Anda:",
+        options: [
+          "Fokus menyelesaikan bagian tugas sendiri agar tidak ikut ditegur atasan.",
+          "Bersama anggota tim lain secara proaktif membagi tugas rekan yang sakit agar target departemen tercapai.",
+          "Menyarankan rekan yang sakit untuk tetap bekerja dari rumah (WFH) demi menyelesaikan tugasnya.",
+          "Mengeluh kepada atasan karena pembagian beban kerja menjadi tidak adil.",
+          "Meminta atasan menunda jadwal kebijakan sampai rekan tersebut sembuh."
+        ],
+        correct: 1,
+        trick: "Nilai Kerjasama Tim (Relasional BI): Mendahulukan pencapaian tujuan bersama dan saling menopang beban kerja secara proaktif.",
+        explanation: "PCPM mencari calon pemimpin yang memiliki jiwa korsa dan orientasi solusi tim."
+      },
+      {
+        id: 38,
+        category: "POF",
+        subCategory: "Kerahasiaan Informasi Negara",
+        question: "Sebagai staf di Bank Indonesia, Anda memiliki akses data survei perbankan yang bersifat rahasia. Teman akrab Anda yang bekerja di perusahaan investasi menanyakan arah suku bunga acuan (BI-Rate) untuk keputusan trading-nya. Tindakan Anda:",
+        options: [
+          "Memberikan sedikit kisi-kisi umum tanpa menyebut angka pasti karena ia sahabat dekat.",
+          "Menolak dengan tegas dan menjelaskan secara profesional bahwa data tersebut rahasia negara dan hanya boleh dirilis saat konferensi pers resmi BI.",
+          "Memberikan data tersebut dengan syarat ia tidak menyebarkannya ke pihak lain.",
+          "Mengarahkan teman Anda untuk menebak sendiri berdasarkan rumor di media sosial.",
+          "Meminta imbalan keuntungan investasi atas informasi yang dibocorkan."
+        ],
+        correct: 1,
+        trick: "Kerahasiaan Moneter: Bocornya BI-Rate memicu insider trading dan merusak stabilitas pasar keuangan. Penolakan tegas dan profesional adalah wajib.",
+        explanation: "Pelanggaran kerahasiaan informasi pasar merupakan pelanggaran hukum berat bagi pegawai bank sentral."
+      },
+      {
+        id: 39,
+        category: "POF",
+        subCategory: "Konflik Kepentingan (Conflict of Interest)",
+        question: "Kakak kandung Anda menjabat sebagai direktur di salah satu bank swasta yang sedang diperiksa oleh tim pengawasan Bank Indonesia di mana Anda ditunjuk sebagai salah satu anggotanya. Langkah profesional Anda:",
+        options: [
+          "Tetap menjalankan tugas pemeriksaan secara diam-diam dan berusaha membantu meringankan sanksi kakak.",
+          "Segera mendeklarasikan adanya potensi konflik kepentingan kepada atasan dan meminta untuk digantikan oleh pemeriksa lain.",
+          "Meminta kakak Anda mengundurkan diri sementara dari jabatannya di bank tersebut.",
+          "Mengabaikan hubungan keluarga tersebut dan yakin diri sendiri bisa bersikap netral tanpa memberitahu atasan.",
+          "Mengundurkan diri dari Bank Indonesia."
+        ],
+        correct: 1,
+        trick: "Deklarasi Konflik Kepentingan: Kuncinya adalah 'Mendeklarasikan sejak awal (declare conflict of interest)' dan menarik diri dari penugasan terkait. Jangan pernah disembunyikan!",
+        explanation: "Prinsip tata kelola Bank Indonesia mewajibkan setiap pegawai mendeklarasikan potensi benturan kepentingan untuk menjaga objektivitas pengawasan."
+      },
+      {
+        id: 40,
+        category: "POF",
+        subCategory: "Adaptabilitas & Inovasi Digital",
+        question: "Pimpinan menginstruksikan implementasi sistem otomasi analisis data berbasis AI baru yang mengubah prosedur kerja manual yang sudah Anda kuasai selama bertahun-tahun. Respon terbaik Anda:",
+        options: [
+          "Menolak perubahan tersebut karena sistem lama masih terbukti berjalan dengan baik.",
+          "Mempelajari sistem baru tersebut secara antusias dan proaktif membantu rekan kerja lain beradaptasi dengan teknologi baru.",
+          "Menunggu sampai dipaksa oleh atasan baru mulai mempelajari sistem tersebut.",
+          "Menggunakan sistem baru hanya jika diawasi langsung oleh pimpinan departemen.",
+          "Meminta dipindahkan ke unit kerja lain yang masih menggunakan metode kerja manual."
+        ],
+        correct: 1,
+        trick: "Nilai Keunggulan & Inovasi BI: Bank Indonesia mendorong digitalisasi sistem pembayaran dan perumusan kebijakan modern. Karyawan yang dicari adalah yang adaptif, pembelajar tangguh (*growth mindset*).",
+        explanation: "Sikap antusias terhadap transformasi digital dan inisiatif membantu tim mencerminkan pilar kepemimpinan muda PCPM."
+      }
+    ];
+
+    // ==========================================
+    // CONTROLLER & PROFILING ENGINE
+    // ==========================================
+    let currentFilter = "ALL";
+    let filteredQuestions = [...allQuestions];
+    let currentIndex = 0;
+    let userAnswers = {}; // id -> answerIndex
+    let questionTimes = {}; // id -> seconds
+    let startTime = Date.now();
+    let timeLeft = 40 * 60; // 40 menit
+    let timerInterval = null;
+
+    function init() {
+      applyFilter("ALL");
+      openBriefingModal();
+    }
+
+    function openBriefingModal() {
+      document.getElementById("briefing-modal").style.display = "flex";
+    }
+
+    function closeBriefingModal() {
+      document.getElementById("briefing-modal").style.display = "none";
+    }
+
+    function startExamFromBriefing() {
+      closeBriefingModal();
+      if (!timerInterval) {
+        startTimer();
+      }
+    }
+
+    function applyFilter(category) {
+      currentFilter = category;
+      if (category === "ALL") {
+        filteredQuestions = [...allQuestions];
+      } else {
+        filteredQuestions = allQuestions.filter(q => q.category === category);
+      }
+      currentIndex = 0;
+      renderGridNav();
+      loadQuestion(0);
+    }
+
+    function filterCategory(cat) {
+      document.querySelectorAll(".filter-btn").forEach(btn => {
+        btn.classList.remove("active");
+        if (btn.innerText.includes(cat) || (cat === "ALL" && btn.innerText.includes("Semua"))) {
+          btn.classList.add("active");
+        }
+      });
+      applyFilter(cat);
+    }
+
+    function renderGridNav() {
+      const grid = document.getElementById("grid-nav");
+      grid.innerHTML = "";
+      filteredQuestions.forEach((q, idx) => {
+        const btn = document.createElement("button");
+        btn.className = "grid-btn";
+        btn.id = `grid-item-${idx}`;
+        btn.innerText = idx + 1;
+        btn.onclick = () => jumpToQuestion(idx);
+        grid.appendChild(btn);
+      });
+      updateGridStatus();
+    }
+
+    function updateGridStatus() {
+      filteredQuestions.forEach((q, idx) => {
+        const btn = document.getElementById(`grid-item-${idx}`);
+        if (!btn) return;
+        btn.classList.remove("current", "done", "done-wrong");
+
+        if (idx === currentIndex) {
+          btn.classList.add("current");
+        } else if (userAnswers[q.id] !== undefined) {
+          if (userAnswers[q.id] === q.correct) {
+            btn.classList.add("done");
+          } else {
+            btn.classList.add("done-wrong");
+          }
+        }
+      });
+
+      const answeredTotal = Object.keys(userAnswers).length;
+      document.getElementById("answered-count").innerText = `${answeredTotal}/${allQuestions.length} Terjawab`;
+    }
+
+    function loadQuestion(index) {
+      currentIndex = index;
+      const q = filteredQuestions[index];
+
+      document.getElementById("q-category").innerText = `${q.category} • ${q.subCategory}`;
+      document.getElementById("q-progress").innerText = `Soal ${index + 1} dari ${filteredQuestions.length}`;
+      document.getElementById("q-text").innerText = q.question;
+
+      // Legend Digit Symbol
+      const legendBox = document.getElementById("symbol-legend");
+      if (q.category === "Digit Symbol") {
+        legendBox.style.display = "block";
+      } else {
+        legendBox.style.display = "none";
+      }
+
+      // Visual SVG
+      const visualBox = document.getElementById("q-visual");
+      if (q.visual) {
+        visualBox.innerHTML = q.visual;
+        visualBox.style.display = "flex";
+      } else {
+        visualBox.style.display = "none";
+        visualBox.innerHTML = "";
+      }
+
+      // Options
+      const container = document.getElementById("options-container");
+      container.innerHTML = "";
+
+      const alphabet = ["A", "B", "C", "D", "E"];
+      const isAnswered = userAnswers[q.id] !== undefined;
+
+      q.options.forEach((opt, optIdx) => {
+        const btn = document.createElement("button");
+        btn.className = "option-btn";
+        btn.id = `opt-${optIdx}`;
+
+        if (isAnswered) {
+          btn.disabled = true;
+          if (optIdx === q.correct) {
+            btn.classList.add("correct");
+          }
+          if (userAnswers[q.id] === optIdx && optIdx !== q.correct) {
+            btn.classList.add("wrong");
+          }
+        }
+
+        btn.innerHTML = `
+          <span class="option-key">${alphabet[optIdx]}</span>
+          <span>${opt}</span>
+        `;
+        btn.onclick = () => selectOption(optIdx);
+        container.appendChild(btn);
+      });
+
+      // Feedback Panel
+      const feedbackPanel = document.getElementById("feedback-panel");
+      if (isAnswered) {
+        document.getElementById("trick-text").innerText = q.trick;
+        document.getElementById("explanation-text").innerText = q.explanation;
+        feedbackPanel.style.display = "block";
+      } else {
+        feedbackPanel.style.display = "none";
+      }
+
+      // Nav buttons
+      document.getElementById("btn-prev").disabled = index === 0;
+      const btnNext = document.getElementById("btn-next");
+      if (index === filteredQuestions.length - 1) {
+        btnNext.innerText = "Selesai & Lihat Profiling 📊";
+        btnNext.onclick = openProfilingModal;
+      } else {
+        btnNext.innerText = "Soal Berikutnya →";
+        btnNext.onclick = nextQuestion;
+      }
+
+      updateGridStatus();
+    }
+
+    function selectOption(optIndex) {
+      const q = filteredQuestions[currentIndex];
+      if (userAnswers[q.id] !== undefined) return;
+
+      userAnswers[q.id] = optIndex;
+
+      const selectedBtn = document.getElementById(`opt-${optIndex}`);
+      const correctBtn = document.getElementById(`opt-${q.correct}`);
+
+      if (optIndex === q.correct) {
+        selectedBtn.classList.add("correct");
+      } else {
+        selectedBtn.classList.add("wrong");
+        correctBtn.classList.add("correct");
+      }
+
+      const allBtns = document.querySelectorAll(".option-btn");
+      allBtns.forEach(b => b.disabled = true);
+
+      document.getElementById("trick-text").innerText = q.trick;
+      document.getElementById("explanation-text").innerText = q.explanation;
+      document.getElementById("feedback-panel").style.display = "block";
+
+      updateGridStatus();
+    }
+
+    function nextQuestion() {
+      if (currentIndex < filteredQuestions.length - 1) {
+        loadQuestion(currentIndex + 1);
+      }
+    }
+
+    function prevQuestion() {
+      if (currentIndex > 0) {
+        loadQuestion(currentIndex - 1);
+      }
+    }
+
+    function jumpToQuestion(idx) {
+      loadQuestion(idx);
+    }
+
+    function startTimer() {
+      const timerEl = document.getElementById("timer");
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          openProfilingModal();
+          return;
+        }
+
+        const mins = Math.floor(timeLeft / 60);
+        const secs = timeLeft % 60;
+        timerEl.innerText = `⏳ ${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+
+        if (timeLeft < 300) {
+          timerEl.classList.add("warning");
+        }
+      }, 1000);
+    }
+
+    function toggleCheatSheet() {
+      const card = document.getElementById("cheat-card");
+      card.scrollIntoView({ behavior: 'smooth' });
+      card.style.outline = "2px solid #f59e0b";
+      setTimeout(() => { card.style.outline = "none"; }, 1500);
+    }
+
+    // ==========================================================
+    // SISTEM DIAGNOSIS & PROFILING KANDIDAT LENGKAP
+    // ==========================================================
+    function openProfilingModal() {
+      const answeredTotal = Object.keys(userAnswers).length;
+      let correctTotal = 0;
+
+      let breakdown = {
+        "Verbal": { name: "1. Verbal & Bahasa Buatan", correct: 0, total: 0, desc: "Nalar bahasa, analogi, silogisme, dan kode buatan" },
+        "Numerik": { name: "2. Numerik & Aritmatika", correct: 0, total: 0, desc: "Deret angka, hitung cepat desimal, dan logika kuantitatif" },
+        "Diagrammatic": { name: "3. Diagrammatic Figural", correct: 0, total: 0, desc: "Pola visual, matriks 3x3, cermin, dan rotasi spasial" },
+        "Digit Symbol": { name: "4. Digit Symbol & Kecermatan", correct: 0, total: 0, desc: "Kecepatan mata, pencocokan sandi, dan akurasi karakter mikro" },
+        "POF": { name: "5. Person-Organization Fit (BI)", correct: 0, total: 0, desc: "Integritas mutlak, anti-gratifikasi, dan etika bank sentral" }
+      };
+
+      let wrongQuestions = [];
+
+      allQuestions.forEach(q => {
+        const cat = q.category;
+        if (breakdown[cat]) breakdown[cat].total++;
+
+        if (userAnswers[q.id] !== undefined) {
+          if (userAnswers[q.id] === q.correct) {
+            correctTotal++;
+            if (breakdown[cat]) breakdown[cat].correct++;
+          } else {
+            wrongQuestions.push(q);
+          }
+        }
+      });
+
+      const score = Math.round((correctTotal / allQuestions.length) * 100);
+      document.getElementById("final-score").innerText = score;
+      document.getElementById("progress-summary").innerText = `Soal Terjawab: ${answeredTotal} dari ${allQuestions.length} (${correctTotal} Benar, ${wrongQuestions.length} Salah)`;
+
+      // Status Badge
+      const statusBadge = document.getElementById("status-badge");
+      if (score >= 80) {
+        statusBadge.innerText = "🌟 STATUS: SIAP TEMPUR (PASSING GRADE AMAN)";
+        statusBadge.style.background = "#dcfce7";
+        statusBadge.style.color = "#15803d";
+      } else if (score >= 65) {
+        statusBadge.innerText = "⚡ STATUS: CUKUP BAIK (PERLU DRILL DI SUBTES LEMAH)";
+        statusBadge.style.background = "#fef3c7";
+        statusBadge.style.color = "#b45309";
+      } else {
+        statusBadge.innerText = "⚠️ STATUS: KRITIS (FOKUS PADA TRIK KILAT DI SISA WAKTU)";
+        statusBadge.style.background = "#fee2e2";
+        statusBadge.style.color = "#b91c1c";
+      }
+
+      // Render Subtest Progress Bars
+      const barsBox = document.getElementById("subtest-bars-container");
+      barsBox.innerHTML = "";
+
+      let weaknesses = [];
+      let strengths = [];
+
+      for (const cat in breakdown) {
+        const item = breakdown[cat];
+        const pct = item.total > 0 ? Math.round((item.correct / item.total) * 100) : 0;
+        
+        let color = "#ef4444"; // merah
+        if (pct >= 80) color = "#10b981"; // hijau
+        else if (pct >= 50) color = "#f59e0b"; // kuning
+
+        barsBox.innerHTML += `
+          <div class="subtest-row">
+            <div class="subtest-row-top">
+              <span>${item.name}</span>
+              <span style="color:${color}">${item.correct}/${item.total} Benar (${pct}%)</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" style="width: ${pct}%; background: ${color};"></div>
+            </div>
+            <div style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">${item.desc}</div>
+          </div>
+        `;
+
+        if (pct < 70) {
+          weaknesses.push({ cat, pct, total: item.total, correct: item.correct });
+        } else {
+          strengths.push({ cat, pct });
+        }
+      }
+
+      // Render Diagnosis Kelemahan
+      const weakBox = document.getElementById("weakness-container");
+      weakBox.innerHTML = "";
+      if (weaknesses.length === 0) {
+        weakBox.innerHTML = `
+          <div class="strength-card">
+            <h4>Hebat! Tidak Ditemukan Titik Lemah Signifikan</h4>
+            <p>Seluruh subtes Anda berada di atas ambang batas 70%. Pertahankan ketenangan dan kecepatan waktu pengerjaan nanti sore!</p>
+          </div>
+        `;
+      } else {
+        weaknesses.forEach(w => {
+          let advice = "";
+          if (w.cat === "Verbal") {
+            advice = "<strong>Preskripsi Kilat:</strong> Anda kehilangan poin di Analogi atau Bahasa Buatan. Ingat selalu gunakan <em>Jembatan Kalimat</em> (Apoteker membuat Obat -> Koki membuat Masakan) dan pada Bahasa Buatan cari kata yang berulang di 2 baris lalu eliminasi opsi!";
+          } else if (w.cat === "Numerik") {
+            advice = "<strong>Preskripsi Kilat:</strong> Kecepatan Anda terhambat di deret atau desimal. Ingat rumus <em>Geser Koma</em> (bagi angka senama lebih dulu), hafalkan pecahan istimewa (37,5% = 3/8), dan pisahkan deret lompat jadi jalur ganjil & genap!";
+          } else if (w.cat === "Diagrammatic") {
+            advice = "<strong>Preskripsi Kilat:</strong> Di bagian Figural, ingat kaidah sumbu cermin: Cermin vertikal (tegak) hanya membalik Kiri-Kanan (atas-bawah tetap). Garis air (mendatar) membalik Atas-Bawah (kiri-kanan tetap).";
+          } else if (w.cat === "Digit Symbol") {
+            advice = "<strong>Preskripsi Kilat:</strong> Di subtes kecermatan, mata Anda terkecoh pada karakter mikro. Jangan baca seluruh karakter: fokuslah pada karakter <em>paling awal dan paling akhir</em>, serta waspadai huruf 'O' vs angka '0' dan huruf 'l' vs angka '1'.";
+          } else if (w.cat === "POF") {
+            advice = "<strong>Preskripsi Kilat:</strong> Nilai Sikap Kerja Anda belum selaras 100% dengan Bank Indonesia. Kuncinya: <em>Integritas Tanpa Kompromi</em>. Tolak gratifikasi vendor apapun alasannya, transparan dalam kesalahan data, dan prioritaskan kepentingan tim di atas ego pribadi.";
+          }
+
+          weakBox.innerHTML += `
+            <div class="weakness-card">
+              <h4>${breakdown[w.cat].name} (Akurasi Rendah: ${w.pct}%)</h4>
+              <p>${advice}</p>
+            </div>
+          `;
+        });
+      }
+
+      // Render Kekuatan
+      const strBox = document.getElementById("strength-container");
+      strBox.innerHTML = "";
+      if (strengths.length === 0) {
+        strBox.innerHTML = "<p style='font-size:0.85rem; color:var(--text-muted);'>Lengkapi lebih banyak soal untuk mendeteksi keunggulan kompetitif Anda.</p>";
+      } else {
+        strengths.forEach(s => {
+          strBox.innerHTML += `
+            <div class="strength-card">
+              <h4>${breakdown[s.cat].name} (Akurasi Tinggi: ${s.pct}%)</h4>
+              <p>Ini adalah pundi-pundi poin utama Anda! Kerjakan subtes ini dengan tempo cepat dan percaya diri tinggi saat ujian nanti sore.</p>
+            </div>
+          `;
+        });
+      }
+
+      // Render Daftar Soal yang Salah untuk Review
+      const wrongBox = document.getElementById("wrong-section");
+      const wrongList = document.getElementById("wrong-items-list");
+      wrongList.innerHTML = "";
+
+      if (wrongQuestions.length > 0) {
+        wrongBox.style.display = "block";
+        wrongQuestions.forEach(q => {
+          const userChoice = q.options[userAnswers[q.id]];
+          const correctChoice = q.options[q.correct];
+          wrongList.innerHTML += `
+            <div class="wrong-item">
+              <div>
+                <strong>[Soal #${q.id}] ${q.category}</strong>: ${q.question.substring(0, 48)}...
+                <div style="color:var(--danger); font-size:0.75rem;">Jawaban Anda: ${userChoice} | Benar: ${correctChoice}</div>
+              </div>
+              <button class="btn btn-secondary" onclick="jumpAndReview(${q.id})" style="padding:4px 8px; font-size:0.75rem;">Bahas ⚡</button>
+            </div>
+          `;
+        });
+      } else {
+        wrongBox.style.display = "none";
+      }
+
+      document.getElementById("result-modal").style.display = "flex";
+    }
+
+    function jumpAndReview(questionId) {
+      closeProfilingModal();
+      applyFilter("ALL");
+      const targetIndex = allQuestions.findIndex(q => q.id === questionId);
+      if (targetIndex !== -1) {
+        loadQuestion(targetIndex);
+      }
+    }
+
+    function closeProfilingModal() {
+      document.getElementById("result-modal").style.display = "none";
+    }
+
+    function restartQuiz() {
+      userAnswers = {};
+      timeLeft = 40 * 60;
+      closeProfilingModal();
+      clearInterval(timerInterval);
+      timerInterval = null;
+      applyFilter("ALL");
+      openBriefingModal();
+    }
+
+    window.onload = init;
+  </script>
+</body>
+</html>

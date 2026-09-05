@@ -3,7 +3,7 @@ import { profileData } from '../../data/profileData';
 import { Code2, Star, ExternalLink, Terminal, Play, Sparkles } from 'lucide-react';
 import { soundFx } from '../../utils/audio';
 
-export default function ProjectList({ onOpenOpenGym, onOpenPsikotest }) {
+export default function ProjectList({ onOpenOpenGym, onOpenPsikotest, onOpenTpdBi }) {
   return (
     <div className="projects-block reveal">
       <div className="projects-title">
@@ -73,6 +73,8 @@ export default function ProjectList({ onOpenOpenGym, onOpenPsikotest }) {
                         soundFx.playCardClick();
                         if (proj.id === 'opengym' && onOpenOpenGym) {
                           onOpenOpenGym();
+                        } else if (proj.id === 'tpd-bi' && onOpenTpdBi) {
+                          onOpenTpdBi();
                         } else {
                           window.open(proj.demoUrl || proj.repo, '_blank');
                         }
@@ -80,7 +82,7 @@ export default function ProjectList({ onOpenOpenGym, onOpenPsikotest }) {
                       style={{ border: 'none', cursor: 'pointer' }}
                     >
                       <Play size={12} fill="currentColor" />
-                      <span>Try Live in App</span>
+                      <span>{proj.id === 'tpd-bi' ? 'Launch TPD BI (In-App)' : 'Try Live in App'}</span>
                     </button>
                     <a
                       href={proj.demoUrl || proj.repo}

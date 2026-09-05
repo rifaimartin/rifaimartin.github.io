@@ -1,7 +1,7 @@
 import React from 'react';
 import { soundFx } from '../../utils/audio';
 import { useVisitorCount } from '../../utils/visitorCounter';
-import { Sun, Moon, Sparkles, Mail, ArrowUp, BookOpen, Eye, Dumbbell, Award } from 'lucide-react';
+import { Sun, Moon, Sparkles, Mail, ArrowUp, BookOpen, Eye, Dumbbell, Award, Landmark } from 'lucide-react';
 
 function GithubIcon({ size = 14 }) {
   return (
@@ -22,7 +22,7 @@ function LinkedinIcon({ size = 14 }) {
   );
 }
 
-export default function ProgressiveBlurDock({ onResetGate, onOpenOpenGym, onOpenPsikotest, isDark, onToggleTheme }) {
+export default function ProgressiveBlurDock({ onResetGate, onOpenOpenGym, onOpenPsikotest, onOpenTpdBi, isDark, onToggleTheme }) {
   const { formattedCount } = useVisitorCount();
 
   const scrollToTop = () => {
@@ -101,6 +101,19 @@ export default function ProgressiveBlurDock({ onResetGate, onOpenOpenGym, onOpen
             >
               <Award size={13} color="#10b981" />
               <span>Psiko</span>
+            </button>
+
+            {/* TPD Bank Indonesia Simulator direct launcher */}
+            <button
+              className="ff-link"
+              onClick={() => {
+                soundFx.playCardClick();
+                if (onOpenTpdBi) onOpenTpdBi();
+              }}
+              title="Launch TPD Bank Indonesia (PCPM Experd) Simulator"
+            >
+              <Landmark size={13} color="#f59e0b" />
+              <span>TPD BI</span>
             </button>
 
             <div className="ff-divider" />
