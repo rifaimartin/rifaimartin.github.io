@@ -292,6 +292,18 @@
       font-size: 0.85rem;
     }
 
+    .option-btn.selected {
+      border-color: #2563eb !important;
+      background: #eff6ff !important;
+      color: #1e40af !important;
+      box-shadow: 0 0 0 1px #2563eb;
+    }
+
+    .option-btn.selected .option-key {
+      background: #2563eb;
+      color: white;
+    }
+
     .option-btn.correct {
       border-color: var(--secondary) !important;
       background: #ecfdf5 !important;
@@ -430,6 +442,7 @@
     }
 
     .grid-btn.current { border-color: var(--primary); background: var(--primary); color: white; }
+    .grid-btn.answered { background: #dbeafe; border-color: #3b82f6; color: #1d4ed8; }
     .grid-btn.done { background: #ecfdf5; border-color: var(--secondary); color: var(--secondary); }
     .grid-btn.done-wrong { background: #fef2f2; border-color: var(--danger); color: var(--danger); }
 
@@ -603,8 +616,8 @@
       </div>
       <div class="header-actions">
         <div class="timer-badge" id="timer">⏳ 40:00</div>
-        <button class="btn btn-secondary" onclick="openBriefingModal()" style="font-size: 0.8rem; padding: 6px 12px;">🎯 Arahan & Mindset</button>
-        <button class="btn btn-success" onclick="openProfilingModal()" style="font-size: 0.8rem; padding: 6px 12px;">📊 Cek Profiling Saya</button>
+        <button class="btn btn-secondary" onclick="openBriefingModal()" style="font-size: 0.8rem; padding: 6px 12px;">🎯 Arahan</button>
+        <button class="btn btn-success" id="btn-header-submit" onclick="submitExam(true)" style="font-size: 0.8rem; padding: 6px 14px; font-weight: 700;">🚀 Kumpulkan Ujian</button>
         <button class="btn btn-secondary" onclick="toggleCheatSheet()" style="font-size: 0.8rem; padding: 6px 12px;">📖 Rumus Cepat</button>
       </div>
     </div>
@@ -828,8 +841,8 @@
       </div>
 
       <div style="display: flex; gap: 12px; margin-top: 24px;">
-        <button class="btn btn-secondary" onclick="closeProfilingModal()" style="flex: 1; justify-content: center;">Tutup & Lanjut Latihan</button>
-        <button class="btn btn-primary" onclick="restartQuiz()" style="flex: 1; justify-content: center;">Ulangi Tes dari Awal</button>
+        <button class="btn btn-secondary" onclick="closeProfilingModal()" style="flex: 1; justify-content: center; font-weight: 700;">🔍 Masuk Mode Pembahasan & Kunci Jawaban</button>
+        <button class="btn btn-primary" onclick="restartQuiz()" style="flex: 1; justify-content: center; font-weight: 700;">🔄 Ulangi Tes dari Awal</button>
       </div>
     </div>
   </div>
@@ -1324,6 +1337,7 @@
     let startTime = Date.now();
     let timeLeft = 40 * 60; // 40 menit
     let timerInterval = null;
+    let isSubmitted = false;
 
     function init() {
       applyFilter("ALL");
@@ -1340,7 +1354,7 @@
 
     function startExamFromBriefing() {
       closeBriefingModal();
-      if (!timerInterval) {
+      if (!timerInterval && !isSubmitted) {
         startTimer();
       }
     }
@@ -1385,13 +1399,21 @@
       filteredQuestions.forEach((q, idx) => {
         const btn = document.getElementById(`grid-item-${idx}`);
         if (!btn) return;
-        btn.classList.remove("current", "done", "done-wrong");
+        btn.classList.remove("current", "answered", "done", "done-wrong");
 
         if (idx === currentIndex) {
           btn.classList.add("current");
-        } else if (userAnswers[q.id] !== undefined) {
-          if (userAnswers[q.id] === q.correct) {
-            btn.classList.add("done");
+        } else if (!isSubmitted) {
+          if (userAnswers[q.id] !== undefined) {
+            btn.classList.add("answered");
+          }
+        } else {
+          if (userAnswers[q.id] !== undefined) {
+            if (userAnswers[q.id] === q.correct) {
+              btn.classList.add("done");
+            } else {
+              btn.classList.add("done-wrong");
+            }
           } else {
             btn.classList.add("done-wrong");
           }
@@ -1399,7 +1421,15 @@
       });
 
       const answeredTotal = Object.keys(userAnswers).length;
-      document.getElementById("answered-count").innerText = `${answeredTotal}/${allQuestions.length} Terjawab`;
+      if (!isSubmitted) {
+        document.getElementById("answered-count").innerText = `${answeredTotal}/${allQuestions.length} Terjawab`;
+      } else {
+        let correctTotal = 0;
+        allQuestions.forEach(q => {
+          if (userAnswers[q.id] === q.correct) correctTotal++;
+        });
+        document.getElementById("answered-count").innerText = `${correctTotal}/${allQuestions.length} Benar`;
+      }
     }
 
     function loadQuestion(index) {
@@ -1433,19 +1463,26 @@
       container.innerHTML = "";
 
       const alphabet = ["A", "B", "C", "D", "E"];
-      const isAnswered = userAnswers[q.id] !== undefined;
+      const hasAnswer = userAnswers[q.id] !== undefined;
 
       q.options.forEach((opt, optIdx) => {
         const btn = document.createElement("button");
         btn.className = "option-btn";
         btn.id = `opt-${optIdx}`;
 
-        if (isAnswered) {
+        if (!isSubmitted) {
+          // EXAM MODE: selectable, switchable, no right/wrong revelation
+          if (hasAnswer && userAnswers[q.id] === optIdx) {
+            btn.classList.add("selected");
+          }
+          btn.onclick = () => selectOption(optIdx);
+        } else {
+          // REVIEW MODE: disabled, reveal correct & wrong
           btn.disabled = true;
           if (optIdx === q.correct) {
             btn.classList.add("correct");
           }
-          if (userAnswers[q.id] === optIdx && optIdx !== q.correct) {
+          if (hasAnswer && userAnswers[q.id] === optIdx && optIdx !== q.correct) {
             btn.classList.add("wrong");
           }
         }
@@ -1454,13 +1491,12 @@
           <span class="option-key">${alphabet[optIdx]}</span>
           <span>${opt}</span>
         `;
-        btn.onclick = () => selectOption(optIdx);
         container.appendChild(btn);
       });
 
-      // Feedback Panel
+      // Feedback Panel (Trik & Pembahasan): ONLY visible after submit in Review Mode!
       const feedbackPanel = document.getElementById("feedback-panel");
-      if (isAnswered) {
+      if (isSubmitted) {
         document.getElementById("trick-text").innerText = q.trick;
         document.getElementById("explanation-text").innerText = q.explanation;
         feedbackPanel.style.display = "block";
@@ -1472,10 +1508,18 @@
       document.getElementById("btn-prev").disabled = index === 0;
       const btnNext = document.getElementById("btn-next");
       if (index === filteredQuestions.length - 1) {
-        btnNext.innerText = "Selesai & Lihat Profiling 📊";
-        btnNext.onclick = openProfilingModal;
+        if (!isSubmitted) {
+          btnNext.innerText = "🚀 Selesai & Kumpulkan Ujian";
+          btnNext.className = "btn btn-success";
+          btnNext.onclick = () => submitExam(true);
+        } else {
+          btnNext.innerText = "📊 Lihat Profiling Nilai";
+          btnNext.className = "btn btn-primary";
+          btnNext.onclick = openProfilingModal;
+        }
       } else {
         btnNext.innerText = "Soal Berikutnya →";
+        btnNext.className = "btn btn-primary";
         btnNext.onclick = nextQuestion;
       }
 
@@ -1483,27 +1527,19 @@
     }
 
     function selectOption(optIndex) {
+      if (isSubmitted) return;
       const q = filteredQuestions[currentIndex];
-      if (userAnswers[q.id] !== undefined) return;
-
       userAnswers[q.id] = optIndex;
 
-      const selectedBtn = document.getElementById(`opt-${optIndex}`);
-      const correctBtn = document.getElementById(`opt-${q.correct}`);
-
-      if (optIndex === q.correct) {
-        selectedBtn.classList.add("correct");
-      } else {
-        selectedBtn.classList.add("wrong");
-        correctBtn.classList.add("correct");
-      }
-
+      // Update option button highlight without revealing right/wrong
       const allBtns = document.querySelectorAll(".option-btn");
-      allBtns.forEach(b => b.disabled = true);
-
-      document.getElementById("trick-text").innerText = q.trick;
-      document.getElementById("explanation-text").innerText = q.explanation;
-      document.getElementById("feedback-panel").style.display = "block";
+      allBtns.forEach((b, idx) => {
+        if (idx === optIndex) {
+          b.classList.add("selected");
+        } else {
+          b.classList.remove("selected");
+        }
+      });
 
       updateGridStatus();
     }
@@ -1531,7 +1567,8 @@
         timeLeft--;
         if (timeLeft <= 0) {
           clearInterval(timerInterval);
-          openProfilingModal();
+          alert("⏰ Waktu ujian 40 menit telah habis! Sistem secara otomatis mengumpulkan lembar jawaban Anda.");
+          submitExam(false);
           return;
         }
 
@@ -1543,6 +1580,43 @@
           timerEl.classList.add("warning");
         }
       }, 1000);
+    }
+
+    function submitExam(showConfirm = true) {
+      if (isSubmitted) {
+        openProfilingModal();
+        return;
+      }
+
+      if (showConfirm) {
+        const answeredTotal = Object.keys(userAnswers).length;
+        const unanswered = allQuestions.length - answeredTotal;
+        if (unanswered > 0) {
+          const ok = confirm(`Perhatian: Anda baru menjawab ${answeredTotal} dari ${allQuestions.length} soal (${unanswered} soal masih kosong).\n\nApakah Anda yakin ingin mengumpulkan lembar ujian sekarang?`);
+          if (!ok) return;
+        } else {
+          const ok = confirm("Seluruh soal telah dijawab. Kumpulkan lembar ujian dan lihat analisis profiling sekarang?");
+          if (!ok) return;
+        }
+      }
+
+      isSubmitted = true;
+      clearInterval(timerInterval);
+
+      const timerEl = document.getElementById("timer");
+      if (timerEl) {
+        timerEl.classList.remove("warning");
+        timerEl.innerText = "✅ Selesai (Review)";
+      }
+      const headerSubmitBtn = document.getElementById("btn-header-submit");
+      if (headerSubmitBtn) {
+        headerSubmitBtn.innerText = "📊 Lihat Profiling & Skor";
+        headerSubmitBtn.onclick = () => openProfilingModal();
+      }
+
+      loadQuestion(currentIndex);
+      updateGridStatus();
+      openProfilingModal();
     }
 
     function toggleCheatSheet() {
@@ -1730,10 +1804,23 @@
 
     function restartQuiz() {
       userAnswers = {};
+      isSubmitted = false;
       timeLeft = 40 * 60;
       closeProfilingModal();
       clearInterval(timerInterval);
       timerInterval = null;
+
+      const timerEl = document.getElementById("timer");
+      if (timerEl) {
+        timerEl.classList.remove("warning");
+        timerEl.innerText = "⏳ 40:00";
+      }
+      const headerSubmitBtn = document.getElementById("btn-header-submit");
+      if (headerSubmitBtn) {
+        headerSubmitBtn.innerText = "🚀 Kumpulkan Ujian";
+        headerSubmitBtn.onclick = () => submitExam(true);
+      }
+
       applyFilter("ALL");
       openBriefingModal();
     }
