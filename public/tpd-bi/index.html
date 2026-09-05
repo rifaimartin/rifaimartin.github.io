@@ -431,6 +431,139 @@
     .explanation-header { font-weight: 700; color: var(--primary); font-size: 0.9rem; margin-bottom: 6px; }
     .explanation-content { font-size: 0.9rem; color: #334155; line-height: 1.55; white-space: pre-line; }
 
+    /* ========================================================
+       MODE TEBAK JENIS SOAL (IDENTIFIER DRILL)
+       ======================================================== */
+    .identifier-card {
+      background: linear-gradient(135deg, #f8fafc 0%, #f5f3ff 100%);
+      border: 2px dashed #c4b5fd;
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin-bottom: 20px;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .identifier-header {
+      margin-bottom: 12px;
+    }
+
+    .identifier-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      background: #7c3aed;
+      color: white;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+    }
+
+    .identifier-instruction {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #4c1d95;
+      margin-top: 8px;
+      line-height: 1.45;
+    }
+
+    .identifier-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 600px) {
+      .identifier-grid { grid-template-columns: 1fr; }
+    }
+
+    .id-btn {
+      background: white;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #334155;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.15s ease;
+      width: 100%;
+    }
+
+    .id-btn:hover:not(:disabled) {
+      border-color: #7c3aed;
+      background: #f5f3ff;
+      transform: translateY(-1px);
+    }
+
+    .id-btn.id-correct {
+      border-color: #10b981 !important;
+      background: #ecfdf5 !important;
+      color: #065f46 !important;
+      font-weight: 700;
+      box-shadow: 0 0 0 1px #10b981;
+    }
+
+    .id-btn.id-wrong {
+      border-color: #ef4444 !important;
+      background: #fef2f2 !important;
+      color: #991b1b !important;
+      text-decoration: line-through;
+    }
+
+    .id-btn:disabled {
+      cursor: default;
+      opacity: 0.95;
+    }
+
+    .id-feedback-box {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 0.86rem;
+      line-height: 1.5;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .id-feedback-box.id-success {
+      background: #ecfdf5;
+      border: 1.5px solid #a7f3d0;
+      color: #065f46;
+    }
+
+    .id-feedback-box.id-miss {
+      background: #fffbeb;
+      border: 1.5px solid #fde68a;
+      color: #92400e;
+    }
+
+    .id-trigger-tip {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dashed rgba(0, 0, 0, 0.12);
+      font-size: 0.84rem;
+      color: #334155;
+    }
+
+    .options-phase-title {
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 16px 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
     /* NAV BUTTONS */
     .action-row {
       display: flex;
@@ -691,6 +824,9 @@
   <!-- MODE SWITCHER BAR -->
   <div class="mode-bar-container">
     <div class="mode-switcher">
+      <button class="mode-btn" id="mode-btn-identifier" onclick="switchTestMode('identifier')">
+        🎯 Mode Tebak Jenis Soal
+      </button>
       <button class="mode-btn active" id="mode-btn-instant" onclick="switchTestMode('instant')">
         ⚡ Mode Latihan (Bahas Langsung)
       </button>
@@ -740,6 +876,24 @@
       <div class="question-box">
         <div class="question-title" id="q-text">Pertanyaan dimuat...</div>
         <div class="visual-container" id="q-visual" style="display: none;"></div>
+      </div>
+
+      <!-- KOTAK TEBAK JENIS SOAL (IDENTIFIER DRILL) -->
+      <div class="identifier-card" id="identifier-card" style="display: none;">
+        <div class="identifier-header">
+          <div class="identifier-badge">🎯 TAHAP 1: REFLEKS IDENTIFIER</div>
+          <div class="identifier-instruction">Sekilas baca soal di atas (2-3 detik), <strong>apa jenis & pola soal ini?</strong></div>
+        </div>
+        <div class="identifier-grid" id="identifier-options-grid">
+          <!-- 4 Opsi Pola dimuat dinamis lewat JS -->
+        </div>
+        <div class="identifier-result" id="identifier-result" style="display: none;">
+          <!-- Feedback Benar/Salah & Trigger Refleks 3 Detik -->
+        </div>
+      </div>
+
+      <div class="options-phase-title" id="options-phase-title" style="display: none;">
+        <span>👉 TAHAP 2: EKSEKUSI JAWABAN SOAL</span>
       </div>
 
       <div class="options-list" id="options-container">
@@ -862,11 +1016,15 @@
         </label>
       </div>
 
-      <!-- PILIHAN 2 MODE EKSEKUSI -->
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+      <!-- PILIHAN 3 MODE EKSEKUSI -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+        <button class="btn" onclick="startExamFromBriefing('identifier')" style="width: 100%; justify-content: center; padding: 13px 10px; font-size: 0.95rem; font-weight: 800; background: #7c3aed; color: white; border-radius: 10px; display: flex; flex-direction: column; gap: 4px; align-items: center; border: none; cursor: pointer;">
+          <span>🎯 Mode Tebak Jenis Soal</span>
+          <span style="font-size: 0.74rem; font-weight: 500; opacity: 0.9;">Latih refleks pola & trigger awal</span>
+        </button>
         <button class="btn" onclick="startExamFromBriefing('instant')" style="width: 100%; justify-content: center; padding: 13px 10px; font-size: 0.95rem; font-weight: 800; background: #059669; color: white; border-radius: 10px; display: flex; flex-direction: column; gap: 4px; align-items: center; border: none; cursor: pointer;">
           <span>⚡ Mode Latihan Kilat</span>
-          <span style="font-size: 0.74rem; font-weight: 500; opacity: 0.9;">Klik langsung tahu benar/salah & trik</span>
+          <span style="font-size: 0.74rem; font-weight: 500; opacity: 0.9;">Bahas langsung tiap opsi diklik</span>
         </button>
         <button class="btn btn-primary" onclick="startExamFromBriefing('exam')" style="width: 100%; justify-content: center; padding: 13px 10px; font-size: 0.95rem; font-weight: 800; background: #002d62; color: white; border-radius: 10px; display: flex; flex-direction: column; gap: 4px; align-items: center; border: none; cursor: pointer;">
           <span>⏱️ Mode Real Ujian CAT</span>
@@ -1417,11 +1575,12 @@
     // ==========================================
     // CONTROLLER & PROFILING ENGINE
     // ==========================================
-    let appMode = "instant"; // "instant" (Mode Latihan Kilat) | "exam" (Mode Real Ujian CAT)
+    let appMode = "instant"; // "instant" | "exam" | "identifier"
     let currentFilter = "ALL";
     let filteredQuestions = [...allQuestions];
     let currentIndex = 0;
     let userAnswers = {}; // id -> answerIndex
+    let identifierAnswers = {}; // id -> { chosen: string, isCorrect: boolean }
     let questionTimes = {}; // id -> seconds
     let startTime = Date.now();
     let timeLeft = 40 * 60; // 40 menit
@@ -1446,7 +1605,7 @@
       if (appMode === targetMode && !fromBriefing) return;
 
       if (!fromBriefing && appMode === "exam" && !isSubmitted && Object.keys(userAnswers).length > 0) {
-        const confirmSwitch = confirm("Beralih ke Mode Latihan Kilat akan langsung menampilkan status benar/salah & pembahasan untuk soal yang telah Anda jawab. Lanjutkan?");
+        const confirmSwitch = confirm("Beralih mode akan menghentikan simulasi ujian CAT berjalan. Lanjutkan?");
         if (!confirmSwitch) return;
       }
 
@@ -1457,6 +1616,11 @@
       if (appMode === "instant") {
         if (timerEl && !isSubmitted) {
           timerEl.innerText = "⚡ Mode Latihan";
+          timerEl.classList.remove("warning");
+        }
+      } else if (appMode === "identifier") {
+        if (timerEl && !isSubmitted) {
+          timerEl.innerText = "🎯 Tebak Pola";
           timerEl.classList.remove("warning");
         }
       } else {
@@ -1474,18 +1638,22 @@
     }
 
     function updateModeUI() {
+      const btnIdentifier = document.getElementById("mode-btn-identifier");
       const btnInstant = document.getElementById("mode-btn-instant");
       const btnExam = document.getElementById("mode-btn-exam");
       const infoTag = document.getElementById("mode-info-tag");
 
-      if (btnInstant && btnExam && infoTag) {
-        if (appMode === "instant") {
-          btnInstant.classList.add("active");
-          btnExam.classList.remove("active");
+      [btnIdentifier, btnInstant, btnExam].forEach(b => b && b.classList.remove("active"));
+
+      if (infoTag) {
+        if (appMode === "identifier") {
+          if (btnIdentifier) btnIdentifier.classList.add("active");
+          infoTag.innerHTML = `🎯 <strong>Mode Tebak Jenis Soal:</strong> Latih insting 2-3 detik menebak jenis & pola soal sebelum menjawab. Bangun konteks & aktifkan trigger trik awal!`;
+        } else if (appMode === "instant") {
+          if (btnInstant) btnInstant.classList.add("active");
           infoTag.innerHTML = `⚡ <strong>Mode Latihan Kilat:</strong> Klik pilihan langsung tahu benar/salah & trik cepat dibedah. Bebas eksplorasi tanpa batasan waktu kaku.`;
         } else {
-          btnExam.classList.add("active");
-          btnInstant.classList.remove("active");
+          if (btnExam) btnExam.classList.add("active");
           infoTag.innerHTML = `⏱️ <strong>Mode Real Ujian CAT:</strong> Simulasi kondisi riil. Jawaban tersimpan tanpa bocoran, waktu 40 menit, evaluasi & profiling muncul saat submit.`;
         }
       }
@@ -1542,6 +1710,16 @@
 
         if (idx === currentIndex) {
           btn.classList.add("current");
+        } else if (appMode === "identifier") {
+          if (hasAns) {
+            if (userAnswers[q.id] === q.correct) {
+              btn.classList.add("done");
+            } else {
+              btn.classList.add("done-wrong");
+            }
+          } else if (identifierAnswers[q.id] !== undefined) {
+            btn.classList.add("answered");
+          }
         } else if (appMode === "instant" || isSubmitted) {
           if (hasAns) {
             if (userAnswers[q.id] === q.correct) {
@@ -1561,7 +1739,15 @@
       });
 
       const answeredTotal = Object.keys(userAnswers).length;
-      if (appMode === "instant" || isSubmitted) {
+      if (appMode === "identifier") {
+        const idCount = Object.keys(identifierAnswers).length;
+        let idCorrectTotal = 0;
+        for (const k in identifierAnswers) {
+          if (identifierAnswers[k].isCorrect) idCorrectTotal++;
+        }
+        document.getElementById("answered-count").innerText = 
+          `🎯 Pola: ${idCorrectTotal}/${idCount} Tepat | Soal: ${answeredTotal}/${allQuestions.length} Terjawab`;
+      } else if (appMode === "instant" || isSubmitted) {
         let correctTotal = 0;
         allQuestions.forEach(q => {
           if (userAnswers[q.id] === q.correct) correctTotal++;
@@ -1572,11 +1758,181 @@
       }
     }
 
+    // ==========================================
+    // IDENTIFIER DRILL ENGINE (TEBAK JENIS SOAL)
+    // ==========================================
+    function getIdentifierOptions(q) {
+      const correct = `${q.category} • ${q.subCategory}`;
+      
+      const sameCat = allQuestions.filter(item => item.category === q.category && (item.category + ' • ' + item.subCategory) !== correct);
+      const diffCat = allQuestions.filter(item => item.category !== q.category);
+      
+      const options = [correct];
+      
+      // Pick 1 or 2 from same category
+      if (sameCat.length > 0) {
+        const pick1 = sameCat[(q.id * 3) % sameCat.length];
+        options.push(`${pick1.category} • ${pick1.subCategory}`);
+        
+        if (sameCat.length > 1) {
+          const pickSame2 = sameCat[(q.id * 7 + 1) % sameCat.length];
+          const optStr = `${pickSame2.category} • ${pickSame2.subCategory}`;
+          if (!options.includes(optStr)) {
+            options.push(optStr);
+          }
+        }
+      }
+      
+      // Fill remaining from different categories
+      let step = 1;
+      while (options.length < 4) {
+        const pickDiff = diffCat[(q.id * 5 + step) % diffCat.length];
+        const optStr = `${pickDiff.category} • ${pickDiff.subCategory}`;
+        if (!options.includes(optStr)) {
+          options.push(optStr);
+        }
+        step++;
+      }
+      
+      // Deterministic shuffle based on q.id
+      const shuffled = [...options].sort((a, b) => {
+        const hA = ((a.length * 17) + a.charCodeAt(0) + q.id * 13) % 100;
+        const hB = ((b.length * 17) + b.charCodeAt(0) + q.id * 13) % 100;
+        return hA - hB;
+      });
+      
+      return { correct, options: shuffled };
+    }
+
+    function renderIdentifierCard(q) {
+      const card = document.getElementById("identifier-card");
+      const phaseTitle = document.getElementById("options-phase-title");
+      if (!card) return;
+
+      if (appMode !== "identifier") {
+        card.style.display = "none";
+        if (phaseTitle) phaseTitle.style.display = "none";
+        const catTag = document.getElementById("q-category");
+        if (catTag) {
+          catTag.innerText = `${q.category} • ${q.subCategory}`;
+          catTag.style.background = "#e0f2fe";
+          catTag.style.color = "#0369a1";
+        }
+        return;
+      }
+
+      card.style.display = "block";
+      if (phaseTitle) phaseTitle.style.display = "flex";
+
+      const grid = document.getElementById("identifier-options-grid");
+      const resultBox = document.getElementById("identifier-result");
+      grid.innerHTML = "";
+
+      const data = getIdentifierOptions(q);
+      const userChoice = identifierAnswers[q.id];
+      const hasGuessed = userChoice !== undefined;
+      const catTag = document.getElementById("q-category");
+
+      if (hasGuessed) {
+        if (catTag) {
+          catTag.innerText = `${q.category} • ${q.subCategory}`;
+          catTag.style.background = userChoice.isCorrect ? "#dcfce7" : "#fee2e2";
+          catTag.style.color = userChoice.isCorrect ? "#15803d" : "#b91c1c";
+        }
+      } else {
+        if (catTag) {
+          catTag.innerText = "🎯 [Tebak Pola Dulu]";
+          catTag.style.background = "#fef3c7";
+          catTag.style.color = "#92400e";
+        }
+      }
+
+      data.options.forEach((optText, optIdx) => {
+        const btn = document.createElement("button");
+        btn.className = "id-btn";
+        btn.innerHTML = `<span style="font-weight:800; color:#7c3aed; width:18px;">${optIdx + 1}.</span> <span>${optText}</span>`;
+
+        if (hasGuessed) {
+          btn.disabled = true;
+          if (optText === data.correct) {
+            btn.classList.add("id-correct");
+            btn.innerHTML = `<span style="font-weight:800; color:#059669; width:18px;">✓</span> <span>${optText}</span>`;
+          }
+          if (optText === userChoice.chosen && !userChoice.isCorrect) {
+            btn.classList.add("id-wrong");
+            btn.innerHTML = `<span style="font-weight:800; color:#dc2626; width:18px;">✕</span> <span>${optText}</span>`;
+          }
+        } else {
+          btn.onclick = () => selectIdentifierOption(optText);
+        }
+
+        grid.appendChild(btn);
+      });
+
+      if (hasGuessed) {
+        resultBox.style.display = "block";
+        if (userChoice.isCorrect) {
+          resultBox.innerHTML = `
+            <div class="id-feedback-box id-success">
+              <div style="font-weight:800; font-size:0.92rem; margin-bottom:4px; display:flex; align-items:center; gap:6px;">
+                🎉 TEPAT SEKALI! Refleks Pengenalan Pola Sangat Baik
+              </div>
+              <div>Pola Terdeteksi: <strong>${q.category} • ${q.subCategory}</strong></div>
+              <div class="id-trigger-tip">
+                💡 <strong>Kunci Trigger Refleks 3 Detik:</strong> ${q.trick}
+              </div>
+            </div>
+          `;
+        } else {
+          resultBox.innerHTML = `
+            <div class="id-feedback-box id-miss">
+              <div style="font-weight:800; font-size:0.92rem; margin-bottom:4px; display:flex; align-items:center; gap:6px;">
+                ⚠️ BELUM TEPAT! Kenali Pola Soal Ini:
+              </div>
+              <div>Pola Sebenarnya: <strong>${q.category} • ${q.subCategory}</strong></div>
+              <div class="id-trigger-tip">
+                💡 <strong>Trigger Pengenalan Pola:</strong> ${q.trick}
+              </div>
+            </div>
+          `;
+        }
+      } else {
+        resultBox.style.display = "none";
+        resultBox.innerHTML = "";
+      }
+    }
+
+    function selectIdentifierOption(chosenText) {
+      const q = filteredQuestions[currentIndex];
+      const correct = `${q.category} • ${q.subCategory}`;
+      const isCorrect = chosenText === correct;
+
+      identifierAnswers[q.id] = { chosen: chosenText, isCorrect };
+
+      renderIdentifierCard(q);
+      updateGridStatus();
+    }
+
     function loadQuestion(index) {
       currentIndex = index;
       const q = filteredQuestions[index];
 
-      document.getElementById("q-category").innerText = `${q.category} • ${q.subCategory}`;
+      // Update Category Tag & Identifier Card
+      const catTag = document.getElementById("q-category");
+      if (appMode === "identifier") {
+        renderIdentifierCard(q);
+      } else {
+        const idCard = document.getElementById("identifier-card");
+        if (idCard) idCard.style.display = "none";
+        const phaseTitle = document.getElementById("options-phase-title");
+        if (phaseTitle) phaseTitle.style.display = "none";
+        if (catTag) {
+          catTag.innerText = `${q.category} • ${q.subCategory}`;
+          catTag.style.background = "#e0f2fe";
+          catTag.style.color = "#0369a1";
+        }
+      }
+
       document.getElementById("q-progress").innerText = `Soal ${index + 1} dari ${filteredQuestions.length}`;
       document.getElementById("q-text").innerText = q.question;
 
@@ -1611,8 +1967,8 @@
         btn.className = "option-btn";
         btn.id = `opt-${optIdx}`;
 
-        if (appMode === "instant") {
-          // LATIHAN KILAT MODE: if answered, reveal correct/wrong immediately
+        if (appMode === "instant" || appMode === "identifier") {
+          // LATIHAN KILAT & IDENTIFIER MODE: if answered, reveal correct/wrong immediately
           if (hasAnswer) {
             if (optIdx === q.correct) {
               btn.classList.add("correct");
@@ -1651,7 +2007,7 @@
 
       // Feedback Panel (Trik & Pembahasan)
       const feedbackPanel = document.getElementById("feedback-panel");
-      if ((appMode === "instant" && hasAnswer) || isSubmitted) {
+      if (((appMode === "instant" || appMode === "identifier") && hasAnswer) || isSubmitted) {
         document.getElementById("trick-text").innerText = q.trick;
         document.getElementById("explanation-text").innerText = q.explanation;
         feedbackPanel.style.display = "block";
@@ -1686,8 +2042,8 @@
       const q = filteredQuestions[currentIndex];
       userAnswers[q.id] = optIndex;
 
-      if (appMode === "instant") {
-        // Instant Mode: update option button highlight & reveal correct/wrong
+      if (appMode === "instant" || appMode === "identifier") {
+        // Instant & Identifier Mode: update option button highlight & reveal correct/wrong
         const allBtns = document.querySelectorAll(".option-btn");
         allBtns.forEach((b, idx) => {
           b.classList.remove("selected", "correct", "wrong");
@@ -1979,6 +2335,7 @@
 
     function restartQuiz(targetMode) {
       userAnswers = {};
+      identifierAnswers = {};
       isSubmitted = false;
       timeLeft = 40 * 60;
       closeProfilingModal();
@@ -1992,7 +2349,9 @@
       const timerEl = document.getElementById("timer");
       if (timerEl) {
         timerEl.classList.remove("warning");
-        timerEl.innerText = appMode === "exam" ? "⏳ 40:00" : "⚡ Mode Latihan";
+        if (appMode === "exam") timerEl.innerText = "⏳ 40:00";
+        else if (appMode === "identifier") timerEl.innerText = "🎯 Tebak Pola";
+        else timerEl.innerText = "⚡ Mode Latihan";
       }
       const headerSubmitBtn = document.getElementById("btn-header-submit");
       if (headerSubmitBtn) {
