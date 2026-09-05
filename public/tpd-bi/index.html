@@ -92,6 +92,71 @@
       50% { opacity: 0.7; }
     }
 
+    /* MODE SWITCHER BAR */
+    .mode-bar-container {
+      max-width: 1060px;
+      margin: 14px auto 0;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .mode-switcher {
+      display: inline-flex;
+      background: #e2e8f0;
+      padding: 4px;
+      border-radius: 9999px;
+      gap: 4px;
+    }
+
+    .mode-btn {
+      padding: 7px 16px;
+      border-radius: 9999px;
+      border: none;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      color: #64748b;
+      background: transparent;
+    }
+
+    .mode-btn:hover {
+      color: #0f172a;
+    }
+
+    .mode-btn.active {
+      background: #002d62;
+      color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 45, 98, 0.2);
+    }
+
+    .mode-info-tag {
+      font-size: 0.8rem;
+      color: #334155;
+      font-weight: 600;
+      background: #f1f5f9;
+      padding: 6px 12px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    @media (max-width: 640px) {
+      .mode-bar-container { flex-direction: column; align-items: stretch; gap: 8px; }
+      .mode-switcher { width: 100%; justify-content: center; }
+      .mode-btn { flex: 1; justify-content: center; font-size: 0.74rem; padding: 6px 8px; }
+      .mode-info-tag { font-size: 0.74rem; text-align: center; justify-content: center; }
+    }
+
     /* FILTER BAR */
     .filter-bar {
       max-width: 1060px;
@@ -623,6 +688,21 @@
     </div>
   </header>
 
+  <!-- MODE SWITCHER BAR -->
+  <div class="mode-bar-container">
+    <div class="mode-switcher">
+      <button class="mode-btn active" id="mode-btn-instant" onclick="switchTestMode('instant')">
+        ⚡ Mode Latihan (Bahas Langsung)
+      </button>
+      <button class="mode-btn" id="mode-btn-exam" onclick="switchTestMode('exam')">
+        ⏱️ Mode Real Ujian CAT
+      </button>
+    </div>
+    <div class="mode-info-tag" id="mode-info-tag">
+      ⚡ <strong>Mode Latihan:</strong> Klik pilihan langsung tahu benar/salah & trik cepat dibedah.
+    </div>
+  </div>
+
   <!-- FILTER KATEGORI -->
   <div class="filter-bar">
     <button class="filter-btn active" onclick="filterCategory('ALL')">Semua Subtes (40 Soal)</button>
@@ -782,9 +862,17 @@
         </label>
       </div>
 
-      <button class="btn btn-primary" onclick="startExamFromBriefing()" style="width: 100%; justify-content: center; padding: 14px; font-size: 1rem; font-weight: 800; background: #002d62; border-radius: 10px;">
-        🚀 SAYA SIAP TEMPUR - MULAI SIMULASI TES
-      </button>
+      <!-- PILIHAN 2 MODE EKSEKUSI -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <button class="btn" onclick="startExamFromBriefing('instant')" style="width: 100%; justify-content: center; padding: 13px 10px; font-size: 0.95rem; font-weight: 800; background: #059669; color: white; border-radius: 10px; display: flex; flex-direction: column; gap: 4px; align-items: center; border: none; cursor: pointer;">
+          <span>⚡ Mode Latihan Kilat</span>
+          <span style="font-size: 0.74rem; font-weight: 500; opacity: 0.9;">Klik langsung tahu benar/salah & trik</span>
+        </button>
+        <button class="btn btn-primary" onclick="startExamFromBriefing('exam')" style="width: 100%; justify-content: center; padding: 13px 10px; font-size: 0.95rem; font-weight: 800; background: #002d62; color: white; border-radius: 10px; display: flex; flex-direction: column; gap: 4px; align-items: center; border: none; cursor: pointer;">
+          <span>⏱️ Mode Real Ujian CAT</span>
+          <span style="font-size: 0.74rem; font-weight: 500; opacity: 0.9;">Timer 40 menit, evaluasi saat submit</span>
+        </button>
+      </div>
     </div>
   </div>
 
@@ -1329,6 +1417,7 @@
     // ==========================================
     // CONTROLLER & PROFILING ENGINE
     // ==========================================
+    let appMode = "instant"; // "instant" (Mode Latihan Kilat) | "exam" (Mode Real Ujian CAT)
     let currentFilter = "ALL";
     let filteredQuestions = [...allQuestions];
     let currentIndex = 0;
@@ -1340,6 +1429,7 @@
     let isSubmitted = false;
 
     function init() {
+      updateModeUI();
       applyFilter("ALL");
       openBriefingModal();
     }
@@ -1352,11 +1442,58 @@
       document.getElementById("briefing-modal").style.display = "none";
     }
 
-    function startExamFromBriefing() {
-      closeBriefingModal();
-      if (!timerInterval && !isSubmitted) {
-        startTimer();
+    function switchTestMode(targetMode, fromBriefing = false) {
+      if (appMode === targetMode && !fromBriefing) return;
+
+      if (!fromBriefing && appMode === "exam" && !isSubmitted && Object.keys(userAnswers).length > 0) {
+        const confirmSwitch = confirm("Beralih ke Mode Latihan Kilat akan langsung menampilkan status benar/salah & pembahasan untuk soal yang telah Anda jawab. Lanjutkan?");
+        if (!confirmSwitch) return;
       }
+
+      appMode = targetMode;
+      updateModeUI();
+
+      const timerEl = document.getElementById("timer");
+      if (appMode === "instant") {
+        if (timerEl && !isSubmitted) {
+          timerEl.innerText = "⚡ Mode Latihan";
+          timerEl.classList.remove("warning");
+        }
+      } else {
+        if (!timerInterval && !isSubmitted) {
+          startTimer();
+        } else if (timerEl && !isSubmitted) {
+          const mins = Math.floor(timeLeft / 60);
+          const secs = timeLeft % 60;
+          timerEl.innerText = `⏳ ${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+      }
+
+      loadQuestion(currentIndex);
+      updateGridStatus();
+    }
+
+    function updateModeUI() {
+      const btnInstant = document.getElementById("mode-btn-instant");
+      const btnExam = document.getElementById("mode-btn-exam");
+      const infoTag = document.getElementById("mode-info-tag");
+
+      if (btnInstant && btnExam && infoTag) {
+        if (appMode === "instant") {
+          btnInstant.classList.add("active");
+          btnExam.classList.remove("active");
+          infoTag.innerHTML = `⚡ <strong>Mode Latihan Kilat:</strong> Klik pilihan langsung tahu benar/salah & trik cepat dibedah. Bebas eksplorasi tanpa batasan waktu kaku.`;
+        } else {
+          btnExam.classList.add("active");
+          btnInstant.classList.remove("active");
+          infoTag.innerHTML = `⏱️ <strong>Mode Real Ujian CAT:</strong> Simulasi kondisi riil. Jawaban tersimpan tanpa bocoran, waktu 40 menit, evaluasi & profiling muncul saat submit.`;
+        }
+      }
+    }
+
+    function startExamFromBriefing(chosenMode = "instant") {
+      closeBriefingModal();
+      switchTestMode(chosenMode, true);
     }
 
     function applyFilter(category) {
@@ -1401,34 +1538,37 @@
         if (!btn) return;
         btn.classList.remove("current", "answered", "done", "done-wrong");
 
+        const hasAns = userAnswers[q.id] !== undefined;
+
         if (idx === currentIndex) {
           btn.classList.add("current");
-        } else if (!isSubmitted) {
-          if (userAnswers[q.id] !== undefined) {
-            btn.classList.add("answered");
-          }
-        } else {
-          if (userAnswers[q.id] !== undefined) {
+        } else if (appMode === "instant" || isSubmitted) {
+          if (hasAns) {
             if (userAnswers[q.id] === q.correct) {
               btn.classList.add("done");
             } else {
               btn.classList.add("done-wrong");
             }
-          } else {
+          } else if (isSubmitted) {
             btn.classList.add("done-wrong");
+          }
+        } else {
+          // Real exam mode: only blue indicator
+          if (hasAns) {
+            btn.classList.add("answered");
           }
         }
       });
 
       const answeredTotal = Object.keys(userAnswers).length;
-      if (!isSubmitted) {
-        document.getElementById("answered-count").innerText = `${answeredTotal}/${allQuestions.length} Terjawab`;
-      } else {
+      if (appMode === "instant" || isSubmitted) {
         let correctTotal = 0;
         allQuestions.forEach(q => {
           if (userAnswers[q.id] === q.correct) correctTotal++;
         });
-        document.getElementById("answered-count").innerText = `${correctTotal}/${allQuestions.length} Benar`;
+        document.getElementById("answered-count").innerText = `${correctTotal}/${answeredTotal} Benar (${answeredTotal}/${allQuestions.length} Terjawab)`;
+      } else {
+        document.getElementById("answered-count").innerText = `${answeredTotal}/${allQuestions.length} Terjawab`;
       }
     }
 
@@ -1464,26 +1604,41 @@
 
       const alphabet = ["A", "B", "C", "D", "E"];
       const hasAnswer = userAnswers[q.id] !== undefined;
+      const userAns = userAnswers[q.id];
 
       q.options.forEach((opt, optIdx) => {
         const btn = document.createElement("button");
         btn.className = "option-btn";
         btn.id = `opt-${optIdx}`;
 
-        if (!isSubmitted) {
-          // EXAM MODE: selectable, switchable, no right/wrong revelation
-          if (hasAnswer && userAnswers[q.id] === optIdx) {
-            btn.classList.add("selected");
+        if (appMode === "instant") {
+          // LATIHAN KILAT MODE: if answered, reveal correct/wrong immediately
+          if (hasAnswer) {
+            if (optIdx === q.correct) {
+              btn.classList.add("correct");
+            }
+            if (optIdx === userAns && userAns !== q.correct) {
+              btn.classList.add("wrong");
+            }
           }
           btn.onclick = () => selectOption(optIdx);
         } else {
-          // REVIEW MODE: disabled, reveal correct & wrong
-          btn.disabled = true;
-          if (optIdx === q.correct) {
-            btn.classList.add("correct");
-          }
-          if (hasAnswer && userAnswers[q.id] === optIdx && optIdx !== q.correct) {
-            btn.classList.add("wrong");
+          // REAL EXAM MODE
+          if (!isSubmitted) {
+            // Selectable, switchable, no correct/wrong revelation
+            if (hasAnswer && userAns === optIdx) {
+              btn.classList.add("selected");
+            }
+            btn.onclick = () => selectOption(optIdx);
+          } else {
+            // Disabled after submit, reveal correct & wrong
+            btn.disabled = true;
+            if (optIdx === q.correct) {
+              btn.classList.add("correct");
+            }
+            if (hasAnswer && userAns === optIdx && optIdx !== q.correct) {
+              btn.classList.add("wrong");
+            }
           }
         }
 
@@ -1494,9 +1649,9 @@
         container.appendChild(btn);
       });
 
-      // Feedback Panel (Trik & Pembahasan): ONLY visible after submit in Review Mode!
+      // Feedback Panel (Trik & Pembahasan)
       const feedbackPanel = document.getElementById("feedback-panel");
-      if (isSubmitted) {
+      if ((appMode === "instant" && hasAnswer) || isSubmitted) {
         document.getElementById("trick-text").innerText = q.trick;
         document.getElementById("explanation-text").innerText = q.explanation;
         feedbackPanel.style.display = "block";
@@ -1508,7 +1663,7 @@
       document.getElementById("btn-prev").disabled = index === 0;
       const btnNext = document.getElementById("btn-next");
       if (index === filteredQuestions.length - 1) {
-        if (!isSubmitted) {
+        if (!isSubmitted && appMode === "exam") {
           btnNext.innerText = "🚀 Selesai & Kumpulkan Ujian";
           btnNext.className = "btn btn-success";
           btnNext.onclick = () => submitExam(true);
@@ -1527,19 +1682,39 @@
     }
 
     function selectOption(optIndex) {
-      if (isSubmitted) return;
+      if (isSubmitted && appMode === "exam") return;
       const q = filteredQuestions[currentIndex];
       userAnswers[q.id] = optIndex;
 
-      // Update option button highlight without revealing right/wrong
-      const allBtns = document.querySelectorAll(".option-btn");
-      allBtns.forEach((b, idx) => {
-        if (idx === optIndex) {
-          b.classList.add("selected");
-        } else {
-          b.classList.remove("selected");
-        }
-      });
+      if (appMode === "instant") {
+        // Instant Mode: update option button highlight & reveal correct/wrong
+        const allBtns = document.querySelectorAll(".option-btn");
+        allBtns.forEach((b, idx) => {
+          b.classList.remove("selected", "correct", "wrong");
+          if (idx === q.correct) {
+            b.classList.add("correct");
+          }
+          if (idx === optIndex && optIndex !== q.correct) {
+            b.classList.add("wrong");
+          }
+        });
+
+        // Show feedback panel immediately
+        const feedbackPanel = document.getElementById("feedback-panel");
+        document.getElementById("trick-text").innerText = q.trick;
+        document.getElementById("explanation-text").innerText = q.explanation;
+        feedbackPanel.style.display = "block";
+      } else {
+        // Real Exam Mode: only blue highlight, hide explanation
+        const allBtns = document.querySelectorAll(".option-btn");
+        allBtns.forEach((b, idx) => {
+          if (idx === optIndex) {
+            b.classList.add("selected");
+          } else {
+            b.classList.remove("selected");
+          }
+        });
+      }
 
       updateGridStatus();
     }
@@ -1802,7 +1977,7 @@
       document.getElementById("result-modal").style.display = "none";
     }
 
-    function restartQuiz() {
+    function restartQuiz(targetMode) {
       userAnswers = {};
       isSubmitted = false;
       timeLeft = 40 * 60;
@@ -1810,10 +1985,14 @@
       clearInterval(timerInterval);
       timerInterval = null;
 
+      if (targetMode) {
+        appMode = targetMode;
+      }
+
       const timerEl = document.getElementById("timer");
       if (timerEl) {
         timerEl.classList.remove("warning");
-        timerEl.innerText = "⏳ 40:00";
+        timerEl.innerText = appMode === "exam" ? "⏳ 40:00" : "⚡ Mode Latihan";
       }
       const headerSubmitBtn = document.getElementById("btn-header-submit");
       if (headerSubmitBtn) {
@@ -1821,6 +2000,7 @@
         headerSubmitBtn.onclick = () => submitExam(true);
       }
 
+      updateModeUI();
       applyFilter("ALL");
       openBriefingModal();
     }
