@@ -809,7 +809,7 @@
         <span class="badge-bi">PCPM BI 39/40</span>
         <div class="title-area">
           <h1>Simulasi & Profiling Lengkap TPD Experd</h1>
-          <p>40 Soal Komprehensif • Analisis Kelemahan & Rekomendasi Kilat</p>
+          <p>62 Soal Komprehensif • 30 Soal Speed Drill Digit Symbol • Analisis Kelemahan & Rekomendasi Kilat</p>
         </div>
       </div>
       <div class="header-actions">
@@ -841,11 +841,11 @@
 
   <!-- FILTER KATEGORI -->
   <div class="filter-bar">
-    <button class="filter-btn active" onclick="filterCategory('ALL')">Semua Subtes (40 Soal)</button>
+    <button class="filter-btn active" onclick="filterCategory('ALL')">Semua Subtes (62 Soal)</button>
     <button class="filter-btn" onclick="filterCategory('Verbal')">1. Verbal & Bahasa Buatan (8 Soal)</button>
     <button class="filter-btn" onclick="filterCategory('Numerik')">2. Numerik & Aritmatika (10 Soal)</button>
     <button class="filter-btn" onclick="filterCategory('Diagrammatic')">3. Diagrammatic Figural (8 Soal)</button>
-    <button class="filter-btn" onclick="filterCategory('Digit Symbol')">4. Digit Symbol & Kecermatan (8 Soal)</button>
+    <button class="filter-btn" onclick="filterCategory('Digit Symbol')">4. Digit Symbol & Kecermatan (30 Soal Speed Drill) ⚡</button>
     <button class="filter-btn" onclick="filterCategory('POF')">5. POF & Sikap Kerja BI (6 Soal)</button>
   </div>
 
@@ -854,7 +854,7 @@
     <div class="quiz-card">
       <div class="card-top">
         <span class="category-tag" id="q-category">Kategori</span>
-        <span class="progress-text" id="q-progress">Soal 1 dari 40</span>
+        <span class="progress-text" id="q-progress">Soal 1 dari 62</span>
       </div>
 
       <!-- KOTAK KUNCI SIMBOL (MUNCUL OTOMATIS KHUSUS DIGIT SYMBOL) -->
@@ -922,7 +922,7 @@
     <!-- SIDEBAR NAVIGASI & CHEAT SHEET -->
     <div class="sidebar">
       <div class="side-card">
-        <h3>Daftar Soal <span style="font-size: 0.8rem; font-weight: 500; color: var(--text-muted);" id="answered-count">0/40 Terjawab</span></h3>
+        <h3>Daftar Soal <span style="font-size: 0.8rem; font-weight: 500; color: var(--text-muted);" id="answered-count">0/62 Terjawab</span></h3>
         <div class="grid-nav" id="grid-nav"></div>
       </div>
 
@@ -939,6 +939,12 @@
         <div class="cheat-pill">
           <strong>3. Person-Job Fit (POF) BI</strong>
           Pilih opsi dengan Integritas Mutlak, Anti-Gratifikasi, dan Kerjasama Tim. Hindari opsi yang membenarkan kecurangan kecil.
+        </div>
+        <div class="cheat-pill" style="border-left: 4px solid #eab308; background: #fefce8;">
+          <strong style="color: #854d0e;">💡 Golden Rule Pola Numerik & Kalku</strong>
+          • Angka <strong>NAIK</strong> = Tambah (+) atau Perkalian (×).<br/>
+          • Angka <strong>MENURUN</strong> = Kurang (-) atau Pembagian (÷).<br/>
+          • Kuasai kali-bagi di luar kepala & biasakan tangan memencet kalkulator/numpad dengan lincah!
         </div>
         <div class="cheat-pill">
           <strong>4. Cermin vs Air</strong>
@@ -987,10 +993,33 @@
         </ul>
       </div>
 
-      <!-- 3. SENJATA TRIK KILAT PER SUBTES -->
+      <!-- 3. TIPS CEPAT POLA NUMERIK & REFLEKS HITUNG -->
+      <div style="background: #fefce8; border-left: 5px solid #eab308; border-radius: 8px; padding: 14px 18px; margin-bottom: 14px;">
+        <h4 style="color: #854d0e; font-size: 0.95rem; font-weight: 800; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+          💡 3. Tips Cepat Nyari Pola Numerik & Refleks Hitung
+        </h4>
+        <ul style="font-size: 0.84rem; color: #713f12; line-height: 1.6; margin-left: 18px;">
+          <li><strong>Angka Naik ➔ Tambah (+) atau Perkalian (×):</strong> Kalau angka pada deret naik perlahan/stabil berarti pola penjumlahan (+). Kalau angka melonjak drastis berlipat ganda, berarti perkalian (×) atau perpangkatan.</li>
+          <li><strong>Angka Menurun ➔ Kurang (-) atau Pembagian (÷):</strong> Kalau angka berkurang wajar berarti pengurangan (-). Kalau menyusut tajam menjadi separuh atau sepertiga berarti pembagian (÷).</li>
+          <li><strong>Kecepatan Tangan & Mental Math:</strong> Wajib kuasai perkalian dan pembagian dasar di luar kepala! Biasakan tangan lincah menekan kalkulator / numpad secara cepat jika sistem menyediakan kalkulator di layar.</li>
+        </ul>
+      </div>
+
+      <!-- 4. ATURAN KRUSIAL SUBTES DIGIT SYMBOL -->
+      <div style="background: #f0fdf4; border-left: 5px solid #10b981; border-radius: 8px; padding: 14px 18px; margin-bottom: 14px;">
+        <h4 style="color: #065f46; font-size: 0.95rem; font-weight: 800; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+          ⚡ 4. Karakteristik Subtes Digit Symbol (Jumlah Soal Terbanyak: ~30-an Soal!)
+        </h4>
+        <ul style="font-size: 0.84rem; color: #047857; line-height: 1.55; margin-left: 18px;">
+          <li><strong>Alokasi Soal Terbanyak:</strong> Sesuai Field Report (FR) PCPM Experd, subtes Digit Symbol & Kecermatan memiliki jumlah soal paling banyak (30–36 soal) dengan waktu super ketat (~6–7 menit atau 10–12 detik per soal!).</li>
+          <li><strong>Teknik Scan Mata Ujung-ke-Ujung:</strong> Jangan mengeja karakter satu per satu. Cukup gerakkan bola mata untuk mencocokkan karakter paling depan dan paling belakang, lalu eliminasi pilihan ganda yang salah seketika.</li>
+        </ul>
+      </div>
+
+      <!-- 5. SENJATA TRIK KILAT PER SUBTES -->
       <div style="background: #ecfdf5; border-left: 5px solid #10b981; border-radius: 8px; padding: 14px 18px; margin-bottom: 18px;">
         <h4 style="color: #065f46; font-size: 0.95rem; font-weight: 800; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
-          ⚡ 3. Ringkasan Senjata Trik Kilat (<30 Detik)
+          ⚡ 5. Ringkasan Senjata Trik Kilat (<30 Detik)
         </h4>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 0.82rem; color: #047857; margin-top: 6px;">
           <div style="background: white; padding: 8px 10px; border-radius: 6px; border: 1px solid #a7f3d0;">
@@ -1051,7 +1080,7 @@
         </div>
         <div class="score-info">
           <div id="status-badge" class="score-badge">STATUS EVALUASI</div>
-          <div style="font-size: 0.85rem; color: var(--text-muted);" id="progress-summary">Soal Dijawab: 0 dari 40</div>
+          <div style="font-size: 0.85rem; color: var(--text-muted);" id="progress-summary">Soal Dijawab: 0 dari 62</div>
           <div style="font-size: 0.85rem; color: var(--text-muted);" id="time-spent-summary">Kecepatan Rata-rata: ~35 detik/soal</div>
         </div>
       </div>
@@ -1095,7 +1124,7 @@
 
   <script>
     // ==========================================================
-    // BANK SOAL TPD PCPM BI (40 SOAL HIGH-YIELD KOMPREHENSIF)
+    // BANK SOAL TPD PCPM BI (62 SOAL DENGAN 30 SOAL DIGIT SYMBOL)
     // ==========================================================
     const allQuestions = [
       // --- SUBTES 1: VERBAL & BAHASA BUATAN (8 SOAL) ---
@@ -1391,7 +1420,7 @@
         explanation: "Persegi panjang memiliki sepasang sisi panjang dan sepasang sisi lebar, tidak beraturan seperti opsi lainnya."
       },
 
-      // --- SUBTES 4: DIGIT SYMBOL & KECERMATAN (8 SOAL) ---
+      // --- SUBTES 4: DIGIT SYMBOL & KECERMATAN (30 SOAL SPEED DRILL) ---
       {
         id: 27,
         category: "Digit Symbol",
@@ -1425,6 +1454,76 @@
       {
         id: 30,
         category: "Digit Symbol",
+        subCategory: "Pencocokan Sandi Simbol 4 Digit",
+        question: "Gunakan Kunci Sandi Simbol di atas!\nKombinasi simbol: 【 ✖ ⬤ ▲ ✦ 】 mewakili deretan angka:",
+        options: ["6 - 7 - 2 - 4", "6 - 7 - 3 - 4", "5 - 7 - 2 - 4", "6 - 8 - 2 - 4", "6 - 7 - 2 - 5"],
+        correct: 0,
+        trick: "✖ = 6, ⬤ = 7, ▲ = 2, ✦ = 4 -> 6 - 7 - 2 - 4.",
+        explanation: "6 = ✖, 7 = ⬤, 2 = ▲, 4 = ✦."
+      },
+      {
+        id: 31,
+        category: "Digit Symbol",
+        subCategory: "Pencocokan Sandi Simbol 5 Digit",
+        question: "Gunakan Kunci Sandi Simbol di atas!\nKombinasi simbol: 【 ★ ☁ ⬟ ◆ ✚ 】 mewakili angka:",
+        options: ["1 - 9 - 5 - 3 - 8", "1 - 9 - 5 - 2 - 8", "1 - 8 - 5 - 3 - 8", "2 - 9 - 5 - 3 - 8", "1 - 9 - 4 - 3 - 8"],
+        correct: 0,
+        trick: "Cek Ujung Depan (★ = 1) dan Belakang (✚ = 8). Lalu tengah ☁ (9), ⬟ (5), ◆ (3). Hasil: 1 - 9 - 5 - 3 - 8.",
+        explanation: "Kunci: 1, 9, 5, 3, 8."
+      },
+      {
+        id: 32,
+        category: "Digit Symbol",
+        subCategory: "Sandi Balik (Angka ke Simbol)",
+        question: "Gunakan Kunci Sandi Simbol di atas!\nDeretan angka: 【 4 - 2 - 8 - 5 】 diwakili oleh simbol:",
+        options: ["✦ - ▲ - ✚ - ⬟", "✦ - ◆ - ✚ - ⬟", "✦ - ▲ - ✖ - ⬟", "★ - ▲ - ✚ - ⬟", "✦ - ▲ - ✚ - ⬤"],
+        correct: 0,
+        trick: "4 = ✦, 2 = ▲, 8 = ✚, 5 = ⬟. Jawaban: ✦ - ▲ - ✚ - ⬟.",
+        explanation: "Sesuai tabel sandi Experd."
+      },
+      {
+        id: 33,
+        category: "Digit Symbol",
+        subCategory: "Sandi Balik (Angka ke Simbol)",
+        question: "Gunakan Kunci Sandi Simbol di atas!\nDeretan angka: 【 7 - 6 - 3 - 9 】 diwakili oleh simbol:",
+        options: ["⬤ - ✖ - ◆ - ☁", "⬤ - ✚ - ◆ - ☁", "⬤ - ✖ - ▲ - ☁", "⬟ - ✖ - ◆ - ☁", "⬤ - ✖ - ◆ - ★"],
+        correct: 0,
+        trick: "7 = ⬤, 6 = ✖, 3 = ◆, 9 = ☁. Jawaban langsung Opsi A.",
+        explanation: "Tabel: 7=⬤, 6=✖, 3=◆, 9=☁."
+      },
+      {
+        id: 34,
+        category: "Digit Symbol",
+        subCategory: "Pencocokan Sandi Simbol Berulang",
+        question: "Gunakan Kunci Sandi Simbol di atas!\nKombinasi simbol: 【 ▲ ▲ ✦ ☁ ☁ 】 mewakili deretan angka:",
+        options: ["2 - 2 - 4 - 9 - 9", "2 - 2 - 3 - 9 - 9", "1 - 1 - 4 - 9 - 9", "2 - 2 - 4 - 8 - 8", "3 - 3 - 4 - 9 - 9"],
+        correct: 0,
+        trick: "Simbol kembar: ▲▲ = 2 2, ✦ = 4, ☁☁ = 9 9 -> 2 - 2 - 4 - 9 - 9.",
+        explanation: "Pola kembar mempercepat scanning mata."
+      },
+      {
+        id: 35,
+        category: "Digit Symbol",
+        subCategory: "Pencocokan Sandi Simbol Operasi Cepat",
+        question: "Gunakan Kunci Sandi Simbol di atas!\nBerapakah hasil penjumlahan nilai angka dari simbol: 【 ⬟ + ✚ + ★ 】?",
+        options: ["14", "13", "15", "12", "16"],
+        correct: 0,
+        trick: "⬟ = 5, ✚ = 8, ★ = 1. Jumlahkan: 5 + 8 + 1 = 14!",
+        explanation: "Substitusi nilai: 5 + 8 + 1 = 14."
+      },
+      {
+        id: 36,
+        category: "Digit Symbol",
+        subCategory: "Pencocokan Sandi Simbol Operasi Cepat",
+        question: "Gunakan Kunci Sandi Simbol di atas!\nBerapakah hasil perkalian nilai angka dari simbol: 【 ◆ × ▲ × ✦ 】?",
+        options: ["24", "20", "28", "18", "32"],
+        correct: 0,
+        trick: "◆ = 3, ▲ = 2, ✦ = 4. Kalikan: 3 × 2 × 4 = 24!",
+        explanation: "Substitusi nilai: 3 × 2 = 6; 6 × 4 = 24."
+      },
+      {
+        id: 37,
+        category: "Digit Symbol",
         subCategory: "Cek Pasangan Identik",
         question: "Tentukan apakah kedua pasangan kode ini SAMA atau BEDA:\n\nKode 1:  XP9808Qa2\nKode 2:  XP9808Qa2",
         options: ["SAMA (Identik 100%)", "BEDA (Ada perbedaan karakter)"],
@@ -1433,7 +1532,7 @@
         explanation: "Tidak terdapat perbedaan karakter sama sekali."
       },
       {
-        id: 31,
+        id: 38,
         category: "Digit Symbol",
         subCategory: "Pengecoh Huruf O vs Angka 0",
         question: "Tentukan apakah kedua pasangan kode ini SAMA atau BEDA:\n\nKode 1:  MWV80811O\nKode 2:  MWV808110",
@@ -1443,7 +1542,7 @@
         explanation: "Perbedaan pada huruf 'O' vs angka '0'."
       },
       {
-        id: 32,
+        id: 39,
         category: "Digit Symbol",
         subCategory: "Pengecoh Huruf l vs Angka 1",
         question: "Tentukan apakah kedua pasangan kode ini SAMA atau BEDA:\n\nKode 1:  B1nd0N3s1A\nKode 2:  Blnd0N3s1A",
@@ -1453,7 +1552,7 @@
         explanation: "Karakter kedua berbeda: angka 1 vs huruf l."
       },
       {
-        id: 33,
+        id: 40,
         category: "Digit Symbol",
         subCategory: "Pengecoh Huruf rn vs Huruf m",
         question: "Tentukan apakah kedua pasangan kata ini SAMA atau BEDA:\n\nKata 1:  kornpensasi\nKata 2:  kompensasi",
@@ -1463,19 +1562,169 @@
         explanation: "Huruf 'rn' pada kata 1 berbeda dengan huruf 'm' pada kata 2."
       },
       {
-        id: 34,
+        id: 41,
         category: "Digit Symbol",
-        subCategory: "Cek Kesamaan Deret Angka Panjang",
-        question: "Tentukan apakah deretan angka berikut SAMA atau BEDA:\n\nDeret 1:  78239014562\nDeret 2:  78239014562",
+        subCategory: "Pengecoh Huruf VV vs Huruf W",
+        question: "Tentukan apakah kedua pasangan kode ini SAMA atau BEDA:\n\nKode 1:  KPWVV98201\nKode 2:  KPWW98201",
+        options: ["SAMA (Identik 100%)", "BEDA (Ada perbedaan karakter)"],
+        correct: 1,
+        trick: "Pengecoh Double V: Kode 1 menggunakan dua huruf V rapat ('VV'), kode 2 menggunakan satu huruf W ('W'). BEDA!",
+        explanation: "Karakter ke-4 dan ke-5 pada kode 1 adalah 'VV', sedangkan kode 2 adalah 'W'."
+      },
+      {
+        id: 42,
+        category: "Digit Symbol",
+        subCategory: "Pengecoh Angka 5 vs Huruf S",
+        question: "Tentukan apakah kedua pasangan kode serial ini SAMA atau BEDA:\n\nKode 1:  TX58920194S\nKode 2:  TXS8920194S",
+        options: ["SAMA (Identik 100%)", "BEDA (Ada perbedaan karakter)"],
+        correct: 1,
+        trick: "Scan Karakter ke-3: Kode 1 menggunakan angka '5', sedangkan kode 2 menggunakan huruf kapital 'S'. BEDA!",
+        explanation: "Perbedaan pada karakter ke-3: angka 5 vs huruf S."
+      },
+      {
+        id: 43,
+        category: "Digit Symbol",
+        subCategory: "Pengecoh Angka 2 vs Huruf Z",
+        question: "Tentukan apakah kedua pasangan kode serial ini SAMA atau BEDA:\n\nKode 1:  AB2984KLPZ\nKode 2:  AB2984KLPZ",
         options: ["SAMA (Identik 100%)", "BEDA (Ada perbedaan karakter)"],
         correct: 0,
-        trick: "Chunking (Bagi Tiga Angka): 782 - 390 - 145 - 62. Keduanya identik sempurna!",
+        trick: "Scan Ujung dan Tengah: AB - 2984 - KLPZ. Keduanya identik sempurna!",
+        explanation: "Kedua kode memiliki karakter dan posisi yang sama persis."
+      },
+      {
+        id: 44,
+        category: "Digit Symbol",
+        subCategory: "Pengecoh Huruf B vs Angka 8",
+        question: "Tentukan apakah kedua pasangan kode ini SAMA atau BEDA:\n\nKode 1:  QR892B018\nKode 2:  QR8928018",
+        options: ["SAMA (Identik 100%)", "BEDA (Ada perbedaan karakter)"],
+        correct: 1,
+        trick: "Scan Karakter ke-6: Kode 1 menggunakan huruf kapital 'B', kode 2 menggunakan angka '8'. BEDA!",
+        explanation: "Perbedaan pada karakter ke-6: huruf B vs angka 8."
+      },
+      {
+        id: 45,
+        category: "Digit Symbol",
+        subCategory: "Cek Kesamaan Deret Angka Panjang",
+        question: "Tentukan apakah deretan angka rekening berikut SAMA atau BEDA:\n\nDeret 1:  78239014562\nDeret 2:  78239014562",
+        options: ["SAMA (Identik 100%)", "BEDA (Ada perbedaan karakter)"],
+        correct: 0,
+        trick: "Chunking (Bagi 3 Digit): 782 - 390 - 145 - 62. Keduanya identik sempurna!",
         explanation: "Teknik chunking mempermudah verifikasi deret angka panjang."
+      },
+      {
+        id: 46,
+        category: "Digit Symbol",
+        subCategory: "Cek Kesamaan Deret Angka Panjang",
+        question: "Tentukan apakah deretan angka berikut SAMA atau BEDA:\n\nDeret 1:  509823419082\nDeret 2:  509823419032",
+        options: ["SAMA (Identik 100%)", "BEDA (Ada perbedaan karakter)"],
+        correct: 1,
+        trick: "Scan Digit Kedua dari Belakang: Deret 1 angka '82', deret 2 angka '32'. BEDA!",
+        explanation: "Digit ke-11 berbeda: 8 vs 3."
+      },
+      {
+        id: 47,
+        category: "Digit Symbol",
+        subCategory: "Cek Pasangan Alfanumerik Acak",
+        question: "Tentukan apakah kedua pasangan token otentikasi ini SAMA atau BEDA:\n\nToken 1:  dF9#kL2@mQ\nToken 2:  dF9#kL2@mQ",
+        options: ["SAMA (Identik 100%)", "BEDA (Ada perbedaan karakter)"],
+        correct: 0,
+        trick: "Cek Huruf Besar/Kecil & Simbol: d-F-9-#-k-L-2-@-m-Q. Sama 100%!",
+        explanation: "Semua karakter termasuk simbol dan case matching 100%."
+      },
+      {
+        id: 48,
+        category: "Digit Symbol",
+        subCategory: "Pengecoh Kapital vs Huruf Kecil",
+        question: "Tentukan apakah kedua string kode ini SAMA atau BEDA:\n\nKode 1:  BANKindonesia\nKode 2:  BANKIndonesia",
+        options: ["SAMA (Identik 100%)", "BEDA (Ada perbedaan karakter)"],
+        correct: 1,
+        trick: "Scan Huruf ke-5: Kode 1 huruf kecil 'i', kode 2 huruf kapital 'I'. BEDA!",
+        explanation: "Case sensitive: huruf 'i' kecil vs 'I' besar."
+      },
+      {
+        id: 49,
+        category: "Digit Symbol",
+        subCategory: "Pencocokan Sandi Simbol 4 Digit",
+        question: "Gunakan Kunci Sandi Simbol di atas!\nKombinasi simbol: 【 ☁ ✦ ⬟ ⬤ 】 mewakili deretan angka berapakah?",
+        options: ["9 - 4 - 5 - 7", "9 - 3 - 5 - 7", "8 - 4 - 5 - 7", "9 - 4 - 6 - 7", "9 - 4 - 5 - 6"],
+        correct: 0,
+        trick: "☁ = 9, ✦ = 4, ⬟ = 5, ⬤ = 7. Opsi A (9 - 4 - 5 - 7) tepat!",
+        explanation: "Tabel: 9, 4, 5, 7."
+      },
+      {
+        id: 50,
+        category: "Digit Symbol",
+        subCategory: "Pencocokan Sandi Simbol 4 Digit",
+        question: "Gunakan Kunci Sandi Simbol di atas!\nKombinasi simbol: 【 ✚ ✖ ★ ◆ 】 mewakili deretan angka berapakah?",
+        options: ["8 - 6 - 1 - 3", "8 - 6 - 2 - 3", "7 - 6 - 1 - 3", "8 - 5 - 1 - 3", "8 - 6 - 1 - 4"],
+        correct: 0,
+        trick: "✚ = 8, ✖ = 6, ★ = 1, ◆ = 3 -> 8 - 6 - 1 - 3.",
+        explanation: "Tabel: 8, 6, 1, 3."
+      },
+      {
+        id: 51,
+        category: "Digit Symbol",
+        subCategory: "Sandi Balik (Angka ke Simbol)",
+        question: "Gunakan Kunci Sandi Simbol di atas!\nDeretan angka: 【 1 - 7 - 4 - 2 】 diwakili oleh simbol:",
+        options: ["★ - ⬤ - ✦ - ▲", "★ - ⬤ - ◆ - ▲", "★ - ✚ - ✦ - ▲", "▲ - ⬤ - ✦ - ★", "★ - ⬤ - ✦ - ⬟"],
+        correct: 0,
+        trick: "1 = ★, 7 = ⬤, 4 = ✦, 2 = ▲. Jawaban Opsi A!",
+        explanation: "Tabel: 1=★, 7=⬤, 4=✦, 2=▲."
+      },
+      {
+        id: 52,
+        category: "Digit Symbol",
+        subCategory: "Pengecoh Tanda Baca & Spasi Mikro",
+        question: "Tentukan apakah kedua alamat email institusi ini SAMA atau BEDA:\n\nEmail 1:  contact_bi@bi.go.id\nEmail 2:  contact-bi@bi.go.id",
+        options: ["SAMA (Identik 100%)", "BEDA (Ada perbedaan karakter)"],
+        correct: 1,
+        trick: "Scan Tanda Hubung: Email 1 menggunakan underscore ('_'), email 2 menggunakan tanda minus/hyphen ('-'). BEDA!",
+        explanation: "Underscore vs hyphen."
+      },
+      {
+        id: 53,
+        category: "Digit Symbol",
+        subCategory: "Pengecoh Angka Kembar Bergeser",
+        question: "Tentukan apakah kedua kode transaksi BI-FAST ini SAMA atau BEDA:\n\nKode 1:  TRX99881204\nKode 2:  TRX98981204",
+        options: ["SAMA (Identik 100%)", "BEDA (Ada perbedaan karakter)"],
+        correct: 1,
+        trick: "Scan Karakter ke-4 sampai 7: Kode 1 '9988', kode 2 '9898'. BEDA!",
+        explanation: "Urutan angka kembar terbalik."
+      },
+      {
+        id: 54,
+        category: "Digit Symbol",
+        subCategory: "Cek Pasangan Identik Panjang",
+        question: "Tentukan apakah kedua deretan sandi alfanumerik ini SAMA atau BEDA:\n\nSandi 1:  9Z#qP&28Lm@X\nSandi 2:  9Z#qP&28Lm@X",
+        options: ["SAMA (Identik 100%)", "BEDA (Ada perbedaan karakter)"],
+        correct: 0,
+        trick: "Bagi jadi 3 bagian: 9Z#q - P&28 - Lm@X. Keduanya sama persis 100%!",
+        explanation: "Karakter identik sempurna."
+      },
+      {
+        id: 55,
+        category: "Digit Symbol",
+        subCategory: "Pencocokan Sandi Simbol 5 Digit",
+        question: "Gunakan Kunci Sandi Simbol di atas!\nKombinasi simbol: 【 ⬟ ★ ☁ ▲ ✖ 】 mewakili deretan angka:",
+        options: ["5 - 1 - 9 - 2 - 6", "5 - 1 - 8 - 2 - 6", "4 - 1 - 9 - 2 - 6", "5 - 2 - 9 - 1 - 6", "5 - 1 - 9 - 3 - 6"],
+        correct: 0,
+        trick: "⬟ = 5, ★ = 1, ☁ = 9, ▲ = 2, ✖ = 6 -> 5 - 1 - 9 - 2 - 6.",
+        explanation: "Tabel sandi: 5, 1, 9, 2, 6."
+      },
+      {
+        id: 56,
+        category: "Digit Symbol",
+        subCategory: "Pencocokan Sandi Simbol 5 Digit",
+        question: "Gunakan Kunci Sandi Simbol di atas!\nKombinasi simbol: 【 ✚ ◆ ⬤ ✦ ☁ 】 mewakili deretan angka:",
+        options: ["8 - 3 - 7 - 4 - 9", "8 - 2 - 7 - 4 - 9", "8 - 3 - 6 - 4 - 9", "7 - 3 - 7 - 4 - 9", "8 - 3 - 7 - 5 - 9"],
+        correct: 0,
+        trick: "✚ = 8, ◆ = 3, ⬤ = 7, ✦ = 4, ☁ = 9 -> 8 - 3 - 7 - 4 - 9.",
+        explanation: "Tabel sandi: 8, 3, 7, 4, 9."
       },
 
       // --- SUBTES 5: PERSON-ORGANIZATION FIT (POF) / SIKAP KERJA BI (6 SOAL) ---
       {
-        id: 35,
+        id: 57,
         category: "POF",
         subCategory: "Integritas & Anti-Gratifikasi",
         question: "Seorang rekanan penyedia vendor TI mengirimkan parsel mewah ke alamat rumah Anda menjelang hari raya, bertepatan dengan proses lelang pengadaan server Bank Indonesia yang sedang Anda evaluasi. Sikap Anda:",
@@ -1491,7 +1740,7 @@
         explanation: "Kode Etik BI melarang keras penerimaan hadiah berkaitan jabatan dan pengadaan barang/jasa."
       },
       {
-        id: 36,
+        id: 58,
         category: "POF",
         subCategory: "Akuntabilitas & Presisi Data",
         question: "Anda menemukan kesalahan kecil dalam data inflasi bulanan yang Anda susun 15 menit sebelum dokumen dipresentasikan ke Dewan Gubernur. Perbaikan memerlukan waktu sekitar 10 menit. Tindakan terbaik Anda:",
@@ -1507,7 +1756,7 @@
         explanation: "Integritas profesional menuntut transparansi dan perbaikan segera sebelum keputusan strategis diambil."
       },
       {
-        id: 37,
+        id: 59,
         category: "POF",
         subCategory: "Soliditas Tim & Tekanan Kerja",
         question: "Departemen Anda menghadapi tenggat waktu perumusan kebijakan yang sangat mendesak. Salah seorang rekan satu tim Anda tiba-tiba jatuh sakit. Sikap Anda:",
@@ -1523,7 +1772,7 @@
         explanation: "PCPM mencari calon pemimpin yang memiliki jiwa korsa dan orientasi solusi tim."
       },
       {
-        id: 38,
+        id: 60,
         category: "POF",
         subCategory: "Kerahasiaan Informasi Negara",
         question: "Sebagai staf di Bank Indonesia, Anda memiliki akses data survei perbankan yang bersifat rahasia. Teman akrab Anda yang bekerja di perusahaan investasi menanyakan arah suku bunga acuan (BI-Rate) untuk keputusan trading-nya. Tindakan Anda:",
@@ -1539,7 +1788,7 @@
         explanation: "Pelanggaran kerahasiaan informasi pasar merupakan pelanggaran hukum berat bagi pegawai bank sentral."
       },
       {
-        id: 39,
+        id: 61,
         category: "POF",
         subCategory: "Konflik Kepentingan (Conflict of Interest)",
         question: "Kakak kandung Anda menjabat sebagai direktur di salah satu bank swasta yang sedang diperiksa oleh tim pengawasan Bank Indonesia di mana Anda ditunjuk sebagai salah satu anggotanya. Langkah profesional Anda:",
@@ -1555,7 +1804,7 @@
         explanation: "Prinsip tata kelola Bank Indonesia mewajibkan setiap pegawai mendeklarasikan potensi benturan kepentingan untuk menjaga objektivitas pengawasan."
       },
       {
-        id: 40,
+        id: 62,
         category: "POF",
         subCategory: "Adaptabilitas & Inovasi Digital",
         question: "Pimpinan menginstruksikan implementasi sistem otomasi analisis data berbasis AI baru yang mengubah prosedur kerja manual yang sudah Anda kuasai selama bertahun-tahun. Respon terbaik Anda:",
