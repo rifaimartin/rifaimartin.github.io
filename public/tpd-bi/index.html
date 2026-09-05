@@ -303,7 +303,14 @@
       padding-top: 2px;
     }
 
+    .visual-container svg {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
     .visual-container {
+      overflow-x: auto;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -809,7 +816,7 @@
         <span class="badge-bi">PCPM BI 39/40</span>
         <div class="title-area">
           <h1>Simulasi & Profiling Lengkap TPD Experd</h1>
-          <p>62 Soal Komprehensif • 30 Soal Speed Drill Digit Symbol • Analisis Kelemahan & Rekomendasi Kilat</p>
+          <p>86 Soal Komprehensif • Variasi Diagram Venn & Matriks 3x3 • 30 Speed Drill Digit Symbol • Analisis Kelemahan & Rekomendasi Kilat</p>
         </div>
       </div>
       <div class="header-actions">
@@ -841,12 +848,15 @@
 
   <!-- FILTER KATEGORI -->
   <div class="filter-bar">
-    <button class="filter-btn active" onclick="filterCategory('ALL')">Semua Subtes (62 Soal)</button>
-    <button class="filter-btn" onclick="filterCategory('Verbal')">1. Verbal & Bahasa Buatan (8 Soal)</button>
-    <button class="filter-btn" onclick="filterCategory('Numerik')">2. Numerik & Aritmatika (10 Soal)</button>
-    <button class="filter-btn" onclick="filterCategory('Diagrammatic')">3. Diagrammatic Figural (8 Soal)</button>
-    <button class="filter-btn" onclick="filterCategory('Digit Symbol')">4. Digit Symbol & Kecermatan (30 Soal Speed Drill) ⚡</button>
-    <button class="filter-btn" onclick="filterCategory('POF')">5. POF & Sikap Kerja BI (6 Soal)</button>
+    <button class="filter-btn active" data-cat="ALL" onclick="filterCategory('ALL')">Semua Subtes (86 Soal)</button>
+    <button class="filter-btn" data-cat="Verbal" onclick="filterCategory('Verbal')">1. Verbal & Bahasa Buatan (8 Soal)</button>
+    <button class="filter-btn" data-cat="Numerik" onclick="filterCategory('Numerik')">2. Numerik & Aritmatika (10 Soal)</button>
+    <button class="filter-btn" data-cat="Matriks Numerik" onclick="filterCategory('Matriks Numerik')">3. Matriks Numerik Visual (8 Soal) 🔢</button>
+    <button class="filter-btn" data-cat="Diagrammatic" onclick="filterCategory('Diagrammatic')">4. Diagrammatic & Spasial (8 Soal) 📐</button>
+    <button class="filter-btn" data-cat="Matriks Figural" onclick="filterCategory('Matriks Figural')">5. Matriks Figural 3x3 (8 Soal) 🧩</button>
+    <button class="filter-btn" data-cat="Diagram Venn" onclick="filterCategory('Diagram Venn')">6. Diagram Venn & Himpunan (8 Soal) ⭕</button>
+    <button class="filter-btn" data-cat="Digit Symbol" onclick="filterCategory('Digit Symbol')">7. Digit Symbol (30 Soal Speed Drill) ⚡</button>
+    <button class="filter-btn" data-cat="POF" onclick="filterCategory('POF')">8. POF & Sikap Kerja BI (6 Soal) 🏛️</button>
   </div>
 
   <main>
@@ -854,7 +864,7 @@
     <div class="quiz-card">
       <div class="card-top">
         <span class="category-tag" id="q-category">Kategori</span>
-        <span class="progress-text" id="q-progress">Soal 1 dari 62</span>
+        <span class="progress-text" id="q-progress">Soal 1 dari 86</span>
       </div>
 
       <!-- KOTAK KUNCI SIMBOL (MUNCUL OTOMATIS KHUSUS DIGIT SYMBOL) -->
@@ -922,7 +932,7 @@
     <!-- SIDEBAR NAVIGASI & CHEAT SHEET -->
     <div class="sidebar">
       <div class="side-card">
-        <h3>Daftar Soal <span style="font-size: 0.8rem; font-weight: 500; color: var(--text-muted);" id="answered-count">0/62 Terjawab</span></h3>
+        <h3>Daftar Soal <span style="font-size: 0.8rem; font-weight: 500; color: var(--text-muted);" id="answered-count">0/86 Terjawab</span></h3>
         <div class="grid-nav" id="grid-nav"></div>
       </div>
 
@@ -1016,23 +1026,34 @@
         </ul>
       </div>
 
-      <!-- 5. SENJATA TRIK KILAT PER SUBTES -->
+      <!-- 5. POLA BARU 99% MUNCUL: DIAGRAM VENN & MATRIKS 3X3 -->
+      <div style="background: #eff6ff; border-left: 5px solid #3b82f6; border-radius: 8px; padding: 14px 18px; margin-bottom: 14px;">
+        <h4 style="color: #1e40af; font-size: 0.95rem; font-weight: 800; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+          📊 5. Pola 99% Muncul: Diagram Venn & Matriks Figural 3x3 Raven's
+        </h4>
+        <ul style="font-size: 0.84rem; color: #1e3a8a; line-height: 1.55; margin-left: 18px;">
+          <li><strong>Diagram Venn Kategori & Himpunan:</strong> Cermati relasi subset konsentris (semua A adalah B), disjoint (saling lepas), atau interseksi parsial. Pada himpunan 3 lingkaran numerik, gunakan rumus: <em>Total = A + B + C - (Irisan 2) + Irisan 3</em>.</li>
+          <li><strong>Matriks Figural 3x3:</strong> Uji 3 aturan utama baris/kolom: (1) Distribusi Latin Square (tiap baris punya tepat 1 bentuk yang sama), (2) Operasi Garis XOR / Penjumlahan, atau (3) Rotasi sudut 45°/90° searah jarum jam.</li>
+        </ul>
+      </div>
+
+      <!-- 6. SENJATA TRIK KILAT PER SUBTES -->
       <div style="background: #ecfdf5; border-left: 5px solid #10b981; border-radius: 8px; padding: 14px 18px; margin-bottom: 18px;">
         <h4 style="color: #065f46; font-size: 0.95rem; font-weight: 800; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
-          ⚡ 5. Ringkasan Senjata Trik Kilat (<30 Detik)
+          ⚡ 6. Ringkasan Senjata Trik Kilat (&lt;30 Detik)
         </h4>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 0.82rem; color: #047857; margin-top: 6px;">
           <div style="background: white; padding: 8px 10px; border-radius: 6px; border: 1px solid #a7f3d0;">
             <strong>Verbal & Sandi:</strong> Jembatan kalimat (Profesi : Hasil). Bahasa Buatan: cari kata kembar di 2 baris lalu eliminasi opsi!
           </div>
           <div style="background: white; padding: 8px 10px; border-radius: 6px; border: 1px solid #a7f3d0;">
-            <strong>Numerik:</strong> Geser koma desimal, deret lompat (pisahkan ganjil/genap), pecahan istimewa (37,5% = 3/8).
+            <strong>Numerik & Matriks:</strong> Naik (+ / ×), Turun (- / ÷). Matriks angka cek selisih kuadrat ($A^2 - B^2$) atau perkalian silang.
           </div>
           <div style="background: white; padding: 8px 10px; border-radius: 6px; border: 1px solid #a7f3d0;">
-            <strong>Figural:</strong> Cermin vertikal = kiri-kanan balik. Air mendatar = atas-bawah balik. Matriks = cek baris/kolom.
+            <strong>Spasial & Venn:</strong> Cermin vertikal/horizontal. Diagram Venn: tentukan apakah hierarki bertingkat atau irisan sebagian.
           </div>
           <div style="background: white; padding: 8px 10px; border-radius: 6px; border: 1px solid #a7f3d0;">
-            <strong>Digit Symbol & POF:</strong> Scan ujung karakter (waspada O vs 0). POF: Integritas mutlak, anti-gratifikasi, kerja tim!
+            <strong>Digit Symbol & POF:</strong> Scan ujung karakter (waspada O vs 0). POF: Integritas mutlak, anti-gratifikasi, declare konflik kepentingan!
           </div>
         </div>
       </div>
@@ -1080,7 +1101,7 @@
         </div>
         <div class="score-info">
           <div id="status-badge" class="score-badge">STATUS EVALUASI</div>
-          <div style="font-size: 0.85rem; color: var(--text-muted);" id="progress-summary">Soal Dijawab: 0 dari 62</div>
+          <div style="font-size: 0.85rem; color: var(--text-muted);" id="progress-summary">Soal Dijawab: 0 dari 86</div>
           <div style="font-size: 0.85rem; color: var(--text-muted);" id="time-spent-summary">Kecepatan Rata-rata: ~35 detik/soal</div>
         </div>
       </div>
@@ -1124,702 +1145,1373 @@
 
   <script>
     // ==========================================================
-    // BANK SOAL TPD PCPM BI (62 SOAL DENGAN 30 SOAL DIGIT SYMBOL)
+    // BANK SOAL TPD PCPM BI (86 SOAL TOTAL DENGAN DIAGRAM VENN, MATRIKS FIGURAL 3X3 & DIGIT SYMBOL)
     // ==========================================================
     const allQuestions = [
-      // --- SUBTES 1: VERBAL & BAHASA BUATAN (8 SOAL) ---
-      {
-        id: 1,
-        category: "Verbal",
-        subCategory: "Analogi Kata (Profesi : Hasil)",
-        question: "APOTEKER : OBAT = ...",
-        options: ["Pesawat : Pilot", "Koki : Masakan", "Montir : Obeng", "Penyair : Puisi", "Masinis : Kereta Api"],
-        correct: 1,
-        trick: "Jembatan Kalimat: 'Apoteker meracik produk berupa obat'. Cari pasangan Profesi : Produk buatan. Koki meracik masakan.",
-        explanation: "Hubungan fungsional asosiatif antara pelaku profesi dan benda yang diracik/dihasilkan."
-      },
-      {
-        id: 2,
-        category: "Verbal",
-        subCategory: "Analogi Kata (Tingkat Intensitas)",
-        question: "HANGAT : PANAS = ...",
-        options: ["Sejuk : Dingin", "Terang : Gelap", "Lari : Jalan", "Makan : Kenyang", "Basah : Lembab"],
-        correct: 0,
-        trick: "Jembatan Kalimat: 'Hangat adalah tingkatan intensitas lebih rendah dari Panas'. Pola yang sama: 'Sejuk adalah tingkatan lebih rendah dari Dingin'.",
-        explanation: "Hubungan derajat tingkatan suhu: Hangat -> Panas setara dengan Sejuk -> Dingin."
-      },
-      {
-        id: 3,
-        category: "Verbal",
-        subCategory: "Sinonim Istilah Finansial / Formal",
-        question: "EVOKASI = ...",
-        options: ["Pengungsian", "Penggugah rasa", "Penilaian berkala", "Pencegahan dini", "Penyelamatan"],
-        correct: 1,
-        trick: "Konteks Kalimat: Jangan terkecoh dengan 'Evakuasi'. Evokasi berasal dari kata 'evoke', yaitu daya untuk menggugah kenangan atau perasaan.",
-        explanation: "KBBI: Evokasi adalah daya (daya penggugah) yang menumbuhkan kenangan atau membangkitkan emosi."
-      },
-      {
-        id: 4,
-        category: "Verbal",
-        subCategory: "Antonim Kata Formal",
-        question: "SPORADIS >< ...",
-        options: ["Jarang", "Berpindah-pindah", "Kerap / Berkelanjutan", "Terisolasi", "Menyebar"],
-        correct: 2,
-        trick: "Lawan Kata: Sporadis artinya kadang-kadang atau jarang. Lawan katanya adalah kerap, rutin, atau berkelanjutan.",
-        explanation: "Sporadis bermakna keadaan yang timbul tidak tentu dan jarang. Lawan katanya adalah berkelanjutan/kerap."
-      },
-      {
-        id: 5,
-        category: "Verbal",
-        subCategory: "Bahasa Buatan (Experd Morfem)",
-        question: "Perhatikan terjemahan bahasa buatan berikut:\n• 'morpirter' berarti 'burung biru'\n• 'slorpirter' berarti 'burung merah'\n• 'slorvanti' berarti 'apel merah'\n\nBerdasarkan pola di atas, kata apakah yang berarti 'apel biru'?",
-        options: ["morvanti", "vantimor", "pirtervanti", "slormor", "vantipirter"],
-        correct: 0,
-        trick: "Cari Morfem Sama: 'pirter' = burung, 'slor' = merah, 'mor' = biru, 'vanti' = apel. Awalan sifat di depan -> apel biru = morvanti.",
-        explanation: "Struktur: kata sifat di awal (mor = biru, slor = merah), kata benda di akhir (pirter = burung, vanti = apel)."
-      },
-      {
-        id: 6,
-        category: "Verbal",
-        subCategory: "Bahasa Buatan (Experd Objek)",
-        question: "Perhatikan pola bahasa buatan berikut:\n• 'drelkatu' berarti 'rumah kayu'\n• 'morkatu' berarti 'rumah batu'\n• 'drelpanto' berarti 'kursi kayu'\n\nManakah yang berarti 'kursi batu'?",
-        options: ["kantodrel", "morpanto", "pantomor", "katupanto", "drelmor"],
-        correct: 1,
-        trick: "Eliminasi Cepat: katu = rumah, drel = kayu, mor = batu, panto = kursi. Kursi batu = mor (batu) + panto (kursi) = morpanto.",
-        explanation: "Kata sifat (mor) + kata benda (panto) = morpanto."
-      },
-      {
-        id: 7,
-        category: "Verbal",
-        subCategory: "Silogisme Semua & Sebagian",
-        question: "Semua analis ekonomi Bank Indonesia memahami kebijakan moneter.\nSebagian sarjana akuntansi adalah analis ekonomi Bank Indonesia.\n\nKesimpulan yang paling tepat adalah:",
-        options: [
-          "Semua sarjana akuntansi memahami kebijakan moneter.",
-          "Sebagian sarjana akuntansi memahami kebijakan moneter.",
-          "Semua yang memahami kebijakan moneter adalah sarjana akuntansi.",
-          "Sebagian analis ekonomi Bank Indonesia bukan sarjana akuntansi dan tidak paham kebijakan moneter.",
-          "Tidak ada sarjana akuntansi yang memahami kebijakan moneter."
-        ],
-        correct: 1,
-        trick: "Kaidah Baku Silogisme: 'Semua + Sebagian = Sebagian'. Jawaban pasti diawali kata 'Sebagian'. Langsung eliminasi opsi A, C, E.",
-        explanation: "Irisan antara sarjana akuntansi dan analis BI menghasilkan simpulan: sebagian sarjana akuntansi memahami kebijakan moneter."
-      },
-      {
-        id: 8,
-        category: "Verbal",
-        subCategory: "Logika Analitis Urutan Duduk",
-        question: "Lima staf deputi (A, B, C, D, E) duduk berjajar dari kiri ke kanan. Syarat:\n1. B tidak boleh duduk di paling ujung.\n2. C duduk tepat di sebelah kanan A.\n3. E duduk di paling kiri.\n\nManakah susunan duduk yang memenuhi syarat?",
-        options: ["E - A - C - D - B", "E - B - A - C - D", "A - C - E - B - D", "E - D - A - B - C", "B - E - A - C - D"],
-        correct: 1,
-        trick: "Uji Opsi Langsung: Syarat 3 (E paling kiri) coret C & E. Syarat 1 (B tidak di ujung) coret A. Syarat 2 (C di kanan A/urutan AC) coret D. Sisa Opsi B!",
-        explanation: "Susunan E - B - A - C - D memenuhi seluruh ketentuan premis soal."
-      },
-
-      // --- SUBTES 2: NUMERIK & ARITMATIKA (10 SOAL) ---
-      {
-        id: 9,
-        category: "Numerik",
-        subCategory: "Deret Angka Bertingkat",
-        question: "3, 5, 9, 17, 33, ...",
-        options: ["49", "57", "65", "72", "81"],
-        correct: 2,
-        trick: "Pola Selisih Dikali Dua: +2, +4, +8, +16, +32. Nilai berikutnya = 33 + 32 = 65.",
-        explanation: "Pola selisih antar-suku merupakan perpangkatan dua: 2, 4, 8, 16, 32. 33 + 32 = 65."
-      },
-      {
-        id: 10,
-        category: "Numerik",
-        subCategory: "Deret Lompat Dua Jalur",
-        question: "4, 18, 8, 15, 12, 12, 16, 9, ..., ...",
-        options: ["20 dan 6", "18 dan 6", "20 dan 7", "22 dan 6", "19 dan 5"],
-        correct: 0,
-        trick: "Pisahkan Jalur Ganjil-Genap: Ganjil: 4, 8, 12, 16, [20] (+4). Genap: 18, 15, 12, 9, [6] (-3). Jawab: 20 dan 6.",
-        explanation: "Deret berselang dua aritmatika bertambah 4 dan berkurang 3."
-      },
-      {
-        id: 11,
-        category: "Numerik",
-        subCategory: "Deret Fibonacci",
-        question: "2, 3, 5, 8, 13, 21, ...",
-        options: ["29", "34", "38", "42", "45"],
-        correct: 1,
-        trick: "Pola Fibonacci: Tiap angka adalah penjumlahan dari 2 angka sebelumnya! 8 + 13 = 21. Suku berikutnya = 13 + 21 = 34.",
-        explanation: "Deret Fibonacci: 2+3=5, 3+5=8, 5+8=13, 8+13=21, 13+21=34."
-      },
-      {
-        id: 12,
-        category: "Numerik",
-        subCategory: "Deret Huruf Alfabet",
-        question: "A, C, F, J, O, ...",
-        options: ["R", "S", "T", "U", "V"],
-        correct: 3,
-        trick: "Ubah ke Angka Urutan: A(1), C(3), F(6), J(10), O(15). Pola loncatan: +2, +3, +4, +5, +6. Maka 15 + 6 = 21 = huruf U!",
-        explanation: "Urutan alfabet: 1 (+2) 3 (+3) 6 (+4) 10 (+5) 15 (+6) = 21. Huruf ke-21 adalah U."
-      },
-      {
-        id: 13,
-        category: "Numerik",
-        subCategory: "KABATAKU & Geser Koma Desimal",
-        question: "Berapakah hasil dari: (0,036 × 0,25) / 0,009 ?",
-        options: ["0,1", "0,5", "1,0", "2,5", "4,0"],
-        correct: 2,
-        trick: "Bagi Desimal Senama: (0,036 / 0,009) = 36 / 9 = 4. Lalu 4 × 0,25 = 4 × (1/4) = 1,0.",
-        explanation: "Sifat asosiatif perkalian dan pembagian: (0,036 / 0,009) × 0,25 = 4 × 0,25 = 1,0."
-      },
-      {
-        id: 14,
-        category: "Numerik",
-        subCategory: "Pecahan Istimewa",
-        question: "Nilai dari 37,5% dari 640 adalah ...",
-        options: ["210", "240", "260", "280", "320"],
-        correct: 1,
-        trick: "Pecahan Istimewa: 37,5% = 3/8. Maka 3/8 × 640 = 3 × 80 = 240.",
-        explanation: "640 dibagi 8 = 80, dikali 3 = 240."
-      },
-      {
-        id: 15,
-        category: "Numerik",
-        subCategory: "Pecahan Campuran Cepat",
-        question: "Berapakah nilai dari: (2 1/2 + 1 1/4) × 4/5 ?",
-        options: ["2", "3", "3 1/2", "4", "4 1/4"],
-        correct: 1,
-        trick: "Ubah ke Desimal Sederhana: 2,5 + 1,25 = 3,75 = 15/4. Lalu (15/4) × (4/5) = 15/5 = 3.",
-        explanation: "(5/2 + 5/4) = 15/4. Kemudian 15/4 × 4/5 = 15/5 = 3."
-      },
-      {
-        id: 16,
-        category: "Numerik",
-        subCategory: "Perbandingan Berbalik Nilai",
-        question: "Renovasi ruang server Bank Indonesia ditargetkan selesai dalam 20 hari oleh 12 pekerja. Jika pimpinan menghendaki renovasi selesai dalam 15 hari, berapa TAMBAHAN pekerja yang dibutuhkan?",
-        options: ["4 orang", "6 orang", "16 orang", "8 orang", "5 orang"],
-        correct: 0,
-        trick: "Hari1 × Org1 = Hari2 × Org2 -> 20 × 12 = 15 × Org2 -> Org2 = 16. TAMBAHAN = 16 - 12 = 4 orang!",
-        explanation: "Total pekerja = 16. Tambahan pekerja dari jumlah semula = 16 - 12 = 4 orang."
-      },
-      {
-        id: 17,
-        category: "Numerik",
-        subCategory: "Kecepatan Berpapasan",
-        question: "Jarak Jakarta ke Bandung adalah 150 km. Mobil A berangkat dari Jakarta pukul 07.00 dengan kecepatan 60 km/jam. Pada saat yang sama, Mobil B berangkat dari Bandung menuju Jakarta dengan kecepatan 40 km/jam pada rute yang sama. Pukul berapa kedua mobil akan berpapasan?",
-        options: ["08.00", "08.15", "08.30", "08.45", "09.00"],
-        correct: 2,
-        trick: "Rumus Berpapasan: t = Jarak / (V1 + V2) = 150 / (60 + 40) = 1,5 jam (1 jam 30 menit). 07.00 + 01.30 = 08.30.",
-        explanation: "Kecepatan relatif = 100 km/jam. Waktu = 150/100 = 1,5 jam. Berpapasan pukul 08.30."
-      },
-      {
-        id: 18,
-        category: "Numerik",
-        subCategory: "Persentase Laba / Rugi",
-        question: "Sebuah aset instrumen pasar uang dibeli seharga Rp8.000.000 dan dijual kembali seharga Rp10.000.000. Berapakah persentase keuntungan yang diperoleh?",
-        options: ["15%", "20%", "25%", "30%", "33,3%"],
-        correct: 2,
-        trick: "Untung = Rp2.000.000. %Untung = (Untung / Modal Beli) × 100% = 2 jt / 8 jt = 1/4 = 25%.",
-        explanation: "Keuntungan 2.000.000 dari harga beli 8.000.000 adalah 25%."
-      },
-
-      // --- SUBTES 3: DIAGRAMMATIC / FIGURAL (8 SOAL) ---
-      {
-        id: 19,
-        category: "Diagrammatic",
-        subCategory: "Refleksi Cermin Sumbu Y",
-        question: "Sebuah simbol panah condong ke KANAN ATAS dengan lingkaran hitam di pangkal KIRI BAWAH dicerminkan terhadap cermin vertikal (tegak). Bagaimanakah wujud bayangannya?",
-        visual: `<svg width="180" height="100" viewBox="0 0 180 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="30" cy="70" r="10" fill="#002d62" />
-          <line x1="37" y1="63" x2="65" y2="35" stroke="#002d62" stroke-width="6" />
-          <polygon points="65,26 74,40 56,40" fill="#002d62" transform="rotate(45 65 35)" />
-          <line x1="90" y1="10" x2="90" y2="90" stroke="#ef4444" stroke-width="2" stroke-dasharray="4 4" />
-          <text x="75" y="98" font-size="10" fill="#ef4444">Cermin</text>
-          <rect x="110" y="20" width="55" height="60" rx="6" stroke="#94a3b8" stroke-width="2" stroke-dasharray="2 2" fill="#fff" />
-          <text x="132" y="56" font-size="20" fill="#94a3b8" font-weight="bold">?</text>
-        </svg>`,
-        options: [
-          "Panah condong ke KIRI ATAS, lingkaran hitam di KANAN BAWAH",
-          "Panah condong ke KANAN BAWAH, lingkaran hitam di KIRI ATAS",
-          "Panah condong ke KIRI BAWAH, lingkaran hitam di KANAN ATAS",
-          "Bentuk sama persis tidak ada yang berubah",
-          "Panah mengarah tegak lurus ke atas"
-        ],
-        correct: 0,
-        trick: "Cermin Vertikal (Sumbu Y): KIRI & KANAN bertukar tempat, atas-bawah TETAP. Kanan atas jadi Kiri atas, kiri bawah jadi Kanan bawah.",
-        explanation: "Sifat cermin vertikal membalik sumbu horizontal (kiri-kanan)."
-      },
-      {
-        id: 20,
-        category: "Diagrammatic",
-        subCategory: "Refleksi Air Sumbu X",
-        question: "Huruf 'M' dicerminkan ke permukaan air tenang di bawahnya (garis cermin mendatar / horizontal). Bagaimanakah hasil pantulannya?",
-        visual: `<svg width="180" height="90" viewBox="0 0 180 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <text x="78" y="38" font-size="34" font-weight="900" fill="#002d62">M</text>
-          <line x1="20" y1="46" x2="160" y2="46" stroke="#0284c7" stroke-width="3" stroke-dasharray="5 3" />
-          <text x="115" y="42" font-size="10" fill="#0284c7">Garis Air</text>
-          <text x="82" y="76" font-size="22" font-weight="bold" fill="#94a3b8">?</text>
-        </svg>`,
-        options: ["Tetap huruf 'M'", "Menjadi huruf 'W'", "Menjadi huruf 'E'", "Menjadi huruf '3'", "Berputar 90 derajat"],
-        correct: 1,
-        trick: "Cermin Datar Air (Sumbu X): ATAS & BAWAH bertukar tempat, kiri-kanan TETAP. Huruf M dibalik vertikal menjadi huruf W.",
-        explanation: "Refleksi horizontal membalik orientasi atas menjadi bawah."
-      },
-      {
-        id: 21,
-        category: "Diagrammatic",
-        subCategory: "Serial Rotasi Sudut",
-        question: "Perhatikan pola rotasi pada baris gambar berikut:\n• Kotak 1: Tanda panah menunjuk ke Pukul 12 (0°)\n• Kotak 2: Tanda panah menunjuk ke Pukul 3 (90° searah jarum jam)\n• Kotak 3: Tanda panah menunjuk ke Pukul 6 (180° searah jarum jam)\n\nKotak ke-4 seharusnya menunjuk ke arah:",
-        options: ["Pukul 12", "Pukul 9 (270° searah jarum jam)", "Pukul 6", "Pukul 4", "Pukul 1"],
-        correct: 1,
-        trick: "Rotasi 90° Searah Jarum Jam: 12 -> 3 -> 6 -> 9.",
-        explanation: "Pertambahan sudut putar 90 derajat searah jarum jam."
-      },
-      {
-        id: 22,
-        category: "Diagrammatic",
-        subCategory: "Irisan Diagram Venn",
-        question: "Dari 50 staf di Departemen Kebijakan Moneter Bank Indonesia:\n• 30 orang menguasai Ekonometrika\n• 25 orang menguasai Pemrograman FinTech\n• 10 orang menguasai keduanya\n\nBerapa banyak staf yang TIDAK menguasai keduanya?",
-        options: ["5 orang", "10 orang", "15 orang", "20 orang", "25 orang"],
-        correct: 0,
-        trick: "Rumus Venn: Total = (A + B - Irisan) + Luar -> 50 = (30 + 25 - 10) + Luar -> 50 = 45 + Luar -> Luar = 5 orang!",
-        explanation: "Staf yang menguasai minimal satu bidang adalah 45. Sisanya 50 - 45 = 5 orang."
-      },
-      {
-        id: 23,
-        category: "Diagrammatic",
-        subCategory: "Matriks 3x3 Pertambahan Elemen",
-        question: "Perhatikan aturan matriks gambar 3x3 berikut:\n• Baris 1: 1 lingkaran hitam, 2 lingkaran hitam, 3 lingkaran hitam.\n• Baris 2: 1 segitiga hitam, 2 segitiga hitam, 3 segitiga hitam.\n• Baris 3: 1 persegi hitam, 2 persegi hitam, [ ? ].\n\nBentuk yang tepat untuk mengisi kotak tanda tanya adalah:",
-        options: ["4 persegi hitam", "3 persegi hitam", "3 lingkaran putih", "2 persegi hitam dan 1 lingkaran", "3 segitiga hitam"],
-        correct: 1,
-        trick: "Aturan Baris: Bentuk konsisten di baris yang sama, kuantitas bertambah +1 (1, 2, 3). Baris 3 = 3 persegi hitam.",
-        explanation: "Pola baris 3 adalah pertambahan jumlah persegi hitam menjadi 3 buah."
-      },
-      {
-        id: 24,
-        category: "Diagrammatic",
-        subCategory: "Matriks 3x3 Operasi Penggabungan (XOR)",
-        question: "Pada matriks 3x3, kotak baris 3 kolom 3 merupakan hasil tumpukan kotak kolom 1 dan kolom 2. Garis yang sama di kedua kotak akan MENGHILANG, sedangkan garis yang berbeda akan BERTAHAN. Jika Kotak 1 memiliki garis vertikal dan Kotak 2 memiliki garis vertikal dan garis horizontal, maka Kotak 3 menghasilkan:",
-        options: ["Hanya garis horizontal", "Hanya garis vertikal", "Bentuk tanda tambah (+)", "Kotak kosong tanpa garis", "Bentuk silang (x)"],
-        correct: 0,
-        trick: "Logika XOR (Exclusive OR) Psikotes: Garis yang sama di kedua kotak saling meniadakan/hilang. Garis vertikal ada di keduanya -> hilang. Garis horizontal hanya ada di Kotak 2 -> bertahan. Hasil: Hanya garis horizontal!",
-        explanation: "Operasi pembatalan garis yang bertumpuk (XOR) adalah tipe soal matriks tingkat lanjut yang sering muncul di level officer/analis."
-      },
-      {
-        id: 25,
-        category: "Diagrammatic",
-        subCategory: "Jaring-Jaring Kubus 3D",
-        question: "Sebuah jaring-jaring kubus memiliki 6 sisi bernomor 1 sampai 6 dalam bentuk tanda palang (+). Jika sisi nomor 2 berada di tengah sebagai alas, nomor 1 di atasnya, nomor 3 di kanannya, nomor 4 di bawahnya, dan nomor 5 di kirinya, sisi manakah yang akan menjadi ATAP (berhadapan langsung dengan sisi nomor 2)?",
-        options: ["Sisi nomor 1", "Sisi nomor 4", "Sisi nomor 6 (sisi lipatan lanjutan)", "Sisi nomor 3", "Sisi nomor 5"],
-        correct: 2,
-        trick: "Kaidah Berhadapan Kubus: Dua sisi yang berhadapan pada jaring-jaring selalu diselingi oleh tepat 1 sisi perantara! Sisi 1 berhadapan dengan 4, Sisi 3 berhadapan dengan 5. Maka sisi alas 2 berhadapan dengan sisi penutup 6!",
-        explanation: "Pada jaring kubus salib, sisi sayap atas-bawah dan kiri-kanan saling menutup satu sama lain, menyisakan sisi ke-6 sebagai atap penutup sisi alas."
-      },
-      {
-        id: 26,
-        category: "Diagrammatic",
-        subCategory: "Pengelompokan Bentuk (Odd One Out)",
-        question: "Manakah di antara bangun datar berikut yang TIDAK SESUAI dengan kelompoknya?",
-        options: ["Segitiga Sama Sisi", "Bujursangkar", "Segilima Beraturan", "Persegi Panjang", "Segienam Beraturan"],
-        correct: 3,
-        trick: "Sifat Geometri: Pilihan A, B, C, E adalah POLIGON BERATURAN (semua sisi sama panjang dan sudutnya sama besar). Persegi Panjang bukan poligon beraturan karena panjang sisi-sisinya tidak sama!",
-        explanation: "Persegi panjang memiliki sepasang sisi panjang dan sepasang sisi lebar, tidak beraturan seperti opsi lainnya."
-      },
-
-      // --- SUBTES 4: DIGIT SYMBOL & KECERMATAN (30 SOAL SPEED DRILL) ---
-      {
-        id: 27,
-        category: "Digit Symbol",
-        subCategory: "Pencocokan Sandi Simbol",
-        question: "Gunakan Kunci Sandi Simbol di atas!\nKombinasi simbol: 【 ▲ ✦ ⬤ 】 mewakili deretan angka berapakah?",
-        options: ["2 - 4 - 7", "2 - 3 - 7", "1 - 4 - 8", "3 - 5 - 7", "2 - 4 - 9"],
-        correct: 0,
-        trick: "Scan Cepat Ujung: ▲ = 2, ⬤ = 7. Simbol tengah ✦ = 4. Jawab: 2 - 4 - 7.",
-        explanation: "Tabel kunci: ▲ = 2, ✦ = 4, ⬤ = 7."
-      },
-      {
-        id: 28,
-        category: "Digit Symbol",
-        subCategory: "Pencocokan Sandi Simbol",
-        question: "Gunakan Kunci Sandi Simbol di atas!\nKombinasi angka: 【 9 - 1 - 6 】 diwakili oleh urutan simbol yang mana?",
-        options: ["☁ - ★ - ✖", "☁ - ▲ - ✖", "⬟ - ★ - ✖", "☁ - ★ - ✚", "◆ - ★ - ✖"],
-        correct: 0,
-        trick: "9 = ☁ (Awan), 1 = ★ (Bintang), 6 = ✖ (Silang). Opsi A.",
-        explanation: "9 = ☁, 1 = ★, 6 = ✖."
-      },
-      {
-        id: 29,
-        category: "Digit Symbol",
-        subCategory: "Pencocokan Sandi Simbol 4 Digit",
-        question: "Gunakan Kunci Sandi Simbol di atas!\nKombinasi simbol: 【 ◆ ⬟ ✚ ★ 】 mewakili angka:",
-        options: ["3 - 5 - 8 - 1", "3 - 4 - 8 - 1", "2 - 5 - 8 - 1", "3 - 5 - 6 - 1", "3 - 5 - 8 - 2"],
-        correct: 0,
-        trick: "◆ = 3, ⬟ = 5, ✚ = 8, ★ = 1. Jawaban: 3 - 5 - 8 - 1 dalam 2 detik!",
-        explanation: "Tabel sandi: 3 - 5 - 8 - 1."
-      },
-      {
-        id: 30,
-        category: "Digit Symbol",
-        subCategory: "Pencocokan Sandi Simbol 4 Digit",
-        question: "Gunakan Kunci Sandi Simbol di atas!\nKombinasi simbol: 【 ✖ ⬤ ▲ ✦ 】 mewakili deretan angka:",
-        options: ["6 - 7 - 2 - 4", "6 - 7 - 3 - 4", "5 - 7 - 2 - 4", "6 - 8 - 2 - 4", "6 - 7 - 2 - 5"],
-        correct: 0,
-        trick: "✖ = 6, ⬤ = 7, ▲ = 2, ✦ = 4 -> 6 - 7 - 2 - 4.",
-        explanation: "6 = ✖, 7 = ⬤, 2 = ▲, 4 = ✦."
-      },
-      {
-        id: 31,
-        category: "Digit Symbol",
-        subCategory: "Pencocokan Sandi Simbol 5 Digit",
-        question: "Gunakan Kunci Sandi Simbol di atas!\nKombinasi simbol: 【 ★ ☁ ⬟ ◆ ✚ 】 mewakili angka:",
-        options: ["1 - 9 - 5 - 3 - 8", "1 - 9 - 5 - 2 - 8", "1 - 8 - 5 - 3 - 8", "2 - 9 - 5 - 3 - 8", "1 - 9 - 4 - 3 - 8"],
-        correct: 0,
-        trick: "Cek Ujung Depan (★ = 1) dan Belakang (✚ = 8). Lalu tengah ☁ (9), ⬟ (5), ◆ (3). Hasil: 1 - 9 - 5 - 3 - 8.",
-        explanation: "Kunci: 1, 9, 5, 3, 8."
-      },
-      {
-        id: 32,
-        category: "Digit Symbol",
-        subCategory: "Sandi Balik (Angka ke Simbol)",
-        question: "Gunakan Kunci Sandi Simbol di atas!\nDeretan angka: 【 4 - 2 - 8 - 5 】 diwakili oleh simbol:",
-        options: ["✦ - ▲ - ✚ - ⬟", "✦ - ◆ - ✚ - ⬟", "✦ - ▲ - ✖ - ⬟", "★ - ▲ - ✚ - ⬟", "✦ - ▲ - ✚ - ⬤"],
-        correct: 0,
-        trick: "4 = ✦, 2 = ▲, 8 = ✚, 5 = ⬟. Jawaban: ✦ - ▲ - ✚ - ⬟.",
-        explanation: "Sesuai tabel sandi Experd."
-      },
-      {
-        id: 33,
-        category: "Digit Symbol",
-        subCategory: "Sandi Balik (Angka ke Simbol)",
-        question: "Gunakan Kunci Sandi Simbol di atas!\nDeretan angka: 【 7 - 6 - 3 - 9 】 diwakili oleh simbol:",
-        options: ["⬤ - ✖ - ◆ - ☁", "⬤ - ✚ - ◆ - ☁", "⬤ - ✖ - ▲ - ☁", "⬟ - ✖ - ◆ - ☁", "⬤ - ✖ - ◆ - ★"],
-        correct: 0,
-        trick: "7 = ⬤, 6 = ✖, 3 = ◆, 9 = ☁. Jawaban langsung Opsi A.",
-        explanation: "Tabel: 7=⬤, 6=✖, 3=◆, 9=☁."
-      },
-      {
-        id: 34,
-        category: "Digit Symbol",
-        subCategory: "Pencocokan Sandi Simbol Berulang",
-        question: "Gunakan Kunci Sandi Simbol di atas!\nKombinasi simbol: 【 ▲ ▲ ✦ ☁ ☁ 】 mewakili deretan angka:",
-        options: ["2 - 2 - 4 - 9 - 9", "2 - 2 - 3 - 9 - 9", "1 - 1 - 4 - 9 - 9", "2 - 2 - 4 - 8 - 8", "3 - 3 - 4 - 9 - 9"],
-        correct: 0,
-        trick: "Simbol kembar: ▲▲ = 2 2, ✦ = 4, ☁☁ = 9 9 -> 2 - 2 - 4 - 9 - 9.",
-        explanation: "Pola kembar mempercepat scanning mata."
-      },
-      {
-        id: 35,
-        category: "Digit Symbol",
-        subCategory: "Pencocokan Sandi Simbol Operasi Cepat",
-        question: "Gunakan Kunci Sandi Simbol di atas!\nBerapakah hasil penjumlahan nilai angka dari simbol: 【 ⬟ + ✚ + ★ 】?",
-        options: ["14", "13", "15", "12", "16"],
-        correct: 0,
-        trick: "⬟ = 5, ✚ = 8, ★ = 1. Jumlahkan: 5 + 8 + 1 = 14!",
-        explanation: "Substitusi nilai: 5 + 8 + 1 = 14."
-      },
-      {
-        id: 36,
-        category: "Digit Symbol",
-        subCategory: "Pencocokan Sandi Simbol Operasi Cepat",
-        question: "Gunakan Kunci Sandi Simbol di atas!\nBerapakah hasil perkalian nilai angka dari simbol: 【 ◆ × ▲ × ✦ 】?",
-        options: ["24", "20", "28", "18", "32"],
-        correct: 0,
-        trick: "◆ = 3, ▲ = 2, ✦ = 4. Kalikan: 3 × 2 × 4 = 24!",
-        explanation: "Substitusi nilai: 3 × 2 = 6; 6 × 4 = 24."
-      },
-      {
-        id: 37,
-        category: "Digit Symbol",
-        subCategory: "Cek Pasangan Identik",
-        question: "Tentukan apakah kedua pasangan kode ini SAMA atau BEDA:\n\nKode 1:  XP9808Qa2\nKode 2:  XP9808Qa2",
-        options: ["SAMA (Identik 100%)", "BEDA (Ada perbedaan karakter)"],
-        correct: 0,
-        trick: "Scan Cepat Tiga Blok: Awal (XP), Tengah (9808), Akhir (Qa2). Keduanya identik 100%.",
-        explanation: "Tidak terdapat perbedaan karakter sama sekali."
-      },
-      {
-        id: 38,
-        category: "Digit Symbol",
-        subCategory: "Pengecoh Huruf O vs Angka 0",
-        question: "Tentukan apakah kedua pasangan kode ini SAMA atau BEDA:\n\nKode 1:  MWV80811O\nKode 2:  MWV808110",
-        options: ["SAMA (Identik 100%)", "BEDA (Ada perbedaan karakter)"],
-        correct: 1,
-        trick: "Scan Ujung Belakang: Kode 1 berakhiran huruf kapital 'O', kode 2 berakhiran angka '0' (nol). BEDA!",
-        explanation: "Perbedaan pada huruf 'O' vs angka '0'."
-      },
-      {
-        id: 39,
-        category: "Digit Symbol",
-        subCategory: "Pengecoh Huruf l vs Angka 1",
-        question: "Tentukan apakah kedua pasangan kode ini SAMA atau BEDA:\n\nKode 1:  B1nd0N3s1A\nKode 2:  Blnd0N3s1A",
-        options: ["SAMA (Identik 100%)", "BEDA (Ada perbedaan karakter)"],
-        correct: 1,
-        trick: "Scan Karakter Kedua: B1... (angka satu) vs Bl... (huruf kecil l). BEDA!",
-        explanation: "Karakter kedua berbeda: angka 1 vs huruf l."
-      },
-      {
-        id: 40,
-        category: "Digit Symbol",
-        subCategory: "Pengecoh Huruf rn vs Huruf m",
-        question: "Tentukan apakah kedua pasangan kata ini SAMA atau BEDA:\n\nKata 1:  kornpensasi\nKata 2:  kompensasi",
-        options: ["SAMA (Identik 100%)", "BEDA (Ada perbedaan karakter)"],
-        correct: 1,
-        trick: "Pengecoh Tipografi: 'rn' (r dan n rapat) menyerupai huruf 'm'. Kata 1 menggunakan huruf r+n, kata 2 menggunakan m. BEDA!",
-        explanation: "Huruf 'rn' pada kata 1 berbeda dengan huruf 'm' pada kata 2."
-      },
-      {
-        id: 41,
-        category: "Digit Symbol",
-        subCategory: "Pengecoh Huruf VV vs Huruf W",
-        question: "Tentukan apakah kedua pasangan kode ini SAMA atau BEDA:\n\nKode 1:  KPWVV98201\nKode 2:  KPWW98201",
-        options: ["SAMA (Identik 100%)", "BEDA (Ada perbedaan karakter)"],
-        correct: 1,
-        trick: "Pengecoh Double V: Kode 1 menggunakan dua huruf V rapat ('VV'), kode 2 menggunakan satu huruf W ('W'). BEDA!",
-        explanation: "Karakter ke-4 dan ke-5 pada kode 1 adalah 'VV', sedangkan kode 2 adalah 'W'."
-      },
-      {
-        id: 42,
-        category: "Digit Symbol",
-        subCategory: "Pengecoh Angka 5 vs Huruf S",
-        question: "Tentukan apakah kedua pasangan kode serial ini SAMA atau BEDA:\n\nKode 1:  TX58920194S\nKode 2:  TXS8920194S",
-        options: ["SAMA (Identik 100%)", "BEDA (Ada perbedaan karakter)"],
-        correct: 1,
-        trick: "Scan Karakter ke-3: Kode 1 menggunakan angka '5', sedangkan kode 2 menggunakan huruf kapital 'S'. BEDA!",
-        explanation: "Perbedaan pada karakter ke-3: angka 5 vs huruf S."
-      },
-      {
-        id: 43,
-        category: "Digit Symbol",
-        subCategory: "Pengecoh Angka 2 vs Huruf Z",
-        question: "Tentukan apakah kedua pasangan kode serial ini SAMA atau BEDA:\n\nKode 1:  AB2984KLPZ\nKode 2:  AB2984KLPZ",
-        options: ["SAMA (Identik 100%)", "BEDA (Ada perbedaan karakter)"],
-        correct: 0,
-        trick: "Scan Ujung dan Tengah: AB - 2984 - KLPZ. Keduanya identik sempurna!",
-        explanation: "Kedua kode memiliki karakter dan posisi yang sama persis."
-      },
-      {
-        id: 44,
-        category: "Digit Symbol",
-        subCategory: "Pengecoh Huruf B vs Angka 8",
-        question: "Tentukan apakah kedua pasangan kode ini SAMA atau BEDA:\n\nKode 1:  QR892B018\nKode 2:  QR8928018",
-        options: ["SAMA (Identik 100%)", "BEDA (Ada perbedaan karakter)"],
-        correct: 1,
-        trick: "Scan Karakter ke-6: Kode 1 menggunakan huruf kapital 'B', kode 2 menggunakan angka '8'. BEDA!",
-        explanation: "Perbedaan pada karakter ke-6: huruf B vs angka 8."
-      },
-      {
-        id: 45,
-        category: "Digit Symbol",
-        subCategory: "Cek Kesamaan Deret Angka Panjang",
-        question: "Tentukan apakah deretan angka rekening berikut SAMA atau BEDA:\n\nDeret 1:  78239014562\nDeret 2:  78239014562",
-        options: ["SAMA (Identik 100%)", "BEDA (Ada perbedaan karakter)"],
-        correct: 0,
-        trick: "Chunking (Bagi 3 Digit): 782 - 390 - 145 - 62. Keduanya identik sempurna!",
-        explanation: "Teknik chunking mempermudah verifikasi deret angka panjang."
-      },
-      {
-        id: 46,
-        category: "Digit Symbol",
-        subCategory: "Cek Kesamaan Deret Angka Panjang",
-        question: "Tentukan apakah deretan angka berikut SAMA atau BEDA:\n\nDeret 1:  509823419082\nDeret 2:  509823419032",
-        options: ["SAMA (Identik 100%)", "BEDA (Ada perbedaan karakter)"],
-        correct: 1,
-        trick: "Scan Digit Kedua dari Belakang: Deret 1 angka '82', deret 2 angka '32'. BEDA!",
-        explanation: "Digit ke-11 berbeda: 8 vs 3."
-      },
-      {
-        id: 47,
-        category: "Digit Symbol",
-        subCategory: "Cek Pasangan Alfanumerik Acak",
-        question: "Tentukan apakah kedua pasangan token otentikasi ini SAMA atau BEDA:\n\nToken 1:  dF9#kL2@mQ\nToken 2:  dF9#kL2@mQ",
-        options: ["SAMA (Identik 100%)", "BEDA (Ada perbedaan karakter)"],
-        correct: 0,
-        trick: "Cek Huruf Besar/Kecil & Simbol: d-F-9-#-k-L-2-@-m-Q. Sama 100%!",
-        explanation: "Semua karakter termasuk simbol dan case matching 100%."
-      },
-      {
-        id: 48,
-        category: "Digit Symbol",
-        subCategory: "Pengecoh Kapital vs Huruf Kecil",
-        question: "Tentukan apakah kedua string kode ini SAMA atau BEDA:\n\nKode 1:  BANKindonesia\nKode 2:  BANKIndonesia",
-        options: ["SAMA (Identik 100%)", "BEDA (Ada perbedaan karakter)"],
-        correct: 1,
-        trick: "Scan Huruf ke-5: Kode 1 huruf kecil 'i', kode 2 huruf kapital 'I'. BEDA!",
-        explanation: "Case sensitive: huruf 'i' kecil vs 'I' besar."
-      },
-      {
-        id: 49,
-        category: "Digit Symbol",
-        subCategory: "Pencocokan Sandi Simbol 4 Digit",
-        question: "Gunakan Kunci Sandi Simbol di atas!\nKombinasi simbol: 【 ☁ ✦ ⬟ ⬤ 】 mewakili deretan angka berapakah?",
-        options: ["9 - 4 - 5 - 7", "9 - 3 - 5 - 7", "8 - 4 - 5 - 7", "9 - 4 - 6 - 7", "9 - 4 - 5 - 6"],
-        correct: 0,
-        trick: "☁ = 9, ✦ = 4, ⬟ = 5, ⬤ = 7. Opsi A (9 - 4 - 5 - 7) tepat!",
-        explanation: "Tabel: 9, 4, 5, 7."
-      },
-      {
-        id: 50,
-        category: "Digit Symbol",
-        subCategory: "Pencocokan Sandi Simbol 4 Digit",
-        question: "Gunakan Kunci Sandi Simbol di atas!\nKombinasi simbol: 【 ✚ ✖ ★ ◆ 】 mewakili deretan angka berapakah?",
-        options: ["8 - 6 - 1 - 3", "8 - 6 - 2 - 3", "7 - 6 - 1 - 3", "8 - 5 - 1 - 3", "8 - 6 - 1 - 4"],
-        correct: 0,
-        trick: "✚ = 8, ✖ = 6, ★ = 1, ◆ = 3 -> 8 - 6 - 1 - 3.",
-        explanation: "Tabel: 8, 6, 1, 3."
-      },
-      {
-        id: 51,
-        category: "Digit Symbol",
-        subCategory: "Sandi Balik (Angka ke Simbol)",
-        question: "Gunakan Kunci Sandi Simbol di atas!\nDeretan angka: 【 1 - 7 - 4 - 2 】 diwakili oleh simbol:",
-        options: ["★ - ⬤ - ✦ - ▲", "★ - ⬤ - ◆ - ▲", "★ - ✚ - ✦ - ▲", "▲ - ⬤ - ✦ - ★", "★ - ⬤ - ✦ - ⬟"],
-        correct: 0,
-        trick: "1 = ★, 7 = ⬤, 4 = ✦, 2 = ▲. Jawaban Opsi A!",
-        explanation: "Tabel: 1=★, 7=⬤, 4=✦, 2=▲."
-      },
-      {
-        id: 52,
-        category: "Digit Symbol",
-        subCategory: "Pengecoh Tanda Baca & Spasi Mikro",
-        question: "Tentukan apakah kedua alamat email institusi ini SAMA atau BEDA:\n\nEmail 1:  contact_bi@bi.go.id\nEmail 2:  contact-bi@bi.go.id",
-        options: ["SAMA (Identik 100%)", "BEDA (Ada perbedaan karakter)"],
-        correct: 1,
-        trick: "Scan Tanda Hubung: Email 1 menggunakan underscore ('_'), email 2 menggunakan tanda minus/hyphen ('-'). BEDA!",
-        explanation: "Underscore vs hyphen."
-      },
-      {
-        id: 53,
-        category: "Digit Symbol",
-        subCategory: "Pengecoh Angka Kembar Bergeser",
-        question: "Tentukan apakah kedua kode transaksi BI-FAST ini SAMA atau BEDA:\n\nKode 1:  TRX99881204\nKode 2:  TRX98981204",
-        options: ["SAMA (Identik 100%)", "BEDA (Ada perbedaan karakter)"],
-        correct: 1,
-        trick: "Scan Karakter ke-4 sampai 7: Kode 1 '9988', kode 2 '9898'. BEDA!",
-        explanation: "Urutan angka kembar terbalik."
-      },
-      {
-        id: 54,
-        category: "Digit Symbol",
-        subCategory: "Cek Pasangan Identik Panjang",
-        question: "Tentukan apakah kedua deretan sandi alfanumerik ini SAMA atau BEDA:\n\nSandi 1:  9Z#qP&28Lm@X\nSandi 2:  9Z#qP&28Lm@X",
-        options: ["SAMA (Identik 100%)", "BEDA (Ada perbedaan karakter)"],
-        correct: 0,
-        trick: "Bagi jadi 3 bagian: 9Z#q - P&28 - Lm@X. Keduanya sama persis 100%!",
-        explanation: "Karakter identik sempurna."
-      },
-      {
-        id: 55,
-        category: "Digit Symbol",
-        subCategory: "Pencocokan Sandi Simbol 5 Digit",
-        question: "Gunakan Kunci Sandi Simbol di atas!\nKombinasi simbol: 【 ⬟ ★ ☁ ▲ ✖ 】 mewakili deretan angka:",
-        options: ["5 - 1 - 9 - 2 - 6", "5 - 1 - 8 - 2 - 6", "4 - 1 - 9 - 2 - 6", "5 - 2 - 9 - 1 - 6", "5 - 1 - 9 - 3 - 6"],
-        correct: 0,
-        trick: "⬟ = 5, ★ = 1, ☁ = 9, ▲ = 2, ✖ = 6 -> 5 - 1 - 9 - 2 - 6.",
-        explanation: "Tabel sandi: 5, 1, 9, 2, 6."
-      },
-      {
-        id: 56,
-        category: "Digit Symbol",
-        subCategory: "Pencocokan Sandi Simbol 5 Digit",
-        question: "Gunakan Kunci Sandi Simbol di atas!\nKombinasi simbol: 【 ✚ ◆ ⬤ ✦ ☁ 】 mewakili deretan angka:",
-        options: ["8 - 3 - 7 - 4 - 9", "8 - 2 - 7 - 4 - 9", "8 - 3 - 6 - 4 - 9", "7 - 3 - 7 - 4 - 9", "8 - 3 - 7 - 5 - 9"],
-        correct: 0,
-        trick: "✚ = 8, ◆ = 3, ⬤ = 7, ✦ = 4, ☁ = 9 -> 8 - 3 - 7 - 4 - 9.",
-        explanation: "Tabel sandi: 8, 3, 7, 4, 9."
-      },
-
-      // --- SUBTES 5: PERSON-ORGANIZATION FIT (POF) / SIKAP KERJA BI (6 SOAL) ---
-      {
-        id: 57,
-        category: "POF",
-        subCategory: "Integritas & Anti-Gratifikasi",
-        question: "Seorang rekanan penyedia vendor TI mengirimkan parsel mewah ke alamat rumah Anda menjelang hari raya, bertepatan dengan proses lelang pengadaan server Bank Indonesia yang sedang Anda evaluasi. Sikap Anda:",
-        options: [
-          "Menerimanya karena dikirim ke rumah pribadi dan menganggapnya sekadar silaturahmi hari raya.",
-          "Menolak dengan sopan dan melaporkan pemberian gratifikasi tersebut ke Unit Kepatuhan / Pengendalian Gratifikasi internal BI.",
-          "Menerimanya lalu membagikannya kepada seluruh anggota tim agar tidak dinikmati sendiri.",
-          "Menyimpannya tanpa memberitahu siapapun agar rekanan tidak merasa tersinggung.",
-          "Menerimanya namun tetap berjanji dalam hati untuk menilai vendor tersebut secara objektif."
-        ],
-        correct: 1,
-        trick: "Zero Tolerance Gratifikasi BI: Jangan pilih opsi 'terima lalu bagi-bagi'. Jawaban berintegritas mutlak: MENOLAK & MELAPORKAN ke unit kepatuhan.",
-        explanation: "Kode Etik BI melarang keras penerimaan hadiah berkaitan jabatan dan pengadaan barang/jasa."
-      },
-      {
-        id: 58,
-        category: "POF",
-        subCategory: "Akuntabilitas & Presisi Data",
-        question: "Anda menemukan kesalahan kecil dalam data inflasi bulanan yang Anda susun 15 menit sebelum dokumen dipresentasikan ke Dewan Gubernur. Perbaikan memerlukan waktu sekitar 10 menit. Tindakan terbaik Anda:",
-        options: [
-          "Membiarkannya karena kesalahannya kecil dan kemungkinan besar tidak disadari oleh pimpinan.",
-          "Segera memberitahu atasan mengenai temuan tersebut dan langsung melakukan revisi data sebelum materi dipaparkan.",
-          "Menunggu sampai ada yang bertanya saat sesi presentasi, baru menjelaskan bahwa ada salah ketik.",
-          "Menyalahkan staf magang yang sebelumnya membantu menginput data mentah.",
-          "Mengganti data tersebut nanti setelah rapat selesai tanpa memberitahu siapa-siapa."
-        ],
-        correct: 1,
-        trick: "Presisi & Transparansi BI: Kebijakan moneter bertumpu pada presisi data. Mengakui kesalahan dan langsung memperbaikinya menunjukkan akuntabilitas tertinggi.",
-        explanation: "Integritas profesional menuntut transparansi dan perbaikan segera sebelum keputusan strategis diambil."
-      },
-      {
-        id: 59,
-        category: "POF",
-        subCategory: "Soliditas Tim & Tekanan Kerja",
-        question: "Departemen Anda menghadapi tenggat waktu perumusan kebijakan yang sangat mendesak. Salah seorang rekan satu tim Anda tiba-tiba jatuh sakit. Sikap Anda:",
-        options: [
-          "Fokus menyelesaikan bagian tugas sendiri agar tidak ikut ditegur atasan.",
-          "Bersama anggota tim lain secara proaktif membagi tugas rekan yang sakit agar target departemen tercapai.",
-          "Menyarankan rekan yang sakit untuk tetap bekerja dari rumah (WFH) demi menyelesaikan tugasnya.",
-          "Mengeluh kepada atasan karena pembagian beban kerja menjadi tidak adil.",
-          "Meminta atasan menunda jadwal kebijakan sampai rekan tersebut sembuh."
-        ],
-        correct: 1,
-        trick: "Nilai Kerjasama Tim (Relasional BI): Mendahulukan pencapaian tujuan bersama dan saling menopang beban kerja secara proaktif.",
-        explanation: "PCPM mencari calon pemimpin yang memiliki jiwa korsa dan orientasi solusi tim."
-      },
-      {
-        id: 60,
-        category: "POF",
-        subCategory: "Kerahasiaan Informasi Negara",
-        question: "Sebagai staf di Bank Indonesia, Anda memiliki akses data survei perbankan yang bersifat rahasia. Teman akrab Anda yang bekerja di perusahaan investasi menanyakan arah suku bunga acuan (BI-Rate) untuk keputusan trading-nya. Tindakan Anda:",
-        options: [
-          "Memberikan sedikit kisi-kisi umum tanpa menyebut angka pasti karena ia sahabat dekat.",
-          "Menolak dengan tegas dan menjelaskan secara profesional bahwa data tersebut rahasia negara dan hanya boleh dirilis saat konferensi pers resmi BI.",
-          "Memberikan data tersebut dengan syarat ia tidak menyebarkannya ke pihak lain.",
-          "Mengarahkan teman Anda untuk menebak sendiri berdasarkan rumor di media sosial.",
-          "Meminta imbalan keuntungan investasi atas informasi yang dibocorkan."
-        ],
-        correct: 1,
-        trick: "Kerahasiaan Moneter: Bocornya BI-Rate memicu insider trading dan merusak stabilitas pasar keuangan. Penolakan tegas dan profesional adalah wajib.",
-        explanation: "Pelanggaran kerahasiaan informasi pasar merupakan pelanggaran hukum berat bagi pegawai bank sentral."
-      },
-      {
-        id: 61,
-        category: "POF",
-        subCategory: "Konflik Kepentingan (Conflict of Interest)",
-        question: "Kakak kandung Anda menjabat sebagai direktur di salah satu bank swasta yang sedang diperiksa oleh tim pengawasan Bank Indonesia di mana Anda ditunjuk sebagai salah satu anggotanya. Langkah profesional Anda:",
-        options: [
-          "Tetap menjalankan tugas pemeriksaan secara diam-diam dan berusaha membantu meringankan sanksi kakak.",
-          "Segera mendeklarasikan adanya potensi konflik kepentingan kepada atasan dan meminta untuk digantikan oleh pemeriksa lain.",
-          "Meminta kakak Anda mengundurkan diri sementara dari jabatannya di bank tersebut.",
-          "Mengabaikan hubungan keluarga tersebut dan yakin diri sendiri bisa bersikap netral tanpa memberitahu atasan.",
-          "Mengundurkan diri dari Bank Indonesia."
-        ],
-        correct: 1,
-        trick: "Deklarasi Konflik Kepentingan: Kuncinya adalah 'Mendeklarasikan sejak awal (declare conflict of interest)' dan menarik diri dari penugasan terkait. Jangan pernah disembunyikan!",
-        explanation: "Prinsip tata kelola Bank Indonesia mewajibkan setiap pegawai mendeklarasikan potensi benturan kepentingan untuk menjaga objektivitas pengawasan."
-      },
-      {
-        id: 62,
-        category: "POF",
-        subCategory: "Adaptabilitas & Inovasi Digital",
-        question: "Pimpinan menginstruksikan implementasi sistem otomasi analisis data berbasis AI baru yang mengubah prosedur kerja manual yang sudah Anda kuasai selama bertahun-tahun. Respon terbaik Anda:",
-        options: [
-          "Menolak perubahan tersebut karena sistem lama masih terbukti berjalan dengan baik.",
-          "Mempelajari sistem baru tersebut secara antusias dan proaktif membantu rekan kerja lain beradaptasi dengan teknologi baru.",
-          "Menunggu sampai dipaksa oleh atasan baru mulai mempelajari sistem tersebut.",
-          "Menggunakan sistem baru hanya jika diawasi langsung oleh pimpinan departemen.",
-          "Meminta dipindahkan ke unit kerja lain yang masih menggunakan metode kerja manual."
-        ],
-        correct: 1,
-        trick: "Nilai Keunggulan & Inovasi BI: Bank Indonesia mendorong digitalisasi sistem pembayaran dan perumusan kebijakan modern. Karyawan yang dicari adalah yang adaptif, pembelajar tangguh (*growth mindset*).",
-        explanation: "Sikap antusias terhadap transformasi digital dan inisiatif membantu tim mencerminkan pilar kepemimpinan muda PCPM."
-      }
-    ];
+  {
+    "id": 1,
+    "category": "Verbal",
+    "subCategory": "Analogi Kata (Profesi : Hasil)",
+    "question": "APOTEKER : OBAT = ...",
+    "options": [
+      "Pesawat : Pilot",
+      "Koki : Masakan",
+      "Montir : Obeng",
+      "Penyair : Puisi",
+      "Masinis : Kereta Api"
+    ],
+    "correct": 1,
+    "trick": "Jembatan Kalimat: 'Apoteker meracik produk berupa obat'. Cari pasangan Profesi : Produk buatan. Koki meracik masakan.",
+    "explanation": "Hubungan fungsional asosiatif antara pelaku profesi dan benda yang diracik/dihasilkan."
+  },
+  {
+    "id": 2,
+    "category": "Verbal",
+    "subCategory": "Analogi Kata (Tingkat Intensitas)",
+    "question": "HANGAT : PANAS = ...",
+    "options": [
+      "Sejuk : Dingin",
+      "Terang : Gelap",
+      "Lari : Jalan",
+      "Makan : Kenyang",
+      "Basah : Lembab"
+    ],
+    "correct": 0,
+    "trick": "Jembatan Kalimat: 'Hangat adalah tingkatan intensitas lebih rendah dari Panas'. Pola yang sama: 'Sejuk adalah tingkatan lebih rendah dari Dingin'.",
+    "explanation": "Hubungan derajat tingkatan suhu: Hangat -> Panas setara dengan Sejuk -> Dingin."
+  },
+  {
+    "id": 3,
+    "category": "Verbal",
+    "subCategory": "Sinonim Istilah Finansial / Formal",
+    "question": "EVOKASI = ...",
+    "options": [
+      "Pengungsian",
+      "Penggugah rasa",
+      "Penilaian berkala",
+      "Pencegahan dini",
+      "Penyelamatan"
+    ],
+    "correct": 1,
+    "trick": "Konteks Kalimat: Jangan terkecoh dengan 'Evakuasi'. Evokasi berasal dari kata 'evoke', yaitu daya untuk menggugah kenangan atau perasaan.",
+    "explanation": "KBBI: Evokasi adalah daya (daya penggugah) yang menumbuhkan kenangan atau membangkitkan emosi."
+  },
+  {
+    "id": 4,
+    "category": "Verbal",
+    "subCategory": "Antonim Kata Formal",
+    "question": "SPORADIS >< ...",
+    "options": [
+      "Jarang",
+      "Berpindah-pindah",
+      "Kerap / Berkelanjutan",
+      "Terisolasi",
+      "Menyebar"
+    ],
+    "correct": 2,
+    "trick": "Lawan Kata: Sporadis artinya kadang-kadang atau jarang. Lawan katanya adalah kerap, rutin, atau berkelanjutan.",
+    "explanation": "Sporadis bermakna keadaan yang timbul tidak tentu dan jarang. Lawan katanya adalah berkelanjutan/kerap."
+  },
+  {
+    "id": 5,
+    "category": "Verbal",
+    "subCategory": "Bahasa Buatan (Experd Morfem)",
+    "question": "Perhatikan terjemahan bahasa buatan berikut:\n• 'morpirter' berarti 'burung biru'\n• 'slorpirter' berarti 'burung merah'\n• 'slorvanti' berarti 'apel merah'\n\nBerdasarkan pola di atas, kata apakah yang berarti 'apel biru'?",
+    "options": [
+      "morvanti",
+      "vantimor",
+      "pirtervanti",
+      "slormor",
+      "vantipirter"
+    ],
+    "correct": 0,
+    "trick": "Cari Morfem Sama: 'pirter' = burung, 'slor' = merah, 'mor' = biru, 'vanti' = apel. Awalan sifat di depan -> apel biru = morvanti.",
+    "explanation": "Struktur: kata sifat di awal (mor = biru, slor = merah), kata benda di akhir (pirter = burung, vanti = apel)."
+  },
+  {
+    "id": 6,
+    "category": "Verbal",
+    "subCategory": "Bahasa Buatan (Experd Objek)",
+    "question": "Perhatikan pola bahasa buatan berikut:\n• 'drelkatu' berarti 'rumah kayu'\n• 'morkatu' berarti 'rumah batu'\n• 'drelpanto' berarti 'kursi kayu'\n\nManakah yang berarti 'kursi batu'?",
+    "options": [
+      "kantodrel",
+      "morpanto",
+      "pantomor",
+      "katupanto",
+      "drelmor"
+    ],
+    "correct": 1,
+    "trick": "Eliminasi Cepat: katu = rumah, drel = kayu, mor = batu, panto = kursi. Kursi batu = mor (batu) + panto (kursi) = morpanto.",
+    "explanation": "Kata sifat (mor) + kata benda (panto) = morpanto."
+  },
+  {
+    "id": 7,
+    "category": "Verbal",
+    "subCategory": "Silogisme Semua & Sebagian",
+    "question": "Semua analis ekonomi Bank Indonesia memahami kebijakan moneter.\nSebagian sarjana akuntansi adalah analis ekonomi Bank Indonesia.\n\nKesimpulan yang paling tepat adalah:",
+    "options": [
+      "Semua sarjana akuntansi memahami kebijakan moneter.",
+      "Sebagian sarjana akuntansi memahami kebijakan moneter.",
+      "Semua yang memahami kebijakan moneter adalah sarjana akuntansi.",
+      "Sebagian analis ekonomi Bank Indonesia bukan sarjana akuntansi dan tidak paham kebijakan moneter.",
+      "Tidak ada sarjana akuntansi yang memahami kebijakan moneter."
+    ],
+    "correct": 1,
+    "trick": "Kaidah Baku Silogisme: 'Semua + Sebagian = Sebagian'. Jawaban pasti diawali kata 'Sebagian'. Langsung eliminasi opsi A, C, E.",
+    "explanation": "Irisan antara sarjana akuntansi dan analis BI menghasilkan simpulan: sebagian sarjana akuntansi memahami kebijakan moneter."
+  },
+  {
+    "id": 8,
+    "category": "Verbal",
+    "subCategory": "Logika Analitis Urutan Duduk",
+    "question": "Lima staf deputi (A, B, C, D, E) duduk berjajar dari kiri ke kanan. Syarat:\n1. B tidak boleh duduk di paling ujung.\n2. C duduk tepat di sebelah kanan A.\n3. E duduk di paling kiri.\n\nManakah susunan duduk yang memenuhi syarat?",
+    "options": [
+      "E - A - C - D - B",
+      "E - B - A - C - D",
+      "A - C - E - B - D",
+      "E - D - A - B - C",
+      "B - E - A - C - D"
+    ],
+    "correct": 1,
+    "trick": "Uji Opsi Langsung: Syarat 3 (E paling kiri) coret C & E. Syarat 1 (B tidak di ujung) coret A. Syarat 2 (C di kanan A/urutan AC) coret D. Sisa Opsi B!",
+    "explanation": "Susunan E - B - A - C - D memenuhi seluruh ketentuan premis soal."
+  },
+  {
+    "id": 9,
+    "category": "Numerik",
+    "subCategory": "Deret Angka Bertingkat",
+    "question": "3, 5, 9, 17, 33, ...",
+    "options": [
+      "49",
+      "57",
+      "65",
+      "72",
+      "81"
+    ],
+    "correct": 2,
+    "trick": "Pola Selisih Dikali Dua: +2, +4, +8, +16, +32. Nilai berikutnya = 33 + 32 = 65.",
+    "explanation": "Pola selisih antar-suku merupakan perpangkatan dua: 2, 4, 8, 16, 32. 33 + 32 = 65."
+  },
+  {
+    "id": 10,
+    "category": "Numerik",
+    "subCategory": "Deret Lompat Dua Jalur",
+    "question": "4, 18, 8, 15, 12, 12, 16, 9, ..., ...",
+    "options": [
+      "20 dan 6",
+      "18 dan 6",
+      "20 dan 7",
+      "22 dan 6",
+      "19 dan 5"
+    ],
+    "correct": 0,
+    "trick": "Pisahkan Jalur Ganjil-Genap: Ganjil: 4, 8, 12, 16, [20] (+4). Genap: 18, 15, 12, 9, [6] (-3). Jawab: 20 dan 6.",
+    "explanation": "Deret berselang dua aritmatika bertambah 4 dan berkurang 3."
+  },
+  {
+    "id": 11,
+    "category": "Numerik",
+    "subCategory": "Deret Fibonacci",
+    "question": "2, 3, 5, 8, 13, 21, ...",
+    "options": [
+      "29",
+      "34",
+      "38",
+      "42",
+      "45"
+    ],
+    "correct": 1,
+    "trick": "Pola Fibonacci: Tiap angka adalah penjumlahan dari 2 angka sebelumnya! 8 + 13 = 21. Suku berikutnya = 13 + 21 = 34.",
+    "explanation": "Deret Fibonacci: 2+3=5, 3+5=8, 5+8=13, 8+13=21, 13+21=34."
+  },
+  {
+    "id": 12,
+    "category": "Numerik",
+    "subCategory": "Deret Huruf Alfabet",
+    "question": "A, C, F, J, O, ...",
+    "options": [
+      "R",
+      "S",
+      "T",
+      "U",
+      "V"
+    ],
+    "correct": 3,
+    "trick": "Ubah ke Angka Urutan: A(1), C(3), F(6), J(10), O(15). Pola loncatan: +2, +3, +4, +5, +6. Maka 15 + 6 = 21 = huruf U!",
+    "explanation": "Urutan alfabet: 1 (+2) 3 (+3) 6 (+4) 10 (+5) 15 (+6) = 21. Huruf ke-21 adalah U."
+  },
+  {
+    "id": 13,
+    "category": "Numerik",
+    "subCategory": "KABATAKU & Geser Koma Desimal",
+    "question": "Berapakah hasil dari: (0,036 × 0,25) / 0,009 ?",
+    "options": [
+      "0,1",
+      "0,5",
+      "1,0",
+      "2,5",
+      "4,0"
+    ],
+    "correct": 2,
+    "trick": "Bagi Desimal Senama: (0,036 / 0,009) = 36 / 9 = 4. Lalu 4 × 0,25 = 4 × (1/4) = 1,0.",
+    "explanation": "Sifat asosiatif perkalian dan pembagian: (0,036 / 0,009) × 0,25 = 4 × 0,25 = 1,0."
+  },
+  {
+    "id": 14,
+    "category": "Numerik",
+    "subCategory": "Pecahan Istimewa",
+    "question": "Nilai dari 37,5% dari 640 adalah ...",
+    "options": [
+      "210",
+      "240",
+      "260",
+      "280",
+      "320"
+    ],
+    "correct": 1,
+    "trick": "Pecahan Istimewa: 37,5% = 3/8. Maka 3/8 × 640 = 3 × 80 = 240.",
+    "explanation": "640 dibagi 8 = 80, dikali 3 = 240."
+  },
+  {
+    "id": 15,
+    "category": "Numerik",
+    "subCategory": "Pecahan Campuran Cepat",
+    "question": "Berapakah nilai dari: (2 1/2 + 1 1/4) × 4/5 ?",
+    "options": [
+      "2",
+      "3",
+      "3 1/2",
+      "4",
+      "4 1/4"
+    ],
+    "correct": 1,
+    "trick": "Ubah ke Desimal Sederhana: 2,5 + 1,25 = 3,75 = 15/4. Lalu (15/4) × (4/5) = 15/5 = 3.",
+    "explanation": "(5/2 + 5/4) = 15/4. Kemudian 15/4 × 4/5 = 15/5 = 3."
+  },
+  {
+    "id": 16,
+    "category": "Numerik",
+    "subCategory": "Perbandingan Berbalik Nilai",
+    "question": "Renovasi ruang server Bank Indonesia ditargetkan selesai dalam 20 hari oleh 12 pekerja. Jika pimpinan menghendaki renovasi selesai dalam 15 hari, berapa TAMBAHAN pekerja yang dibutuhkan?",
+    "options": [
+      "4 orang",
+      "6 orang",
+      "16 orang",
+      "8 orang",
+      "5 orang"
+    ],
+    "correct": 0,
+    "trick": "Hari1 × Org1 = Hari2 × Org2 -> 20 × 12 = 15 × Org2 -> Org2 = 16. TAMBAHAN = 16 - 12 = 4 orang!",
+    "explanation": "Total pekerja = 16. Tambahan pekerja dari jumlah semula = 16 - 12 = 4 orang."
+  },
+  {
+    "id": 17,
+    "category": "Numerik",
+    "subCategory": "Kecepatan Berpapasan",
+    "question": "Jarak Jakarta ke Bandung adalah 150 km. Mobil A berangkat dari Jakarta pukul 07.00 dengan kecepatan 60 km/jam. Pada saat yang sama, Mobil B berangkat dari Bandung menuju Jakarta dengan kecepatan 40 km/jam pada rute yang sama. Pukul berapa kedua mobil akan berpapasan?",
+    "options": [
+      "08.00",
+      "08.15",
+      "08.30",
+      "08.45",
+      "09.00"
+    ],
+    "correct": 2,
+    "trick": "Rumus Berpapasan: t = Jarak / (V1 + V2) = 150 / (60 + 40) = 1,5 jam (1 jam 30 menit). 07.00 + 01.30 = 08.30.",
+    "explanation": "Kecepatan relatif = 100 km/jam. Waktu = 150/100 = 1,5 jam. Berpapasan pukul 08.30."
+  },
+  {
+    "id": 18,
+    "category": "Numerik",
+    "subCategory": "Persentase Laba / Rugi",
+    "question": "Sebuah aset instrumen pasar uang dibeli seharga Rp8.000.000 dan dijual kembali seharga Rp10.000.000. Berapakah persentase keuntungan yang diperoleh?",
+    "options": [
+      "15%",
+      "20%",
+      "25%",
+      "30%",
+      "33,3%"
+    ],
+    "correct": 2,
+    "trick": "Untung = Rp2.000.000. %Untung = (Untung / Modal Beli) × 100% = 2 jt / 8 jt = 1/4 = 25%.",
+    "explanation": "Keuntungan 2.000.000 dari harga beli 8.000.000 adalah 25%."
+  },
+  {
+    "id": 19,
+    "category": "Matriks Numerik",
+    "subCategory": "Matriks 3x3 Selisih Kuadrat",
+    "question": "Perhatikan tabel matriks angka 3x3 berikut. Setiap baris memiliki pola perhitungan konsisten dari kiri ke kanan. Tentukan nilai untuk mengisi tanda tanya [ ? ]!",
+    "visual": "<svg width=\"280\" height=\"150\" viewBox=\"0 0 280 150\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n      <rect x=\"10\" y=\"10\" width=\"260\" height=\"130\" rx=\"8\" fill=\"#ffffff\" stroke=\"#002d62\" stroke-width=\"2\"/>\n      <line x1=\"95\" y1=\"10\" x2=\"95\" y2=\"140\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <line x1=\"180\" y1=\"10\" x2=\"180\" y2=\"140\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <line x1=\"10\" y1=\"52\" x2=\"270\" y2=\"52\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <line x1=\"10\" y1=\"96\" x2=\"270\" y2=\"96\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <text x=\"52\" y=\"38\" font-size=\"18\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">7</text>\n      <text x=\"137\" y=\"38\" font-size=\"18\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">5</text>\n      <text x=\"225\" y=\"38\" font-size=\"18\" font-weight=\"bold\" fill=\"#059669\" text-anchor=\"middle\">24</text>\n      <text x=\"52\" y=\"82\" font-size=\"18\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">8</text>\n      <text x=\"137\" y=\"82\" font-size=\"18\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">4</text>\n      <text x=\"225\" y=\"82\" font-size=\"18\" font-weight=\"bold\" fill=\"#059669\" text-anchor=\"middle\">48</text>\n      <text x=\"52\" y=\"126\" font-size=\"18\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">9</text>\n      <text x=\"137\" y=\"126\" font-size=\"18\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">6</text>\n      <rect x=\"195\" y=\"104\" width=\"60\" height=\"30\" rx=\"4\" fill=\"#fef3c7\" stroke=\"#f59e0b\" stroke-width=\"2\" stroke-dasharray=\"3 3\"/>\n      <text x=\"225\" y=\"126\" font-size=\"20\" font-weight=\"bold\" fill=\"#d97706\" text-anchor=\"middle\">?</text>\n    </svg>",
+    "options": [
+      "41",
+      "45",
+      "54",
+      "63",
+      "72"
+    ],
+    "correct": 1,
+    "trick": "Pola Baris: Kolom 3 = (Kolom 1)² - (Kolom 2)². Baris 1: 7² - 5² = 49 - 25 = 24. Baris 2: 8² - 4² = 64 - 16 = 48. Baris 3: 9² - 6² = 81 - 36 = 45!",
+    "explanation": "Setiap baris mengoperasikan selisih kuadrat dari dua bilangan pertama untuk menghasilkan bilangan ketiga."
+  },
+  {
+    "id": 20,
+    "category": "Matriks Numerik",
+    "subCategory": "Matriks 3x3 Operasi Campuran",
+    "question": "Tentukan angka yang tepat untuk menggantikan tanda tanya [ ? ] pada matriks operasi baris berikut:",
+    "visual": "<svg width=\"280\" height=\"150\" viewBox=\"0 0 280 150\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n      <rect x=\"10\" y=\"10\" width=\"260\" height=\"130\" rx=\"8\" fill=\"#ffffff\" stroke=\"#002d62\" stroke-width=\"2\"/>\n      <line x1=\"95\" y1=\"10\" x2=\"95\" y2=\"140\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <line x1=\"180\" y1=\"10\" x2=\"180\" y2=\"140\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <line x1=\"10\" y1=\"52\" x2=\"270\" y2=\"52\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <line x1=\"10\" y1=\"96\" x2=\"270\" y2=\"96\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <text x=\"52\" y=\"38\" font-size=\"18\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">5</text>\n      <text x=\"137\" y=\"38\" font-size=\"18\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">4</text>\n      <text x=\"225\" y=\"38\" font-size=\"18\" font-weight=\"bold\" fill=\"#059669\" text-anchor=\"middle\">11</text>\n      <text x=\"52\" y=\"82\" font-size=\"18\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">6</text>\n      <text x=\"137\" y=\"82\" font-size=\"18\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">5</text>\n      <text x=\"225\" y=\"82\" font-size=\"18\" font-weight=\"bold\" fill=\"#059669\" text-anchor=\"middle\">19</text>\n      <text x=\"52\" y=\"126\" font-size=\"18\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">7</text>\n      <text x=\"137\" y=\"126\" font-size=\"18\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">6</text>\n      <rect x=\"195\" y=\"104\" width=\"60\" height=\"30\" rx=\"4\" fill=\"#fef3c7\" stroke=\"#f59e0b\" stroke-width=\"2\" stroke-dasharray=\"3 3\"/>\n      <text x=\"225\" y=\"126\" font-size=\"20\" font-weight=\"bold\" fill=\"#d97706\" text-anchor=\"middle\">?</text>\n    </svg>",
+    "options": [
+      "25",
+      "27",
+      "29",
+      "31",
+      "33"
+    ],
+    "correct": 2,
+    "trick": "Pola Matriks: Kolom 3 = (Kolom 1 × Kolom 2) - (Kolom 1 + Kolom 2). Baris 1: (5×4) - (5+4) = 20 - 9 = 11. Baris 2: (6×5) - (6+5) = 30 - 11 = 19. Baris 3: (7×6) - (7+6) = 42 - 13 = 29!",
+    "explanation": "Perkalian dua angka pertama dikurangi penjumlahan dua angka pertama menghasilkan nilai kolom ketiga."
+  },
+  {
+    "id": 21,
+    "category": "Matriks Numerik",
+    "subCategory": "Pola Segitiga Geometris Berangka",
+    "question": "Perhatikan 3 pola segitiga berangka di bawah ini. Angka di dalam lingkaran pusat diperoleh dari operasi aritmatika 3 angka pada sudut-sudutnya. Berapakah angka pengganti tanda tanya [ ? ]?",
+    "visual": "<svg width=\"340\" height=\"130\" viewBox=\"0 0 340 130\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n      <!-- Segitiga 1 -->\n      <polygon points=\"50,20 15,100 85,100\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"2\"/>\n      <circle cx=\"50\" cy=\"72\" r=\"16\" fill=\"#ffffff\" stroke=\"#2563eb\" stroke-width=\"2\"/>\n      <text x=\"50\" y=\"77\" font-size=\"13\" font-weight=\"bold\" fill=\"#2563eb\" text-anchor=\"middle\">45</text>\n      <text x=\"50\" y=\"15\" font-size=\"12\" font-weight=\"bold\" fill=\"#1e40af\" text-anchor=\"middle\">3</text>\n      <text x=\"12\" y=\"115\" font-size=\"12\" font-weight=\"bold\" fill=\"#1e40af\" text-anchor=\"middle\">8</text>\n      <text x=\"88\" y=\"115\" font-size=\"12\" font-weight=\"bold\" fill=\"#1e40af\" text-anchor=\"middle\">6</text>\n\n      <!-- Segitiga 2 -->\n      <polygon points=\"170,20 135,100 205,100\" fill=\"#ecfdf5\" stroke=\"#059669\" stroke-width=\"2\"/>\n      <circle cx=\"170\" cy=\"72\" r=\"16\" fill=\"#ffffff\" stroke=\"#059669\" stroke-width=\"2\"/>\n      <text x=\"170\" y=\"77\" font-size=\"13\" font-weight=\"bold\" fill=\"#059669\" text-anchor=\"middle\">31</text>\n      <text x=\"170\" y=\"15\" font-size=\"12\" font-weight=\"bold\" fill=\"#047857\" text-anchor=\"middle\">5</text>\n      <text x=\"132\" y=\"115\" font-size=\"12\" font-weight=\"bold\" fill=\"#047857\" text-anchor=\"middle\">9</text>\n      <text x=\"208\" y=\"115\" font-size=\"12\" font-weight=\"bold\" fill=\"#047857\" text-anchor=\"middle\">4</text>\n\n      <!-- Segitiga 3 -->\n      <polygon points=\"290,20 255,100 325,100\" fill=\"#fffbeb\" stroke=\"#d97706\" stroke-width=\"2\"/>\n      <circle cx=\"290\" cy=\"72\" r=\"16\" fill=\"#ffffff\" stroke=\"#d97706\" stroke-width=\"2\" stroke-dasharray=\"3 2\"/>\n      <text x=\"290\" y=\"78\" font-size=\"16\" font-weight=\"bold\" fill=\"#d97706\" text-anchor=\"middle\">?</text>\n      <text x=\"290\" y=\"15\" font-size=\"12\" font-weight=\"bold\" fill=\"#b45309\" text-anchor=\"middle\">7</text>\n      <text x=\"250\" y=\"115\" font-size=\"12\" font-weight=\"bold\" fill=\"#b45309\" text-anchor=\"middle\">11</text>\n      <text x=\"328\" y=\"115\" font-size=\"12\" font-weight=\"bold\" fill=\"#b45309\" text-anchor=\"middle\">5</text>\n    </svg>",
+    "options": [
+      "42",
+      "45",
+      "48",
+      "52",
+      "55"
+    ],
+    "correct": 2,
+    "trick": "Pola Geometri Segitiga: Nilai Pusat = (Sudut Bawah Kiri × Sudut Bawah Kanan) - Sudut Puncak. Segitiga 1: (8 × 6) - 3 = 45. Segitiga 2: (9 × 4) - 5 = 31. Segitiga 3: (11 × 5) - 7 = 55 - 7 = 48!",
+    "explanation": "Perkalian dua sudut alas dikurangi sudut puncak segitiga menghasilkan nilai di dalam lingkaran tengah."
+  },
+  {
+    "id": 22,
+    "category": "Matriks Numerik",
+    "subCategory": "Pola Salib 4 Arah Aritmatika",
+    "question": "Pada diagram salib 4 arah berikut, bilangan pusat dihitung dari 4 bilangan di ujung panah (Atas, Bawah, Kiri, Kanan). Tentukan nilai [ ? ] pada diagram ketiga!",
+    "visual": "<svg width=\"340\" height=\"120\" viewBox=\"0 0 340 120\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n      <!-- Salib 1 -->\n      <rect x=\"42\" y=\"10\" width=\"26\" height=\"90\" rx=\"4\" fill=\"#f1f5f9\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/>\n      <rect x=\"10\" y=\"42\" width=\"90\" height=\"26\" rx=\"4\" fill=\"#f1f5f9\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/>\n      <circle cx=\"55\" cy=\"55\" r=\"16\" fill=\"#002d62\"/>\n      <text x=\"55\" y=\"60\" font-size=\"12\" font-weight=\"bold\" fill=\"#fff\" text-anchor=\"middle\">32</text>\n      <text x=\"55\" y=\"26\" font-size=\"11\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">12</text>\n      <text x=\"55\" y=\"93\" font-size=\"11\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">4</text>\n      <text x=\"22\" y=\"60\" font-size=\"11\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">3</text>\n      <text x=\"88\" y=\"60\" font-size=\"11\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">5</text>\n\n      <!-- Salib 2 -->\n      <rect x=\"157\" y=\"10\" width=\"26\" height=\"90\" rx=\"4\" fill=\"#f1f5f9\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/>\n      <rect x=\"125\" y=\"42\" width=\"90\" height=\"26\" rx=\"4\" fill=\"#f1f5f9\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/>\n      <circle cx=\"170\" cy=\"55\" r=\"16\" fill=\"#002d62\"/>\n      <text x=\"170\" y=\"60\" font-size=\"12\" font-weight=\"bold\" fill=\"#fff\" text-anchor=\"middle\">60</text>\n      <text x=\"170\" y=\"26\" font-size=\"11\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">15</text>\n      <text x=\"170\" y=\"93\" font-size=\"11\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">5</text>\n      <text x=\"137\" y=\"60\" font-size=\"11\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">5</text>\n      <text x=\"203\" y=\"60\" font-size=\"11\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">8</text>\n\n      <!-- Salib 3 -->\n      <rect x=\"272\" y=\"10\" width=\"26\" height=\"90\" rx=\"4\" fill=\"#fef3c7\" stroke=\"#f59e0b\" stroke-width=\"1.5\"/>\n      <rect x=\"240\" y=\"42\" width=\"90\" height=\"26\" rx=\"4\" fill=\"#fef3c7\" stroke=\"#f59e0b\" stroke-width=\"1.5\"/>\n      <circle cx=\"285\" cy=\"55\" r=\"16\" fill=\"#d97706\"/>\n      <text x=\"285\" y=\"61\" font-size=\"14\" font-weight=\"bold\" fill=\"#fff\" text-anchor=\"middle\">?</text>\n      <text x=\"285\" y=\"26\" font-size=\"11\" font-weight=\"bold\" fill=\"#b45309\" text-anchor=\"middle\">18</text>\n      <text x=\"285\" y=\"93\" font-size=\"11\" font-weight=\"bold\" fill=\"#b45309\" text-anchor=\"middle\">6</text>\n      <text x=\"252\" y=\"60\" font-size=\"11\" font-weight=\"bold\" fill=\"#b45309\" text-anchor=\"middle\">5</text>\n      <text x=\"318\" y=\"60\" font-size=\"11\" font-weight=\"bold\" fill=\"#b45309\" text-anchor=\"middle\">9</text>\n    </svg>",
+    "options": [
+      "72",
+      "84",
+      "92",
+      "96",
+      "108"
+    ],
+    "correct": 3,
+    "trick": "Pola Salib: Pusat = (Atas + Bawah) × (Kanan - Kiri). Salib 1: (12 + 4) × (5 - 3) = 16 × 2 = 32. Salib 2: (15 + 5) × (8 - 5) = 20 × 3 = 60. Salib 3: (18 + 6) × (9 - 5) = 24 × 4 = 96!",
+    "explanation": "Penjumlahan sumbu vertikal dikalikan dengan selisih sumbu horizontal menghasilkan angka di pusat salib."
+  },
+  {
+    "id": 23,
+    "category": "Matriks Numerik",
+    "subCategory": "Matriks 3x3 Pembagian Kuadrat",
+    "question": "Perhatikan hubungan kolom pada tabel matriks 3x3 berikut. Berapakah nilai [ ? ] yang memenuhi pola tersebut?",
+    "visual": "<svg width=\"280\" height=\"150\" viewBox=\"0 0 280 150\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n      <rect x=\"10\" y=\"10\" width=\"260\" height=\"130\" rx=\"8\" fill=\"#ffffff\" stroke=\"#002d62\" stroke-width=\"2\"/>\n      <line x1=\"95\" y1=\"10\" x2=\"95\" y2=\"140\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <line x1=\"180\" y1=\"10\" x2=\"180\" y2=\"140\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <line x1=\"10\" y1=\"52\" x2=\"270\" y2=\"52\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <line x1=\"10\" y1=\"96\" x2=\"270\" y2=\"96\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <text x=\"52\" y=\"38\" font-size=\"18\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">14</text>\n      <text x=\"137\" y=\"38\" font-size=\"18\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">28</text>\n      <text x=\"225\" y=\"38\" font-size=\"18\" font-weight=\"bold\" fill=\"#059669\" text-anchor=\"middle\">4</text>\n      <text x=\"52\" y=\"82\" font-size=\"18\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">12</text>\n      <text x=\"137\" y=\"82\" font-size=\"18\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">36</text>\n      <text x=\"225\" y=\"82\" font-size=\"18\" font-weight=\"bold\" fill=\"#059669\" text-anchor=\"middle\">9</text>\n      <text x=\"52\" y=\"126\" font-size=\"18\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">15</text>\n      <text x=\"137\" y=\"126\" font-size=\"18\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">60</text>\n      <rect x=\"195\" y=\"104\" width=\"60\" height=\"30\" rx=\"4\" fill=\"#fef3c7\" stroke=\"#f59e0b\" stroke-width=\"2\" stroke-dasharray=\"3 3\"/>\n      <text x=\"225\" y=\"126\" font-size=\"20\" font-weight=\"bold\" fill=\"#d97706\" text-anchor=\"middle\">?</text>\n    </svg>",
+    "options": [
+      "12",
+      "14",
+      "16",
+      "18",
+      "20"
+    ],
+    "correct": 2,
+    "trick": "Pola Matriks: Kolom 3 = (Kolom 2 ÷ Kolom 1)². Baris 1: (28 ÷ 14)² = 2² = 4. Baris 2: (36 ÷ 12)² = 3² = 9. Baris 3: (60 ÷ 15)² = 4² = 16!",
+    "explanation": "Hasil pembagian kolom 2 dengan kolom 1 dikuadratkan menghasilkan nilai pada kolom 3."
+  },
+  {
+    "id": 24,
+    "category": "Matriks Numerik",
+    "subCategory": "Pola Roda Lingkaran 4 Kuadran",
+    "question": "Sebuah diagram lingkaran terbagi menjadi 4 sektor berpasangan seberang. Tentukan angka pengganti tanda tanya [ ? ] pada sektor kanan tengah!",
+    "visual": "<svg width=\"220\" height=\"150\" viewBox=\"0 0 220 150\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n      <circle cx=\"110\" cy=\"75\" r=\"60\" fill=\"#f8fafc\" stroke=\"#002d62\" stroke-width=\"2\"/>\n      <line x1=\"110\" y1=\"15\" x2=\"110\" y2=\"135\" stroke=\"#002d62\" stroke-width=\"1.5\"/>\n      <line x1=\"50\" y1=\"75\" x2=\"170\" y2=\"75\" stroke=\"#002d62\" stroke-width=\"1.5\"/>\n      <text x=\"80\" y=\"55\" font-size=\"16\" font-weight=\"bold\" fill=\"#1e40af\" text-anchor=\"middle\">6</text>\n      <text x=\"140\" y=\"105\" font-size=\"16\" font-weight=\"bold\" fill=\"#059669\" text-anchor=\"middle\">39</text>\n      <text x=\"140\" y=\"55\" font-size=\"16\" font-weight=\"bold\" fill=\"#1e40af\" text-anchor=\"middle\">8</text>\n      <text x=\"80\" y=\"105\" font-size=\"16\" font-weight=\"bold\" fill=\"#059669\" text-anchor=\"middle\">67</text>\n      <circle cx=\"110\" cy=\"75\" r=\"18\" fill=\"#ffffff\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <text x=\"110\" y=\"80\" font-size=\"10\" font-weight=\"bold\" fill=\"#64748b\" text-anchor=\"middle\">x²+3</text>\n      <rect x=\"5\" y=\"60\" width=\"36\" height=\"30\" rx=\"4\" fill=\"#eff6ff\" stroke=\"#3b82f6\"/>\n      <text x=\"23\" y=\"80\" font-size=\"13\" font-weight=\"bold\" fill=\"#1d4ed8\" text-anchor=\"middle\">11</text>\n      <rect x=\"178\" y=\"60\" width=\"36\" height=\"30\" rx=\"4\" fill=\"#fef3c7\" stroke=\"#f59e0b\" stroke-dasharray=\"2 2\"/>\n      <text x=\"196\" y=\"81\" font-size=\"15\" font-weight=\"bold\" fill=\"#b45309\" text-anchor=\"middle\">?</text>\n    </svg>",
+    "options": [
+      "118",
+      "121",
+      "124",
+      "127",
+      "132"
+    ],
+    "correct": 2,
+    "trick": "Pola Sektor Berhadapan: Sektor Seberang = (Sektor Asal)² + 3. Untuk 6 ➔ 6² + 3 = 39. Untuk 8 ➔ 8² + 3 = 67. Untuk 11 ➔ 11² + 3 = 121 + 3 = 124!",
+    "explanation": "Setiap angka di sektor berhadapan merupakan hasil kuadrat bilangan asal ditambah konstanta 3."
+  },
+  {
+    "id": 25,
+    "category": "Matriks Numerik",
+    "subCategory": "Matriks Baris Selisih Eksponensial",
+    "question": "Perhatikan tabel matriks berikut. Setiap baris memiliki pola pertambahan angka tersendiri yang teratur. Berapakah nilai [ ? ] pada baris ke-3?",
+    "visual": "<svg width=\"300\" height=\"140\" viewBox=\"0 0 300 140\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n      <rect x=\"10\" y=\"10\" width=\"280\" height=\"120\" rx=\"6\" fill=\"#ffffff\" stroke=\"#002d62\" stroke-width=\"2\"/>\n      <line x1=\"80\" y1=\"10\" x2=\"80\" y2=\"130\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <line x1=\"150\" y1=\"10\" x2=\"150\" y2=\"130\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <line x1=\"220\" y1=\"10\" x2=\"220\" y2=\"130\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <line x1=\"10\" y1=\"50\" x2=\"290\" y2=\"50\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <line x1=\"10\" y1=\"90\" x2=\"290\" y2=\"90\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <text x=\"45\" y=\"36\" font-size=\"16\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">4</text>\n      <text x=\"115\" y=\"36\" font-size=\"16\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">7</text>\n      <text x=\"185\" y=\"36\" font-size=\"16\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">13</text>\n      <text x=\"255\" y=\"36\" font-size=\"16\" font-weight=\"bold\" fill=\"#059669\" text-anchor=\"middle\">25</text>\n      <text x=\"45\" y=\"76\" font-size=\"16\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">3</text>\n      <text x=\"115\" y=\"76\" font-size=\"16\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">8</text>\n      <text x=\"185\" y=\"76\" font-size=\"16\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">18</text>\n      <text x=\"255\" y=\"76\" font-size=\"16\" font-weight=\"bold\" fill=\"#059669\" text-anchor=\"middle\">38</text>\n      <text x=\"45\" y=\"116\" font-size=\"16\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">5</text>\n      <text x=\"115\" y=\"116\" font-size=\"16\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">9</text>\n      <text x=\"185\" y=\"116\" font-size=\"16\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">17</text>\n      <rect x=\"232\" y=\"98\" width=\"46\" height=\"26\" rx=\"4\" fill=\"#fef3c7\" stroke=\"#f59e0b\" stroke-dasharray=\"2 2\"/>\n      <text x=\"255\" y=\"117\" font-size=\"18\" font-weight=\"bold\" fill=\"#b45309\" text-anchor=\"middle\">?</text>\n    </svg>",
+    "options": [
+      "29",
+      "31",
+      "33",
+      "35",
+      "37"
+    ],
+    "correct": 2,
+    "trick": "Pola Selisih Dikali 2: Baris 1 selisihnya: +3, +6, +12. Baris 2 selisihnya: +5, +10, +20. Baris 3 selisihnya: +4, +8, [+16]! Maka 17 + 16 = 33!",
+    "explanation": "Selisih antarkolom di setiap baris berlipat ganda dua kali lipat. Baris ketiga: 5(+4)=9, 9(+8)=17, 17(+16)=33."
+  },
+  {
+    "id": 26,
+    "category": "Matriks Numerik",
+    "subCategory": "Kotak 2x2 Perkalian Diagonal",
+    "question": "Diberikan 3 kotak persegi 2x2. Nilai diagonal utama dan diagonal samping memiliki hubungan perkalian konstan. Tentukan nilai [ ? ] pada kotak ketiga!",
+    "visual": "<svg width=\"340\" height=\"120\" viewBox=\"0 0 340 120\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n      <rect x=\"15\" y=\"15\" width=\"80\" height=\"80\" rx=\"6\" fill=\"#ffffff\" stroke=\"#002d62\" stroke-width=\"2\"/>\n      <line x1=\"55\" y1=\"15\" x2=\"55\" y2=\"95\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <line x1=\"15\" y1=\"55\" x2=\"95\" y2=\"55\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <text x=\"35\" y=\"42\" font-size=\"15\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">8</text>\n      <text x=\"75\" y=\"42\" font-size=\"15\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">12</text>\n      <text x=\"35\" y=\"82\" font-size=\"15\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">6</text>\n      <text x=\"75\" y=\"82\" font-size=\"15\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">9</text>\n\n      <rect x=\"130\" y=\"15\" width=\"80\" height=\"80\" rx=\"6\" fill=\"#ffffff\" stroke=\"#002d62\" stroke-width=\"2\"/>\n      <line x1=\"170\" y1=\"15\" x2=\"170\" y2=\"95\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <line x1=\"130\" y1=\"55\" x2=\"210\" y2=\"55\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <text x=\"150\" y=\"42\" font-size=\"15\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">7</text>\n      <text x=\"190\" y=\"42\" font-size=\"15\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">14</text>\n      <text x=\"150\" y=\"82\" font-size=\"15\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">4</text>\n      <text x=\"190\" y=\"82\" font-size=\"15\" font-weight=\"bold\" fill=\"#002d62\" text-anchor=\"middle\">8</text>\n\n      <rect x=\"245\" y=\"15\" width=\"80\" height=\"80\" rx=\"6\" fill=\"#fef3c7\" stroke=\"#f59e0b\" stroke-width=\"2\"/>\n      <line x1=\"285\" y1=\"15\" x2=\"285\" y2=\"95\" stroke=\"#f59e0b\" stroke-width=\"1.5\"/>\n      <line x1=\"245\" y1=\"55\" x2=\"325\" y2=\"55\" stroke=\"#f59e0b\" stroke-width=\"1.5\"/>\n      <text x=\"265\" y=\"42\" font-size=\"15\" font-weight=\"bold\" fill=\"#b45309\" text-anchor=\"middle\">6</text>\n      <text x=\"305\" y=\"42\" font-size=\"15\" font-weight=\"bold\" fill=\"#b45309\" text-anchor=\"middle\">9</text>\n      <text x=\"265\" y=\"84\" font-size=\"18\" font-weight=\"bold\" fill=\"#dc2626\" text-anchor=\"middle\">?</text>\n      <text x=\"305\" y=\"82\" font-size=\"15\" font-weight=\"bold\" fill=\"#b45309\" text-anchor=\"middle\">15</text>\n    </svg>",
+    "options": [
+      "8",
+      "10",
+      "12",
+      "15",
+      "18"
+    ],
+    "correct": 1,
+    "trick": "Pola Perkalian Diagonal: (Kiri Atas × Kanan Bawah) = (Kanan Atas × Kiri Bawah). Kotak 1: 8 × 9 = 72, 12 × 6 = 72. Kotak 2: 7 × 8 = 56, 14 × 4 = 56. Kotak 3: 6 × 15 = 90. Maka Kanan Atas (9) × Kiri Bawah (?) = 90 ➔ ? = 90 ÷ 9 = 10!",
+    "explanation": "Perkalian silang diagonal kiri-atas ke kanan-bawah sama dengan perkalian silang kanan-atas ke kiri-bawah."
+  },
+  {
+    "id": 27,
+    "category": "Diagrammatic",
+    "subCategory": "Refleksi Cermin Sumbu Y",
+    "question": "Sebuah simbol panah condong ke KANAN ATAS dengan lingkaran hitam di pangkal KIRI BAWAH dicerminkan terhadap cermin vertikal (tegak). Bagaimanakah wujud bayangannya?",
+    "visual": "<svg width=\"180\" height=\"100\" viewBox=\"0 0 180 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n      <circle cx=\"30\" cy=\"70\" r=\"10\" fill=\"#002d62\" />\n      <line x1=\"37\" y1=\"63\" x2=\"65\" y2=\"35\" stroke=\"#002d62\" stroke-width=\"6\" />\n      <polygon points=\"65,26 74,40 56,40\" fill=\"#002d62\" transform=\"rotate(45 65 35)\" />\n      <line x1=\"90\" y1=\"10\" x2=\"90\" y2=\"90\" stroke=\"#ef4444\" stroke-width=\"2\" stroke-dasharray=\"4 4\" />\n      <text x=\"75\" y=\"98\" font-size=\"10\" fill=\"#ef4444\">Cermin</text>\n      <rect x=\"110\" y=\"20\" width=\"55\" height=\"60\" rx=\"6\" stroke=\"#94a3b8\" stroke-width=\"2\" stroke-dasharray=\"2 2\" fill=\"#fff\" />\n      <text x=\"132\" y=\"56\" font-size=\"20\" fill=\"#94a3b8\" font-weight=\"bold\">?</text>\n    </svg>",
+    "options": [
+      "Panah condong ke KIRI ATAS, lingkaran hitam di KANAN BAWAH",
+      "Panah condong ke KANAN BAWAH, lingkaran hitam di KIRI ATAS",
+      "Panah condong ke KIRI BAWAH, lingkaran hitam di KANAN ATAS",
+      "Bentuk sama persis tidak ada yang berubah",
+      "Panah mengarah tegak lurus ke atas"
+    ],
+    "correct": 0,
+    "trick": "Cermin Vertikal (Sumbu Y): KIRI & KANAN bertukar tempat, atas-bawah TETAP. Kanan atas jadi Kiri atas, kiri bawah jadi Kanan bawah.",
+    "explanation": "Sifat cermin vertikal membalik sumbu horizontal (kiri-kanan)."
+  },
+  {
+    "id": 28,
+    "category": "Diagrammatic",
+    "subCategory": "Refleksi Air Sumbu X",
+    "question": "Huruf 'M' dicerminkan ke permukaan air tenang di bawahnya (garis cermin mendatar / horizontal). Bagaimanakah hasil pantulannya?",
+    "visual": "<svg width=\"180\" height=\"90\" viewBox=\"0 0 180 90\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n      <text x=\"78\" y=\"38\" font-size=\"34\" font-weight=\"900\" fill=\"#002d62\">M</text>\n      <line x1=\"20\" y1=\"46\" x2=\"160\" y2=\"46\" stroke=\"#0284c7\" stroke-width=\"3\" stroke-dasharray=\"5 3\" />\n      <text x=\"115\" y=\"42\" font-size=\"10\" fill=\"#0284c7\">Garis Air</text>\n      <text x=\"82\" y=\"76\" font-size=\"22\" font-weight=\"bold\" fill=\"#94a3b8\">?</text>\n    </svg>",
+    "options": [
+      "Tetap huruf 'M'",
+      "Menjadi huruf 'W'",
+      "Menjadi huruf 'E'",
+      "Menjadi huruf '3'",
+      "Berputar 90 derajat"
+    ],
+    "correct": 1,
+    "trick": "Cermin Datar Air (Sumbu X): ATAS & BAWAH bertukar tempat, kiri-kanan TETAP. Huruf M dibalik vertikal menjadi huruf W.",
+    "explanation": "Refleksi horizontal membalik orientasi atas menjadi bawah."
+  },
+  {
+    "id": 29,
+    "category": "Diagrammatic",
+    "subCategory": "Serial Rotasi Sudut Jarum Jam",
+    "question": "Perhatikan serial rotasi panah pada 4 kotak berurutan di bawah ini. Kotak ke-4 seharusnya menunjuk ke arah mana?",
+    "visual": "<svg width=\"340\" height=\"90\" viewBox=\"0 0 340 90\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n      <rect x=\"10\" y=\"10\" width=\"65\" height=\"70\" rx=\"6\" fill=\"#ffffff\" stroke=\"#cbd5e1\" stroke-width=\"2\"/>\n      <circle cx=\"42\" cy=\"45\" r=\"22\" stroke=\"#002d62\" stroke-width=\"1.5\" stroke-dasharray=\"2 2\"/>\n      <line x1=\"42\" y1=\"45\" x2=\"42\" y2=\"28\" stroke=\"#002d62\" stroke-width=\"3\"/>\n      <polygon points=\"42,24 38,32 46,32\" fill=\"#002d62\"/>\n\n      <rect x=\"95\" y=\"10\" width=\"65\" height=\"70\" rx=\"6\" fill=\"#ffffff\" stroke=\"#cbd5e1\" stroke-width=\"2\"/>\n      <circle cx=\"127\" cy=\"45\" r=\"22\" stroke=\"#002d62\" stroke-width=\"1.5\" stroke-dasharray=\"2 2\"/>\n      <line x1=\"127\" y1=\"45\" x2=\"144\" y2=\"45\" stroke=\"#002d62\" stroke-width=\"3\"/>\n      <polygon points=\"148,45 140,41 140,49\" fill=\"#002d62\"/>\n\n      <rect x=\"180\" y=\"10\" width=\"65\" height=\"70\" rx=\"6\" fill=\"#ffffff\" stroke=\"#cbd5e1\" stroke-width=\"2\"/>\n      <circle cx=\"212\" cy=\"45\" r=\"22\" stroke=\"#002d62\" stroke-width=\"1.5\" stroke-dasharray=\"2 2\"/>\n      <line x1=\"212\" y1=\"45\" x2=\"212\" y2=\"62\" stroke=\"#002d62\" stroke-width=\"3\"/>\n      <polygon points=\"212,66 208,58 216,58\" fill=\"#002d62\"/>\n\n      <rect x=\"265\" y=\"10\" width=\"65\" height=\"70\" rx=\"6\" fill=\"#fef3c7\" stroke=\"#f59e0b\" stroke-width=\"2\" stroke-dasharray=\"3 3\"/>\n      <circle cx=\"297\" cy=\"45\" r=\"22\" stroke=\"#f59e0b\" stroke-width=\"1.5\" stroke-dasharray=\"2 2\"/>\n      <text x=\"297\" y=\"52\" font-size=\"20\" font-weight=\"bold\" fill=\"#d97706\" text-anchor=\"middle\">?</text>\n    </svg>",
+    "options": [
+      "Pukul 12 (0°)",
+      "Pukul 9 (270° searah jarum jam)",
+      "Pukul 6 (180°)",
+      "Pukul 4 (120°)",
+      "Pukul 1 (30°)"
+    ],
+    "correct": 1,
+    "trick": "Rotasi 90° Searah Jarum Jam: 12:00 ➔ 03:00 (+90°) ➔ 06:00 (+90°) ➔ 09:00 (+90° / 270°).",
+    "explanation": "Pertambahan sudut putar 90 derajat searah jarum jam menghasilkan arah jam 9."
+  },
+  {
+    "id": 30,
+    "category": "Diagrammatic",
+    "subCategory": "Jaring-Jaring Kubus 3D",
+    "question": "Perhatikan jaring-jaring kubus salib 6 sisi berikut. Jika nomor 2 adalah sisi ALAS (bawah), sisi nomor berapakah yang akan menjadi ATAP (berhadapan langsung dengan sisi 2)?",
+    "visual": "<svg width=\"220\" height=\"150\" viewBox=\"0 0 220 150\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n      <rect x=\"90\" y=\"5\" width=\"35\" height=\"35\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"1.5\"/>\n      <text x=\"107\" y=\"28\" font-size=\"16\" font-weight=\"bold\" fill=\"#1e40af\" text-anchor=\"middle\">1</text>\n      <rect x=\"55\" y=\"40\" width=\"35\" height=\"35\" fill=\"#f1f5f9\" stroke=\"#64748b\" stroke-width=\"1.5\"/>\n      <text x=\"72\" y=\"63\" font-size=\"16\" font-weight=\"bold\" fill=\"#334155\" text-anchor=\"middle\">5</text>\n      <rect x=\"90\" y=\"40\" width=\"35\" height=\"35\" fill=\"#fef08a\" stroke=\"#ca8a04\" stroke-width=\"2\"/>\n      <text x=\"107\" y=\"63\" font-size=\"16\" font-weight=\"bold\" fill=\"#854d0e\" text-anchor=\"middle\">2</text>\n      <rect x=\"125\" y=\"40\" width=\"35\" height=\"35\" fill=\"#f1f5f9\" stroke=\"#64748b\" stroke-width=\"1.5\"/>\n      <text x=\"142\" y=\"63\" font-size=\"16\" font-weight=\"bold\" fill=\"#334155\" text-anchor=\"middle\">3</text>\n      <rect x=\"90\" y=\"75\" width=\"35\" height=\"35\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"1.5\"/>\n      <text x=\"107\" y=\"98\" font-size=\"16\" font-weight=\"bold\" fill=\"#1e40af\" text-anchor=\"middle\">4</text>\n      <rect x=\"90\" y=\"110\" width=\"35\" height=\"35\" fill=\"#dcfce7\" stroke=\"#16a34a\" stroke-width=\"2\"/>\n      <text x=\"107\" y=\"133\" font-size=\"16\" font-weight=\"bold\" fill=\"#15803d\" text-anchor=\"middle\">6</text>\n    </svg>",
+    "options": [
+      "Sisi nomor 1",
+      "Sisi nomor 4",
+      "Sisi nomor 6",
+      "Sisi nomor 3",
+      "Sisi nomor 5"
+    ],
+    "correct": 2,
+    "trick": "Kaidah Sisi Berhadapan Kubus: Dua sisi berhadapan pada jaring-jaring selalu dipisahkan oleh TEPAT 1 sisi perantara! Sisi 1 berhadapan dengan 4. Sisi 5 berhadapan dengan 3. Maka sisi alas 2 berhadapan dengan sisi 6!",
+    "explanation": "Pada jaring kubus salib, sisi sayap atas-bawah dan kiri-kanan saling menutup satu sama lain, menyisakan sisi ke-6 sebagai atap penutup sisi alas 2."
+  },
+  {
+    "id": 31,
+    "category": "Diagrammatic",
+    "subCategory": "Pengelompokan Bentuk (Odd One Out)",
+    "question": "Perhatikan kelima bangun datar di bawah ini. Manakah bangun yang TIDAK SESUAI dengan prinsip kelompoknya?",
+    "visual": "<svg width=\"340\" height=\"90\" viewBox=\"0 0 340 90\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n      <polygon points=\"35,20 15,65 55,65\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"2\"/>\n      <text x=\"35\" y=\"82\" font-size=\"11\" font-weight=\"bold\" fill=\"#1e40af\" text-anchor=\"middle\">A</text>\n      <rect x=\"80\" y=\"25\" width=\"40\" height=\"40\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"2\"/>\n      <text x=\"100\" y=\"82\" font-size=\"11\" font-weight=\"bold\" fill=\"#1e40af\" text-anchor=\"middle\">B</text>\n      <polygon points=\"170,22 190,36 182,62 158,62 150,36\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"2\"/>\n      <text x=\"170\" y=\"82\" font-size=\"11\" font-weight=\"bold\" fill=\"#1e40af\" text-anchor=\"middle\">C</text>\n      <rect x=\"220\" y=\"32\" width=\"55\" height=\"28\" fill=\"#fee2e2\" stroke=\"#dc2626\" stroke-width=\"2\"/>\n      <text x=\"247\" y=\"82\" font-size=\"11\" font-weight=\"bold\" fill=\"#dc2626\" text-anchor=\"middle\">D</text>\n      <polygon points=\"305,25 322,35 322,55 305,65 288,55 288,35\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"2\"/>\n      <text x=\"305\" y=\"82\" font-size=\"11\" font-weight=\"bold\" fill=\"#1e40af\" text-anchor=\"middle\">E</text>\n    </svg>",
+    "options": [
+      "Bangun A (Segitiga Sama Sisi)",
+      "Bangun B (Persegi)",
+      "Bangun C (Segilima Beraturan)",
+      "Bangun D (Persegi Panjang)",
+      "Bangun E (Segienam Beraturan)"
+    ],
+    "correct": 3,
+    "trick": "Kaidah Poligon Beraturan: A, B, C, dan E adalah POLIGON BERATURAN (semua sisi sama panjang dan semua sudut sama besar). Bangun D (Persegi Panjang) bukan poligon beraturan karena panjang sisinya tidak sama!",
+    "explanation": "Persegi panjang tidak memiliki sisi yang kongruen di semua rusuknya."
+  },
+  {
+    "id": 32,
+    "category": "Diagrammatic",
+    "subCategory": "Spasial Lipatan Kertas Berlubang",
+    "question": "Sebuah kertas bujursangkar dilipat dua kali berturut-turut: pertama dilipat ke bawah (horizontal), lalu dilipat ke kanan (vertikal). Sudut lipatan pusat dilubangi dengan plong 1 lubang bulat. Jika kertas dibuka kembali sepenuhnya, bagaimanakah posisi lubang pada kertas?",
+    "visual": "<svg width=\"340\" height=\"100\" viewBox=\"0 0 340 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n      <rect x=\"15\" y=\"20\" width=\"55\" height=\"55\" rx=\"4\" fill=\"#ffffff\" stroke=\"#002d62\" stroke-width=\"2\"/>\n      <text x=\"42\" y=\"90\" font-size=\"10\" font-weight=\"bold\" fill=\"#64748b\" text-anchor=\"middle\">1. Kertas Asal</text>\n      <line x1=\"78\" y1=\"47\" x2=\"98\" y2=\"47\" stroke=\"#2563eb\" stroke-width=\"2\"/>\n      <rect x=\"108\" y=\"47\" width=\"55\" height=\"28\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"2\"/>\n      <text x=\"135\" y=\"90\" font-size=\"10\" font-weight=\"bold\" fill=\"#64748b\" text-anchor=\"middle\">2. Lipat Bawah</text>\n      <line x1=\"172\" y1=\"47\" x2=\"192\" y2=\"47\" stroke=\"#2563eb\" stroke-width=\"2\"/>\n      <rect x=\"202\" y=\"47\" width=\"28\" height=\"28\" fill=\"#fef3c7\" stroke=\"#d97706\" stroke-width=\"2\"/>\n      <circle cx=\"206\" cy=\"51\" r=\"4\" fill=\"#dc2626\"/>\n      <text x=\"216\" y=\"90\" font-size=\"10\" font-weight=\"bold\" fill=\"#64748b\" text-anchor=\"middle\">3. Plong</text>\n      <line x1=\"240\" y1=\"47\" x2=\"260\" y2=\"47\" stroke=\"#2563eb\" stroke-width=\"2\"/>\n      <rect x=\"270\" y=\"20\" width=\"55\" height=\"55\" rx=\"4\" fill=\"#ffffff\" stroke=\"#cbd5e1\" stroke-width=\"2\" stroke-dasharray=\"3 3\"/>\n      <text x=\"297\" y=\"55\" font-size=\"22\" font-weight=\"bold\" fill=\"#d97706\" text-anchor=\"middle\">?</text>\n      <text x=\"297\" y=\"90\" font-size=\"10\" font-weight=\"bold\" fill=\"#64748b\" text-anchor=\"middle\">Hasil Buka</text>\n    </svg>",
+    "options": [
+      "1 lubang di pojok kanan atas",
+      "2 lubang di tepi kertas",
+      "4 lubang simetris berkumpul di sekitar pusat kertas",
+      "4 lubang di keempat sudut terluar kertas",
+      "8 lubang berbaris melingkar"
+    ],
+    "correct": 2,
+    "trick": "Simetri Lipatan: 2 kali lipatan membagi kertas menjadi 4 kuadran (2² = 4). Lubang dibuat di sudut lipatan pusat (pertemuan lipatan), sehingga saat dibuka akan membentuk 4 lubang simetris di tengah kertas!",
+    "explanation": "Setiap lipatan menggandakan jumlah lapisan kertas. Karena dilubangi pada sudut lipatan pertemuan tengah, 4 lubang akan simetris di area sentral."
+  },
+  {
+    "id": 33,
+    "category": "Diagrammatic",
+    "subCategory": "Rotasi 3D Isometrik Kubus",
+    "question": "Perhatikan gambar kubus 3D di samping. Tiga sisi yang tampak memiliki simbol: Sisi Atas = Lingkaran (⬤), Sisi Depan = Simbol Tambah (✚), Sisi Kanan = Segitiga (▲). Jika kubus diputar 90° ke arah kanan mengelilingi sumbu tegak, simbol apakah yang sekarang berada di sisi ATAS?",
+    "visual": "<svg width=\"200\" height=\"130\" viewBox=\"0 0 200 130\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n      <polygon points=\"100,20 145,45 100,70 55,45\" fill=\"#eff6ff\" stroke=\"#002d62\" stroke-width=\"2\"/>\n      <circle cx=\"100\" cy=\"45\" r=\"8\" fill=\"#002d62\"/>\n      <polygon points=\"55,45 100,70 100,120 55,95\" fill=\"#ffffff\" stroke=\"#002d62\" stroke-width=\"2\"/>\n      <line x1=\"77\" y1=\"75\" x2=\"77\" y2=\"91\" stroke=\"#059669\" stroke-width=\"4\"/>\n      <line x1=\"69\" y1=\"83\" x2=\"85\" y2=\"83\" stroke=\"#059669\" stroke-width=\"4\"/>\n      <polygon points=\"100,70 145,45 145,95 100,120\" fill=\"#f8fafc\" stroke=\"#002d62\" stroke-width=\"2\"/>\n      <polygon points=\"122,73 131,90 114,90\" fill=\"#dc2626\"/>\n      <path d=\"M155 45 C165 55 165 75 155 85\" stroke=\"#f59e0b\" stroke-width=\"2\" stroke-dasharray=\"3 3\"/>\n      <polygon points=\"152,87 158,83 158,91\" fill=\"#f59e0b\"/>\n      <text x=\"175\" y=\"70\" font-size=\"10\" font-weight=\"bold\" fill=\"#d97706\">Putar 90°</text>\n    </svg>",
+    "options": [
+      "Simbol Tambah (✚)",
+      "Segitiga (▲)",
+      "Tetap Lingkaran (⬤)",
+      "Menjadi Kosong",
+      "Simbol Bintang (★)"
+    ],
+    "correct": 2,
+    "trick": "Sumbu Putar Vertikal: Rotasi ke samping (kiri/kanan) mengelilingi sumbu vertikal HANYA memutar sisi samping (Depan, Kanan, Belakang, Kiri). Sisi ATAS dan BAWAH TIDAK BERUBAH kedudukannya! Maka sisi atas tetap Lingkaran (⬤)!",
+    "explanation": "Rotasi horizontal terhadap sumbu vertikal tidak mengubah posisi kutub atas dan kutub bawah balok/kubus."
+  },
+  {
+    "id": 34,
+    "category": "Diagrammatic",
+    "subCategory": "Serial Inversi Pola Geometri",
+    "question": "Perhatikan deretan 3 bentuk berikut. Setiap langkah mengalami rotasi 180° dan pembalikan warna (hitam menjadi putih dan sebaliknya). Bentuk ke-4 yang tepat adalah:",
+    "visual": "<svg width=\"340\" height=\"90\" viewBox=\"0 0 340 90\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n      <rect x=\"10\" y=\"10\" width=\"65\" height=\"70\" rx=\"6\" fill=\"#ffffff\" stroke=\"#cbd5e1\" stroke-width=\"2\"/>\n      <polygon points=\"42,22 25,62 60,62\" fill=\"#002d62\"/>\n      <rect x=\"95\" y=\"10\" width=\"65\" height=\"70\" rx=\"6\" fill=\"#ffffff\" stroke=\"#cbd5e1\" stroke-width=\"2\"/>\n      <polygon points=\"127,62 110,22 145,22\" fill=\"#ffffff\" stroke=\"#002d62\" stroke-width=\"2.5\"/>\n      <rect x=\"180\" y=\"10\" width=\"65\" height=\"70\" rx=\"6\" fill=\"#ffffff\" stroke=\"#cbd5e1\" stroke-width=\"2\"/>\n      <rect x=\"195\" y=\"27\" width=\"35\" height=\"35\" fill=\"#002d62\"/>\n      <rect x=\"265\" y=\"10\" width=\"65\" height=\"70\" rx=\"6\" fill=\"#fef3c7\" stroke=\"#f59e0b\" stroke-width=\"2\" stroke-dasharray=\"3 3\"/>\n      <text x=\"297\" y=\"52\" font-size=\"22\" font-weight=\"bold\" fill=\"#d97706\" text-anchor=\"middle\">?</text>\n    </svg>",
+    "options": [
+      "Persegi Hitam Solid",
+      "Persegi Putih Berongga (Garis Tepi)",
+      "Lingkaran Hitam",
+      "Segitiga Putih Menghadap Atas",
+      "Belah Ketupat Hitam"
+    ],
+    "correct": 1,
+    "trick": "Pola Inversi Warna: Hitam Solid ➔ Putih Berongga. Kotak 3 berisi Persegi Hitam, maka Kotak 4 harus Persegi Putih Berongga (garis tepi)!",
+    "explanation": "Aturan perubahan berkala adalah negasi warna isian dari solid ke garis berongga."
+  },
+  {
+    "id": 35,
+    "category": "Matriks Figural",
+    "subCategory": "Matriks 3x3 Rotasi Garis & Bentuk Pusat",
+    "question": "Perhatikan matriks gambar 3x3 di bawah ini. Garis penunjuk berputar 45° searah jarum jam pada setiap kolom. Tentukan bentuk yang tepat untuk mengisi kotak tanda tanya [ ? ] pada baris 3 kolom 3!",
+    "visual": "<svg width=\"270\" height=\"270\" viewBox=\"0 0 270 270\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n      <rect x=\"5\" y=\"5\" width=\"260\" height=\"260\" rx=\"6\" fill=\"#ffffff\" stroke=\"#002d62\" stroke-width=\"2\"/>\n      <line x1=\"91\" y1=\"5\" x2=\"91\" y2=\"265\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <line x1=\"178\" y1=\"5\" x2=\"178\" y2=\"265\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <line x1=\"5\" y1=\"91\" x2=\"265\" y2=\"91\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <line x1=\"5\" y1=\"178\" x2=\"265\" y2=\"178\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      \n      <circle cx=\"48\" cy=\"48\" r=\"18\" stroke=\"#002d62\" stroke-width=\"2\"/>\n      <line x1=\"48\" y1=\"48\" x2=\"48\" y2=\"30\" stroke=\"#ef4444\" stroke-width=\"3\"/>\n      <circle cx=\"135\" cy=\"48\" r=\"18\" stroke=\"#002d62\" stroke-width=\"2\"/>\n      <line x1=\"135\" y1=\"48\" x2=\"148\" y2=\"35\" stroke=\"#ef4444\" stroke-width=\"3\"/>\n      <circle cx=\"222\" cy=\"48\" r=\"18\" stroke=\"#002d62\" stroke-width=\"2\"/>\n      <line x1=\"222\" y1=\"48\" x2=\"240\" y2=\"48\" stroke=\"#ef4444\" stroke-width=\"3\"/>\n\n      <polygon points=\"48,32 30,64 66,64\" stroke=\"#059669\" stroke-width=\"2\"/>\n      <line x1=\"48\" y1=\"50\" x2=\"61\" y2=\"37\" stroke=\"#ef4444\" stroke-width=\"3\"/>\n      <polygon points=\"135,32 117,64 153,64\" stroke=\"#059669\" stroke-width=\"2\"/>\n      <line x1=\"135\" y1=\"50\" x2=\"153\" y2=\"50\" stroke=\"#ef4444\" stroke-width=\"3\"/>\n      <polygon points=\"222,32 204,64 240,64\" stroke=\"#059669\" stroke-width=\"2\"/>\n      <line x1=\"222\" y1=\"50\" x2=\"235\" y2=\"63\" stroke=\"#ef4444\" stroke-width=\"3\"/>\n\n      <rect x=\"33\" y=\"120\" width=\"30\" height=\"30\" stroke=\"#7c3aed\" stroke-width=\"2\" transform=\"translate(0, 87)\"/>\n      <line x1=\"48\" y1=\"135\" x2=\"66\" y2=\"135\" stroke=\"#ef4444\" stroke-width=\"3\" transform=\"translate(0, 87)\"/>\n      <rect x=\"120\" y=\"120\" width=\"30\" height=\"30\" stroke=\"#7c3aed\" stroke-width=\"2\" transform=\"translate(0, 87)\"/>\n      <line x1=\"135\" y1=\"135\" x2=\"148\" y2=\"148\" stroke=\"#ef4444\" stroke-width=\"3\" transform=\"translate(0, 87)\"/>\n      \n      <rect x=\"183\" y=\"183\" width=\"77\" height=\"77\" fill=\"#fef3c7\" stroke=\"#f59e0b\" stroke-dasharray=\"3 3\"/>\n      <text x=\"222\" y=\"230\" font-size=\"28\" font-weight=\"bold\" fill=\"#d97706\" text-anchor=\"middle\">?</text>\n    </svg>",
+    "options": [
+      "Persegi dengan garis jarum menunjuk ke ATAS (0°)",
+      "Persegi dengan garis jarum menunjuk ke BAWAH (180° / Pukul 6)",
+      "Lingkaran dengan garis jarum menunjuk ke BAWAH (180°)",
+      "Persegi dengan garis jarum menunjuk ke KIRI (270°)",
+      "Segitiga dengan garis jarum menunjuk ke BAWAH"
+    ],
+    "correct": 1,
+    "trick": "Hukum Matriks: Bentuk baris ke-3 konsisten Persegi. Rotasi jarum bertambah +45° per kolom: 90° ➔ 135° ➔ 180° (Tegak Lurus ke Bawah). Jawab: Persegi dengan jarum menunjuk ke Bawah!",
+    "explanation": "Bentuk dasar di baris 3 adalah persegi. Pola putaran jarum bertambah 45 derajat searah jarum jam secara berkesinambungan."
+  },
+  {
+    "id": 36,
+    "category": "Matriks Figural",
+    "subCategory": "Matriks 3x3 Operasi Logika XOR Garis",
+    "question": "Pada matriks 3x3 berikut, kotak kolom 3 merupakan hasil operasi XOR (Exclusive OR) antara kolom 1 dan kolom 2. Garis yang sama di kedua kotak akan MENGHILANG (saling meniadakan), sedangkan garis yang berbeda akan BERTAHAN. Kotak pengganti tanda tanya [ ? ] adalah:",
+    "visual": "<svg width=\"270\" height=\"270\" viewBox=\"0 0 270 270\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n      <rect x=\"5\" y=\"5\" width=\"260\" height=\"260\" rx=\"6\" fill=\"#ffffff\" stroke=\"#002d62\" stroke-width=\"2\"/>\n      <line x1=\"91\" y1=\"5\" x2=\"91\" y2=\"265\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <line x1=\"178\" y1=\"5\" x2=\"178\" y2=\"265\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <line x1=\"5\" y1=\"91\" x2=\"265\" y2=\"91\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <line x1=\"5\" y1=\"178\" x2=\"265\" y2=\"178\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n\n      <line x1=\"48\" y1=\"20\" x2=\"48\" y2=\"76\" stroke=\"#002d62\" stroke-width=\"2.5\"/>\n      <line x1=\"20\" y1=\"48\" x2=\"76\" y2=\"48\" stroke=\"#002d62\" stroke-width=\"2.5\"/>\n      <line x1=\"135\" y1=\"20\" x2=\"135\" y2=\"76\" stroke=\"#002d62\" stroke-width=\"2.5\"/>\n      <line x1=\"107\" y1=\"20\" x2=\"163\" y2=\"76\" stroke=\"#002d62\" stroke-width=\"2.5\"/>\n      <line x1=\"194\" y1=\"48\" x2=\"250\" y2=\"48\" stroke=\"#002d62\" stroke-width=\"2.5\"/>\n      <line x1=\"194\" y1=\"20\" x2=\"250\" y2=\"76\" stroke=\"#002d62\" stroke-width=\"2.5\"/>\n\n      <line x1=\"20\" y1=\"107\" x2=\"76\" y2=\"163\" stroke=\"#059669\" stroke-width=\"2.5\"/>\n      <line x1=\"20\" y1=\"163\" x2=\"76\" y2=\"107\" stroke=\"#059669\" stroke-width=\"2.5\"/>\n      <line x1=\"107\" y1=\"107\" x2=\"163\" y2=\"163\" stroke=\"#059669\" stroke-width=\"2.5\"/>\n      <line x1=\"107\" y1=\"135\" x2=\"163\" y2=\"135\" stroke=\"#059669\" stroke-width=\"2.5\"/>\n      <line x1=\"194\" y1=\"163\" x2=\"250\" y2=\"107\" stroke=\"#059669\" stroke-width=\"2.5\"/>\n      <line x1=\"194\" y1=\"135\" x2=\"250\" y2=\"135\" stroke=\"#059669\" stroke-width=\"2.5\"/>\n\n      <rect x=\"25\" y=\"199\" width=\"46\" height=\"46\" stroke=\"#2563eb\" stroke-width=\"2.5\"/>\n      <line x1=\"25\" y1=\"222\" x2=\"71\" y2=\"222\" stroke=\"#2563eb\" stroke-width=\"2.5\"/>\n      <rect x=\"112\" y=\"199\" width=\"46\" height=\"46\" stroke=\"#2563eb\" stroke-width=\"2.5\"/>\n      <line x1=\"135\" y1=\"199\" x2=\"135\" y2=\"245\" stroke=\"#2563eb\" stroke-width=\"2.5\"/>\n\n      <rect x=\"183\" y=\"183\" width=\"77\" height=\"77\" fill=\"#fef3c7\" stroke=\"#f59e0b\" stroke-dasharray=\"3 3\"/>\n      <text x=\"222\" y=\"230\" font-size=\"28\" font-weight=\"bold\" fill=\"#d97706\" text-anchor=\"middle\">?</text>\n    </svg>",
+    "options": [
+      "Bentuk Tanda Tambah (+) tanpa bingkai bujursangkar",
+      "Bujursangkar utuh dengan tanda tambah di dalamnya",
+      "Hanya bujursangkar kosong",
+      "Hanya garis vertikal",
+      "Hanya garis horizontal"
+    ],
+    "correct": 0,
+    "trick": "Hukum XOR Matriks: Elemen yang sama di Kolom 1 dan Kolom 2 SALING MEMBATALKAN/HILANG! Bujursangkar luar ada di Kolom 1 dan Kolom 2 ➔ HILANG! Garis horizontal hanya di Kolom 1 ➔ bertahan. Garis vertikal hanya di Kolom 2 ➔ bertahan. Gabungan sisa: Tanda Tambah (+) tanpa bujursangkar!",
+    "explanation": "Operasi Exclusive-OR meniadakan segmen yang berhimpitan dan melestarikan segmen unik."
+  },
+  {
+    "id": 37,
+    "category": "Matriks Figural",
+    "subCategory": "Matriks 3x3 Latin Square Bentuk & Arsiran",
+    "question": "Perhatikan matriks 3x3 berikut. Setiap baris dan kolom harus memuat tepat SATU jenis bentuk (Lingkaran, Persegi, Segitiga) dan SATU jenis arsiran (Putih Polos, Garis Arsir Diagonal, Hitam Solid). Bentuk pengganti tanda tanya [ ? ] adalah:",
+    "visual": "<svg width=\"270\" height=\"270\" viewBox=\"0 0 270 270\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n      <defs>\n        <pattern id=\"diag-stripe-37\" width=\"6\" height=\"6\" patternTransform=\"rotate(45 0 0)\" patternUnits=\"userSpaceOnUse\">\n          <line x1=\"0\" y1=\"0\" x2=\"0\" y2=\"6\" stroke=\"#002d62\" stroke-width=\"2\" />\n        </pattern>\n      </defs>\n      <rect x=\"5\" y=\"5\" width=\"260\" height=\"260\" rx=\"6\" fill=\"#ffffff\" stroke=\"#002d62\" stroke-width=\"2\"/>\n      <line x1=\"91\" y1=\"5\" x2=\"91\" y2=\"265\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <line x1=\"178\" y1=\"5\" x2=\"178\" y2=\"265\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <line x1=\"5\" y1=\"91\" x2=\"265\" y2=\"91\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <line x1=\"5\" y1=\"178\" x2=\"265\" y2=\"178\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n\n      <circle cx=\"48\" cy=\"48\" r=\"20\" fill=\"#ffffff\" stroke=\"#002d62\" stroke-width=\"2\"/>\n      <rect x=\"115\" y=\"28\" width=\"40\" height=\"40\" fill=\"url(#diag-stripe-37)\" stroke=\"#002d62\" stroke-width=\"2\"/>\n      <polygon points=\"222,28 200,68 244,68\" fill=\"#002d62\" stroke=\"#002d62\" stroke-width=\"2\"/>\n\n      <polygon points=\"48,115 26,155 70,155\" fill=\"url(#diag-stripe-37)\" stroke=\"#002d62\" stroke-width=\"2\"/>\n      <circle cx=\"135\" cy=\"135\" r=\"20\" fill=\"#002d62\" stroke=\"#002d62\" stroke-width=\"2\"/>\n      <rect x=\"202\" y=\"115\" width=\"40\" height=\"40\" fill=\"#ffffff\" stroke=\"#002d62\" stroke-width=\"2\"/>\n\n      <rect x=\"28\" y=\"202\" width=\"40\" height=\"40\" fill=\"#002d62\" stroke=\"#002d62\" stroke-width=\"2\"/>\n      <polygon points=\"135,202 113,242 157,242\" fill=\"#ffffff\" stroke=\"#002d62\" stroke-width=\"2\"/>\n      <rect x=\"183\" y=\"183\" width=\"77\" height=\"77\" fill=\"#fef3c7\" stroke=\"#f59e0b\" stroke-dasharray=\"3 3\"/>\n      <text x=\"222\" y=\"230\" font-size=\"28\" font-weight=\"bold\" fill=\"#d97706\" text-anchor=\"middle\">?</text>\n    </svg>",
+    "options": [
+      "Lingkaran dengan Arsiran Garis Diagonal",
+      "Lingkaran Putih Polos",
+      "Lingkaran Hitam Solid",
+      "Persegi dengan Arsiran Garis Diagonal",
+      "Segitiga Hitam Solid"
+    ],
+    "correct": 0,
+    "trick": "Aturan Latin Square: Baris 3 sudah ada Persegi dan Segitiga ➔ Bentuk harus Lingkaran! Baris 3 sudah ada Hitam dan Putih ➔ Arsiran harus Garis Diagonal! Jawab: Lingkaran dengan Arsiran Garis Diagonal!",
+    "explanation": "Kombinasi unik baris dan kolom menuntut bentuk lingkaran dengan motif arsiran garis."
+  },
+  {
+    "id": 38,
+    "category": "Matriks Figural",
+    "subCategory": "Matriks 3x3 Pertambahan Titik di Dalam Poligon",
+    "question": "Perhatikan jumlah titik di dalam masing-masing bangun pada matriks 3x3 berikut. Tentukan gambar pengganti tanda tanya [ ? ]!",
+    "visual": "<svg width=\"270\" height=\"270\" viewBox=\"0 0 270 270\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n      <rect x=\"5\" y=\"5\" width=\"260\" height=\"260\" rx=\"6\" fill=\"#ffffff\" stroke=\"#002d62\" stroke-width=\"2\"/>\n      <line x1=\"91\" y1=\"5\" x2=\"91\" y2=\"265\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <line x1=\"178\" y1=\"5\" x2=\"178\" y2=\"265\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <line x1=\"5\" y1=\"91\" x2=\"265\" y2=\"91\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <line x1=\"5\" y1=\"178\" x2=\"265\" y2=\"178\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n\n      <circle cx=\"48\" cy=\"48\" r=\"22\" stroke=\"#2563eb\" stroke-width=\"2\"/>\n      <circle cx=\"48\" cy=\"48\" r=\"4\" fill=\"#2563eb\"/>\n      <circle cx=\"135\" cy=\"48\" r=\"22\" stroke=\"#2563eb\" stroke-width=\"2\"/>\n      <circle cx=\"128\" cy=\"48\" r=\"4\" fill=\"#2563eb\"/><circle cx=\"142\" cy=\"48\" r=\"4\" fill=\"#2563eb\"/>\n      <circle cx=\"222\" cy=\"48\" r=\"22\" stroke=\"#2563eb\" stroke-width=\"2\"/>\n      <circle cx=\"215\" cy=\"48\" r=\"4\" fill=\"#2563eb\"/><circle cx=\"222\" cy=\"42\" r=\"4\" fill=\"#2563eb\"/><circle cx=\"229\" cy=\"48\" r=\"4\" fill=\"#2563eb\"/>\n\n      <rect x=\"28\" y=\"115\" width=\"40\" height=\"40\" stroke=\"#059669\" stroke-width=\"2\"/>\n      <circle cx=\"42\" cy=\"135\" r=\"4\" fill=\"#059669\"/><circle cx=\"54\" cy=\"135\" r=\"4\" fill=\"#059669\"/>\n      <rect x=\"115\" y=\"115\" width=\"40\" height=\"40\" stroke=\"#059669\" stroke-width=\"2\"/>\n      <circle cx=\"127\" cy=\"135\" r=\"4\" fill=\"#059669\"/><circle cx=\"135\" cy=\"128\" r=\"4\" fill=\"#059669\"/><circle cx=\"143\" cy=\"135\" r=\"4\" fill=\"#059669\"/>\n      <rect x=\"202\" y=\"115\" width=\"40\" height=\"40\" stroke=\"#059669\" stroke-width=\"2\"/>\n      <circle cx=\"214\" cy=\"128\" r=\"4\" fill=\"#059669\"/><circle cx=\"230\" cy=\"128\" r=\"4\" fill=\"#059669\"/><circle cx=\"214\" cy=\"142\" r=\"4\" fill=\"#059669\"/><circle cx=\"230\" cy=\"142\" r=\"4\" fill=\"#059669\"/>\n\n      <polygon points=\"48,202 68,216 60,242 36,242 28,216\" stroke=\"#d97706\" stroke-width=\"2\"/>\n      <circle cx=\"42\" cy=\"225\" r=\"3.5\" fill=\"#d97706\"/><circle cx=\"54\" cy=\"225\" r=\"3.5\" fill=\"#d97706\"/><circle cx=\"48\" cy=\"235\" r=\"3.5\" fill=\"#d97706\"/>\n      <polygon points=\"135,202 155,216 147,242 123,242 115,216\" stroke=\"#d97706\" stroke-width=\"2\"/>\n      <circle cx=\"128\" cy=\"220\" r=\"3.5\" fill=\"#d97706\"/><circle cx=\"142\" cy=\"220\" r=\"3.5\" fill=\"#d97706\"/><circle cx=\"128\" cy=\"232\" r=\"3.5\" fill=\"#d97706\"/><circle cx=\"142\" cy=\"232\" r=\"3.5\" fill=\"#d97706\"/>\n\n      <rect x=\"183\" y=\"183\" width=\"77\" height=\"77\" fill=\"#fef3c7\" stroke=\"#f59e0b\" stroke-dasharray=\"3 3\"/>\n      <text x=\"222\" y=\"230\" font-size=\"28\" font-weight=\"bold\" fill=\"#d97706\" text-anchor=\"middle\">?</text>\n    </svg>",
+    "options": [
+      "Segilima dengan 4 titik di dalamnya",
+      "Segilima dengan 5 titik di dalamnya",
+      "Segienam dengan 5 titik di dalamnya",
+      "Persegi dengan 5 titik di dalamnya",
+      "Segilima dengan 6 titik di dalamnya"
+    ],
+    "correct": 1,
+    "trick": "Pola Baris: Baris 1 berisi 1, 2, 3 titik (+1). Baris 2 berisi 2, 3, 4 titik (+1). Baris 3 bangun Segilima berisi 3, 4, [5 titik]! Jawab: Segilima dengan 5 titik di dalamnya!",
+    "explanation": "Pertambahan jumlah titik konsisten +1 per kolom dalam bangun dasar yang sama pada setiap baris."
+  },
+  {
+    "id": 39,
+    "category": "Matriks Figural",
+    "subCategory": "Matriks 3x3 Orbit Sudut Searah Jarum Jam",
+    "question": "Sebuah titik hitam besar bergerak memutari keempat sudut bujursangkar searah jarum jam. Berdasarkan pola pergerakan pada matriks 3x3 berikut, posisi titik pada kotak [ ? ] adalah:",
+    "visual": "<svg width=\"270\" height=\"270\" viewBox=\"0 0 270 270\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n      <rect x=\"5\" y=\"5\" width=\"260\" height=\"260\" rx=\"6\" fill=\"#ffffff\" stroke=\"#002d62\" stroke-width=\"2\"/>\n      <line x1=\"91\" y1=\"5\" x2=\"91\" y2=\"265\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <line x1=\"178\" y1=\"5\" x2=\"178\" y2=\"265\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <line x1=\"5\" y1=\"91\" x2=\"265\" y2=\"91\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <line x1=\"5\" y1=\"178\" x2=\"265\" y2=\"178\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n\n      <rect x=\"25\" y=\"25\" width=\"46\" height=\"46\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/>\n      <circle cx=\"35\" cy=\"35\" r=\"6\" fill=\"#002d62\"/>\n      <rect x=\"112\" y=\"25\" width=\"46\" height=\"46\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/>\n      <circle cx=\"148\" cy=\"35\" r=\"6\" fill=\"#002d62\"/>\n      <rect x=\"199\" y=\"25\" width=\"46\" height=\"46\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/>\n      <circle cx=\"235\" cy=\"61\" r=\"6\" fill=\"#002d62\"/>\n\n      <rect x=\"25\" y=\"112\" width=\"46\" height=\"46\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/>\n      <circle cx=\"61\" cy=\"122\" r=\"6\" fill=\"#002d62\"/>\n      <rect x=\"112\" y=\"112\" width=\"46\" height=\"46\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/>\n      <circle cx=\"148\" cy=\"148\" r=\"6\" fill=\"#002d62\"/>\n      <rect x=\"199\" y=\"112\" width=\"46\" height=\"46\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/>\n      <circle cx=\"209\" cy=\"148\" r=\"6\" fill=\"#002d62\"/>\n\n      <rect x=\"25\" y=\"199\" width=\"46\" height=\"46\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/>\n      <circle cx=\"61\" cy=\"235\" r=\"6\" fill=\"#002d62\"/>\n      <rect x=\"112\" y=\"199\" width=\"46\" height=\"46\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/>\n      <circle cx=\"122\" cy=\"235\" r=\"6\" fill=\"#002d62\"/>\n      <rect x=\"183\" y=\"183\" width=\"77\" height=\"77\" fill=\"#fef3c7\" stroke=\"#f59e0b\" stroke-dasharray=\"3 3\"/>\n      <text x=\"222\" y=\"230\" font-size=\"28\" font-weight=\"bold\" fill=\"#d97706\" text-anchor=\"middle\">?</text>\n    </svg>",
+    "options": [
+      "Titik di Pojok KIRI ATAS",
+      "Titik di Pojok KANAN ATAS",
+      "Titik di Pojok KIRI BAWAH",
+      "Titik di Pojok KANAN BAWAH",
+      "Titik tepat di TENGAH bujursangkar"
+    ],
+    "correct": 0,
+    "trick": "Orbit Sudut Searah Jarum Jam: Siklus 4 sudut: [Kiri Atas] ➔ [Kanan Atas] ➔ [Kanan Bawah] ➔ [Kiri Bawah] ➔ kembali ke [Kiri Atas]! Baris 3 dimulai dari Kanan Bawah ➔ Kiri Bawah ➔ kembali ke KIRI ATAS!",
+    "explanation": "Perpindahan melingkar 90 derajat searah jarum jam mengantarkan titik kembali ke sudut kiri atas."
+  },
+  {
+    "id": 40,
+    "category": "Matriks Figural",
+    "subCategory": "Matriks 3x3 Penggabungan Bentuk Luar & Dalam",
+    "question": "Perhatikan pola pembentukan gambar pada matriks 3x3 berikut. Kolom 1 adalah bingkai luar, Kolom 2 adalah objek dalam, dan Kolom 3 adalah hasil penggabungan keduanya. Bentuk pengganti [ ? ] adalah:",
+    "visual": "<svg width=\"270\" height=\"270\" viewBox=\"0 0 270 270\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n      <rect x=\"5\" y=\"5\" width=\"260\" height=\"260\" rx=\"6\" fill=\"#ffffff\" stroke=\"#002d62\" stroke-width=\"2\"/>\n      <line x1=\"91\" y1=\"5\" x2=\"91\" y2=\"265\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <line x1=\"178\" y1=\"5\" x2=\"178\" y2=\"265\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <line x1=\"5\" y1=\"91\" x2=\"265\" y2=\"91\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <line x1=\"5\" y1=\"178\" x2=\"265\" y2=\"178\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n\n      <rect x=\"25\" y=\"25\" width=\"46\" height=\"46\" stroke=\"#2563eb\" stroke-width=\"2\" fill=\"none\"/>\n      <polygon points=\"135,32 138,42 148,42 140,48 143,58 135,52 127,58 130,48 122,42 132,42\" fill=\"#002d62\"/>\n      <rect x=\"199\" y=\"25\" width=\"46\" height=\"46\" stroke=\"#2563eb\" stroke-width=\"2\" fill=\"none\"/>\n      <polygon points=\"222,32 225,42 235,42 227,48 230,58 222,52 214,58 217,48 209,42 219,42\" fill=\"#002d62\"/>\n\n      <circle cx=\"48\" cy=\"135\" r=\"23\" stroke=\"#059669\" stroke-width=\"2\" fill=\"none\"/>\n      <polygon points=\"135,123 123,147 147,147\" fill=\"#059669\"/>\n      <circle cx=\"222\" cy=\"135\" r=\"23\" stroke=\"#059669\" stroke-width=\"2\" fill=\"none\"/>\n      <polygon points=\"222,123 210,147 234,147\" fill=\"#059669\"/>\n\n      <polygon points=\"48,199 71,222 48,245 25,222\" stroke=\"#d97706\" stroke-width=\"2\" fill=\"none\"/>\n      <circle cx=\"135\" cy=\"222\" r=\"10\" fill=\"#d97706\"/>\n      <rect x=\"183\" y=\"183\" width=\"77\" height=\"77\" fill=\"#fef3c7\" stroke=\"#f59e0b\" stroke-dasharray=\"3 3\"/>\n      <text x=\"222\" y=\"230\" font-size=\"28\" font-weight=\"bold\" fill=\"#d97706\" text-anchor=\"middle\">?</text>\n    </svg>",
+    "options": [
+      "Belah ketupat membungkus lingkaran hitam di pusatnya",
+      "Lingkaran membungkus belah ketupat",
+      "Persegi membungkus lingkaran hitam",
+      "Belah ketupat kosong tanpa isi",
+      "Dua lingkaran konsentris"
+    ],
+    "correct": 0,
+    "trick": "Pola Sintesis Figural: Kolom 3 = Kolom 1 (wadah luar) + Kolom 2 (isi dalam). Baris 3: Belah Ketupat membungkus Lingkaran Hitam di dalamnya!",
+    "explanation": "Prinsip penggabungan elemen luar dan dalam secara konsentris."
+  },
+  {
+    "id": 41,
+    "category": "Matriks Figural",
+    "subCategory": "Matriks 3x3 Inversi Pola Catur",
+    "question": "Perhatikan pola pembalikan warna (inversi hitam-putih) pada bujursangkar 4 kuadran berikut. Bentuk kotak ke-9 pada posisi [ ? ] adalah:",
+    "visual": "<svg width=\"270\" height=\"270\" viewBox=\"0 0 270 270\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n      <rect x=\"5\" y=\"5\" width=\"260\" height=\"260\" rx=\"6\" fill=\"#ffffff\" stroke=\"#002d62\" stroke-width=\"2\"/>\n      <line x1=\"91\" y1=\"5\" x2=\"91\" y2=\"265\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <line x1=\"178\" y1=\"5\" x2=\"178\" y2=\"265\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <line x1=\"5\" y1=\"91\" x2=\"265\" y2=\"91\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <line x1=\"5\" y1=\"178\" x2=\"265\" y2=\"178\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n\n      <rect x=\"25\" y=\"25\" width=\"23\" height=\"23\" fill=\"#002d62\"/><rect x=\"48\" y=\"48\" width=\"23\" height=\"23\" fill=\"#002d62\"/>\n      <rect x=\"25\" y=\"25\" width=\"46\" height=\"46\" stroke=\"#94a3b8\" fill=\"none\"/>\n      <rect x=\"135\" y=\"25\" width=\"23\" height=\"23\" fill=\"#002d62\"/><rect x=\"112\" y=\"48\" width=\"23\" height=\"23\" fill=\"#002d62\"/>\n      <rect x=\"112\" y=\"25\" width=\"46\" height=\"46\" stroke=\"#94a3b8\" fill=\"none\"/>\n      <rect x=\"199\" y=\"25\" width=\"23\" height=\"23\" fill=\"#002d62\"/><rect x=\"222\" y=\"48\" width=\"23\" height=\"23\" fill=\"#002d62\"/>\n      <rect x=\"199\" y=\"25\" width=\"46\" height=\"46\" stroke=\"#94a3b8\" fill=\"none\"/>\n\n      <rect x=\"48\" y=\"112\" width=\"23\" height=\"23\" fill=\"#002d62\"/><rect x=\"25\" y=\"135\" width=\"23\" height=\"23\" fill=\"#002d62\"/>\n      <rect x=\"25\" y=\"112\" width=\"46\" height=\"46\" stroke=\"#94a3b8\" fill=\"none\"/>\n      <rect x=\"112\" y=\"112\" width=\"23\" height=\"23\" fill=\"#002d62\"/><rect x=\"135\" y=\"135\" width=\"23\" height=\"23\" fill=\"#002d62\"/>\n      <rect x=\"112\" y=\"112\" width=\"46\" height=\"46\" stroke=\"#94a3b8\" fill=\"none\"/>\n      <rect x=\"222\" y=\"112\" width=\"23\" height=\"23\" fill=\"#002d62\"/><rect x=\"199\" y=\"135\" width=\"23\" height=\"23\" fill=\"#002d62\"/>\n      <rect x=\"199\" y=\"112\" width=\"46\" height=\"46\" stroke=\"#94a3b8\" fill=\"none\"/>\n\n      <rect x=\"25\" y=\"199\" width=\"23\" height=\"23\" fill=\"#002d62\"/><rect x=\"48\" y=\"222\" width=\"23\" height=\"23\" fill=\"#002d62\"/>\n      <rect x=\"25\" y=\"199\" width=\"46\" height=\"46\" stroke=\"#94a3b8\" fill=\"none\"/>\n      <rect x=\"135\" y=\"199\" width=\"23\" height=\"23\" fill=\"#002d62\"/><rect x=\"112\" y=\"222\" width=\"23\" height=\"23\" fill=\"#002d62\"/>\n      <rect x=\"112\" y=\"199\" width=\"46\" height=\"46\" stroke=\"#94a3b8\" fill=\"none\"/>\n      <rect x=\"183\" y=\"183\" width=\"77\" height=\"77\" fill=\"#fef3c7\" stroke=\"#f59e0b\" stroke-dasharray=\"3 3\"/>\n      <text x=\"222\" y=\"230\" font-size=\"28\" font-weight=\"bold\" fill=\"#d97706\" text-anchor=\"middle\">?</text>\n    </svg>",
+    "options": [
+      "Kuadran Hitam di Kiri-Atas dan Kanan-Bawah",
+      "Kuadran Hitam di Kanan-Atas dan Kiri-Bawah",
+      "Seluruh 4 Kuadran menjadi Hitam Penuh",
+      "Seluruh 4 Kuadran menjadi Putih Kosong",
+      "Kuadran Hitam di Kiri-Atas dan Kiri-Bawah"
+    ],
+    "correct": 0,
+    "trick": "Pola Selang-Seling Baris: Pola berulang A ➔ B ➔ A. Baris 3 Kolom 1 adalah Pola A (Hitam di Kiri-Atas & Kanan-Bawah), Kolom 2 adalah Pola B (Kanan-Atas & Kiri-Bawah). Maka Kolom 3 kembali ke Pola A!",
+    "explanation": "Siklus periodik biner berselang-seling dua fase."
+  },
+  {
+    "id": 42,
+    "category": "Matriks Figural",
+    "subCategory": "Matriks 3x3 Deret Sisi Poligon Geometris",
+    "question": "Perhatikan jumlah sisi poligon pada setiap sel matriks 3x3 berikut. Bangun apakah yang tepat untuk mengisi sel tanda tanya [ ? ]?",
+    "visual": "<svg width=\"270\" height=\"270\" viewBox=\"0 0 270 270\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n      <rect x=\"5\" y=\"5\" width=\"260\" height=\"260\" rx=\"6\" fill=\"#ffffff\" stroke=\"#002d62\" stroke-width=\"2\"/>\n      <line x1=\"91\" y1=\"5\" x2=\"91\" y2=\"265\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <line x1=\"178\" y1=\"5\" x2=\"178\" y2=\"265\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <line x1=\"5\" y1=\"91\" x2=\"265\" y2=\"91\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <line x1=\"5\" y1=\"178\" x2=\"265\" y2=\"178\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n\n      <polygon points=\"48,28 26,68 70,68\" stroke=\"#002d62\" stroke-width=\"2\"/>\n      <rect x=\"115\" y=\"28\" width=\"40\" height=\"40\" stroke=\"#002d62\" stroke-width=\"2\"/>\n      <polygon points=\"222,25 244,41 236,68 208,68 200,41\" stroke=\"#002d62\" stroke-width=\"2\"/>\n\n      <rect x=\"28\" y=\"115\" width=\"40\" height=\"40\" stroke=\"#059669\" stroke-width=\"2\"/>\n      <polygon points=\"135,112 157,128 149,155 121,155 113,128\" stroke=\"#059669\" stroke-width=\"2\"/>\n      <polygon points=\"222,112 242,123 242,147 222,158 202,147 202,123\" stroke=\"#059669\" stroke-width=\"2\"/>\n\n      <polygon points=\"48,199 70,215 62,242 34,242 26,215\" stroke=\"#d97706\" stroke-width=\"2\"/>\n      <polygon points=\"135,199 155,210 155,234 135,245 115,234 115,210\" stroke=\"#d97706\" stroke-width=\"2\"/>\n      <rect x=\"183\" y=\"183\" width=\"77\" height=\"77\" fill=\"#fef3c7\" stroke=\"#f59e0b\" stroke-dasharray=\"3 3\"/>\n      <text x=\"222\" y=\"230\" font-size=\"28\" font-weight=\"bold\" fill=\"#d97706\" text-anchor=\"middle\">?</text>\n    </svg>",
+    "options": [
+      "Segitujuh Beraturan (Heptagon, 7 sisi)",
+      "Segidelapan Beraturan (Oktagon, 8 sisi)",
+      "Segienam Beraturan (Heksagon, 6 sisi)",
+      "Segilima Beraturan (Pentagon, 5 sisi)",
+      "Lingkaran Tak Hingga Sisi"
+    ],
+    "correct": 0,
+    "trick": "Pola Deret Aritmatika Sisi: Baris 1: 3, 4, 5 (+1). Baris 2: 4, 5, 6 (+1). Baris 3: 5, 6, [7 sisi]! Bangun dengan 7 sisi adalah Segitujuh (Heptagon)!",
+    "explanation": "Pertambahan jumlah rusuk poligon bertambah 1 di setiap kolom dan baris."
+  },
+  {
+    "id": 43,
+    "category": "Diagram Venn",
+    "subCategory": "Klasifikasi Hierarkis 3 Kategori",
+    "question": "Manakah diagram lingkaran Venn pada visual di samping yang paling tepat mewakili hubungan logis antara ketiga istilah berikut:\n• Otoritas Moneter\n• Bank Sentral\n• Bank Indonesia",
+    "visual": "<svg width=\"340\" height=\"110\" viewBox=\"0 0 340 110\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n      <g transform=\"translate(10, 10)\">\n        <circle cx=\"28\" cy=\"35\" r=\"28\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"1.5\"/>\n        <circle cx=\"28\" cy=\"35\" r=\"18\" fill=\"#dbeafe\" stroke=\"#1d4ed8\" stroke-width=\"1.5\"/>\n        <circle cx=\"28\" cy=\"35\" r=\"8\" fill=\"#1e40af\"/>\n        <text x=\"28\" y=\"80\" font-size=\"11\" font-weight=\"bold\" fill=\"#1e40af\" text-anchor=\"middle\">Model A</text>\n      </g>\n      <g transform=\"translate(80, 10)\">\n        <circle cx=\"28\" cy=\"35\" r=\"28\" fill=\"#f8fafc\" stroke=\"#64748b\" stroke-width=\"1.5\"/>\n        <circle cx=\"18\" cy=\"35\" r=\"8\" fill=\"#94a3b8\"/>\n        <circle cx=\"38\" cy=\"35\" r=\"8\" fill=\"#94a3b8\"/>\n        <text x=\"28\" y=\"80\" font-size=\"11\" font-weight=\"bold\" fill=\"#64748b\" text-anchor=\"middle\">Model B</text>\n      </g>\n      <g transform=\"translate(150, 10)\">\n        <circle cx=\"20\" cy=\"28\" r=\"16\" fill=\"#ecfdf5\" stroke=\"#059669\" stroke-width=\"1.5\" opacity=\"0.8\"/>\n        <circle cx=\"36\" cy=\"28\" r=\"16\" fill=\"#ecfdf5\" stroke=\"#059669\" stroke-width=\"1.5\" opacity=\"0.8\"/>\n        <circle cx=\"28\" cy=\"44\" r=\"16\" fill=\"#ecfdf5\" stroke=\"#059669\" stroke-width=\"1.5\" opacity=\"0.8\"/>\n        <text x=\"28\" y=\"80\" font-size=\"11\" font-weight=\"bold\" fill=\"#047857\" text-anchor=\"middle\">Model C</text>\n      </g>\n      <g transform=\"translate(220, 10)\">\n        <circle cx=\"20\" cy=\"35\" r=\"20\" fill=\"#f8fafc\" stroke=\"#64748b\" stroke-width=\"1.5\"/>\n        <circle cx=\"20\" cy=\"35\" r=\"9\" fill=\"#94a3b8\"/>\n        <circle cx=\"48\" cy=\"35\" r=\"10\" fill=\"#f8fafc\" stroke=\"#64748b\" stroke-width=\"1.5\"/>\n        <text x=\"28\" y=\"80\" font-size=\"11\" font-weight=\"bold\" fill=\"#64748b\" text-anchor=\"middle\">Model D</text>\n      </g>\n      <g transform=\"translate(285, 10)\">\n        <circle cx=\"12\" cy=\"25\" r=\"10\" fill=\"#f8fafc\" stroke=\"#64748b\" stroke-width=\"1.5\"/>\n        <circle cx=\"36\" cy=\"25\" r=\"10\" fill=\"#f8fafc\" stroke=\"#64748b\" stroke-width=\"1.5\"/>\n        <circle cx=\"24\" cy=\"48\" r=\"10\" fill=\"#f8fafc\" stroke=\"#64748b\" stroke-width=\"1.5\"/>\n        <text x=\"24\" y=\"80\" font-size=\"11\" font-weight=\"bold\" fill=\"#64748b\" text-anchor=\"middle\">Model E</text>\n      </g>\n    </svg>",
+    "options": [
+      "Model A (Tiga Lingkaran Konsentris Bertingkat)",
+      "Model B (Satu Lingkaran Besar memuat Dua Lingkaran Lepas)",
+      "Model C (Tiga Lingkaran Saling Beririsan Sebagian / Tri-Venn)",
+      "Model D (Satu Lingkaran memuat Lingkaran Lain, Satu Terpisah)",
+      "Model E (Tiga Lingkaran Terpisah Total)"
+    ],
+    "correct": 0,
+    "trick": "Relasi Subordinat Bertingkat: Bank Indonesia adalah Bank Sentral Republik Indonesia; Bank Sentral adalah Otoritas Moneter. Hubungan bersifat inklusif hierarkis (A ⊂ B ⊂ C). Bentuk diagram yang tepat adalah Model A (3 Lingkaran Konsentris)!",
+    "explanation": "Hierarki kelembagaan hukum tata negara: BI tercakup di dalam Bank Sentral, dan Bank Sentral tercakup di dalam Otoritas Moneter."
+  },
+  {
+    "id": 44,
+    "category": "Diagram Venn",
+    "subCategory": "Klasifikasi Kategori Instrumen Finansial",
+    "question": "Manakah diagram Venn yang paling tepat mewakili hubungan ketiga kategori keuangan berikut:\n• Aset Keuangan\n• Saham Perbankan\n• Surat Berharga Negara (SBN)",
+    "visual": "<svg width=\"340\" height=\"110\" viewBox=\"0 0 340 110\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n      <g transform=\"translate(10, 10)\">\n        <circle cx=\"28\" cy=\"35\" r=\"28\" fill=\"#f8fafc\" stroke=\"#64748b\" stroke-width=\"1.5\"/>\n        <circle cx=\"28\" cy=\"35\" r=\"18\" fill=\"#94a3b8\" stroke=\"#64748b\" stroke-width=\"1.5\"/>\n        <circle cx=\"28\" cy=\"35\" r=\"8\" fill=\"#334155\"/>\n        <text x=\"28\" y=\"80\" font-size=\"11\" font-weight=\"bold\" fill=\"#64748b\" text-anchor=\"middle\">Model A</text>\n      </g>\n      <g transform=\"translate(80, 10)\">\n        <circle cx=\"28\" cy=\"35\" r=\"28\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"2\"/>\n        <circle cx=\"16\" cy=\"35\" r=\"10\" fill=\"#dbeafe\" stroke=\"#1d4ed8\" stroke-width=\"1.5\"/>\n        <circle cx=\"40\" cy=\"35\" r=\"10\" fill=\"#dbeafe\" stroke=\"#1d4ed8\" stroke-width=\"1.5\"/>\n        <text x=\"28\" y=\"80\" font-size=\"11\" font-weight=\"bold\" fill=\"#1e40af\" text-anchor=\"middle\">Model B</text>\n      </g>\n      <g transform=\"translate(150, 10)\">\n        <circle cx=\"20\" cy=\"28\" r=\"16\" fill=\"#f8fafc\" stroke=\"#64748b\" stroke-width=\"1.5\" opacity=\"0.8\"/>\n        <circle cx=\"36\" cy=\"28\" r=\"16\" fill=\"#f8fafc\" stroke=\"#64748b\" stroke-width=\"1.5\" opacity=\"0.8\"/>\n        <circle cx=\"28\" cy=\"44\" r=\"16\" fill=\"#f8fafc\" stroke=\"#64748b\" stroke-width=\"1.5\" opacity=\"0.8\"/>\n        <text x=\"28\" y=\"80\" font-size=\"11\" font-weight=\"bold\" fill=\"#64748b\" text-anchor=\"middle\">Model C</text>\n      </g>\n      <g transform=\"translate(220, 10)\">\n        <circle cx=\"20\" cy=\"35\" r=\"20\" fill=\"#f8fafc\" stroke=\"#64748b\" stroke-width=\"1.5\"/>\n        <circle cx=\"20\" cy=\"35\" r=\"9\" fill=\"#94a3b8\"/>\n        <circle cx=\"48\" cy=\"35\" r=\"10\" fill=\"#f8fafc\" stroke=\"#64748b\" stroke-width=\"1.5\"/>\n        <text x=\"28\" y=\"80\" font-size=\"11\" font-weight=\"bold\" fill=\"#64748b\" text-anchor=\"middle\">Model D</text>\n      </g>\n      <g transform=\"translate(285, 10)\">\n        <circle cx=\"12\" cy=\"25\" r=\"10\" fill=\"#f8fafc\" stroke=\"#64748b\" stroke-width=\"1.5\"/>\n        <circle cx=\"36\" cy=\"25\" r=\"10\" fill=\"#f8fafc\" stroke=\"#64748b\" stroke-width=\"1.5\"/>\n        <circle cx=\"24\" cy=\"48\" r=\"10\" fill=\"#f8fafc\" stroke=\"#64748b\" stroke-width=\"1.5\"/>\n        <text x=\"24\" y=\"80\" font-size=\"11\" font-weight=\"bold\" fill=\"#64748b\" text-anchor=\"middle\">Model E</text>\n      </g>\n    </svg>",
+    "options": [
+      "Model A (Tiga Lingkaran Konsentris)",
+      "Model B (Satu Lingkaran Besar memuat Dua Lingkaran Lepas)",
+      "Model C (Tiga Lingkaran Beririsan Sebagian)",
+      "Model D (Satu Lingkaran memuat Satu Lingkaran, Satu Terpisah)",
+      "Model E (Tiga Lingkaran Terpisah Penuh)"
+    ],
+    "correct": 1,
+    "trick": "Kategori Induk & Saling Lepas: Baik Saham maupun SBN keduanya adalah Aset Keuangan (berada di dalam lingkaran besar Aset Keuangan). Namun, Saham (ekuitas) dan SBN (surat utang) adalah instrumen yang berbeda dan saling lepas (tidak beririsan). Jawab: Model B!",
+    "explanation": "Aset keuangan memayungi instrumen ekuitas dan utang, di mana keduanya tidak memiliki irisan fisik kategori."
+  },
+  {
+    "id": 45,
+    "category": "Diagram Venn",
+    "subCategory": "Klasifikasi Profesi Multidisiplin",
+    "question": "Manakah diagram Venn yang paling tepat mewakili hubungan antara:\n• Ekonom\n• Pejabat Bank Sentral\n• Penulis Buku Finansial",
+    "visual": "<svg width=\"340\" height=\"110\" viewBox=\"0 0 340 110\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n      <g transform=\"translate(10, 10)\">\n        <circle cx=\"28\" cy=\"35\" r=\"28\" fill=\"#f8fafc\" stroke=\"#64748b\" stroke-width=\"1.5\"/>\n        <circle cx=\"28\" cy=\"35\" r=\"18\" fill=\"#94a3b8\" stroke=\"#64748b\" stroke-width=\"1.5\"/>\n        <circle cx=\"28\" cy=\"35\" r=\"8\" fill=\"#334155\"/>\n        <text x=\"28\" y=\"80\" font-size=\"11\" font-weight=\"bold\" fill=\"#64748b\" text-anchor=\"middle\">Model A</text>\n      </g>\n      <g transform=\"translate(80, 10)\">\n        <circle cx=\"28\" cy=\"35\" r=\"28\" fill=\"#f8fafc\" stroke=\"#64748b\" stroke-width=\"1.5\"/>\n        <circle cx=\"16\" cy=\"35\" r=\"10\" fill=\"#94a3b8\"/>\n        <circle cx=\"40\" cy=\"35\" r=\"10\" fill=\"#94a3b8\"/>\n        <text x=\"28\" y=\"80\" font-size=\"11\" font-weight=\"bold\" fill=\"#64748b\" text-anchor=\"middle\">Model B</text>\n      </g>\n      <g transform=\"translate(150, 10)\">\n        <circle cx=\"20\" cy=\"28\" r=\"16\" fill=\"#ecfdf5\" stroke=\"#059669\" stroke-width=\"2\" opacity=\"0.75\"/>\n        <circle cx=\"36\" cy=\"28\" r=\"16\" fill=\"#ecfdf5\" stroke=\"#059669\" stroke-width=\"2\" opacity=\"0.75\"/>\n        <circle cx=\"28\" cy=\"44\" r=\"16\" fill=\"#ecfdf5\" stroke=\"#059669\" stroke-width=\"2\" opacity=\"0.75\"/>\n        <text x=\"28\" y=\"80\" font-size=\"11\" font-weight=\"bold\" fill=\"#047857\" text-anchor=\"middle\">Model C</text>\n      </g>\n      <g transform=\"translate(220, 10)\">\n        <circle cx=\"20\" cy=\"35\" r=\"20\" fill=\"#f8fafc\" stroke=\"#64748b\" stroke-width=\"1.5\"/>\n        <circle cx=\"20\" cy=\"35\" r=\"9\" fill=\"#94a3b8\"/>\n        <circle cx=\"48\" cy=\"35\" r=\"10\" fill=\"#f8fafc\" stroke=\"#64748b\" stroke-width=\"1.5\"/>\n        <text x=\"28\" y=\"80\" font-size=\"11\" font-weight=\"bold\" fill=\"#64748b\" text-anchor=\"middle\">Model D</text>\n      </g>\n      <g transform=\"translate(285, 10)\">\n        <circle cx=\"12\" cy=\"25\" r=\"10\" fill=\"#f8fafc\" stroke=\"#64748b\" stroke-width=\"1.5\"/>\n        <circle cx=\"36\" cy=\"25\" r=\"10\" fill=\"#f8fafc\" stroke=\"#64748b\" stroke-width=\"1.5\"/>\n        <circle cx=\"24\" cy=\"48\" r=\"10\" fill=\"#f8fafc\" stroke=\"#64748b\" stroke-width=\"1.5\"/>\n        <text x=\"24\" y=\"80\" font-size=\"11\" font-weight=\"bold\" fill=\"#64748b\" text-anchor=\"middle\">Model E</text>\n      </g>\n    </svg>",
+    "options": [
+      "Model A (Tiga Lingkaran Konsentris)",
+      "Model B (Satu Lingkaran Besar memuat Dua Lingkaran Lepas)",
+      "Model C (Tiga Lingkaran Saling Beririsan Sebagian / Tri-Venn)",
+      "Model D (Satu Lingkaran memuat Satu Lingkaran, Satu Terpisah)",
+      "Model E (Tiga Lingkaran Lepas Total)"
+    ],
+    "correct": 2,
+    "trick": "Relasi Irisan Multidisiplin: Seseorang bisa menjadi seorang Ekonom, sekaligus menjabat sebagai Pejabat Bank Sentral, dan sekaligus aktif sebagai Penulis Buku Finansial. Namun ada juga ekonom yang bukan pejabat, pejabat yang bukan penulis, dsb. Ketiganya beririsan sebagian (Tri-Venn Model C)!",
+    "explanation": "Setiap predikat profesi memiliki kemungkinan tumpang tindih secara parsial tanpa saling meniadakan."
+  },
+  {
+    "id": 46,
+    "category": "Diagram Venn",
+    "subCategory": "Klasifikasi Aset Likuid vs Aset Tetap",
+    "question": "Manakah diagram Venn yang paling tepat mewakili hubungan:\n• Aset Likuid\n• Uang Kas Tunai Rupiah\n• Gedung Kantor Bank",
+    "visual": "<svg width=\"340\" height=\"110\" viewBox=\"0 0 340 110\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n      <g transform=\"translate(10, 10)\">\n        <circle cx=\"28\" cy=\"35\" r=\"28\" fill=\"#f8fafc\" stroke=\"#64748b\" stroke-width=\"1.5\"/>\n        <circle cx=\"28\" cy=\"35\" r=\"18\" fill=\"#94a3b8\" stroke=\"#64748b\" stroke-width=\"1.5\"/>\n        <circle cx=\"28\" cy=\"35\" r=\"8\" fill=\"#334155\"/>\n        <text x=\"28\" y=\"80\" font-size=\"11\" font-weight=\"bold\" fill=\"#64748b\" text-anchor=\"middle\">Model A</text>\n      </g>\n      <g transform=\"translate(80, 10)\">\n        <circle cx=\"28\" cy=\"35\" r=\"28\" fill=\"#f8fafc\" stroke=\"#64748b\" stroke-width=\"1.5\"/>\n        <circle cx=\"16\" cy=\"35\" r=\"10\" fill=\"#94a3b8\"/>\n        <circle cx=\"40\" cy=\"35\" r=\"10\" fill=\"#94a3b8\"/>\n        <text x=\"28\" y=\"80\" font-size=\"11\" font-weight=\"bold\" fill=\"#64748b\" text-anchor=\"middle\">Model B</text>\n      </g>\n      <g transform=\"translate(150, 10)\">\n        <circle cx=\"20\" cy=\"28\" r=\"16\" fill=\"#f8fafc\" stroke=\"#64748b\" stroke-width=\"1.5\" opacity=\"0.8\"/>\n        <circle cx=\"36\" cy=\"28\" r=\"16\" fill=\"#f8fafc\" stroke=\"#64748b\" stroke-width=\"1.5\" opacity=\"0.8\"/>\n        <circle cx=\"28\" cy=\"44\" r=\"16\" fill=\"#f8fafc\" stroke=\"#64748b\" stroke-width=\"1.5\" opacity=\"0.8\"/>\n        <text x=\"28\" y=\"80\" font-size=\"11\" font-weight=\"bold\" fill=\"#64748b\" text-anchor=\"middle\">Model C</text>\n      </g>\n      <g transform=\"translate(220, 10)\">\n        <circle cx=\"20\" cy=\"35\" r=\"20\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"2\"/>\n        <circle cx=\"20\" cy=\"35\" r=\"9\" fill=\"#1d4ed8\"/>\n        <circle cx=\"48\" cy=\"35\" r=\"10\" fill=\"#fee2e2\" stroke=\"#dc2626\" stroke-width=\"2\"/>\n        <text x=\"28\" y=\"80\" font-size=\"11\" font-weight=\"bold\" fill=\"#1e40af\" text-anchor=\"middle\">Model D</text>\n      </g>\n      <g transform=\"translate(285, 10)\">\n        <circle cx=\"12\" cy=\"25\" r=\"10\" fill=\"#f8fafc\" stroke=\"#64748b\" stroke-width=\"1.5\"/>\n        <circle cx=\"36\" cy=\"25\" r=\"10\" fill=\"#f8fafc\" stroke=\"#64748b\" stroke-width=\"1.5\"/>\n        <circle cx=\"24\" cy=\"48\" r=\"10\" fill=\"#f8fafc\" stroke=\"#64748b\" stroke-width=\"1.5\"/>\n        <text x=\"24\" y=\"80\" font-size=\"11\" font-weight=\"bold\" fill=\"#64748b\" text-anchor=\"middle\">Model E</text>\n      </g>\n    </svg>",
+    "options": [
+      "Model A (Konsentris Tiga Lapis)",
+      "Model B (Satu Lingkaran Besar memuat Dua Lingkaran Lepas)",
+      "Model C (Tiga Lingkaran Beririsan)",
+      "Model D (Satu Lingkaran memuat Satu Lingkaran, Satu Terpisah)",
+      "Model E (Tiga Lingkaran Lepas Total)"
+    ],
+    "correct": 3,
+    "trick": "Aset Lancar vs Aset Tetap: Uang Kas Tunai berada sepenuhnya di dalam Aset Likuid. Gedung Kantor Bank adalah Aset Tetap (Non-Likuid) yang berada sepenuhnya di luar lingkaran Aset Likuid. Jawab: Model D!",
+    "explanation": "Kas tunai adalah bagian mutlak dari aset likuid, sementara gedung kantor terpisah karena merupakan aset berwujud tidak likuid."
+  },
+  {
+    "id": 47,
+    "category": "Diagram Venn",
+    "subCategory": "Analisis Kuantitatif 3 Himpunan Sertifikasi",
+    "question": "Dari 100 Calon Asisten Manajer PCPM Bank Indonesia, dilakukan pendataan kepemilikan sertifikasi internasional:\n• CFA (A): 45 orang\n• FRM (B): 40 orang\n• CISA (C): 35 orang\n• Memiliki CFA & FRM: 18 orang\n• Memiliki FRM & CISA: 14 orang\n• Memiliki CFA & CISA: 12 orang\n• Memiliki ketiganya (CFA, FRM, CISA): 6 orang\n\nBerdasarkan diagram Venn di samping, berapa banyak kandidat yang memiliki HANYA SATU sertifikasi saja?",
+    "visual": "<svg width=\"260\" height=\"200\" viewBox=\"0 0 260 200\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n      <circle cx=\"95\" cy=\"80\" r=\"55\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"2\" opacity=\"0.7\"/>\n      <circle cx=\"165\" cy=\"80\" r=\"55\" fill=\"#ecfdf5\" stroke=\"#059669\" stroke-width=\"2\" opacity=\"0.7\"/>\n      <circle cx=\"130\" cy=\"135\" r=\"55\" fill=\"#fef3c7\" stroke=\"#d97706\" stroke-width=\"2\" opacity=\"0.7\"/>\n      \n      <text x=\"55\" y=\"45\" font-size=\"12\" font-weight=\"bold\" fill=\"#1d4ed8\">CFA (45)</text>\n      <text x=\"205\" y=\"45\" font-size=\"12\" font-weight=\"bold\" fill=\"#047857\">FRM (40)</text>\n      <text x=\"130\" y=\"195\" font-size=\"12\" font-weight=\"bold\" fill=\"#b45309\" text-anchor=\"middle\">CISA (35)</text>\n\n      <text x=\"130\" y=\"105\" font-size=\"12\" font-weight=\"bold\" fill=\"#dc2626\" text-anchor=\"middle\">6</text>\n      <text x=\"130\" y=\"70\" font-size=\"10\" font-weight=\"bold\" fill=\"#475569\" text-anchor=\"middle\">12</text>\n      <text x=\"155\" y=\"118\" font-size=\"10\" font-weight=\"bold\" fill=\"#475569\" text-anchor=\"middle\">8</text>\n      <text x=\"105\" y=\"118\" font-size=\"10\" font-weight=\"bold\" fill=\"#475569\" text-anchor=\"middle\">6</text>\n      <text x=\"75\" y=\"80\" font-size=\"11\" font-weight=\"bold\" fill=\"#1e40af\">21</text>\n      <text x=\"180\" y=\"80\" font-size=\"11\" font-weight=\"bold\" fill=\"#065f46\">14</text>\n      <text x=\"130\" y=\"160\" font-size=\"11\" font-weight=\"bold\" fill=\"#92400e\" text-anchor=\"middle\">15</text>\n    </svg>",
+    "options": [
+      "42 orang",
+      "46 orang",
+      "50 orang",
+      "54 orang",
+      "58 orang"
+    ],
+    "correct": 2,
+    "trick": "Hitung Elemen Murni Tiap Lingkaran:\n• CFA saja = 45 - (12 + 6 + 6) = 21\n• FRM saja = 40 - (12 + 6 + 8) = 14\n• CISA saja = 35 - (6 + 6 + 8) = 15\nTotal Hanya 1 Sertifikasi = 21 + 14 + 15 = 50 orang!",
+    "explanation": "Kurangkan irisan ganda dan irisan rangkap tiga dari masing-masing himpunan untuk memperoleh elemen murni tunggal."
+  },
+  {
+    "id": 48,
+    "category": "Diagram Venn",
+    "subCategory": "Analisis Kuantitatif Cadangan Devisa BI",
+    "question": "Dalam audit simulasi 150 instrumen Portofolio Cadangan Devisa Bank Indonesia, instrumen diklasifikasikan ke dalam 3 kriteria (Valas USD, SBN Global, Triple-A Rating). Total instrumen yang memenuhi sedikitnya salah satu dari ketiga kriteria tersebut (gabungan A ∪ B ∪ C) adalah 135 instrumen. Berapa instrumen yang sama sekali TIDAK memenuhi ketiga kriteria tersebut (berada di luar diagram)?",
+    "visual": "<svg width=\"260\" height=\"150\" viewBox=\"0 0 260 150\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n      <rect x=\"5\" y=\"5\" width=\"250\" height=\"140\" rx=\"6\" fill=\"#f8fafc\" stroke=\"#002d62\" stroke-width=\"2\"/>\n      <text x=\"20\" y=\"24\" font-size=\"11\" font-weight=\"bold\" fill=\"#002d62\">Semesta S = 150</text>\n      \n      <circle cx=\"85\" cy=\"75\" r=\"40\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"1.5\" opacity=\"0.75\"/>\n      <circle cx=\"145\" cy=\"75\" r=\"40\" fill=\"#ecfdf5\" stroke=\"#059669\" stroke-width=\"1.5\" opacity=\"0.75\"/>\n      <circle cx=\"115\" cy=\"100\" r=\"35\" fill=\"#fef3c7\" stroke=\"#d97706\" stroke-width=\"1.5\" opacity=\"0.75\"/>\n      \n      <text x=\"115\" y=\"75\" font-size=\"11\" font-weight=\"bold\" fill=\"#1e3a8a\" text-anchor=\"middle\">A ∪ B ∪ C = 135</text>\n      \n      <rect x=\"195\" y=\"100\" width=\"50\" height=\"30\" rx=\"4\" fill=\"#fee2e2\" stroke=\"#dc2626\" stroke-dasharray=\"2 2\"/>\n      <text x=\"220\" y=\"120\" font-size=\"14\" font-weight=\"bold\" fill=\"#dc2626\" text-anchor=\"middle\">? (Luar)</text>\n    </svg>",
+    "options": [
+      "10 instrumen",
+      "15 instrumen",
+      "20 instrumen",
+      "25 instrumen",
+      "30 instrumen"
+    ],
+    "correct": 1,
+    "trick": "Rumus Semesta: Luar = Total Semesta (S) - Total Gabungan (A ∪ B ∪ C) = 150 - 135 = 15 instrumen!",
+    "explanation": "Komplemen himpunan gabungan adalah selisih antara total semesta dan jumlah elemen yang berada di dalam lingkaran."
+  },
+  {
+    "id": 49,
+    "category": "Diagram Venn",
+    "subCategory": "Silogisme Logika Visual Euler",
+    "question": "Perhatikan diagram Euler berikut. Himpunan P berada sepenuhnya di dalam Q. Sebagian himpunan Q beririsan dengan himpunan R, namun himpunan P sama sekali terpisah dari himpunan R. Manakah kesimpulan yang PASTI BENAR secara logika deduktif?",
+    "visual": "<svg width=\"260\" height=\"150\" viewBox=\"0 0 260 150\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n      <rect x=\"5\" y=\"5\" width=\"250\" height=\"140\" rx=\"6\" fill=\"#ffffff\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n      <ellipse cx=\"90\" cy=\"75\" rx=\"70\" ry=\"55\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"2\"/>\n      <text x=\"40\" y=\"45\" font-size=\"14\" font-weight=\"bold\" fill=\"#1d4ed8\">Q</text>\n      <circle cx=\"65\" cy=\"85\" r=\"25\" fill=\"#dbeafe\" stroke=\"#1e40af\" stroke-width=\"2\"/>\n      <text x=\"65\" y=\"90\" font-size=\"14\" font-weight=\"bold\" fill=\"#1e40af\" text-anchor=\"middle\">P</text>\n      <circle cx=\"185\" cy=\"75\" r=\"45\" fill=\"#ecfdf5\" stroke=\"#059669\" stroke-width=\"2\" opacity=\"0.8\"/>\n      <text x=\"205\" y=\"50\" font-size=\"14\" font-weight=\"bold\" fill=\"#047857\">R</text>\n    </svg>",
+    "options": [
+      "Semua anggota P adalah anggota R",
+      "Tidak ada anggota P yang merupakan anggota R",
+      "Sebagian anggota P adalah anggota R",
+      "Semua anggota R adalah anggota Q",
+      "Tidak ada anggota Q yang merupakan anggota P"
+    ],
+    "correct": 1,
+    "trick": "Kaidah Disjoint (Saling Lepas): Karena lingkaran P dan lingkaran R tidak memiliki irisan sedikit pun (jarak terpisah), maka 'Tidak ada anggota P yang merupakan anggota R' adalah mutlak benar!",
+    "explanation": "Diagram membuktikan secara visual bahwa himpunan P dan R saling lepas tanpa ada perpotongan elemen."
+  },
+  {
+    "id": 50,
+    "category": "Diagram Venn",
+    "subCategory": "Analisis Irisan Tepat Dua Bidang",
+    "question": "Berdasarkan diagram Venn 3 Divisi Pengawasan Perbankan Bank Indonesia di samping, berapa banyak staf yang terlibat dalam TEPAT DUA divisi pengawasan?",
+    "visual": "<svg width=\"260\" height=\"180\" viewBox=\"0 0 260 180\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n      <circle cx=\"95\" cy=\"75\" r=\"50\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"2\" opacity=\"0.75\"/>\n      <circle cx=\"165\" cy=\"75\" r=\"50\" fill=\"#ecfdf5\" stroke=\"#059669\" stroke-width=\"2\" opacity=\"0.75\"/>\n      <circle cx=\"130\" cy=\"125\" r=\"50\" fill=\"#fef3c7\" stroke=\"#d97706\" stroke-width=\"2\" opacity=\"0.75\"/>\n      <text x=\"60\" y=\"45\" font-size=\"11\" font-weight=\"bold\" fill=\"#1d4ed8\">Divisi I</text>\n      <text x=\"200\" y=\"45\" font-size=\"11\" font-weight=\"bold\" fill=\"#047857\">Divisi II</text>\n      <text x=\"130\" y=\"175\" font-size=\"11\" font-weight=\"bold\" fill=\"#b45309\" text-anchor=\"middle\">Divisi III</text>\n      <text x=\"130\" y=\"98\" font-size=\"12\" font-weight=\"bold\" fill=\"#dc2626\" text-anchor=\"middle\">8</text>\n      <text x=\"130\" y=\"65\" font-size=\"12\" font-weight=\"bold\" fill=\"#0f172a\" text-anchor=\"middle\">12</text>\n      <text x=\"155\" y=\"108\" font-size=\"12\" font-weight=\"bold\" fill=\"#0f172a\" text-anchor=\"middle\">9</text>\n      <text x=\"105\" y=\"108\" font-size=\"12\" font-weight=\"bold\" fill=\"#0f172a\" text-anchor=\"middle\">11</text>\n      <text x=\"75\" y=\"80\" font-size=\"10\" fill=\"#64748b\">25</text>\n      <text x=\"185\" y=\"80\" font-size=\"10\" fill=\"#64748b\">20</text>\n      <text x=\"130\" y=\"150\" font-size=\"10\" fill=\"#64748b\">18</text>\n    </svg>",
+    "options": [
+      "24 orang",
+      "28 orang",
+      "32 orang",
+      "40 orang",
+      "44 orang"
+    ],
+    "correct": 2,
+    "trick": "Tepat Dua Bidang: Jumlahkan hanya 3 daerah irisan dwipihak (tanpa mengikutsertakan angka pusat 8 yang merupakan anggota 3 divisi): 12 + 9 + 11 = 32 orang!",
+    "explanation": "Staf yang aktif di tepat dua divisi diwakili oleh tiga kelopak irisan murni: 12 + 9 + 11 = 32 orang."
+  },
+  {
+    "id": 51,
+    "category": "Digit Symbol",
+    "subCategory": "Pencocokan Sandi Simbol",
+    "question": "Gunakan Kunci Sandi Simbol di atas!\nKombinasi simbol: 【 ▲ ✦ ⬤ 】 mewakili deretan angka berapakah?",
+    "options": [
+      "2 - 4 - 7",
+      "2 - 3 - 7",
+      "1 - 4 - 8",
+      "3 - 5 - 7",
+      "2 - 4 - 9"
+    ],
+    "correct": 0,
+    "trick": "Scan Cepat Ujung: ▲ = 2, ⬤ = 7. Simbol tengah ✦ = 4. Jawab: 2 - 4 - 7.",
+    "explanation": "Tabel kunci: ▲ = 2, ✦ = 4, ⬤ = 7."
+  },
+  {
+    "id": 52,
+    "category": "Digit Symbol",
+    "subCategory": "Pencocokan Sandi Simbol",
+    "question": "Gunakan Kunci Sandi Simbol di atas!\nKombinasi angka: 【 9 - 1 - 6 】 diwakili oleh urutan simbol yang mana?",
+    "options": [
+      "☁ - ★ - ✖",
+      "☁ - ▲ - ✖",
+      "⬟ - ★ - ✖",
+      "☁ - ★ - ✚",
+      "◆ - ★ - ✖"
+    ],
+    "correct": 0,
+    "trick": "9 = ☁ (Awan), 1 = ★ (Bintang), 6 = ✖ (Silang). Opsi A.",
+    "explanation": "9 = ☁, 1 = ★, 6 = ✖."
+  },
+  {
+    "id": 53,
+    "category": "Digit Symbol",
+    "subCategory": "Pencocokan Sandi Simbol 4 Digit",
+    "question": "Gunakan Kunci Sandi Simbol di atas!\nKombinasi simbol: 【 ◆ ⬟ ✚ ★ 】 mewakili angka:",
+    "options": [
+      "3 - 5 - 8 - 1",
+      "3 - 4 - 8 - 1",
+      "2 - 5 - 8 - 1",
+      "3 - 5 - 6 - 1",
+      "3 - 5 - 8 - 2"
+    ],
+    "correct": 0,
+    "trick": "◆ = 3, ⬟ = 5, ✚ = 8, ★ = 1. Jawaban: 3 - 5 - 8 - 1 dalam 2 detik!",
+    "explanation": "Tabel sandi: 3 - 5 - 8 - 1."
+  },
+  {
+    "id": 54,
+    "category": "Digit Symbol",
+    "subCategory": "Pencocokan Sandi Simbol 4 Digit",
+    "question": "Gunakan Kunci Sandi Simbol di atas!\nKombinasi simbol: 【 ✖ ⬤ ▲ ✦ 】 mewakili deretan angka:",
+    "options": [
+      "6 - 7 - 2 - 4",
+      "6 - 7 - 3 - 4",
+      "5 - 7 - 2 - 4",
+      "6 - 8 - 2 - 4",
+      "6 - 7 - 2 - 5"
+    ],
+    "correct": 0,
+    "trick": "✖ = 6, ⬤ = 7, ▲ = 2, ✦ = 4 -> 6 - 7 - 2 - 4.",
+    "explanation": "6 = ✖, 7 = ⬤, 2 = ▲, 4 = ✦."
+  },
+  {
+    "id": 55,
+    "category": "Digit Symbol",
+    "subCategory": "Pencocokan Sandi Simbol 5 Digit",
+    "question": "Gunakan Kunci Sandi Simbol di atas!\nKombinasi simbol: 【 ★ ☁ ⬟ ◆ ✚ 】 mewakili angka:",
+    "options": [
+      "1 - 9 - 5 - 3 - 8",
+      "1 - 9 - 5 - 2 - 8",
+      "1 - 8 - 5 - 3 - 8",
+      "2 - 9 - 5 - 3 - 8",
+      "1 - 9 - 4 - 3 - 8"
+    ],
+    "correct": 0,
+    "trick": "Cek Ujung Depan (★ = 1) dan Belakang (✚ = 8). Lalu tengah ☁ (9), ⬟ (5), ◆ (3). Hasil: 1 - 9 - 5 - 3 - 8.",
+    "explanation": "Kunci: 1, 9, 5, 3, 8."
+  },
+  {
+    "id": 56,
+    "category": "Digit Symbol",
+    "subCategory": "Sandi Balik (Angka ke Simbol)",
+    "question": "Gunakan Kunci Sandi Simbol di atas!\nDeretan angka: 【 4 - 2 - 8 - 5 】 diwakili oleh simbol:",
+    "options": [
+      "✦ - ▲ - ✚ - ⬟",
+      "✦ - ◆ - ✚ - ⬟",
+      "✦ - ▲ - ✖ - ⬟",
+      "★ - ▲ - ✚ - ⬟",
+      "✦ - ▲ - ✚ - ⬤"
+    ],
+    "correct": 0,
+    "trick": "4 = ✦, 2 = ▲, 8 = ✚, 5 = ⬟. Jawaban: ✦ - ▲ - ✚ - ⬟.",
+    "explanation": "Sesuai tabel sandi Experd."
+  },
+  {
+    "id": 57,
+    "category": "Digit Symbol",
+    "subCategory": "Sandi Balik (Angka ke Simbol)",
+    "question": "Gunakan Kunci Sandi Simbol di atas!\nDeretan angka: 【 7 - 6 - 3 - 9 】 diwakili oleh simbol:",
+    "options": [
+      "⬤ - ✖ - ◆ - ☁",
+      "⬤ - ✚ - ◆ - ☁",
+      "⬤ - ✖ - ▲ - ☁",
+      "⬟ - ✖ - ◆ - ☁",
+      "⬤ - ✖ - ◆ - ★"
+    ],
+    "correct": 0,
+    "trick": "7 = ⬤, 6 = ✖, 3 = ◆, 9 = ☁. Jawaban langsung Opsi A.",
+    "explanation": "Tabel: 7=⬤, 6=✖, 3=◆, 9=☁."
+  },
+  {
+    "id": 58,
+    "category": "Digit Symbol",
+    "subCategory": "Pencocokan Sandi Simbol Berulang",
+    "question": "Gunakan Kunci Sandi Simbol di atas!\nKombinasi simbol: 【 ▲ ▲ ✦ ☁ ☁ 】 mewakili deretan angka:",
+    "options": [
+      "2 - 2 - 4 - 9 - 9",
+      "2 - 2 - 3 - 9 - 9",
+      "1 - 1 - 4 - 9 - 9",
+      "2 - 2 - 4 - 8 - 8",
+      "3 - 3 - 4 - 9 - 9"
+    ],
+    "correct": 0,
+    "trick": "Simbol kembar: ▲▲ = 2 2, ✦ = 4, ☁☁ = 9 9 -> 2 - 2 - 4 - 9 - 9.",
+    "explanation": "Pola kembar mempercepat scanning mata."
+  },
+  {
+    "id": 59,
+    "category": "Digit Symbol",
+    "subCategory": "Pencocokan Sandi Simbol Operasi Cepat",
+    "question": "Gunakan Kunci Sandi Simbol di atas!\nBerapakah hasil penjumlahan nilai angka dari simbol: 【 ⬟ + ✚ + ★ 】?",
+    "options": [
+      "14",
+      "13",
+      "15",
+      "12",
+      "16"
+    ],
+    "correct": 0,
+    "trick": "⬟ = 5, ✚ = 8, ★ = 1. Jumlahkan: 5 + 8 + 1 = 14!",
+    "explanation": "Substitusi nilai: 5 + 8 + 1 = 14."
+  },
+  {
+    "id": 60,
+    "category": "Digit Symbol",
+    "subCategory": "Pencocokan Sandi Simbol Operasi Cepat",
+    "question": "Gunakan Kunci Sandi Simbol di atas!\nBerapakah hasil perkalian nilai angka dari simbol: 【 ◆ × ▲ × ✦ 】?",
+    "options": [
+      "24",
+      "20",
+      "28",
+      "18",
+      "32"
+    ],
+    "correct": 0,
+    "trick": "◆ = 3, ▲ = 2, ✦ = 4. Kalikan: 3 × 2 × 4 = 24!",
+    "explanation": "Substitusi nilai: 3 × 2 = 6; 6 × 4 = 24."
+  },
+  {
+    "id": 61,
+    "category": "Digit Symbol",
+    "subCategory": "Cek Pasangan Identik",
+    "question": "Tentukan apakah kedua pasangan kode ini SAMA atau BEDA:\n\nKode 1:  XP9808Qa2\nKode 2:  XP9808Qa2",
+    "options": [
+      "SAMA (Identik 100%)",
+      "BEDA (Ada perbedaan karakter)"
+    ],
+    "correct": 0,
+    "trick": "Scan Cepat Tiga Blok: Awal (XP), Tengah (9808), Akhir (Qa2). Keduanya identik 100%.",
+    "explanation": "Tidak terdapat perbedaan karakter sama sekali."
+  },
+  {
+    "id": 62,
+    "category": "Digit Symbol",
+    "subCategory": "Pengecoh Huruf O vs Angka 0",
+    "question": "Tentukan apakah kedua pasangan kode ini SAMA atau BEDA:\n\nKode 1:  MWV80811O\nKode 2:  MWV808110",
+    "options": [
+      "SAMA (Identik 100%)",
+      "BEDA (Ada perbedaan karakter)"
+    ],
+    "correct": 1,
+    "trick": "Scan Ujung Belakang: Kode 1 berakhiran huruf kapital 'O', kode 2 berakhiran angka '0' (nol). BEDA!",
+    "explanation": "Perbedaan pada huruf 'O' vs angka '0'."
+  },
+  {
+    "id": 63,
+    "category": "Digit Symbol",
+    "subCategory": "Pengecoh Huruf l vs Angka 1",
+    "question": "Tentukan apakah kedua pasangan kode ini SAMA atau BEDA:\n\nKode 1:  B1nd0N3s1A\nKode 2:  Blnd0N3s1A",
+    "options": [
+      "SAMA (Identik 100%)",
+      "BEDA (Ada perbedaan karakter)"
+    ],
+    "correct": 1,
+    "trick": "Scan Karakter Kedua: B1... (angka satu) vs Bl... (huruf kecil l). BEDA!",
+    "explanation": "Karakter kedua berbeda: angka 1 vs huruf l."
+  },
+  {
+    "id": 64,
+    "category": "Digit Symbol",
+    "subCategory": "Pengecoh Huruf rn vs Huruf m",
+    "question": "Tentukan apakah kedua pasangan kata ini SAMA atau BEDA:\n\nKata 1:  kornpensasi\nKata 2:  kompensasi",
+    "options": [
+      "SAMA (Identik 100%)",
+      "BEDA (Ada perbedaan karakter)"
+    ],
+    "correct": 1,
+    "trick": "Pengecoh Tipografi: 'rn' (r dan n rapat) menyerupai huruf 'm'. Kata 1 menggunakan huruf r+n, kata 2 menggunakan m. BEDA!",
+    "explanation": "Huruf 'rn' pada kata 1 berbeda dengan huruf 'm' pada kata 2."
+  },
+  {
+    "id": 65,
+    "category": "Digit Symbol",
+    "subCategory": "Pengecoh Huruf VV vs Huruf W",
+    "question": "Tentukan apakah kedua pasangan kode ini SAMA atau BEDA:\n\nKode 1:  KPWVV98201\nKode 2:  KPWW98201",
+    "options": [
+      "SAMA (Identik 100%)",
+      "BEDA (Ada perbedaan karakter)"
+    ],
+    "correct": 1,
+    "trick": "Pengecoh Double V: Kode 1 menggunakan dua huruf V rapat ('VV'), kode 2 menggunakan satu huruf W ('W'). BEDA!",
+    "explanation": "Karakter ke-4 dan ke-5 pada kode 1 adalah 'VV', sedangkan kode 2 adalah 'W'."
+  },
+  {
+    "id": 66,
+    "category": "Digit Symbol",
+    "subCategory": "Pengecoh Angka 5 vs Huruf S",
+    "question": "Tentukan apakah kedua pasangan kode serial ini SAMA atau BEDA:\n\nKode 1:  TX58920194S\nKode 2:  TXS8920194S",
+    "options": [
+      "SAMA (Identik 100%)",
+      "BEDA (Ada perbedaan karakter)"
+    ],
+    "correct": 1,
+    "trick": "Scan Karakter ke-3: Kode 1 menggunakan angka '5', sedangkan kode 2 menggunakan huruf kapital 'S'. BEDA!",
+    "explanation": "Perbedaan pada karakter ke-3: angka 5 vs huruf S."
+  },
+  {
+    "id": 67,
+    "category": "Digit Symbol",
+    "subCategory": "Pengecoh Angka 2 vs Huruf Z",
+    "question": "Tentukan apakah kedua pasangan kode serial ini SAMA atau BEDA:\n\nKode 1:  AB2984KLPZ\nKode 2:  AB2984KLPZ",
+    "options": [
+      "SAMA (Identik 100%)",
+      "BEDA (Ada perbedaan karakter)"
+    ],
+    "correct": 0,
+    "trick": "Scan Ujung dan Tengah: AB - 2984 - KLPZ. Keduanya identik sempurna!",
+    "explanation": "Kedua kode memiliki karakter dan posisi yang sama persis."
+  },
+  {
+    "id": 68,
+    "category": "Digit Symbol",
+    "subCategory": "Pengecoh Huruf B vs Angka 8",
+    "question": "Tentukan apakah kedua pasangan kode ini SAMA atau BEDA:\n\nKode 1:  QR892B018\nKode 2:  QR8928018",
+    "options": [
+      "SAMA (Identik 100%)",
+      "BEDA (Ada perbedaan karakter)"
+    ],
+    "correct": 1,
+    "trick": "Scan Karakter ke-6: Kode 1 menggunakan huruf kapital 'B', kode 2 menggunakan angka '8'. BEDA!",
+    "explanation": "Perbedaan pada karakter ke-6: huruf B vs angka 8."
+  },
+  {
+    "id": 69,
+    "category": "Digit Symbol",
+    "subCategory": "Cek Kesamaan Deret Angka Panjang",
+    "question": "Tentukan apakah deretan angka rekening berikut SAMA atau BEDA:\n\nDeret 1:  78239014562\nDeret 2:  78239014562",
+    "options": [
+      "SAMA (Identik 100%)",
+      "BEDA (Ada perbedaan karakter)"
+    ],
+    "correct": 0,
+    "trick": "Chunking (Bagi 3 Digit): 782 - 390 - 145 - 62. Keduanya identik sempurna!",
+    "explanation": "Teknik chunking mempermudah verifikasi deret angka panjang."
+  },
+  {
+    "id": 70,
+    "category": "Digit Symbol",
+    "subCategory": "Cek Kesamaan Deret Angka Panjang",
+    "question": "Tentukan apakah deretan angka berikut SAMA atau BEDA:\n\nDeret 1:  509823419082\nDeret 2:  509823419032",
+    "options": [
+      "SAMA (Identik 100%)",
+      "BEDA (Ada perbedaan karakter)"
+    ],
+    "correct": 1,
+    "trick": "Scan Digit Kedua dari Belakang: Deret 1 angka '82', deret 2 angka '32'. BEDA!",
+    "explanation": "Digit ke-11 berbeda: 8 vs 3."
+  },
+  {
+    "id": 71,
+    "category": "Digit Symbol",
+    "subCategory": "Cek Pasangan Alfanumerik Acak",
+    "question": "Tentukan apakah kedua pasangan token otentikasi ini SAMA atau BEDA:\n\nToken 1:  dF9#kL2@mQ\nToken 2:  dF9#kL2@mQ",
+    "options": [
+      "SAMA (Identik 100%)",
+      "BEDA (Ada perbedaan karakter)"
+    ],
+    "correct": 0,
+    "trick": "Cek Huruf Besar/Kecil & Simbol: d-F-9-#-k-L-2-@-m-Q. Sama 100%!",
+    "explanation": "Semua karakter termasuk simbol dan case matching 100%."
+  },
+  {
+    "id": 72,
+    "category": "Digit Symbol",
+    "subCategory": "Pengecoh Kapital vs Huruf Kecil",
+    "question": "Tentukan apakah kedua string kode ini SAMA atau BEDA:\n\nKode 1:  BANKindonesia\nKode 2:  BANKIndonesia",
+    "options": [
+      "SAMA (Identik 100%)",
+      "BEDA (Ada perbedaan karakter)"
+    ],
+    "correct": 1,
+    "trick": "Scan Huruf ke-5: Kode 1 huruf kecil 'i', kode 2 huruf kapital 'I'. BEDA!",
+    "explanation": "Case sensitive: huruf 'i' kecil vs 'I' besar."
+  },
+  {
+    "id": 73,
+    "category": "Digit Symbol",
+    "subCategory": "Pencocokan Sandi Simbol 4 Digit",
+    "question": "Gunakan Kunci Sandi Simbol di atas!\nKombinasi simbol: 【 ☁ ✦ ⬟ ⬤ 】 mewakili deretan angka berapakah?",
+    "options": [
+      "9 - 4 - 5 - 7",
+      "9 - 3 - 5 - 7",
+      "8 - 4 - 5 - 7",
+      "9 - 4 - 6 - 7",
+      "9 - 4 - 5 - 6"
+    ],
+    "correct": 0,
+    "trick": "☁ = 9, ✦ = 4, ⬟ = 5, ⬤ = 7. Opsi A (9 - 4 - 5 - 7) tepat!",
+    "explanation": "Tabel: 9, 4, 5, 7."
+  },
+  {
+    "id": 74,
+    "category": "Digit Symbol",
+    "subCategory": "Pencocokan Sandi Simbol 4 Digit",
+    "question": "Gunakan Kunci Sandi Simbol di atas!\nKombinasi simbol: 【 ✚ ✖ ★ ◆ 】 mewakili deretan angka berapakah?",
+    "options": [
+      "8 - 6 - 1 - 3",
+      "8 - 6 - 2 - 3",
+      "7 - 6 - 1 - 3",
+      "8 - 5 - 1 - 3",
+      "8 - 6 - 1 - 4"
+    ],
+    "correct": 0,
+    "trick": "✚ = 8, ✖ = 6, ★ = 1, ◆ = 3 -> 8 - 6 - 1 - 3.",
+    "explanation": "Tabel: 8, 6, 1, 3."
+  },
+  {
+    "id": 75,
+    "category": "Digit Symbol",
+    "subCategory": "Sandi Balik (Angka ke Simbol)",
+    "question": "Gunakan Kunci Sandi Simbol di atas!\nDeretan angka: 【 1 - 7 - 4 - 2 】 diwakili oleh simbol:",
+    "options": [
+      "★ - ⬤ - ✦ - ▲",
+      "★ - ⬤ - ◆ - ▲",
+      "★ - ✚ - ✦ - ▲",
+      "▲ - ⬤ - ✦ - ★",
+      "★ - ⬤ - ✦ - ⬟"
+    ],
+    "correct": 0,
+    "trick": "1 = ★, 7 = ⬤, 4 = ✦, 2 = ▲. Jawaban Opsi A!",
+    "explanation": "Tabel: 1=★, 7=⬤, 4=✦, 2=▲."
+  },
+  {
+    "id": 76,
+    "category": "Digit Symbol",
+    "subCategory": "Pengecoh Tanda Baca & Spasi Mikro",
+    "question": "Tentukan apakah kedua alamat email institusi ini SAMA atau BEDA:\n\nEmail 1:  contact_bi@bi.go.id\nEmail 2:  contact-bi@bi.go.id",
+    "options": [
+      "SAMA (Identik 100%)",
+      "BEDA (Ada perbedaan karakter)"
+    ],
+    "correct": 1,
+    "trick": "Scan Tanda Hubung: Email 1 menggunakan underscore ('_'), email 2 menggunakan tanda minus/hyphen ('-'). BEDA!",
+    "explanation": "Underscore vs hyphen."
+  },
+  {
+    "id": 77,
+    "category": "Digit Symbol",
+    "subCategory": "Pengecoh Angka Kembar Bergeser",
+    "question": "Tentukan apakah kedua kode transaksi BI-FAST ini SAMA atau BEDA:\n\nKode 1:  TRX99881204\nKode 2:  TRX98981204",
+    "options": [
+      "SAMA (Identik 100%)",
+      "BEDA (Ada perbedaan karakter)"
+    ],
+    "correct": 1,
+    "trick": "Scan Karakter ke-4 sampai 7: Kode 1 '9988', kode 2 '9898'. BEDA!",
+    "explanation": "Urutan angka kembar terbalik."
+  },
+  {
+    "id": 78,
+    "category": "Digit Symbol",
+    "subCategory": "Cek Pasangan Identik Panjang",
+    "question": "Tentukan apakah kedua deretan sandi alfanumerik ini SAMA atau BEDA:\n\nSandi 1:  9Z#qP&28Lm@X\nSandi 2:  9Z#qP&28Lm@X",
+    "options": [
+      "SAMA (Identik 100%)",
+      "BEDA (Ada perbedaan karakter)"
+    ],
+    "correct": 0,
+    "trick": "Bagi jadi 3 bagian: 9Z#q - P&28 - Lm@X. Keduanya sama persis 100%!",
+    "explanation": "Karakter identik sempurna."
+  },
+  {
+    "id": 79,
+    "category": "Digit Symbol",
+    "subCategory": "Pencocokan Sandi Simbol 5 Digit",
+    "question": "Gunakan Kunci Sandi Simbol di atas!\nKombinasi simbol: 【 ⬟ ★ ☁ ▲ ✖ 】 mewakili deretan angka:",
+    "options": [
+      "5 - 1 - 9 - 2 - 6",
+      "5 - 1 - 8 - 2 - 6",
+      "4 - 1 - 9 - 2 - 6",
+      "5 - 2 - 9 - 1 - 6",
+      "5 - 1 - 9 - 3 - 6"
+    ],
+    "correct": 0,
+    "trick": "⬟ = 5, ★ = 1, ☁ = 9, ▲ = 2, ✖ = 6 -> 5 - 1 - 9 - 2 - 6.",
+    "explanation": "Tabel sandi: 5, 1, 9, 2, 6."
+  },
+  {
+    "id": 80,
+    "category": "Digit Symbol",
+    "subCategory": "Pencocokan Sandi Simbol 5 Digit",
+    "question": "Gunakan Kunci Sandi Simbol di atas!\nKombinasi simbol: 【 ✚ ◆ ⬤ ✦ ☁ 】 mewakili deretan angka:",
+    "options": [
+      "8 - 3 - 7 - 4 - 9",
+      "8 - 2 - 7 - 4 - 9",
+      "8 - 3 - 6 - 4 - 9",
+      "7 - 3 - 7 - 4 - 9",
+      "8 - 3 - 7 - 5 - 9"
+    ],
+    "correct": 0,
+    "trick": "✚ = 8, ◆ = 3, ⬤ = 7, ✦ = 4, ☁ = 9 -> 8 - 3 - 7 - 4 - 9.",
+    "explanation": "Tabel sandi: 8, 3, 7, 4, 9."
+  },
+  {
+    "id": 81,
+    "category": "POF",
+    "subCategory": "Integritas & Anti-Gratifikasi",
+    "question": "Seorang rekanan penyedia vendor TI mengirimkan parsel mewah ke alamat rumah Anda menjelang hari raya, bertepatan dengan proses lelang pengadaan server Bank Indonesia yang sedang Anda evaluasi. Sikap Anda:",
+    "options": [
+      "Menerimanya karena dikirim ke rumah pribadi dan menganggapnya sekadar silaturahmi hari raya.",
+      "Menolak dengan sopan dan melaporkan pemberian gratifikasi tersebut ke Unit Kepatuhan / Pengendalian Gratifikasi internal BI.",
+      "Menerimanya lalu membagikannya kepada seluruh anggota tim agar tidak dinikmati sendiri.",
+      "Menyimpannya tanpa memberitahu siapapun agar rekanan tidak merasa tersinggung.",
+      "Menerimanya namun tetap berjanji dalam hati untuk menilai vendor tersebut secara objektif."
+    ],
+    "correct": 1,
+    "trick": "Zero Tolerance Gratifikasi BI: Jangan pilih opsi 'terima lalu bagi-bagi'. Jawaban berintegritas mutlak: MENOLAK & MELAPORKAN ke unit kepatuhan.",
+    "explanation": "Kode Etik BI melarang keras penerimaan hadiah berkaitan jabatan dan pengadaan barang/jasa."
+  },
+  {
+    "id": 82,
+    "category": "POF",
+    "subCategory": "Akuntabilitas & Presisi Data",
+    "question": "Anda menemukan kesalahan kecil dalam data inflasi bulanan yang Anda susun 15 menit sebelum dokumen dipresentasikan ke Dewan Gubernur. Perbaikan memerlukan waktu sekitar 10 menit. Tindakan terbaik Anda:",
+    "options": [
+      "Membiarkannya karena kesalahannya kecil dan kemungkinan besar tidak disadari oleh pimpinan.",
+      "Segera memberitahu atasan mengenai temuan tersebut dan langsung melakukan revisi data sebelum materi dipaparkan.",
+      "Menunggu sampai ada yang bertanya saat sesi presentasi, baru menjelaskan bahwa ada salah ketik.",
+      "Menyalahkan staf magang yang sebelumnya membantu menginput data mentah.",
+      "Mengganti data tersebut nanti setelah rapat selesai tanpa memberitahu siapa-siapa."
+    ],
+    "correct": 1,
+    "trick": "Presisi & Transparansi BI: Kebijakan moneter bertumpu pada presisi data. Mengakui kesalahan dan langsung memperbaikinya menunjukkan akuntabilitas tertinggi.",
+    "explanation": "Integritas profesional menuntut transparansi dan perbaikan segera sebelum keputusan strategis diambil."
+  },
+  {
+    "id": 83,
+    "category": "POF",
+    "subCategory": "Soliditas Tim & Tekanan Kerja",
+    "question": "Departemen Anda menghadapi tenggat waktu perumusan kebijakan yang sangat mendesak. Salah seorang rekan satu tim Anda tiba-tiba jatuh sakit. Sikap Anda:",
+    "options": [
+      "Fokus menyelesaikan bagian tugas sendiri agar tidak ikut ditegur atasan.",
+      "Bersama anggota tim lain secara proaktif membagi tugas rekan yang sakit agar target departemen tercapai.",
+      "Menyarankan rekan yang sakit untuk tetap bekerja dari rumah (WFH) demi menyelesaikan tugasnya.",
+      "Mengeluh kepada atasan karena pembagian beban kerja menjadi tidak adil.",
+      "Meminta atasan menunda jadwal kebijakan sampai rekan tersebut sembuh."
+    ],
+    "correct": 1,
+    "trick": "Nilai Kerjasama Tim (Relasional BI): Mendahulukan pencapaian tujuan bersama dan saling menopang beban kerja secara proaktif.",
+    "explanation": "PCPM mencari calon pemimpin yang memiliki jiwa korsa dan orientasi solusi tim."
+  },
+  {
+    "id": 84,
+    "category": "POF",
+    "subCategory": "Kerahasiaan Informasi Negara",
+    "question": "Sebagai staf di Bank Indonesia, Anda memiliki akses data survei perbankan yang bersifat rahasia. Teman akrab Anda yang bekerja di perusahaan investasi menanyakan arah suku bunga acuan (BI-Rate) untuk keputusan trading-nya. Tindakan Anda:",
+    "options": [
+      "Memberikan sedikit kisi-kisi umum tanpa menyebut angka pasti karena ia sahabat dekat.",
+      "Menolak dengan tegas dan menjelaskan secara profesional bahwa data tersebut rahasia negara dan hanya boleh dirilis saat konferensi pers resmi BI.",
+      "Memberikan data tersebut dengan syarat ia tidak menyebarkannya ke pihak lain.",
+      "Mengarahkan teman Anda untuk menebak sendiri berdasarkan rumor di media sosial.",
+      "Meminta imbalan keuntungan investasi atas informasi yang dibocorkan."
+    ],
+    "correct": 1,
+    "trick": "Kerahasiaan Moneter: Bocornya BI-Rate memicu insider trading dan merusak stabilitas pasar keuangan. Penolakan tegas dan profesional adalah wajib.",
+    "explanation": "Pelanggaran kerahasiaan informasi pasar merupakan pelanggaran hukum berat bagi pegawai bank sentral."
+  },
+  {
+    "id": 85,
+    "category": "POF",
+    "subCategory": "Konflik Kepentingan (Conflict of Interest)",
+    "question": "Kakak kandung Anda menjabat sebagai direktur di salah satu bank swasta yang sedang diperiksa oleh tim pengawasan Bank Indonesia di mana Anda ditunjuk sebagai salah satu anggotanya. Langkah profesional Anda:",
+    "options": [
+      "Tetap menjalankan tugas pemeriksaan secara diam-diam dan berusaha membantu meringankan sanksi kakak.",
+      "Segera mendeklarasikan adanya potensi konflik kepentingan kepada atasan dan meminta untuk digantikan oleh pemeriksa lain.",
+      "Meminta kakak Anda mengundurkan diri sementara dari jabatannya di bank tersebut.",
+      "Mengabaikan hubungan keluarga tersebut dan yakin diri sendiri bisa bersikap netral tanpa memberitahu atasan.",
+      "Mengundurkan diri dari Bank Indonesia."
+    ],
+    "correct": 1,
+    "trick": "Deklarasi Konflik Kepentingan: Kuncinya adalah 'Mendeklarasikan sejak awal (declare conflict of interest)' dan menarik diri dari penugasan terkait. Jangan pernah disembunyikan!",
+    "explanation": "Prinsip tata kelola Bank Indonesia mewajibkan setiap pegawai mendeklarasikan potensi benturan kepentingan untuk menjaga objektivitas pengawasan."
+  },
+  {
+    "id": 86,
+    "category": "POF",
+    "subCategory": "Adaptabilitas & Inovasi Digital",
+    "question": "Pimpinan menginstruksikan implementasi sistem otomasi analisis data berbasis AI baru yang mengubah prosedur kerja manual yang sudah Anda kuasai selama bertahun-tahun. Respon terbaik Anda:",
+    "options": [
+      "Menolak perubahan tersebut karena sistem lama masih terbukti berjalan dengan baik.",
+      "Mempelajari sistem baru tersebut secara antusias dan proaktif membantu rekan kerja lain beradaptasi dengan teknologi baru.",
+      "Menunggu sampai dipaksa oleh atasan baru mulai mempelajari sistem tersebut.",
+      "Menggunakan sistem baru hanya jika diawasi langsung oleh pimpinan departemen.",
+      "Meminta dipindahkan ke unit kerja lain yang masih menggunakan metode kerja manual."
+    ],
+    "correct": 1,
+    "trick": "Nilai Keunggulan & Inovasi BI: Bank Indonesia mendorong digitalisasi sistem pembayaran dan perumusan kebijakan modern. Karyawan yang dicari adalah yang adaptif, pembelajar tangguh (*growth mindset*).",
+    "explanation": "Sikap antusias terhadap transformasi digital dan inisiatif membantu tim mencerminkan pilar kepemimpinan muda PCPM."
+  }
+];
 
     // ==========================================
     // CONTROLLER & PROFILING ENGINE
