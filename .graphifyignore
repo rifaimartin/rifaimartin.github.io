@@ -1,0 +1,13 @@
+﻿dist/
+assets/
+node_modules/
+package-lock.json
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.svg
+opengym/
+tpd-bi/
+index.html
+.github/

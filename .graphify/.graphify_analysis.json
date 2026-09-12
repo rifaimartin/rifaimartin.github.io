@@ -1,0 +1,223 @@
+{
+  "communities": {
+    "0": [
+      "data_profiledata",
+      "data_profiledata_profiledata",
+      "layout_casestudymodal",
+      "layout_casestudymodal_casestudymodal",
+      "layout_educationsection",
+      "layout_educationsection_educationsection",
+      "layout_flighttimeline",
+      "layout_flighttimeline_companylogoavatars",
+      "layout_flighttimeline_flightplaneicon",
+      "layout_flighttimeline_flighttimeline",
+      "layout_memoriespolaroid",
+      "layout_memoriespolaroid_memoriespolaroid",
+      "layout_projectlist",
+      "layout_projectlist_projectlist",
+      "layout_publicprojectssection",
+      "layout_publicprojectssection_publicprojectssection",
+      "src_app",
+      "src_app_app"
+    ],
+    "1": [
+      "3d_planewindowscene",
+      "3d_planewindowscene_at",
+      "3d_planewindowscene_cirrusplanes",
+      "3d_planewindowscene_clipbutton",
+      "3d_planewindowscene_clipglass",
+      "3d_planewindowscene_clipshuttertrack",
+      "3d_planewindowscene_cloudfallback",
+      "3d_planewindowscene_cloudpuff",
+      "3d_planewindowscene_handleboxstyle",
+      "3d_planewindowscene_makeclip",
+      "3d_planewindowscene_oceanplane",
+      "3d_planewindowscene_planewindowscene",
+      "3d_planewindowscene_threewindowviewport",
+      "3d_planewindowscene_volumetriccloudscene",
+      "3d_planewindowscene_windowimage",
+      "3d_planewindowscene_zm"
+    ],
+    "2": [
+      "3d_accesspasscard",
+      "3d_accesspasscard_accesspasscard",
+      "3d_accesspasscard_cardmodel",
+      "3d_accesspasscard_createboardingpasstexture",
+      "layout_casestudyitem",
+      "layout_casestudyitem_casestudyitem",
+      "layout_casestudyitem_iconmap",
+      "layout_opengymmodal",
+      "layout_opengymmodal_opengymmodal",
+      "layout_tpdbimodal",
+      "layout_tpdbimodal_tpdbimodal",
+      "utils_audio",
+      "utils_audio_soundfx"
+    ],
+    "3": [
+      "3d_gatepassoverlay",
+      "3d_gatepassoverlay_gatepassoverlay",
+      "layout_headerintro",
+      "layout_headerintro_headerintro",
+      "layout_progressiveblurdock",
+      "layout_progressiveblurdock_githubicon",
+      "layout_progressiveblurdock_linkedinicon",
+      "layout_progressiveblurdock_progressiveblurdock",
+      "utils_visitorcounter",
+      "utils_visitorcounter_usevisitorcount"
+    ],
+    "4": [
+      "utils_audio_soundeffects",
+      "utils_audio_soundeffects_constructor",
+      "utils_audio_soundeffects_init",
+      "utils_audio_soundeffects_playcardclick",
+      "utils_audio_soundeffects_playhover",
+      "utils_audio_soundeffects_playnfcsuccess",
+      "utils_audio_soundeffects_playshadeslide",
+      "utils_audio_soundeffects_playshadesnap",
+      "utils_audio_soundeffects_playthemetoggle"
+    ],
+    "5": [
+      "data_psikotestdata",
+      "data_psikotestdata_generatepsychotestfeedback",
+      "data_psikotestdata_psikotest_categories",
+      "data_psikotestdata_psikotest_questions",
+      "layout_psikotestmodal",
+      "layout_psikotestmodal_psikotestmodal"
+    ],
+    "6": [
+      "illustrations_articlecharacters",
+      "illustrations_articlecharacters_articlecharacter",
+      "layout_articlemodal",
+      "layout_articlemodal_articlemodal",
+      "layout_inflightmagazine",
+      "layout_inflightmagazine_inflightmagazine"
+    ],
+    "7": [
+      "scripts_sync_build"
+    ],
+    "8": [
+      "src_main"
+    ],
+    "9": [
+      "vite_config"
+    ]
+  },
+  "cohesion": {
+    "0": 0.1830065359477124,
+    "1": 0.125,
+    "2": 0.20512820512820512,
+    "3": 0.26666666666666666,
+    "4": 0.3888888888888889,
+    "5": 0.5333333333333333,
+    "6": 0.4666666666666667,
+    "7": 1,
+    "8": 1,
+    "9": 1
+  },
+  "gods": [
+    {
+      "id": "utils_audio_soundfx",
+      "label": "soundFx",
+      "edges": 15,
+      "degree": 15
+    },
+    {
+      "id": "data_profiledata_profiledata",
+      "label": "profileData",
+      "edges": 9,
+      "degree": 9
+    },
+    {
+      "id": "utils_audio_soundeffects",
+      "label": "SoundEffects",
+      "edges": 9,
+      "degree": 9
+    },
+    {
+      "id": "utils_visitorcounter_usevisitorcount",
+      "label": "useVisitorCount()",
+      "edges": 4,
+      "degree": 4
+    },
+    {
+      "id": "illustrations_articlecharacters_articlecharacter",
+      "label": "ArticleCharacter()",
+      "edges": 3,
+      "degree": 3
+    },
+    {
+      "id": "data_psikotestdata_psikotest_categories",
+      "label": "PSIKOTEST_CATEGORIES",
+      "edges": 2,
+      "degree": 2
+    },
+    {
+      "id": "data_psikotestdata_psikotest_questions",
+      "label": "PSIKOTEST_QUESTIONS",
+      "edges": 2,
+      "degree": 2
+    },
+    {
+      "id": "data_psikotestdata_generatepsychotestfeedback",
+      "label": "generatePsychotestFeedback()",
+      "edges": 2,
+      "degree": 2
+    },
+    {
+      "id": "3d_planewindowscene_at",
+      "label": "at",
+      "edges": 1,
+      "degree": 1
+    },
+    {
+      "id": "3d_planewindowscene_zm",
+      "label": "zm",
+      "edges": 1,
+      "degree": 1
+    }
+  ],
+  "surprises": [],
+  "questions": [
+    {
+      "type": "bridge_node",
+      "question": "Why does `soundFx` connect `Community 2` to `Community 3`, `Community 1`, `Community 6`, `Community 0`, `Community 5`?",
+      "why": "High betweenness centrality (0.179) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `SoundEffects` connect `Community 4` to `Community 2`?",
+      "why": "High betweenness centrality (0.179) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `profileData` connect `Community 0` to `Community 3`, `Community 6`?",
+      "why": "High betweenness centrality (0.017) - this node is a cross-community bridge."
+    },
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `at`, `zm`, `clipGlass` to the rest of the system?",
+      "why": "7 weakly-connected nodes found - possible documentation gaps or missing edges."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `Community 1` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.125 - nodes in this community are weakly interconnected."
+    }
+  ],
+  "labels": {
+    "0": "Community 0",
+    "1": "Community 1",
+    "2": "Community 2",
+    "3": "Community 3",
+    "4": "Community 4",
+    "5": "Community 5",
+    "6": "Community 6",
+    "7": "Community 7",
+    "8": "Community 8",
+    "9": "Community 9"
+  },
+  "tokens": {
+    "input": 0,
+    "output": 0
+  }
+}

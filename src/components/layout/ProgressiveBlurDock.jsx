@@ -1,7 +1,7 @@
 import React from 'react';
 import { soundFx } from '../../utils/audio';
 import { useVisitorCount } from '../../utils/visitorCounter';
-import { Sun, Moon, Sparkles, Mail, ArrowUp, BookOpen, Eye, Dumbbell, Award, Landmark } from 'lucide-react';
+import { Sun, Moon, Sparkles, Mail, ArrowUp, BookOpen, Eye, Dumbbell, Award, Landmark, Cpu } from 'lucide-react';
 
 function GithubIcon({ size = 14 }) {
   return (
@@ -22,7 +22,7 @@ function LinkedinIcon({ size = 14 }) {
   );
 }
 
-export default function ProgressiveBlurDock({ onResetGate, onOpenOpenGym, onOpenPsikotest, onOpenTpdBi, isDark, onToggleTheme }) {
+export default function ProgressiveBlurDock({ onResetGate, onOpenOpenGym, onOpenPsikotest, onOpenTpdBi, onOpenEvolution, isDark, onToggleTheme }) {
   const { formattedCount } = useVisitorCount();
 
   const scrollToTop = () => {
@@ -114,6 +114,19 @@ export default function ProgressiveBlurDock({ onResetGate, onOpenOpenGym, onOpen
             >
               <Landmark size={13} color="#f59e0b" />
               <span>TPD BI</span>
+            </button>
+
+            {/* The Evolution of Coding & Agent Harness Keynote launcher */}
+            <button
+              className="ff-link"
+              onClick={() => {
+                soundFx.playCardClick();
+                if (onOpenEvolution) onOpenEvolution();
+              }}
+              title="Open Interactive Keynote: The Evolution of Coding & Agent Harness"
+            >
+              <Cpu size={13} color="#a855f7" />
+              <span>Harness</span>
             </button>
 
             <div className="ff-divider" />

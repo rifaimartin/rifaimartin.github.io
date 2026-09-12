@@ -14,6 +14,7 @@ import MemoriesPolaroid from './components/layout/MemoriesPolaroid';
 import ProgressiveBlurDock from './components/layout/ProgressiveBlurDock';
 import CaseStudyModal from './components/layout/CaseStudyModal';
 import GatePassOverlay from './components/3d/GatePassOverlay';
+import EvolutionPresentationModal from './components/layout/EvolutionPresentationModal';
 import { profileData } from './data/profileData';
 import './styles/main.css';
 
@@ -35,6 +36,7 @@ export default function App() {
   const [isOpenGymOpen, setIsOpenGymOpen] = useState(false);
   const [isPsikotestOpen, setIsPsikotestOpen] = useState(false);
   const [isTpdBiOpen, setIsTpdBiOpen] = useState(false);
+  const [isEvolutionOpen, setIsEvolutionOpen] = useState(false);
   const [shadeProgress, setShadeProgress] = useState(() => (isDark ? 1 : 0));
 
   // Sync theme attribute with DOM
@@ -111,6 +113,7 @@ export default function App() {
             if (shade > 0.65 && !isDark) setIsDark(true);
             else if (shade < 0.35 && isDark) setIsDark(false);
           }}
+          onOpenEvolution={() => setIsEvolutionOpen(true)}
         />
 
         {/* Flight Path Career Timeline */}
@@ -130,7 +133,15 @@ export default function App() {
         />
 
         {/* In-Flight Magazine & Technical Essays */}
-        <InFlightMagazine onOpenArticle={(article) => setActiveArticle(article)} />
+        <InFlightMagazine
+          onOpenArticle={(article) => {
+            if (article.isPresentation) {
+              setIsEvolutionOpen(true);
+            } else {
+              setActiveArticle(article);
+            }
+          }}
+        />
 
         {/* Polaroid Memories Fan Outro */}
         <MemoriesPolaroid />
@@ -166,12 +177,19 @@ export default function App() {
         onClose={() => setIsTpdBiOpen(false)}
       />
 
+      {/* The Evolution of Coding & Agent Harness Interactive Presentation Modal */}
+      <EvolutionPresentationModal
+        isOpen={isEvolutionOpen}
+        onClose={() => setIsEvolutionOpen(false)}
+      />
+
       {/* Floating Progressive Multi-Blur Dock */}
       <ProgressiveBlurDock
         onResetGate={handleResetGate}
         onOpenOpenGym={() => setIsOpenGymOpen(true)}
         onOpenPsikotest={() => setIsPsikotestOpen(true)}
         onOpenTpdBi={() => setIsTpdBiOpen(true)}
+        onOpenEvolution={() => setIsEvolutionOpen(true)}
         isDark={isDark}
         onToggleTheme={() => setIsDark((prev) => !prev)}
       />

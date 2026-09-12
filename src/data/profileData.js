@@ -318,6 +318,22 @@ export const profileData = {
 
   articles: [
     {
+      id: "evolution-agent-harness",
+      isPresentation: true,
+      title: "The Evolution of Coding: From Writing Instructions to Orchestrating Agent Harnesses",
+      category: "AI & Systems Architecture",
+      readTime: "6 min keynote",
+      date: "September 2026",
+      desc: "Bagaimana paradigma coding bertransformasi dari sekadar menulis instruksi mesin hingga mengorkestrasi agen cerdas dengan evaluasi harness, arsitektur AGY, dan Graphify.",
+      tags: ["Agentic AI", "Antigravity (AGY)", "Agent Harness", "Graphify", "System Architecture", "Future of Coding"],
+      content: `Presentasi interaktif ini mengupas 5 bab penting evolusi software engineering:
+1. The Evolution of Coding (1950s - 2024+): Dari instruksi register hingga orkestrasi agent.
+2. Mengapa Prompt Tidak Cukup: Lahirnya Agent Harness untuk mencegah halusinasi dan kegagalan build.
+3. Arsitektur Google Antigravity (AGY): Bedah Surface, State Machine, Progressive Disclosure, dan Lifecycle Hooks.
+4. Cara Kerja Graphify: Memetakan puluhan ribu baris kode menjadi Knowledge Graph terstruktur dengan Louvain Community Detection.
+5. Invariant Designer: Peran baru software engineer di era otonom.`
+    },
+    {
       id: "ini-bukan-akhir",
       title: "Ini Bukan Akhir — Perjalanan 1 Tahun & Sejarah Masuk Telkom Indonesia",
       category: "Career Journey",

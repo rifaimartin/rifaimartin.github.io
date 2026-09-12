@@ -1,0 +1,68 @@
+{
+  "files": {
+    "code": [
+      "scripts/sync-build.js",
+      "src/App.jsx",
+      "src/components/3d/AccessPassCard.jsx",
+      "src/components/3d/GatePassOverlay.jsx",
+      "src/components/3d/PlaneWindowScene.jsx",
+      "src/components/illustrations/ArticleCharacters.jsx",
+      "src/components/layout/ArticleModal.jsx",
+      "src/components/layout/CaseStudyItem.jsx",
+      "src/components/layout/CaseStudyModal.jsx",
+      "src/components/layout/EducationSection.jsx",
+      "src/components/layout/FlightTimeline.jsx",
+      "src/components/layout/HeaderIntro.jsx",
+      "src/components/layout/InFlightMagazine.jsx",
+      "src/components/layout/MemoriesPolaroid.jsx",
+      "src/components/layout/OpenGymModal.jsx",
+      "src/components/layout/ProgressiveBlurDock.jsx",
+      "src/components/layout/ProjectList.jsx",
+      "src/components/layout/PsikotestModal.jsx",
+      "src/components/layout/PublicProjectsSection.jsx",
+      "src/components/layout/TpdBiModal.jsx",
+      "src/data/profileData.js",
+      "src/data/psikotestData.js",
+      "src/main.jsx",
+      "src/utils/audio.js",
+      "src/utils/visitorCounter.js",
+      "vite.config.js"
+    ],
+    "document": [],
+    "paper": [],
+    "image": [],
+    "video": []
+  },
+  "total_files": 26,
+  "total_words": 23191,
+  "needs_graph": false,
+  "warning": "Corpus is ~23,191 words - fits in a single context window. You may not need a graph.",
+  "skipped_sensitive": [],
+  "graphifyignore_patterns": 13,
+  "git": {
+    "source_owner": "git",
+    "source_hash": "8e0c0959b828686343b8c1a87afb89a733c548f6",
+    "branches": [
+      "gh-pages",
+      "master"
+    ],
+    "max_commits": 200,
+    "active_within_days": 30
+  },
+  "scope": {
+    "requested_mode": "auto",
+    "resolved_mode": "committed",
+    "source": "default-auto",
+    "root": ".",
+    "git_root": ".",
+    "head": "8e0c0959b828686343b8c1a87afb89a733c548f6",
+    "candidate_count": 225,
+    "included_count": 26,
+    "excluded_untracked_count": 58,
+    "excluded_ignored_count": 13399,
+    "excluded_sensitive_count": 0,
+    "missing_committed_count": 2,
+    "warnings": [],
+    "recommendation": "Use --scope all or graphify.yaml inputs.corpus for a knowledge-base folder."
+  }
+}
