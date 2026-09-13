@@ -3,7 +3,7 @@ import {
   X, ChevronLeft, ChevronRight, Sparkles, Cpu, Layers, Network, 
   ShieldCheck, CheckCircle2, AlertTriangle, Terminal, Workflow, 
   Boxes, BookOpen, Compass, Code2, ArrowRight, Play, ExternalLink,
-  Maximize2, Minimize2, Tv, Clock, Monitor, ZoomIn, FileText
+  Maximize2, Minimize2, Tv, Clock, Monitor, Database, ZoomIn
 } from 'lucide-react';
 import { soundFx } from '../../utils/audio';
 
@@ -11,37 +11,88 @@ const CHAPTERS = [
   {
     id: 'evolution',
     number: '01',
-    badge: 'HISTORICAL LINEAGE',
+    badge: 'PARADIGM SHIFT',
     title: 'The Evolution of Coding: Dari Menulis Instruksi ke Mengorkestrasi Agent',
     subtitle: 'Bagaimana peran software engineer bertransformasi dari sekadar pengetik sintaks menjadi arsitek sistem dan pengarah kecerdasan buatan.'
   },
   {
     id: 'harness',
     number: '02',
-    badge: 'THE CORE FORMALISM',
-    title: 'Mengapa Prompt Saja Tidak Cukup: Lahirnya Agent Harness H = (E, T, C, S, L, V)',
-    subtitle: 'Dari "Vibe Coding" menuju rekayasa perangkat lunak deterministik: telaah formal tuple 6-komponen dan analisis akar penyebab kegagalan agen.'
+    badge: 'THE MISSING PIECE',
+    title: 'Mengapa Prompt Saja Tidak Cukup: Formalisasi 6 Elemen Harness',
+    subtitle: 'Dari "Vibe Coding" menuju rekayasa perangkat lunak deterministik: Anatomi Tuple H = (E, T, C, S, L, V) menurut survey paper Meng et al. (2026).'
   },
   {
     id: 'agy-arch',
     number: '03',
-    badge: 'SYSTEM INTERNALS & TAXONOMY',
-    title: 'Arsitektur Google Antigravity (AGY) & Matriks Kelengkapan',
-    subtitle: 'Bedah arsitektur: Surface layer, State Machine (LTS), Progressive Disclosure, dan komparasi 23 sistem pada Completeness Matrix.'
+    badge: 'SYSTEM INTERNALS',
+    title: 'Arsitektur Google Antigravity (AGY) & Lifecycle Gates',
+    subtitle: 'Bedah arsitektur: Surface layer, State Machine, Progressive Disclosure, dan mekanisme Hook Harness (PreToolUse, PostToolUse, Stop).'
   },
   {
     id: 'graphify',
     number: '04',
     badge: 'KNOWLEDGE GRAPHS',
-    title: 'Cara Kerja Graphify: Menavigasi Codebase Raksasa via GraphRAG',
-    subtitle: 'Bagaimana AST parser, Louvain clustering, dan GraphRAG memangkas 90% token dan memberi memori spasial arsitektur bagi AI agent.'
+    title: 'Cara Kerja Graphify: Menavigasi Codebase Raksasa',
+    subtitle: 'Bagaimana AST parser, algoritma Louvain, dan GraphRAG memangkas ribuan token dan memberi memori spasial bagi AI agent.'
   },
   {
     id: 'future',
     number: '05',
-    badge: 'MULTI-AGENT & FUTURE',
-    title: 'Masa Depan Software Engineering: Multi-Agent Topology & The Invariant Designer',
-    subtitle: 'Topologi multi-agent, standardisasi protokol (MCP vs A2A), dan transformasi engineer menjadi perumus batasan dan verifikator sistem.'
+    badge: 'THE NEW ENGINEER',
+    title: 'Masa Depan Software Engineering: The Invariant Designer',
+    subtitle: 'Saat AI menulis kode lebih cepat dari manusia, nilai tertinggi seorang engineer bergeser ke perumusan batasan, spesifikasi, dan multi-agent orchestration.'
+  }
+];
+
+const HARNESS_ELEMENTS = [
+  {
+    key: 'E',
+    name: 'Execution Loop',
+    role: 'Orkestrasi Otonom & Self-Healing',
+    formula: 'E: (St, Ot) → At',
+    desc: 'Mengendalikan siklus observe-think-act (ReAct / Reflexion), membatasi token budget, mendeteksi infinite loop, dan memandu recovery otomatis saat eksekusi menemui jalan buntu.',
+    inPractice: 'Membatalkan eksekusi jika agent berputar di error yang sama lebih dari 3 kali berturut-turut.'
+  },
+  {
+    key: 'T',
+    name: 'Tool Registry',
+    role: 'Katalog Antarmuka & Type Schema',
+    formula: 'T: {t1, t2, ... tn}',
+    desc: 'Menyediakan katalog API terstruktur dengan skema tipe yang ketat (JSON Schema/OpenAPI), memvalidasi parameter input sebelum dipanggil, dan menjalankan isolasi sandboxing.',
+    inPractice: 'SWE-bench mencatat lonjakan performa 6.7% → 68.3% hanya karena perbaikan format dan interface tool ini.'
+  },
+  {
+    key: 'C',
+    name: 'Context Manager',
+    role: 'Kurasi Memori & Token Slicing',
+    formula: 'C: Ht → Ctx(t)',
+    desc: 'Mengatur context window melalui kompresi cerdas, sliding window, dan pemanggilan GraphRAG/AST semantik sehingga LLM tidak tenggelam dalam noise atau terpotong context limit.',
+    inPractice: 'Graphify memangkas token hingga 80% dengan hanya menyuntikkan node kode yang relevan dengan tugas.'
+  },
+  {
+    key: 'S',
+    name: 'State Store',
+    role: 'Persistensi Status & Rollback',
+    formula: 'S: St ∈ Σ',
+    desc: 'Menyimpan riwayat trajectory, snapshot workspace git, diff perubahan kode, dan variabel lingkungan antar sesi turn kerja untuk memungkinkan time-travel debugging.',
+    inPractice: 'Mampu me-rollback workspace secara otomatis jika unit test mendeteksi regresi fatal.'
+  },
+  {
+    key: 'L',
+    name: 'Lifecycle Hooks',
+    role: 'Pintu Gerbang Kebijakan Deterministik',
+    formula: 'L: (Event, Context) → Action',
+    desc: 'Interseptor deterministik sebelum/sesudah aksi agen (PreToolUse, PostToolUse, Stop). Memeriksa keamanan izin shell, mendeteksi file terlarang (.env), dan memverifikasi prasyarat.',
+    inPractice: 'Di Google Antigravity, file hooks.json mencegat perintah sebelum menyentuh filesystem.'
+  },
+  {
+    key: 'V',
+    name: 'Verification Interface',
+    role: 'Mesin Pembuktian Kebenaran Kode',
+    formula: 'V: Codebase → {Pass, Fail, Diagnostics}',
+    desc: 'Antarmuka pengujian objektif yang mengeksekusi test runner, linter, dan compiler. Menjamin agen tidak pernah bisa menyatakan "done" tanpa bukti log 100% test lulus.',
+    inPractice: 'Mengubah pemrograman dari tebak-tebakan kata menjadi pembuktian empiris matematis.'
   }
 ];
 
@@ -53,7 +104,8 @@ export default function EvolutionPresentationModal({ isOpen, onClose }) {
   const [activeGraphStep, setActiveGraphStep] = useState(2);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
-  const [activeSubTab, setActiveSubTab] = useState('overview'); // 'overview' | 'diagram' | 'data'
+  const [slide2SubView, setSlide2SubView] = useState('elements'); // 'elements' | 'diagram'
+  const [activeElementKey, setActiveElementKey] = useState('E');
   const [previewImage, setPreviewImage] = useState(null);
 
   // Presenter Elapsed Timer
@@ -70,11 +122,6 @@ export default function EvolutionPresentationModal({ isOpen, onClose }) {
       if (interval) clearInterval(interval);
     };
   }, [isOpen]);
-
-  // Reset sub-tab on slide change
-  useEffect(() => {
-    setActiveSubTab('overview');
-  }, [currentSlide]);
 
   // Fullscreen event listener across browser prefixes
   useEffect(() => {
@@ -385,7 +432,7 @@ export default function EvolutionPresentationModal({ isOpen, onClose }) {
         >
           {/* Chapter Header */}
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px', marginBottom: '8px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
               <span
                 style={{
                   fontFamily: 'var(--font-mono)',
@@ -397,44 +444,7 @@ export default function EvolutionPresentationModal({ isOpen, onClose }) {
               >
                 CHAPTER {CHAPTERS[currentSlide].number} • {CHAPTERS[currentSlide].badge}
               </span>
-
-              {/* View Sub-Tabs (Overview vs Official Paper Diagram) */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <button
-                  onClick={() => { soundFx.playCardClick(); setActiveSubTab('overview'); }}
-                  style={{
-                    padding: '4px 10px',
-                    borderRadius: '6px',
-                    fontSize: '11px',
-                    fontFamily: 'var(--font-mono)',
-                    fontWeight: 600,
-                    border: '1px solid var(--card-border)',
-                    background: activeSubTab === 'overview' ? '#a855f7' : 'var(--surface-sunken)',
-                    color: activeSubTab === 'overview' ? '#ffffff' : 'var(--ink-body)',
-                    cursor: 'pointer'
-                  }}
-                >
-                  Overview
-                </button>
-                <button
-                  onClick={() => { soundFx.playCardClick(); setActiveSubTab('diagram'); }}
-                  style={{
-                    padding: '4px 10px',
-                    borderRadius: '6px',
-                    fontSize: '11px',
-                    fontFamily: 'var(--font-mono)',
-                    fontWeight: 600,
-                    border: '1px solid var(--card-border)',
-                    background: activeSubTab === 'diagram' ? '#a855f7' : 'var(--surface-sunken)',
-                    color: activeSubTab === 'diagram' ? '#ffffff' : 'var(--ink-body)',
-                    cursor: 'pointer'
-                  }}
-                >
-                  Paper Diagram
-                </button>
-              </div>
             </div>
-
             <h2
               style={{
                 fontSize: isFullscreen ? 'clamp(24px, 3.4vw, 36px)' : 'clamp(20px, 3.2vw, 28px)',
@@ -458,378 +468,638 @@ export default function EvolutionPresentationModal({ isOpen, onClose }) {
             </p>
           </div>
 
-          {/* SLIDE 1: The Evolution of Coding & Historical Lineages */}
+          {/* SLIDE 1: The Evolution of Coding */}
           {currentSlide === 0 && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-              {activeSubTab === 'diagram' ? (
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                  gap: '12px'
+                }}
+              >
+                {[
+                  {
+                    era: '1950s - 1970s',
+                    title: 'The Machine Imperative',
+                    tech: 'Punch Cards, Assembly, C',
+                    desc: 'Manusia memberi instruksi langsung ke register dan memori fisik komputer.',
+                    role: 'Human as Calculator'
+                  },
+                  {
+                    era: '1980s - 2000s',
+                    title: 'Structured & OOP',
+                    tech: 'C++, Java, Python, Design Patterns',
+                    desc: 'Membangun hierarki abstraksi untuk mengelola kompleksitas kognitif manusia.',
+                    role: 'Human as Code Crafter'
+                  },
+                  {
+                    era: '2010s',
+                    title: 'Declarative & Distributed',
+                    tech: 'React, Kubernetes, Microservices',
+                    desc: 'Menentukan state yang diinginkan (desired state), biarkan engine yang mengurus mutasi.',
+                    role: 'Human as System Integrator'
+                  },
+                  {
+                    era: '2024+',
+                    title: 'The Agentic Paradigm',
+                    tech: 'Autonomous Agents, LLMs, Harness, GraphRAG',
+                    desc: 'Manusia mendefinisikan invariant, batasan, dan tes; AI agent mengeksekusi dan mengoreksi diri.',
+                    role: 'Human as Orchestrator'
+                  }
+                ].map((item, idx) => (
+                  <div
+                    key={idx}
+                    onClick={() => {
+                      soundFx.playCardClick();
+                      setActiveTabSlide1(idx);
+                    }}
+                    style={{
+                      padding: '16px',
+                      borderRadius: '16px',
+                      background: activeTabSlide1 === idx ? 'rgba(168, 85, 247, 0.08)' : 'var(--surface-sunken)',
+                      border: activeTabSlide1 === idx ? '2px solid #a855f7' : '1px solid var(--card-border)',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease',
+                      position: 'relative'
+                    }}
+                  >
+                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: '#a855f7', fontWeight: 700 }}>
+                      {item.era}
+                    </span>
+                    <h4 style={{ fontSize: '14.5px', fontWeight: 700, margin: '6px 0', color: 'var(--folio-ink)' }}>
+                      {item.title}
+                    </h4>
+                    <p style={{ fontSize: '12.5px', color: 'var(--ink-body)', lineHeight: 1.5, marginBottom: '10px' }}>
+                      {item.desc}
+                    </p>
+                    <div style={{ fontFamily: 'var(--font-mono)', fontSize: '10.5px', color: 'var(--ink-faint)' }}>
+                      Role: <strong style={{ color: 'var(--folio-ink)' }}>{item.role}</strong>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Deep Dive Panel */}
+              <div
+                style={{
+                  padding: '20px 24px',
+                  borderRadius: '16px',
+                  background: 'var(--surface-card-subtle)',
+                  border: '1px solid var(--card-border)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '12px'
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <Code2 size={18} color="#a855f7" />
+                  <h4 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--folio-ink)' }}>
+                    Pergeseran Mendasar: Dari Sintaks ke Semantik & Invarian
+                  </h4>
+                </div>
+                <p style={{ fontSize: '13.5px', color: 'var(--ink-body)', lineHeight: 1.7 }}>
+                  Selama 70 tahun terakhir, seluruh evolusi bahasa pemrograman bertujuan untuk <em>menaikkan level abstraksi</em>. 
+                  Dulu kita menghabiskan 80% waktu memikirkan syntax error, pointer arithmetic, atau konfigurasi boilerplate. 
+                  Di era agentic, <strong>sintaks telah menjadi komoditas instan</strong>. Nilai tertinggi seorang engineer kini terletak pada kemampuan merumuskan <strong>Domain Invariants</strong> (aturan bisnis yang tidak boleh dilanggar), <strong>Security Boundaries</strong>, dan <strong>Verification Harness</strong>.
+                </p>
                 <div
                   style={{
-                    padding: '16px',
-                    borderRadius: '16px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    padding: '12px 16px',
+                    borderRadius: '12px',
                     background: 'var(--surface-sunken)',
-                    border: '1px solid var(--card-border)',
-                    textAlign: 'center'
+                    borderLeft: '4px solid #a855f7'
                   }}
                 >
-                  <div
-                    style={{ position: 'relative', cursor: 'zoom-in' }}
-                    onClick={() => setPreviewImage('./harness/timeline.png')}
-                  >
-                    <img
-                      src="./harness/timeline.png"
-                      alt="Historical Evolution of Agent Harnesses"
-                      style={{ maxWidth: '100%', maxHeight: '460px', objectFit: 'contain', borderRadius: '12px' }}
-                    />
-                    <div style={{ position: 'absolute', top: 12, right: 12, background: 'rgba(0,0,0,0.6)', color: '#fff', padding: '4px 8px', borderRadius: '6px', fontSize: '11px', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                      <ZoomIn size={12} /> Click to zoom
-                    </div>
-                  </div>
-                  <p style={{ fontFamily: 'var(--font-mono)', fontSize: '11.5px', color: 'var(--ink-faint)', marginTop: '10px' }}>
-                    <strong>Figure 1:</strong> Historical Lineages of Agent Harnesses (JUnit 1997 → OpenAI Gym 2016 → Early LLMs 2023 → Full-Stack 2026). Sumber: Meng et al., 2026.
-                  </p>
+                  <span style={{ fontSize: '13px', fontStyle: 'italic', color: 'var(--folio-ink)' }}>
+                    "Kita tidak lagi menulis kode karakter per karakter; kita menulis spesifikasi, memberi agent alat (tools), lalu memvalidasi hasilnya lewat harness."
+                  </span>
                 </div>
-              ) : (
-                <>
-                  <div
-                    style={{
-                      display: 'grid',
-                      gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                      gap: '12px'
-                    }}
-                  >
-                    {[
-                      {
-                        era: '1997 - 2005',
-                        title: 'Software Test Harness',
-                        tech: 'JUnit, TestNG, xUnit',
-                        desc: 'Menstandarkan siklus baku: Setup → Execute → Assert → Teardown dalam sandbox terisolasi.',
-                        role: 'Observe-Assert Pattern'
-                      },
-                      {
-                        era: '2016 - 2022',
-                        title: 'RL Environment Harness',
-                        tech: 'OpenAI Gym, Gymnasium',
-                        desc: 'Standarisasi step(), reset(), dan reward signal untuk mengendalikan agen probabilistik liar.',
-                        role: 'Interactive Environment Loop'
-                      },
-                      {
-                        era: '2023 - 2024',
-                        title: 'Early LLM Agent Frameworks',
-                        tech: 'ReAct, Toolformer, LangChain, AutoGPT',
-                        desc: 'Tool-use sebagai first-class citizen. Mengintegrasikan reasoning loop, namun masih rapuh.',
-                        role: 'Primitive Tool Calling'
-                      },
-                      {
-                        era: '2024 - 2026',
-                        title: 'Modern Production Harness',
-                        tech: 'MCP, A2A, AGY, Claude Code, OpenHands',
-                        desc: 'Sistem lengkap 6-komponen H = (E, T, C, S, L, V) dengan sandboxing, guardrails, dan protokol resmi.',
-                        role: 'Full-Stack Agent Governance'
-                      }
-                    ].map((item, idx) => (
-                      <div
-                        key={idx}
-                        onClick={() => {
-                          soundFx.playCardClick();
-                          setActiveTabSlide1(idx);
-                        }}
-                        style={{
-                          padding: '16px',
-                          borderRadius: '16px',
-                          background: activeTabSlide1 === idx ? 'rgba(168, 85, 247, 0.08)' : 'var(--surface-sunken)',
-                          border: activeTabSlide1 === idx ? '2px solid #a855f7' : '1px solid var(--card-border)',
-                          cursor: 'pointer',
-                          transition: 'all 0.2s ease',
-                          position: 'relative'
-                        }}
-                      >
-                        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: '#a855f7', fontWeight: 700 }}>
-                          {item.era}
-                        </span>
-                        <h4 style={{ fontSize: '14px', fontWeight: 700, margin: '6px 0', color: 'var(--folio-ink)' }}>
-                          {item.title}
-                        </h4>
-                        <p style={{ fontSize: '12px', color: 'var(--ink-body)', lineHeight: 1.5, marginBottom: '10px' }}>
-                          {item.desc}
-                        </p>
-                        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '10.5px', color: 'var(--ink-faint)' }}>
-                          Pattern: <strong style={{ color: 'var(--folio-ink)' }}>{item.role}</strong>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Academic Insight Panel */}
-                  <div
-                    style={{
-                      padding: '20px 24px',
-                      borderRadius: '16px',
-                      background: 'var(--surface-card-subtle)',
-                      border: '1px solid var(--card-border)',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '12px'
-                    }}
-                  >
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <BookOpen size={18} color="#a855f7" />
-                        <h4 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--folio-ink)' }}>
-                          Konvergensi Historis 30 Tahun Rekayasa Software
-                        </h4>
-                      </div>
-                      <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: '#10b981', fontWeight: 600 }}>
-                        Meng et al., Preprints 2026
-                      </span>
-                    </div>
-                    <p style={{ fontSize: '13.5px', color: 'var(--ink-body)', lineHeight: 1.7 }}>
-                      Paper survei <em>"Agent Harness for Large Language Model Agents"</em> membuktikan bahwa konsep <strong>Agent Harness</strong> bukanlah tren sesaat, melainkan hasil konvergensi alamiah selama 30 tahun: dari pembuktian deterministik <strong>JUnit</strong>, simulasi kontrol probabilistik <strong>OpenAI Gym</strong>, hingga runtime otonom modern saat ini.
-                    </p>
-                  </div>
-                </>
-              )}
+              </div>
             </div>
           )}
 
-          {/* SLIDE 2: Why Prompts Fail & The Harness Tuple H = (E, T, C, S, L, V) */}
+          {/* SLIDE 2: Why Prompts Fail: The Need for an Agent Harness */}
           {currentSlide === 1 && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-              {activeSubTab === 'diagram' ? (
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '16px' }}>
-                  <div style={{ padding: '16px', borderRadius: '16px', background: 'var(--surface-sunken)', border: '1px solid var(--card-border)', textAlign: 'center' }}>
-                    <div style={{ position: 'relative', cursor: 'zoom-in' }} onClick={() => setPreviewImage('./harness/root_cause_diagram.png')}>
-                      <img src="./harness/root_cause_diagram.png" alt="Root Cause Analysis" style={{ maxWidth: '100%', maxHeight: '380px', objectFit: 'contain', borderRadius: '12px' }} />
-                      <div style={{ position: 'absolute', top: 12, right: 12, background: 'rgba(0,0,0,0.6)', color: '#fff', padding: '4px 8px', borderRadius: '6px', fontSize: '11px', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                        <ZoomIn size={12} /> Click to zoom
-                      </div>
-                    </div>
-                    <p style={{ fontFamily: 'var(--font-mono)', fontSize: '11.5px', color: 'var(--ink-faint)', marginTop: '10px' }}>
-                      <strong>Fig 2:</strong> Root Cause Analysis (Model vs Harness Binding Constraint).
-                    </p>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                  gap: '16px'
+                }}
+              >
+                {/* Without Harness */}
+                <div
+                  style={{
+                    padding: '20px',
+                    borderRadius: '16px',
+                    background: 'rgba(239, 68, 68, 0.05)',
+                    border: '1px solid rgba(239, 68, 68, 0.25)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '12px'
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#ef4444' }}>
+                    <AlertTriangle size={18} />
+                    <h4 style={{ fontWeight: 700, fontSize: '15px' }}>LLM Mentah ("Vibe Coding")</h4>
                   </div>
-
-                  <div style={{ padding: '16px', borderRadius: '16px', background: 'var(--surface-sunken)', border: '1px solid var(--card-border)', textAlign: 'center' }}>
-                    <div style={{ position: 'relative', cursor: 'zoom-in' }} onClick={() => setPreviewImage('./harness/architecture_diagram.png')}>
-                      <img src="./harness/architecture_diagram.png" alt="H=(E,T,C,S,L,V) Architecture" style={{ maxWidth: '100%', maxHeight: '380px', objectFit: 'contain', borderRadius: '12px' }} />
-                      <div style={{ position: 'absolute', top: 12, right: 12, background: 'rgba(0,0,0,0.6)', color: '#fff', padding: '4px 8px', borderRadius: '6px', fontSize: '11px', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                        <ZoomIn size={12} /> Click to zoom
-                      </div>
-                    </div>
-                    <p style={{ fontFamily: 'var(--font-mono)', fontSize: '11.5px', color: 'var(--ink-faint)', marginTop: '10px' }}>
-                      <strong>Fig 3:</strong> Formal Tuple H = (E, T, C, S, L, V) Six-Component Architecture.
-                    </p>
-                  </div>
+                  <ul style={{ fontSize: '13px', color: 'var(--ink-body)', lineHeight: 1.8, paddingLeft: '18px' }}>
+                    <li><strong>Tidak Ada Batasan:</strong> Model mengira kodenya benar hanya karena kalimatnya terdengar percaya diri.</li>
+                    <li><strong>Silent Hallucinations:</strong> Mengimpor library yang tidak terinstall atau memanggil API yang sudah usang.</li>
+                    <li><strong>Perubahan Acak:</strong> Mengubah fungsi A tanpa tahu bahwa fungsi B, C, dan D langsung rusak (blast radius buta).</li>
+                    <li><strong>Infinite Loops:</strong> Saat error, agent menebak-nebak tanpa verifikasi hingga token habis.</li>
+                  </ul>
                 </div>
-              ) : (
-                <>
-                  {/* Empirical Proof Numbers Bar */}
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '10px' }}>
-                    <div style={{ padding: '12px', borderRadius: '12px', background: 'rgba(168, 85, 247, 0.08)', border: '1px solid rgba(168, 85, 247, 0.25)' }}>
-                      <div style={{ fontFamily: 'var(--font-mono)', fontSize: '20px', fontWeight: 800, color: '#a855f7' }}>6.7% → 68.3%</div>
-                      <div style={{ fontSize: '11.5px', color: 'var(--ink-body)', marginTop: '2px' }}>Pi Research: Lonjakan SWE-bench murni dari harness redesain.</div>
-                    </div>
-                    <div style={{ padding: '12px', borderRadius: '12px', background: 'rgba(59, 130, 246, 0.08)', border: '1px solid rgba(59, 130, 246, 0.25)' }}>
-                      <div style={{ fontFamily: 'var(--font-mono)', fontSize: '20px', fontWeight: 800, color: '#3b82f6' }}>1,300 PR/wk</div>
-                      <div style={{ fontSize: '11.5px', color: 'var(--ink-body)', marginTop: '2px' }}>Stripe Minions: 0 human code berkat harness-first architecture.</div>
-                    </div>
-                    <div style={{ padding: '12px', borderRadius: '12px', background: 'rgba(239, 68, 68, 0.08)', border: '1px solid rgba(239, 68, 68, 0.25)' }}>
-                      <div style={{ fontFamily: 'var(--font-mono)', fontSize: '20px', fontWeight: 800, color: '#ef4444' }}>-24.2%</div>
-                      <div style={{ fontSize: '11.5px', color: 'var(--ink-body)', marginTop: '2px' }}>METR: Merge gap PR otonom akibat evaluasi harness tanpa pagar.</div>
-                    </div>
-                    <div style={{ padding: '12px', borderRadius: '12px', background: 'rgba(16, 185, 129, 0.08)', border: '1px solid rgba(16, 185, 129, 0.25)' }}>
-                      <div style={{ fontFamily: 'var(--font-mono)', fontSize: '20px', fontWeight: 800, color: '#10b981' }}>1M+ LOC</div>
-                      <div style={{ fontSize: '11.5px', color: 'var(--ink-body)', marginTop: '2px' }}>OpenAI Codex: Kegagalan berakar dari underspecified environment.</div>
-                    </div>
-                  </div>
 
-                  {/* Six Component Tuple Grid */}
-                  <div style={{ padding: '18px 20px', borderRadius: '16px', background: 'var(--surface-sunken)', border: '1px solid var(--card-border)' }}>
-                    <h4 style={{ fontSize: '14.5px', fontWeight: 700, color: 'var(--folio-ink)', marginBottom: '12px' }}>
-                      Definisi Formal: Tuple Enam Komponen H = (E, T, C, S, L, V)
-                    </h4>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '10px' }}>
-                      {[
-                        { sym: 'E', name: 'Execution Loop', desc: 'Observe-think-act cycle, kondisi terminasi, dan self-healing.' },
-                        { sym: 'T', name: 'Tool Registry', desc: 'Typed tool catalog, routing, schema validation, dan tool pruning.' },
-                        { sym: 'C', name: 'Context Manager', desc: 'Curation context window, kompresi, GraphRAG retrieval.' },
-                        { sym: 'S', name: 'State Store', desc: 'Persistensi status sesi, crash recovery, checkpointing.' },
-                        { sym: 'L', name: 'Lifecycle Hooks', desc: 'Policy enforcement (PreToolUse, PostToolUse, Stop assertions).' },
-                        { sym: 'V', name: 'Evaluation Interface', desc: 'Trajektori tindakan, intermediate state check, dan validasi.' }
-                      ].map((c, i) => (
-                        <div key={i} style={{ padding: '10px 14px', borderRadius: '10px', background: 'var(--surface-card)', border: '1px solid var(--card-border)' }}>
-                          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', fontWeight: 800, color: '#a855f7' }}>[{c.sym}]</span>
-                          <strong style={{ fontSize: '13px', marginLeft: '6px', color: 'var(--folio-ink)' }}>{c.name}</strong>
-                          <p style={{ fontSize: '11.5px', color: 'var(--ink-body)', marginTop: '4px', lineHeight: 1.4 }}>{c.desc}</p>
-                        </div>
+                {/* With Agent Harness */}
+                <div
+                  style={{
+                    padding: '20px',
+                    borderRadius: '16px',
+                    background: 'rgba(168, 85, 247, 0.05)',
+                    border: '1px solid rgba(168, 85, 247, 0.3)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '12px'
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#a855f7' }}>
+                    <ShieldCheck size={18} />
+                    <h4 style={{ fontWeight: 700, fontSize: '15px' }}>Agent yang Dibungkus HARNESS</h4>
+                  </div>
+                  <ul style={{ fontSize: '13px', color: 'var(--ink-body)', lineHeight: 1.8, paddingLeft: '18px' }}>
+                    <li><strong>Pre-Tool Gate:</strong> Perintah berbahaya dicegat sebelum menyentuh shell atau file sensitif.</li>
+                    <li><strong>Closed-Loop Feedback:</strong> Hasil compiler dan stderr langsung disuapkan kembali ke memori observasi agent.</li>
+                    <li><strong>Deterministic Assertion:</strong> Agent tidak diizinkan berkata "Tugas selesai" sebelum unit test berstatus 100% PASS.</li>
+                    <li><strong>Self-Correction:</strong> Agent membaca kegagalan test, merombak kode, dan menjalankan test ulang secara otonom.</li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Sub-view Tab Switcher for Chapter 2 */}
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  flexWrap: 'wrap',
+                  gap: '12px',
+                  padding: '12px 18px',
+                  borderRadius: '14px',
+                  background: 'var(--surface-sunken)',
+                  border: '1px solid var(--card-border)'
+                }}
+              >
+                <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                  <button
+                    onClick={() => {
+                      soundFx.playCardClick();
+                      setSlide2SubView('elements');
+                    }}
+                    style={{
+                      padding: '7px 15px',
+                      borderRadius: '8px',
+                      background: slide2SubView === 'elements' ? '#a855f7' : 'var(--surface-card)',
+                      color: slide2SubView === 'elements' ? '#ffffff' : 'var(--ink)',
+                      border: '1px solid var(--card-border)',
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: '12px',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      transition: 'all 0.15s'
+                    }}
+                  >
+                    1. Formal Tuple H = (E, T, C, S, L, V)
+                  </button>
+                  <button
+                    onClick={() => {
+                      soundFx.playCardClick();
+                      setSlide2SubView('diagram');
+                    }}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      padding: '7px 15px',
+                      borderRadius: '8px',
+                      background: slide2SubView === 'diagram' ? '#a855f7' : 'var(--surface-card)',
+                      color: slide2SubView === 'diagram' ? '#ffffff' : 'var(--ink)',
+                      border: '1px solid var(--card-border)',
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: '12px',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      transition: 'all 0.15s'
+                    }}
+                  >
+                    <ZoomIn size={14} />
+                    <span>2. Paper Architecture Diagram</span>
+                  </button>
+                </div>
+                <span style={{ fontSize: '11px', fontFamily: 'var(--font-mono)', color: 'var(--ink-faint)' }}>
+                  Survey Paper: Meng et al., April 2026 (DOI: 10.20944/preprints202604.0428.v3)
+                </span>
+              </div>
+
+              {/* View 1: 6 Formal Elements Tuple */}
+              {slide2SubView === 'elements' && (
+                <>
+                  {/* Formal Mathematical Tuple Banner */}
+                  <div
+                    style={{
+                      padding: '16px 20px',
+                      borderRadius: '14px',
+                      background: 'rgba(168, 85, 247, 0.08)',
+                      border: '1px solid rgba(168, 85, 247, 0.3)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      flexWrap: 'wrap',
+                      gap: '12px'
+                    }}
+                  >
+                    <div>
+                      <div style={{ fontFamily: 'var(--font-mono)', fontSize: '14px', fontWeight: 800, color: '#a855f7' }}>
+                        Definisi Formal: H = (E, T, C, S, L, V)
+                      </div>
+                      <p style={{ fontSize: '12.5px', color: 'var(--ink-body)', marginTop: '2px' }}>
+                        Agent Harness adalah sistem operasi formal yang membungkus LLM probabilistik ke dalam garansi rekayasa perangkat lunak deterministik.
+                      </p>
+                    </div>
+                    <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                      {HARNESS_ELEMENTS.map((el) => (
+                        <button
+                          key={el.key}
+                          onClick={() => {
+                            soundFx.playCardClick();
+                            setActiveElementKey(el.key);
+                          }}
+                          style={{
+                            width: '34px',
+                            height: '34px',
+                            borderRadius: '8px',
+                            background: activeElementKey === el.key ? '#a855f7' : 'var(--surface-card)',
+                            color: activeElementKey === el.key ? '#ffffff' : 'var(--folio-ink)',
+                            border: activeElementKey === el.key ? '1px solid #a855f7' : '1px solid var(--card-border)',
+                            fontFamily: 'var(--font-mono)',
+                            fontSize: '13px',
+                            fontWeight: 800,
+                            cursor: 'pointer',
+                            transition: 'all 0.15s'
+                          }}
+                        >
+                          {el.key}
+                        </button>
                       ))}
                     </div>
                   </div>
-                </>
-              )}
-            </div>
-          )}
 
-          {/* SLIDE 3: AGY Architecture & The Completeness Matrix */}
-          {currentSlide === 2 && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-              {activeSubTab === 'diagram' ? (
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '16px' }}>
-                  <div style={{ padding: '16px', borderRadius: '16px', background: 'var(--surface-sunken)', border: '1px solid var(--card-border)', textAlign: 'center' }}>
-                    <div style={{ position: 'relative', cursor: 'zoom-in' }} onClick={() => setPreviewImage('./harness/completeness_heatmap.png')}>
-                      <img src="./harness/completeness_heatmap.png" alt="Completeness Heatmap" style={{ maxWidth: '100%', maxHeight: '380px', objectFit: 'contain', borderRadius: '12px' }} />
-                      <div style={{ position: 'absolute', top: 12, right: 12, background: 'rgba(0,0,0,0.6)', color: '#fff', padding: '4px 8px', borderRadius: '6px', fontSize: '11px', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                        <ZoomIn size={12} /> Click to zoom
-                      </div>
-                    </div>
-                    <p style={{ fontFamily: 'var(--font-mono)', fontSize: '11.5px', color: 'var(--ink-faint)', marginTop: '10px' }}>
-                      <strong>Fig 4:</strong> Harness Completeness Matrix across 23 systems. Meng et al., 2026.
-                    </p>
-                  </div>
-
-                  <div style={{ padding: '16px', borderRadius: '16px', background: 'var(--surface-sunken)', border: '1px solid var(--card-border)', textAlign: 'center' }}>
-                    <div style={{ position: 'relative', cursor: 'zoom-in' }} onClick={() => setPreviewImage('./harness/lts_comparison.png')}>
-                      <img src="./harness/lts_comparison.png" alt="LTS Comparison" style={{ maxWidth: '100%', maxHeight: '380px', objectFit: 'contain', borderRadius: '12px' }} />
-                      <div style={{ position: 'absolute', top: 12, right: 12, background: 'rgba(0,0,0,0.6)', color: '#fff', padding: '4px 8px', borderRadius: '6px', fontSize: '11px', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                        <ZoomIn size={12} /> Click to zoom
-                      </div>
-                    </div>
-                    <p style={{ fontFamily: 'var(--font-mono)', fontSize: '11.5px', color: 'var(--ink-faint)', marginTop: '10px' }}>
-                      <strong>Fig 5:</strong> Labeled Transition System (LTS) Semantics: Safety vs Liveness Loop.
-                    </p>
-                  </div>
-                </div>
-              ) : (
-                <>
-                  {/* Layer Selection Tabs */}
-                  <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-                    {[
-                      { id: 'surfaces', label: '1. Surfaces Layer' },
-                      { id: 'runtime', label: '2. State Machine (LTS)' },
-                      { id: 'harness', label: '3. Hook Gates (.agents/hooks.json)' },
-                      { id: 'matrix', label: '4. 23-System Completeness Matrix' }
-                    ].map((tab) => (
-                      <button
-                        key={tab.id}
-                        onClick={() => {
-                          soundFx.playCardClick();
-                          setActiveArchLayer(tab.id);
-                        }}
+                  {/* Active Element Detailed Spotlight */}
+                  {(() => {
+                    const el = HARNESS_ELEMENTS.find((item) => item.key === activeElementKey) || HARNESS_ELEMENTS[0];
+                    return (
+                      <div
                         style={{
-                          padding: '8px 16px',
-                          borderRadius: '10px',
-                          background: activeArchLayer === tab.id ? '#a855f7' : 'var(--surface-sunken)',
-                          color: activeArchLayer === tab.id ? '#ffffff' : 'var(--ink)',
+                          padding: '18px 22px',
+                          borderRadius: '16px',
+                          background: 'var(--surface-card-subtle)',
                           border: '1px solid var(--card-border)',
-                          fontFamily: 'var(--font-mono)',
-                          fontSize: '12px',
-                          fontWeight: 600,
-                          cursor: 'pointer',
-                          transition: 'all 0.15s'
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: '12px'
                         }}
                       >
-                        {tab.label}
-                      </button>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                            <span
+                              style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                width: '32px',
+                                height: '32px',
+                                borderRadius: '8px',
+                                background: '#a855f7',
+                                color: '#fff',
+                                fontWeight: 800,
+                                fontFamily: 'var(--font-mono)',
+                                fontSize: '15px'
+                              }}
+                            >
+                              {el.key}
+                            </span>
+                            <div>
+                              <h4 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--folio-ink)' }}>
+                                {el.name}
+                              </h4>
+                              <span style={{ fontSize: '12px', color: '#a855f7', fontWeight: 600 }}>
+                                {el.role}
+                              </span>
+                            </div>
+                          </div>
+                          <span
+                            style={{
+                              fontFamily: 'var(--font-mono)',
+                              fontSize: '12px',
+                              padding: '4px 10px',
+                              borderRadius: '6px',
+                              background: 'var(--surface-sunken)',
+                              border: '1px solid var(--card-border)',
+                              color: 'var(--ink-muted)'
+                            }}
+                          >
+                            {el.formula}
+                          </span>
+                        </div>
+                        <p style={{ fontSize: '13px', color: 'var(--ink-body)', lineHeight: 1.7 }}>
+                          {el.desc}
+                        </p>
+                        <div
+                          style={{
+                            padding: '10px 14px',
+                            borderRadius: '10px',
+                            background: 'var(--surface-sunken)',
+                            borderLeft: '3px solid #a855f7',
+                            fontSize: '12px',
+                            color: 'var(--folio-ink)'
+                          }}
+                        >
+                          <strong>Implementasi Riil:</strong> {el.inPractice}
+                        </div>
+                      </div>
+                    );
+                  })()}
+
+                  {/* 6 Elements Grid Overview */}
+                  <div
+                    style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                      gap: '12px'
+                    }}
+                  >
+                    {HARNESS_ELEMENTS.map((item) => (
+                      <div
+                        key={item.key}
+                        onClick={() => {
+                          soundFx.playCardClick();
+                          setActiveElementKey(item.key);
+                        }}
+                        style={{
+                          padding: '14px 16px',
+                          borderRadius: '12px',
+                          background: activeElementKey === item.key ? 'rgba(168, 85, 247, 0.08)' : 'var(--surface-card)',
+                          border: activeElementKey === item.key ? '1.5px solid #a855f7' : '1px solid var(--card-border)',
+                          cursor: 'pointer',
+                          transition: 'all 0.15s',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: '6px'
+                        }}
+                      >
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                          <span style={{ fontWeight: 800, fontFamily: 'var(--font-mono)', color: '#a855f7', fontSize: '13px' }}>
+                            [{item.key}] {item.name}
+                          </span>
+                          <span style={{ fontSize: '10.5px', fontFamily: 'var(--font-mono)', color: 'var(--ink-faint)' }}>
+                            {item.key === activeElementKey ? '● AKTIF' : 'Pilih'}
+                          </span>
+                        </div>
+                        <p style={{ fontSize: '11.5px', color: 'var(--ink-muted)', lineHeight: 1.5 }}>
+                          {item.role}
+                        </p>
+                      </div>
                     ))}
                   </div>
-
-                  {activeArchLayer === 'surfaces' && (
-                    <div style={{ padding: '20px', borderRadius: '16px', background: 'var(--surface-card-subtle)', border: '1px solid var(--card-border)' }}>
-                      <h4 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '10px', color: 'var(--folio-ink)' }}>
-                        Unified Entry Surfaces
-                      </h4>
-                      <p style={{ fontSize: '13.5px', color: 'var(--ink-body)', lineHeight: 1.7, marginBottom: '14px' }}>
-                        Google Antigravity dirancang agar bisa digunakan di berbagai permukaan kerja:
-                      </p>
-                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '12px' }}>
-                        <div style={{ padding: '14px', borderRadius: '12px', background: 'var(--surface-card)', border: '1px solid var(--card-border)' }}>
-                          <strong style={{ color: '#2c6fff' }}>Antigravity IDE:</strong> Editor VS Code fork dengan Tab Autocomplete dan Code Lenses.
-                        </div>
-                        <div style={{ padding: '14px', borderRadius: '12px', background: 'var(--surface-card)', border: '1px solid var(--card-border)' }}>
-                          <strong style={{ color: '#a855f7' }}>Antigravity 2.0:</strong> Desktop App untuk orchestrating multi-agents dan background tasks.
-                        </div>
-                        <div style={{ padding: '14px', borderRadius: '12px', background: 'var(--surface-card)', border: '1px solid var(--card-border)' }}>
-                          <strong style={{ color: '#10b981' }}>Antigravity CLI (agy):</strong> Terminal TUI cepat untuk remote development.
-                        </div>
-                        <div style={{ padding: '14px', borderRadius: '12px', background: 'var(--surface-card)', border: '1px solid var(--card-border)' }}>
-                          <strong style={{ color: '#f59e0b' }}>Python SDK:</strong> Package google-antigravity untuk headless CI/CD evaluation harness.
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {activeArchLayer === 'runtime' && (
-                    <div style={{ padding: '20px', borderRadius: '16px', background: 'var(--surface-card-subtle)', border: '1px solid var(--card-border)' }}>
-                      <h4 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '10px', color: 'var(--folio-ink)' }}>
-                        Core Runtime & Labeled Transition System (LTS)
-                      </h4>
-                      <p style={{ fontSize: '13.5px', color: 'var(--ink-body)', lineHeight: 1.7 }}>
-                        Meng et al. (2026) memformalkan runtime agent sebagai Labeled Transition System:
-                      </p>
-                      <ul style={{ fontSize: '13px', color: 'var(--ink-body)', lineHeight: 1.8, paddingLeft: '20px', marginTop: '10px' }}>
-                        <li><strong>Safety Property:</strong> Membuktikan secara matematis bahwa tidak ada status berbahaya yang dicapai (misal: kebocoran sandbox atau modifikasi file di luar batasan).</li>
-                        <li><strong>Liveness Property:</strong> Menjamin bahwa agen tidak terjebak dalam infinite loop pemikiran dan pasti membuat progres menuju gol.</li>
-                        <li><strong>Reactive Wakeup:</strong> Begitu background tool selesai, state machine runtime langsung mengalirkan observasi ke model.</li>
-                      </ul>
-                    </div>
-                  )}
-
-                  {activeArchLayer === 'harness' && (
-                    <div style={{ padding: '20px', borderRadius: '16px', background: 'var(--surface-card-subtle)', border: '1px solid var(--card-border)' }}>
-                      <h4 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '10px', color: 'var(--folio-ink)' }}>
-                        Lifecycle Hooks (.agents/hooks.json) Sebagai Komponen L
-                      </h4>
-                      <p style={{ fontSize: '13.5px', color: 'var(--ink-body)', lineHeight: 1.7, marginBottom: '12px' }}>
-                        Inilah implementasi langsung dari komponen [L] dan [V] pada proyek ini:
-                      </p>
-                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '10px' }}>
-                        <div style={{ padding: '12px', borderRadius: '10px', background: 'var(--surface-card)', borderLeft: '3px solid #f59e0b' }}>
-                          <code style={{ color: '#f59e0b', fontWeight: 700 }}>PreToolUse (Safety Gate)</code>
-                          <p style={{ fontSize: '12px', marginTop: '4px' }}>Mencegat tool sebelum jalan (allow, deny, atau ask konfirmasi).</p>
-                        </div>
-                        <div style={{ padding: '12px', borderRadius: '10px', background: 'var(--surface-card)', borderLeft: '3px solid #10b981' }}>
-                          <code style={{ color: '#10b981', fontWeight: 700 }}>PostToolUse (Telemetry)</code>
-                          <p style={{ fontSize: '12px', marginTop: '4px' }}>Auto-formatting, linter, dan type-checking otomatis setiap ada file diedit.</p>
-                        </div>
-                        <div style={{ padding: '12px', borderRadius: '10px', background: 'var(--surface-card)', borderLeft: '3px solid #a855f7' }}>
-                          <code style={{ color: '#a855f7', fontWeight: 700 }}>Stop (The Verification Gate)</code>
-                          <p style={{ fontSize: '12px', marginTop: '4px' }}>Menolak penghentian tugas jika test suite gagal. Agent dipaksa melakukan self-correction.</p>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {activeArchLayer === 'matrix' && (
-                    <div style={{ padding: '20px', borderRadius: '16px', background: 'var(--surface-card-subtle)', border: '1px solid var(--card-border)' }}>
-                      <h4 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '10px', color: 'var(--folio-ink)' }}>
-                        Mengapa Hanya Sedikit Sistem yang Siap Produksi?
-                      </h4>
-                      <p style={{ fontSize: '13.5px', color: 'var(--ink-body)', lineHeight: 1.7 }}>
-                        Berdasarkan evaluasi terhadap 23 sistem agen terkemuka di paper Meng et al.:
-                      </p>
-                      <div style={{ marginTop: '12px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                        <div style={{ padding: '10px 14px', borderRadius: '8px', background: 'var(--surface-card)', fontSize: '13px' }}>
-                          <strong>Full-Stack Harness (Claude Code, Antigravity, OpenHands, AIOS):</strong> Memenuhi ke-6 komponen (E, T, C, S, L, V). Satu-satunya kategori yang stabil untuk produksi.
-                        </div>
-                        <div style={{ padding: '10px 14px', borderRadius: '8px', background: 'var(--surface-card)', fontSize: '13px' }}>
-                          <strong>Multi-Agent Frameworks (MetaGPT, AutoGen, ChatDev):</strong> Kuat dalam pembagian peran (E, T), namun lemah di Lifecycle Hooks (L) dan Evaluasi Dinamis (V).
-                        </div>
-                        <div style={{ padding: '10px 14px', borderRadius: '8px', background: 'var(--surface-card)', fontSize: '13px' }}>
-                          <strong>General Frameworks (LangChain, LangGraph):</strong> Fleksibel, tetapi menyerahkan tanggung jawab keamanan dan verifikasi sepenuhnya kepada developer.
-                        </div>
-                      </div>
-                    </div>
-                  )}
                 </>
+              )}
+
+              {/* View 2: Paper Architecture Diagram */}
+              {slide2SubView === 'diagram' && (
+                <div
+                  style={{
+                    padding: '20px',
+                    borderRadius: '16px',
+                    background: 'var(--surface-sunken)',
+                    border: '1px solid var(--card-border)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '14px'
+                  }}
+                >
+                  <div
+                    style={{
+                      position: 'relative',
+                      width: '100%',
+                      maxHeight: isFullscreen ? '460px' : '340px',
+                      overflow: 'hidden',
+                      borderRadius: '12px',
+                      border: '1px solid var(--card-border)',
+                      cursor: 'zoom-in',
+                      background: '#09090b',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                    onClick={() => setPreviewImage('./harness/architecture_diagram.png')}
+                  >
+                    <img
+                      src="./harness/architecture_diagram.png"
+                      alt="Agent Harness Architecture: Tuple H = (E, T, C, S, L, V)"
+                      style={{
+                        maxWidth: '100%',
+                        maxHeight: isFullscreen ? '460px' : '340px',
+                        objectFit: 'contain'
+                      }}
+                    />
+                    <div
+                      style={{
+                        position: 'absolute',
+                        bottom: '12px',
+                        right: '14px',
+                        background: 'rgba(0, 0, 0, 0.78)',
+                        backdropFilter: 'blur(8px)',
+                        color: '#ffffff',
+                        padding: '5px 12px',
+                        borderRadius: '8px',
+                        fontSize: '11px',
+                        fontFamily: 'var(--font-mono)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px'
+                      }}
+                    >
+                      <ZoomIn size={13} />
+                      <span>Klik untuk Zoom Layar Penuh</span>
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', flexWrap: 'wrap', gap: '10px' }}>
+                    <div>
+                      <h4 style={{ fontSize: '13.5px', fontWeight: 700, color: 'var(--folio-ink)' }}>
+                        Figur Arsitektur Resmi Paper Meng et al. (2026)
+                      </h4>
+                      <p style={{ fontSize: '12px', color: 'var(--ink-body)' }}>
+                        Diagram interaksi formal antara LLM Engine, Tool Interface, State Memory, Lifecycle Gates, dan Verification Engine.
+                      </p>
+                    </div>
+                    <div
+                      style={{
+                        padding: '6px 12px',
+                        borderRadius: '8px',
+                        background: 'rgba(168, 85, 247, 0.1)',
+                        border: '1px solid rgba(168, 85, 247, 0.3)',
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: '11px',
+                        color: '#a855f7'
+                      }}
+                    >
+                      SWE-bench: 6.7% → 68.3% Jump
+                    </div>
+                  </div>
+                </div>
               )}
             </div>
           )}
 
-          {/* SLIDE 4: How Graphify Works (Context Management & GraphRAG) */}
+          {/* SLIDE 3: AGY Architecture & Lifecycle Gates */}
+          {currentSlide === 2 && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              {/* Layer Selection Tabs */}
+              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                {[
+                  { id: 'surfaces', label: '1. Surfaces Layer (IDE/CLI/SDK)' },
+                  { id: 'runtime', label: '2. Core Runtime & State Machine' },
+                  { id: 'harness', label: '3. Harness Gate (hooks.json)' },
+                  { id: 'context', label: '4. Progressive Disclosure' }
+                ].map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => {
+                      soundFx.playCardClick();
+                      setActiveArchLayer(tab.id);
+                    }}
+                    style={{
+                      padding: '8px 16px',
+                      borderRadius: '10px',
+                      background: activeArchLayer === tab.id ? '#a855f7' : 'var(--surface-sunken)',
+                      color: activeArchLayer === tab.id ? '#ffffff' : 'var(--ink)',
+                      border: '1px solid var(--card-border)',
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: '12px',
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      transition: 'all 0.15s'
+                    }}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Layer Details Content */}
+              {activeArchLayer === 'surfaces' && (
+                <div style={{ padding: '20px', borderRadius: '16px', background: 'var(--surface-card-subtle)', border: '1px solid var(--card-border)' }}>
+                  <h4 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '10px', color: 'var(--folio-ink)' }}>
+                    Unified Entry Surfaces
+                  </h4>
+                  <p style={{ fontSize: '13.5px', color: 'var(--ink-body)', lineHeight: 1.7, marginBottom: '14px' }}>
+                    Google Antigravity dirancang agar bisa digunakan di berbagai permukaan kerja tanpa merusak workflow developer:
+                  </p>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '12px' }}>
+                    <div style={{ padding: '14px', borderRadius: '12px', background: 'var(--surface-card)', border: '1px solid var(--card-border)' }}>
+                      <strong style={{ color: '#2c6fff' }}>Antigravity IDE:</strong> AI-first editor berbasis VS Code dengan <em>Tab Autocomplete</em>, <em>Inline Command</em> (Ctrl+I), dan <em>Code Lenses</em>.
+                    </div>
+                    <div style={{ padding: '14px', borderRadius: '12px', background: 'var(--surface-card)', border: '1px solid var(--card-border)' }}>
+                      <strong style={{ color: '#a855f7' }}>Antigravity 2.0:</strong> Desktop App untuk orchestrating multi-agents, subagent trees, dan scheduled background tasks.
+                    </div>
+                    <div style={{ padding: '14px', borderRadius: '12px', background: 'var(--surface-card)', border: '1px solid var(--card-border)' }}>
+                      <strong style={{ color: '#10b981' }}>Antigravity CLI (agy):</strong> Antarmuka terminal TUI cepat untuk lingkungan server atau remote dev.
+                    </div>
+                    <div style={{ padding: '14px', borderRadius: '12px', background: 'var(--surface-card)', border: '1px solid var(--card-border)' }}>
+                      <strong style={{ color: '#f59e0b' }}>Python SDK:</strong> Package <code>google-antigravity</code> untuk integrasi programmatic evals dan pipeline CI/CD.
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {activeArchLayer === 'runtime' && (
+                <div style={{ padding: '20px', borderRadius: '16px', background: 'var(--surface-card-subtle)', border: '1px solid var(--card-border)' }}>
+                  <h4 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '10px', color: 'var(--folio-ink)' }}>
+                    Core Runtime & State Machine
+                  </h4>
+                  <p style={{ fontSize: '13.5px', color: 'var(--ink-body)', lineHeight: 1.7 }}>
+                    Jantung dari AGY adalah <strong>Autonomous Execution Loop</strong>. Model tidak sekadar menjawab chat; ia menggerakkan mesin status:
+                  </p>
+                  <ul style={{ fontSize: '13px', color: 'var(--ink-body)', lineHeight: 1.8, paddingLeft: '20px', marginTop: '10px' }}>
+                    <li><strong>State Machine:</strong> Menjaga context antar turn, melacak subagent yang sedang berjalan, dan memantau task di background tanpa blocking polling.</li>
+                    <li><strong>Reactive Wakeup:</strong> Begitu background command atau subagent selesai, runtime otomatis membangunkan model untuk memproses output.</li>
+                    <li><strong>Tool Protocol:</strong> Standarisasi eksekusi file read/write, terminal bash, web search, dan MCP servers.</li>
+                  </ul>
+                </div>
+              )}
+
+              {activeArchLayer === 'harness' && (
+                <div style={{ padding: '20px', borderRadius: '16px', background: 'var(--surface-card-subtle)', border: '1px solid var(--card-border)' }}>
+                  <h4 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '10px', color: 'var(--folio-ink)' }}>
+                    Lifecycle Hooks: The Built-in Harness Engine (.agents/hooks.json)
+                  </h4>
+                  <p style={{ fontSize: '13.5px', color: 'var(--ink-body)', lineHeight: 1.7, marginBottom: '12px' }}>
+                    AGY mengizinkan developer menyisipkan skrip validasi di titik-titik kritis loop:
+                  </p>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '10px' }}>
+                    <div style={{ padding: '12px', borderRadius: '10px', background: 'var(--surface-card)', borderLeft: '3px solid #f59e0b' }}>
+                      <code style={{ color: '#f59e0b', fontWeight: 700 }}>PreToolUse</code>
+                      <p style={{ fontSize: '12px', marginTop: '4px' }}>Mencegat tool sebelum jalan. Bisa return <code>allow</code>, <code>deny</code>, atau <code>ask</code>.</p>
+                    </div>
+                    <div style={{ padding: '12px', borderRadius: '10px', background: 'var(--surface-card)', borderLeft: '3px solid #10b981' }}>
+                      <code style={{ color: '#10b981', fontWeight: 700 }}>PostToolUse</code>
+                      <p style={{ fontSize: '12px', marginTop: '4px' }}>Menjalankan auto-formatting, linter, atau tipe checker setiap kali file berubah.</p>
+                    </div>
+                    <div style={{ padding: '12px', borderRadius: '10px', background: 'var(--surface-card)', borderLeft: '3px solid #a855f7' }}>
+                      <code style={{ color: '#a855f7', fontWeight: 700 }}>Stop (The Gate)</code>
+                      <p style={{ fontSize: '12px', marginTop: '4px' }}>Jika unit test gagal, kembalikan <code>decision: "continue"</code>. Agent dipaksa lanjut memperbaiki.</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {activeArchLayer === 'context' && (
+                <div style={{ padding: '20px', borderRadius: '16px', background: 'var(--surface-card-subtle)', border: '1px solid var(--card-border)' }}>
+                  <h4 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '10px', color: 'var(--folio-ink)' }}>
+                    Progressive Disclosure (Hemat Konteks & Cepat)
+                  </h4>
+                  <p style={{ fontSize: '13.5px', color: 'var(--ink-body)', lineHeight: 1.7 }}>
+                    Antigravity memecahkan masalah degradasi performa model dengan <strong>Progressive Disclosure</strong>:
+                  </p>
+                  <div style={{ marginTop: '12px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    <div style={{ padding: '10px 14px', borderRadius: '8px', background: 'var(--surface-card)', fontSize: '13px' }}>
+                      <strong>1. Shallow Indexing:</strong> Hanya nama dan deskripsi singkat dari Rules dan Skills yang dimuat ke dalam prompt utama.
+                    </div>
+                    <div style={{ padding: '10px 14px', borderRadius: '8px', background: 'var(--surface-card)', fontSize: '13px' }}>
+                      <strong>2. On-Demand Activation:</strong> Isi lengkap instruksi skill baru dimuat saat model (atau user) memutuskan untuk mengaktifkannya.
+                    </div>
+                    <div style={{ padding: '10px 14px', borderRadius: '8px', background: 'var(--surface-card)', fontSize: '13px' }}>
+                      <strong>3. Deduplication:</strong> Mencegah file aturan dibaca ganda di dalam percakapan yang sama.
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* SLIDE 4: How Graphify Works */}
           {currentSlide === 3 && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <p style={{ fontSize: '13.5px', color: 'var(--ink-body)', lineHeight: 1.7 }}>
-                Di paper Meng et al. (Section 6.4 & 6.6), <strong>Runtime Context Management</strong> dan <strong>Memory Architecture</strong> diidentifikasi sebagai tantangan terbesar karena efek <em>"Lost in the Middle"</em>. 
-                <strong>Graphify</strong> mengimplementasikan komponen [C] dan [S] melalui graf pengetahuan terstruktur:
+                Saat berhadapan dengan repository besar, memberi seluruh kode ke LLM akan menghabiskan puluhan ribu token dan menimbulkan halusinasi. 
+                <strong>Graphify</strong> mentransformasikan kode menjadi <em>Knowledge Graph</em> terstruktur:
               </p>
 
               {/* 5-Step Pipeline Cards */}
@@ -886,7 +1156,7 @@ export default function EvolutionPresentationModal({ isOpen, onClose }) {
                     </h4>
                   </div>
                   <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: '#10b981', fontWeight: 600 }}>
-                    182 Nodes • 483 Edges • 14 Communities
+                    81 Nodes • 136 Edges • 10 Communities
                   </span>
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '10px', fontSize: '12.5px', color: 'var(--ink-body)' }}>
@@ -904,125 +1174,84 @@ export default function EvolutionPresentationModal({ isOpen, onClose }) {
             </div>
           )}
 
-          {/* SLIDE 5: Multi-Agent Topology & The Future of Software Engineering */}
+          {/* SLIDE 5: The Future of Software Engineering */}
           {currentSlide === 4 && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-              {activeSubTab === 'diagram' ? (
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                  gap: '16px'
+                }}
+              >
                 <div
                   style={{
-                    padding: '16px',
+                    padding: '20px',
                     borderRadius: '16px',
                     background: 'var(--surface-sunken)',
                     border: '1px solid var(--card-border)',
-                    textAlign: 'center'
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '10px'
                   }}
                 >
-                  <div
-                    style={{ position: 'relative', cursor: 'zoom-in' }}
-                    onClick={() => setPreviewImage('./harness/multi_agent_topology.png')}
-                  >
-                    <img
-                      src="./harness/multi_agent_topology.png"
-                      alt="Multi-Agent Topology and Protocols"
-                      style={{ maxWidth: '100%', maxHeight: '460px', objectFit: 'contain', borderRadius: '12px' }}
-                    />
-                    <div style={{ position: 'absolute', top: 12, right: 12, background: 'rgba(0,0,0,0.6)', color: '#fff', padding: '4px 8px', borderRadius: '6px', fontSize: '11px', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                      <ZoomIn size={12} /> Click to zoom
-                    </div>
-                  </div>
-                  <p style={{ fontFamily: 'var(--font-mono)', fontSize: '11.5px', color: 'var(--ink-faint)', marginTop: '10px' }}>
-                    <strong>Figure 6:</strong> Multi-Agent Coordination Topology and Protocols (MCP vs A2A). Sumber: Meng et al., 2026.
+                  <h4 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--ink-faint)' }}>
+                    Paradigma Lama (Manual Coding)
+                  </h4>
+                  <ul style={{ fontSize: '13px', color: 'var(--ink-body)', lineHeight: 1.8, paddingLeft: '18px' }}>
+                    <li>Menulis perulangan, boilerplate, dan CRUD manual.</li>
+                    <li>Menghabiskan waktu debugging syntax dan konfigurasi library.</li>
+                    <li>Satu orang mengerjakan satu modul secara linier.</li>
+                    <li>Dokumentasi arsitektur sering usang dan tidak sinkron dengan kode.</li>
+                  </ul>
+                </div>
+
+                <div
+                  style={{
+                    padding: '20px',
+                    borderRadius: '16px',
+                    background: 'rgba(168, 85, 247, 0.06)',
+                    border: '2px solid rgba(168, 85, 247, 0.4)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '10px'
+                  }}
+                >
+                  <h4 style={{ fontSize: '15px', fontWeight: 700, color: '#a855f7' }}>
+                    Paradigma Baru (Agentic Engineering)
+                  </h4>
+                  <ul style={{ fontSize: '13px', color: 'var(--folio-ink)', lineHeight: 1.8, paddingLeft: '18px' }}>
+                    <li><strong>Invariant Designer:</strong> Merumuskan batasan bisnis dan aturan integritas data.</li>
+                    <li><strong>Harness Engineer:</strong> Membangun test suite dan feedback gates yang ketat.</li>
+                    <li><strong>Agent Orchestration:</strong> Membagi tugas ke subagent spesifik (Researcher, Coder, Reviewer).</li>
+                    <li><strong>Knowledge Graph Curator:</strong> Memelihara peta mental sistem agar AI dan manusia selaras.</li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Closing Summary */}
+              <div
+                style={{
+                  padding: '20px 24px',
+                  borderRadius: '16px',
+                  background: 'linear-gradient(135deg, rgba(44, 111, 255, 0.08), rgba(168, 85, 247, 0.08))',
+                  border: '1px solid rgba(168, 85, 247, 0.25)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '16px'
+                }}
+              >
+                <Boxes size={32} color="#a855f7" style={{ flexShrink: 0 }} />
+                <div>
+                  <h4 style={{ fontSize: '15px', fontWeight: 800, color: 'var(--folio-ink)', marginBottom: '4px' }}>
+                    Kesimpulan: AI adalah Mesin, Harness adalah Kemudi & Rem
+                  </h4>
+                  <p style={{ fontSize: '13px', color: 'var(--ink-body)', lineHeight: 1.6 }}>
+                    Kecepatan komputasi AI tidak ada artinya tanpa arah dan batasan yang teruji. 
+                    Masa depan coding bukan tentang menggantikan manusia, melainkan memberi engineer kekuatan untuk mengorkestrasi satu skuadron agen cerdas di dalam ekosistem yang aman, terverifikasi, dan deterministik.
                   </p>
                 </div>
-              ) : (
-                <>
-                  <div
-                    style={{
-                      display: 'grid',
-                      gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                      gap: '16px'
-                    }}
-                  >
-                    <div
-                      style={{
-                        padding: '20px',
-                        borderRadius: '16px',
-                        background: 'var(--surface-sunken)',
-                        border: '1px solid var(--card-border)',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: '10px'
-                      }}
-                    >
-                      <h4 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--ink-faint)' }}>
-                        Paradigma Lama (Manual Coding)
-                      </h4>
-                      <ul style={{ fontSize: '13px', color: 'var(--ink-body)', lineHeight: 1.8, paddingLeft: '18px' }}>
-                        <li>Menulis perulangan, boilerplate, dan CRUD manual.</li>
-                        <li>Menghabiskan waktu debugging syntax dan konfigurasi library.</li>
-                        <li>Satu orang mengerjakan satu modul secara linier.</li>
-                        <li>Dokumentasi arsitektur sering usang dan tidak sinkron dengan kode.</li>
-                      </ul>
-                    </div>
-
-                    <div
-                      style={{
-                        padding: '20px',
-                        borderRadius: '16px',
-                        background: 'rgba(168, 85, 247, 0.06)',
-                        border: '2px solid rgba(168, 85, 247, 0.4)',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: '10px'
-                      }}
-                    >
-                      <h4 style={{ fontSize: '15px', fontWeight: 700, color: '#a855f7' }}>
-                        Paradigma Baru (Agentic Engineering)
-                      </h4>
-                      <ul style={{ fontSize: '13px', color: 'var(--folio-ink)', lineHeight: 1.8, paddingLeft: '18px' }}>
-                        <li><strong>Invariant Designer:</strong> Merumuskan batasan bisnis dan aturan integritas data.</li>
-                        <li><strong>Harness Engineer:</strong> Membangun test suite dan feedback gates yang ketat.</li>
-                        <li><strong>Agent Orchestration:</strong> Membagi tugas ke subagent spesifik (Researcher, Coder, Reviewer).</li>
-                        <li><strong>Knowledge Graph Curator:</strong> Memelihara peta mental sistem agar AI dan manusia selaras.</li>
-                      </ul>
-                    </div>
-                  </div>
-
-                  {/* Standard Protocols Matrix */}
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '12px' }}>
-                    <div style={{ padding: '14px', borderRadius: '12px', background: 'var(--surface-card)', border: '1px solid var(--card-border)' }}>
-                      <strong style={{ color: '#2c6fff' }}>Anthropic MCP:</strong> Tool-to-Harness standard. Latensi 2–15ms untuk integrasi tool lokal/eksternal.
-                    </div>
-                    <div style={{ padding: '14px', borderRadius: '12px', background: 'var(--surface-card)', border: '1px solid var(--card-border)' }}>
-                      <strong style={{ color: '#a855f7' }}>Google A2A:</strong> Agent-to-Agent standard. Latensi 50–200ms untuk komunikasi otonom antar-agent.
-                    </div>
-                  </div>
-
-                  {/* Closing Summary */}
-                  <div
-                    style={{
-                      padding: '20px 24px',
-                      borderRadius: '16px',
-                      background: 'linear-gradient(135deg, rgba(44, 111, 255, 0.08), rgba(168, 85, 247, 0.08))',
-                      border: '1px solid rgba(168, 85, 247, 0.25)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '16px'
-                    }}
-                  >
-                    <Boxes size={32} color="#a855f7" style={{ flexShrink: 0 }} />
-                    <div>
-                      <h4 style={{ fontSize: '15px', fontWeight: 800, color: 'var(--folio-ink)', marginBottom: '4px' }}>
-                        Kesimpulan: AI adalah Mesin, Harness adalah Kemudi & Rem
-                      </h4>
-                      <p style={{ fontSize: '13px', color: 'var(--ink-body)', lineHeight: 1.6 }}>
-                        Kecepatan komputasi AI tidak ada artinya tanpa arah dan batasan yang teruji. 
-                        Masa depan coding bukan tentang menggantikan manusia, melainkan memberi engineer kekuatan untuk mengorkestrasi satu skuadron agen cerdas di dalam ekosistem yang aman, terverifikasi, dan deterministik.
-                      </p>
-                    </div>
-                  </div>
-                </>
-              )}
+              </div>
             </div>
           )}
         </div>
@@ -1154,7 +1383,7 @@ export default function EvolutionPresentationModal({ isOpen, onClose }) {
             onClick={(e) => e.stopPropagation()}
           />
           <span style={{ color: 'rgba(255,255,255,0.7)', fontSize: '12px', fontFamily: 'var(--font-mono)', marginTop: '12px' }}>
-            Click anywhere or press Esc to close zoom view
+            Klik di mana saja atau tekan Esc untuk menutup
           </span>
         </div>
       )}
