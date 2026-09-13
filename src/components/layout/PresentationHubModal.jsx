@@ -29,8 +29,30 @@ export const PRESENTATIONS_DATA = [
     ]
   },
   {
-    id: 'multi-agent-coordination',
+    id: 'behind-the-terminal',
     number: '02',
+    title: 'Behind the Terminal: Systems, Markets & The -100M Crucible',
+    subtitle: 'Perjalanan Squad Lead BCA Digital, Pengalaman Minus 100 Juta di Futures Market, dan Lab Simulator Leverage Rupiah',
+    status: 'available', // 'available' | 'upcoming' | 'draft'
+    statusLabel: 'Ready to Present',
+    statusColor: '#f59e0b',
+    badge: 'PERSONAL KEYNOTE',
+    chaptersCount: 5,
+    estimatedMinutes: 18,
+    date: 'April 2026',
+    tags: ['Personal Story', 'Futures Trading', 'Crypto Leverage', 'Risk Management', 'BCA Digital'],
+    description: 'Kisah perjalanan karir menembus BUMN di usia 18 tahun, pengalaman likuidasi Binance Futures Rp 100 juta di bear market 2022, kalkulator simulator leverage Rupiah (BTC, ETH, HBAR), dan filosofi korelasi sistem perbankan dengan pasar finansial.',
+    chapters: [
+      { num: '01', name: 'Origin Story: Dari Usia 18 Tahun ke Squad Lead BCA Digital' },
+      { num: '02', name: 'Kuliah Termahal: Riwayat Margin Call Binance Futures -100 Juta' },
+      { num: '03', name: 'Futures & Leverage Lab: Simulasi Kalkulator Rupiah (BTC, ETH, HBAR)' },
+      { num: '04', name: 'The Parallel Mindset: Kaitan Erat Arsitektur Perbankan & Trading' },
+      { num: '05', name: 'Personal Manifesto: Health, Bio-Computing & The Compounding Life' }
+    ]
+  },
+  {
+    id: 'multi-agent-coordination',
+    number: '03',
     title: 'Multi-Agent Coordination & Communication Protocols',
     subtitle: 'Deep-dive protokol inter-agent: Anthropic MCP vs Google A2A dalam sistem terdistribusi',
     status: 'upcoming',

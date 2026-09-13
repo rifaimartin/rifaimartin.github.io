@@ -15,6 +15,7 @@ import ProgressiveBlurDock from './components/layout/ProgressiveBlurDock';
 import CaseStudyModal from './components/layout/CaseStudyModal';
 import GatePassOverlay from './components/3d/GatePassOverlay';
 import EvolutionPresentationModal from './components/layout/EvolutionPresentationModal';
+import PersonalKeynoteModal from './components/layout/PersonalKeynoteModal';
 import PresentationHubModal from './components/layout/PresentationHubModal';
 import { profileData } from './data/profileData';
 import './styles/main.css';
@@ -39,6 +40,7 @@ export default function App() {
   const [isTpdBiOpen, setIsTpdBiOpen] = useState(false);
   const [isPresentationHubOpen, setIsPresentationHubOpen] = useState(false);
   const [isEvolutionOpen, setIsEvolutionOpen] = useState(false);
+  const [isPersonalKeynoteOpen, setIsPersonalKeynoteOpen] = useState(false);
   const [presentationFullscreen, setPresentationFullscreen] = useState(false);
   const [shadeProgress, setShadeProgress] = useState(() => (isDark ? 1 : 0));
 
@@ -72,18 +74,21 @@ export default function App() {
   };
 
   const handleLaunchPresentation = (presentationId, mode) => {
+    if (mode === 'fullscreen') {
+      setPresentationFullscreen(true);
+      try {
+        if (document.documentElement.requestFullscreen) {
+          document.documentElement.requestFullscreen().catch(() => {});
+        }
+      } catch {}
+    } else {
+      setPresentationFullscreen(false);
+    }
+
     if (presentationId === 'coding-evolution-harness') {
-      if (mode === 'fullscreen') {
-        setPresentationFullscreen(true);
-        try {
-          if (document.documentElement.requestFullscreen) {
-            document.documentElement.requestFullscreen().catch(() => {});
-          }
-        } catch {}
-      } else {
-        setPresentationFullscreen(false);
-      }
       setIsEvolutionOpen(true);
+    } else if (presentationId === 'behind-the-terminal') {
+      setIsPersonalKeynoteOpen(true);
     }
   };
 
@@ -208,6 +213,16 @@ export default function App() {
         initialFullscreen={presentationFullscreen}
         onClose={() => {
           setIsEvolutionOpen(false);
+          setPresentationFullscreen(false);
+        }}
+      />
+
+      {/* Behind the Terminal: Systems, Markets & -100M Crucible Personal Keynote Modal */}
+      <PersonalKeynoteModal
+        isOpen={isPersonalKeynoteOpen}
+        initialFullscreen={presentationFullscreen}
+        onClose={() => {
+          setIsPersonalKeynoteOpen(false);
           setPresentationFullscreen(false);
         }}
       />
