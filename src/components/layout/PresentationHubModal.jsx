@@ -32,7 +32,7 @@ export const PRESENTATIONS_DATA = [
     id: 'behind-the-terminal',
     number: '02',
     title: 'Behind the Terminal: Systems, Markets & The -100M Crucible',
-    subtitle: 'Perjalanan Squad Lead BCA Digital, Pengalaman Minus 100 Juta di Futures Market, dan Lab Simulator Leverage Rupiah',
+    subtitle: 'Dari Benih IT di SMK & 1 Tahun Magang di Ink & Canvas ke Pasar Kripto: Pelajaran Mengenal Diri, Pengalaman Minus 100 Juta, dan Lab Simulator Leverage Rupiah',
     status: 'available', // 'available' | 'upcoming' | 'draft'
     statusLabel: 'Ready to Present',
     statusColor: '#f59e0b',
@@ -40,14 +40,14 @@ export const PRESENTATIONS_DATA = [
     chaptersCount: 5,
     estimatedMinutes: 18,
     date: 'April 2026',
-    tags: ['Personal Story', 'Futures Trading', 'Crypto Leverage', 'Risk Management', 'BCA Digital'],
-    description: 'Kisah perjalanan karir menembus BUMN di usia 18 tahun, pengalaman likuidasi Binance Futures Rp 100 juta di bear market 2022, kalkulator simulator leverage Rupiah (BTC, ETH, HBAR), dan filosofi korelasi sistem perbankan dengan pasar finansial.',
+    tags: ['Personal Story', 'SMK to Dev', 'Futures Trading', 'Crypto Leverage', 'Risk Management', 'Self Mastery'],
+    description: 'Kisah awal mula mengenal dunia IT dari bangku SMK, tempaan 1 tahun magang di Ink & Canvas Bogor, transisi ke pasar probabilistik futures, pelajaran berharga mengenal ego dan emosi diri, bukti otentik likuidasi Rp 100 juta di Binance, serta kalkulator interaktif leverage Rupiah.',
     chapters: [
-      { num: '01', name: 'Origin Story: Dari Usia 18 Tahun ke Squad Lead BCA Digital' },
-      { num: '02', name: 'Kuliah Termahal: Riwayat Margin Call Binance Futures -100 Juta' },
-      { num: '03', name: 'Futures & Leverage Lab: Simulasi Kalkulator Rupiah (BTC, ETH, HBAR)' },
-      { num: '04', name: 'The Parallel Mindset: Kaitan Erat Arsitektur Perbankan & Trading' },
-      { num: '05', name: 'Personal Manifesto: Health, Bio-Computing & The Compounding Life' }
+      { num: '01', name: 'Origin Story: Benih IT di SMK & 1 Tahun Magang di Ink & Canvas' },
+      { num: '02', name: 'Melangkah ke Pasar Finansial: Cermin Paling Jujur Mengenal Diri Sendiri' },
+      { num: '03', name: 'Kuliah Termahal: Riwayat Margin Call Binance Futures -100 Juta' },
+      { num: '04', name: 'Futures & Leverage Lab: Simulasi Kalkulator Rupiah (BTC, ETH, HBAR, SOL)' },
+      { num: '05', name: 'Personal Manifesto: Stoikisme, Damai dalam Ketidakpastian & Compounding' }
     ]
   },
   {
