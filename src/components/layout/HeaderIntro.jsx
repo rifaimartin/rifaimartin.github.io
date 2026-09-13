@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PlaneWindowScene from '../3d/PlaneWindowScene';
 import { profileData } from '../../data/profileData';
-import { Plane, Clock, Eye, Users, Sparkles } from 'lucide-react';
+import { Plane, Clock, Eye, Users } from 'lucide-react';
 import { useVisitorCount } from '../../utils/visitorCounter';
 import { soundFx } from '../../utils/audio';
 
@@ -75,35 +75,6 @@ export default function HeaderIntro({ isDark, onShadeChange, onShadeDrag, onOpen
             <Eye size={12} color="var(--folio-blue)" />
             <span>{formattedCount} Views</span>
           </div>
-
-          {/* Keynote Presentation Launcher Pill */}
-          <button
-            onClick={() => {
-              soundFx.playCardClick();
-              if (onOpenEvolution) onOpenEvolution();
-            }}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              padding: '4px 12px',
-              borderRadius: '999px',
-              background: 'linear-gradient(135deg, rgba(168, 85, 247, 0.12), rgba(44, 111, 255, 0.12))',
-              fontFamily: 'var(--font-mono)',
-              fontSize: '11px',
-              fontWeight: 700,
-              color: '#a855f7',
-              border: '1px solid rgba(168, 85, 247, 0.35)',
-              cursor: 'pointer',
-              transition: 'all 0.2s ease',
-              boxShadow: '0 2px 8px rgba(168, 85, 247, 0.12)'
-            }}
-            onMouseEnter={() => soundFx.playHover()}
-            title="Open Interactive Keynote: The Evolution of Coding & Agent Harness"
-          >
-            <Sparkles size={12} color="#a855f7" />
-            <span>Keynote: Coding Evolution & Harness</span>
-          </button>
         </div>
 
         <h1 className="folio-tagline">

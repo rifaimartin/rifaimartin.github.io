@@ -96,7 +96,7 @@ const HARNESS_ELEMENTS = [
   }
 ];
 
-export default function EvolutionPresentationModal({ isOpen, onClose }) {
+export default function EvolutionPresentationModal({ isOpen, onClose, initialFullscreen = false }) {
   const containerRef = useRef(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [activeTabSlide1, setActiveTabSlide1] = useState(3);
@@ -107,6 +107,28 @@ export default function EvolutionPresentationModal({ isOpen, onClose }) {
   const [slide2SubView, setSlide2SubView] = useState('elements'); // 'elements' | 'diagram'
   const [activeElementKey, setActiveElementKey] = useState('E');
   const [previewImage, setPreviewImage] = useState(null);
+
+  // Auto-launch fullscreen if requested
+  useEffect(() => {
+    if (isOpen && initialFullscreen) {
+      const isCurrentlyFs = Boolean(
+        document.fullscreenElement ||
+        document.webkitFullscreenElement ||
+        document.mozFullScreenElement ||
+        document.msFullscreenElement
+      );
+      if (!isCurrentlyFs) {
+        const elem = containerRef.current || document.documentElement;
+        if (elem.requestFullscreen) {
+          elem.requestFullscreen().catch(() => {});
+        } else if (elem.webkitRequestFullscreen) {
+          elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) {
+          elem.msRequestFullscreen();
+        }
+      }
+    }
+  }, [isOpen, initialFullscreen]);
 
   // Presenter Elapsed Timer
   useEffect(() => {

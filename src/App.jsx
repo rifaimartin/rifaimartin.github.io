@@ -15,6 +15,7 @@ import ProgressiveBlurDock from './components/layout/ProgressiveBlurDock';
 import CaseStudyModal from './components/layout/CaseStudyModal';
 import GatePassOverlay from './components/3d/GatePassOverlay';
 import EvolutionPresentationModal from './components/layout/EvolutionPresentationModal';
+import PresentationHubModal from './components/layout/PresentationHubModal';
 import { profileData } from './data/profileData';
 import './styles/main.css';
 
@@ -36,7 +37,9 @@ export default function App() {
   const [isOpenGymOpen, setIsOpenGymOpen] = useState(false);
   const [isPsikotestOpen, setIsPsikotestOpen] = useState(false);
   const [isTpdBiOpen, setIsTpdBiOpen] = useState(false);
+  const [isPresentationHubOpen, setIsPresentationHubOpen] = useState(false);
   const [isEvolutionOpen, setIsEvolutionOpen] = useState(false);
+  const [presentationFullscreen, setPresentationFullscreen] = useState(false);
   const [shadeProgress, setShadeProgress] = useState(() => (isDark ? 1 : 0));
 
   // Sync theme attribute with DOM
@@ -66,6 +69,22 @@ export default function App() {
       localStorage.removeItem('rifai_pass_granted');
     } catch {}
     setGateOpen(true);
+  };
+
+  const handleLaunchPresentation = (presentationId, mode) => {
+    if (presentationId === 'coding-evolution-harness') {
+      if (mode === 'fullscreen') {
+        setPresentationFullscreen(true);
+        try {
+          if (document.documentElement.requestFullscreen) {
+            document.documentElement.requestFullscreen().catch(() => {});
+          }
+        } catch {}
+      } else {
+        setPresentationFullscreen(false);
+      }
+      setIsEvolutionOpen(true);
+    }
   };
 
   return (
@@ -113,7 +132,6 @@ export default function App() {
             if (shade > 0.65 && !isDark) setIsDark(true);
             else if (shade < 0.35 && isDark) setIsDark(false);
           }}
-          onOpenEvolution={() => setIsEvolutionOpen(true)}
         />
 
         {/* Flight Path Career Timeline */}
@@ -136,7 +154,7 @@ export default function App() {
         <InFlightMagazine
           onOpenArticle={(article) => {
             if (article.isPresentation) {
-              setIsEvolutionOpen(true);
+              setIsPresentationHubOpen(true);
             } else {
               setActiveArticle(article);
             }
@@ -177,10 +195,21 @@ export default function App() {
         onClose={() => setIsTpdBiOpen(false)}
       />
 
+      {/* Technical Keynotes & Talks Catalog Hub Modal */}
+      <PresentationHubModal
+        isOpen={isPresentationHubOpen}
+        onClose={() => setIsPresentationHubOpen(false)}
+        onLaunchPresentation={handleLaunchPresentation}
+      />
+
       {/* The Evolution of Coding & Agent Harness Interactive Presentation Modal */}
       <EvolutionPresentationModal
         isOpen={isEvolutionOpen}
-        onClose={() => setIsEvolutionOpen(false)}
+        initialFullscreen={presentationFullscreen}
+        onClose={() => {
+          setIsEvolutionOpen(false);
+          setPresentationFullscreen(false);
+        }}
       />
 
       {/* Floating Progressive Multi-Blur Dock */}
@@ -189,7 +218,7 @@ export default function App() {
         onOpenOpenGym={() => setIsOpenGymOpen(true)}
         onOpenPsikotest={() => setIsPsikotestOpen(true)}
         onOpenTpdBi={() => setIsTpdBiOpen(true)}
-        onOpenEvolution={() => setIsEvolutionOpen(true)}
+        onOpenPresentations={() => setIsPresentationHubOpen(true)}
         isDark={isDark}
         onToggleTheme={() => setIsDark((prev) => !prev)}
       />

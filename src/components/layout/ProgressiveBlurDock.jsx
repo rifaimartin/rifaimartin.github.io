@@ -1,7 +1,7 @@
 import React from 'react';
 import { soundFx } from '../../utils/audio';
 import { useVisitorCount } from '../../utils/visitorCounter';
-import { Sun, Moon, Sparkles, Mail, ArrowUp, BookOpen, Eye, Dumbbell, Award, Landmark, Cpu } from 'lucide-react';
+import { Sun, Moon, Sparkles, Mail, ArrowUp, BookOpen, Eye, Dumbbell, Award, Landmark, Cpu, Tv } from 'lucide-react';
 
 function GithubIcon({ size = 14 }) {
   return (
@@ -22,7 +22,7 @@ function LinkedinIcon({ size = 14 }) {
   );
 }
 
-export default function ProgressiveBlurDock({ onResetGate, onOpenOpenGym, onOpenPsikotest, onOpenTpdBi, onOpenEvolution, isDark, onToggleTheme }) {
+export default function ProgressiveBlurDock({ onResetGate, onOpenOpenGym, onOpenPsikotest, onOpenTpdBi, onOpenPresentations, onOpenEvolution, isDark, onToggleTheme }) {
   const { formattedCount } = useVisitorCount();
 
   const scrollToTop = () => {
@@ -116,17 +116,18 @@ export default function ProgressiveBlurDock({ onResetGate, onOpenOpenGym, onOpen
               <span>TPD BI</span>
             </button>
 
-            {/* The Evolution of Coding & Agent Harness Keynote launcher */}
+            {/* Presentations & Technical Talks Hub launcher */}
             <button
               className="ff-link"
               onClick={() => {
                 soundFx.playCardClick();
-                if (onOpenEvolution) onOpenEvolution();
+                if (onOpenPresentations) onOpenPresentations();
+                else if (onOpenEvolution) onOpenEvolution();
               }}
-              title="Open Interactive Keynote: The Evolution of Coding & Agent Harness"
+              title="Open Presentations & Talks Hub"
             >
-              <Cpu size={13} color="#a855f7" />
-              <span>Harness</span>
+              <Tv size={13} color="#a855f7" />
+              <span>Presentation</span>
             </button>
 
             <div className="ff-divider" />
