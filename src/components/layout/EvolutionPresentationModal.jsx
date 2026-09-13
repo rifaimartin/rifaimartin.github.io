@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   X, ChevronLeft, ChevronRight, Sparkles, Cpu, Layers, Network, 
   ShieldCheck, CheckCircle2, AlertTriangle, Terminal, Workflow, 
-  Boxes, BookOpen, Compass, Code2, ArrowRight, Play, ExternalLink
+  Boxes, BookOpen, Compass, Code2, ArrowRight, Play, ExternalLink,
+  Maximize2, Minimize2, Tv, Clock, Monitor
 } from 'lucide-react';
 import { soundFx } from '../../utils/audio';
 
@@ -45,17 +46,122 @@ const CHAPTERS = [
 ];
 
 export default function EvolutionPresentationModal({ isOpen, onClose }) {
+  const containerRef = useRef(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [activeTabSlide1, setActiveTabSlide1] = useState(3);
   const [activeArchLayer, setActiveArchLayer] = useState('harness');
   const [activeGraphStep, setActiveGraphStep] = useState(2);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [elapsedSeconds, setElapsedSeconds] = useState(0);
 
-  // Keyboard navigation (Arrow keys + Escape)
+  // Presenter Elapsed Timer
+  useEffect(() => {
+    let interval = null;
+    if (isOpen) {
+      interval = setInterval(() => {
+        setElapsedSeconds((prev) => prev + 1);
+      }, 1000);
+    } else {
+      setElapsedSeconds(0);
+    }
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [isOpen]);
+
+  // Fullscreen event listener across browser prefixes
+  useEffect(() => {
+    const handleFsChange = () => {
+      const activeFs = Boolean(
+        document.fullscreenElement ||
+        document.webkitFullscreenElement ||
+        document.mozFullScreenElement ||
+        document.msFullscreenElement
+      );
+      setIsFullscreen(activeFs);
+    };
+
+    document.addEventListener('fullscreenchange', handleFsChange);
+    document.addEventListener('webkitfullscreenchange', handleFsChange);
+    document.addEventListener('mozfullscreenchange', handleFsChange);
+    document.addEventListener('MSFullscreenChange', handleFsChange);
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFsChange);
+      document.removeEventListener('webkitfullscreenchange', handleFsChange);
+      document.removeEventListener('mozfullscreenchange', handleFsChange);
+      document.removeEventListener('MSFullscreenChange', handleFsChange);
+    };
+  }, []);
+
+  const toggleFullscreen = async () => {
+    soundFx.playCardClick();
+    try {
+      const isCurrentlyFs = Boolean(
+        document.fullscreenElement ||
+        document.webkitFullscreenElement ||
+        document.mozFullScreenElement ||
+        document.msFullscreenElement
+      );
+
+      if (!isCurrentlyFs) {
+        const elem = containerRef.current || document.documentElement;
+        if (elem.requestFullscreen) {
+          await elem.requestFullscreen();
+        } else if (elem.webkitRequestFullscreen) {
+          await elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) {
+          await elem.msRequestFullscreen();
+        }
+      } else {
+        if (document.exitFullscreen) {
+          await document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+          await document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+          await document.msExitFullscreen();
+        }
+      }
+    } catch (err) {
+      console.warn('Fullscreen toggle encountered an issue:', err);
+    }
+  };
+
+  const handleClose = () => {
+    soundFx.playCardClick();
+    if (document.fullscreenElement || document.webkitFullscreenElement) {
+      try {
+        if (document.exitFullscreen) document.exitFullscreen();
+      } catch {}
+    }
+    onClose();
+  };
+
+  const formatTime = (secs) => {
+    const m = Math.floor(secs / 60).toString().padStart(2, '0');
+    const s = (secs % 60).toString().padStart(2, '0');
+    return `${m}:${s}`;
+  };
+
+  // Keyboard navigation (Arrows, Space, F, Escape)
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === 'Escape') onClose();
-      if (e.key === 'ArrowRight') handleNext();
-      if (e.key === 'ArrowLeft') handlePrev();
+      if (e.key === 'Escape') {
+        if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+          handleClose();
+        }
+      }
+      if (e.key === 'f' || e.key === 'F') {
+        e.preventDefault();
+        toggleFullscreen();
+      }
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        if (e.key === ' ') e.preventDefault();
+        handleNext();
+      }
+      if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        handlePrev();
+      }
     };
 
     if (isOpen) {
@@ -67,7 +173,7 @@ export default function EvolutionPresentationModal({ isOpen, onClose }) {
       document.body.style.overflow = '';
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [isOpen, currentSlide]);
+  }, [isOpen, currentSlide, isFullscreen]);
 
   if (!isOpen) return null;
 
@@ -92,6 +198,7 @@ export default function EvolutionPresentationModal({ isOpen, onClose }) {
 
   return (
     <div
+      ref={containerRef}
       style={{
         position: 'fixed',
         inset: 0,
@@ -99,30 +206,31 @@ export default function EvolutionPresentationModal({ isOpen, onClose }) {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '16px',
-        backgroundColor: 'rgba(5, 5, 8, 0.88)',
+        padding: isFullscreen ? 0 : '16px',
+        backgroundColor: isFullscreen ? '#060609' : 'rgba(5, 5, 8, 0.88)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
         animation: 'fadeIn 0.25s ease-out'
       }}
-      onClick={onClose}
+      onClick={isFullscreen ? undefined : handleClose}
       role="dialog"
       aria-modal="true"
     >
       <div
         style={{
-          background: 'var(--surface-card)',
-          border: '1px solid var(--card-border)',
-          borderRadius: '24px',
-          maxWidth: '1040px',
+          background: isFullscreen ? 'var(--bg)' : 'var(--surface-card)',
+          border: isFullscreen ? 'none' : '1px solid var(--card-border)',
+          borderRadius: isFullscreen ? 0 : '24px',
+          maxWidth: isFullscreen ? '100vw' : '1080px',
           width: '100%',
-          height: '92vh',
-          maxHeight: '880px',
+          height: isFullscreen ? '100vh' : '92vh',
+          maxHeight: isFullscreen ? '100vh' : '880px',
           display: 'flex',
           flexDirection: 'column',
           overflow: 'hidden',
-          boxShadow: '0 32px 96px rgba(0,0,0,0.7)',
-          position: 'relative'
+          boxShadow: isFullscreen ? 'none' : '0 32px 96px rgba(0,0,0,0.7)',
+          position: 'relative',
+          transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
         }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -132,7 +240,7 @@ export default function EvolutionPresentationModal({ isOpen, onClose }) {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            padding: '14px 24px',
+            padding: isFullscreen ? '18px 36px' : '14px 24px',
             borderBottom: '1px solid var(--card-border)',
             background: 'var(--surface-card-subtle)',
             flexShrink: 0
@@ -146,32 +254,49 @@ export default function EvolutionPresentationModal({ isOpen, onClose }) {
                 gap: '6px',
                 padding: '4px 10px',
                 borderRadius: '999px',
-                background: 'rgba(168, 85, 247, 0.12)',
+                background: isFullscreen ? 'rgba(168, 85, 247, 0.22)' : 'rgba(168, 85, 247, 0.12)',
                 color: '#a855f7',
-                border: '1px solid rgba(168, 85, 247, 0.28)',
+                border: '1px solid rgba(168, 85, 247, 0.35)',
                 fontFamily: 'var(--font-mono)',
                 fontSize: '11px',
                 fontWeight: 700,
                 letterSpacing: '0.5px'
               }}
             >
-              <Sparkles size={12} />
-              <span>KEYNOTE & INTERACTIVE ESSAY</span>
+              <Tv size={12} />
+              <span>{isFullscreen ? 'PRESENTATION MODE' : 'KEYNOTE ESSAY'}</span>
             </div>
-            <span style={{ fontSize: '13px', color: 'var(--ink-muted)', fontWeight: 500 }}>
-              Chapter {currentSlide + 1} of {CHAPTERS.length}
-            </span>
+
+            {/* Presenter Clock Timer */}
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '5px',
+                padding: '3px 9px',
+                borderRadius: '999px',
+                background: 'var(--surface-sunken)',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '11px',
+                fontWeight: 600,
+                color: 'var(--ink-body)'
+              }}
+              title="Presentation Elapsed Time"
+            >
+              <Clock size={11} color="#a855f7" />
+              <span>{formatTime(elapsedSeconds)}</span>
+            </div>
           </div>
 
           {/* Chapter Quick Selector Pills */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             {CHAPTERS.map((ch, idx) => (
               <button
                 key={ch.id}
                 onClick={() => goToSlide(idx)}
                 style={{
-                  width: idx === currentSlide ? '28px' : '9px',
-                  height: '9px',
+                  width: idx === currentSlide ? '36px' : '10px',
+                  height: '10px',
                   borderRadius: '999px',
                   backgroundColor: idx === currentSlide ? '#a855f7' : 'var(--card-border)',
                   border: 'none',
@@ -179,25 +304,44 @@ export default function EvolutionPresentationModal({ isOpen, onClose }) {
                   transition: 'all 0.25s ease',
                   padding: 0
                 }}
-                title={`Jump to Chapter ${idx + 1}: ${ch.title}`}
+                title={`Chapter ${idx + 1}: ${ch.title}`}
               />
             ))}
           </div>
 
-          {/* Close & Shortcut Help */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--ink-faint)' }}>
-              Use <kbd style={{ padding: '2px 5px', borderRadius: '4px', background: 'var(--surface-sunken)', border: '1px solid var(--card-border)' }}>←</kbd> <kbd style={{ padding: '2px 5px', borderRadius: '4px', background: 'var(--surface-sunken)', border: '1px solid var(--card-border)' }}>→</kbd>
-            </span>
+          {/* Right Action Controls: Fullscreen & Close */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            {/* Fullscreen Presentation Mode Button */}
             <button
-              onClick={() => {
-                soundFx.playCardClick();
-                onClose();
+              onClick={toggleFullscreen}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                padding: '5px 12px',
+                borderRadius: '8px',
+                background: isFullscreen ? 'rgba(168, 85, 247, 0.18)' : 'var(--surface-sunken)',
+                color: isFullscreen ? '#a855f7' : 'var(--folio-ink)',
+                border: isFullscreen ? '1px solid #a855f7' : '1px solid var(--card-border)',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '11.5px',
+                fontWeight: 700,
+                cursor: 'pointer',
+                transition: 'all 0.15s ease'
               }}
+              title={isFullscreen ? 'Exit Fullscreen (Esc / F)' : 'Enter Fullscreen Presentation Mode (F)'}
+            >
+              {isFullscreen ? <Minimize2 size={13} /> : <Maximize2 size={13} />}
+              <span>{isFullscreen ? 'Exit Fullscreen' : 'Present (F)'}</span>
+            </button>
+
+            {/* Close Button */}
+            <button
+              onClick={handleClose}
               style={{
                 width: '32px',
                 height: '32px',
-                borderRadius: '50%',
+                borderRadius: '8px',
                 background: 'var(--surface-sunken)',
                 border: '1px solid var(--card-border)',
                 display: 'flex',
@@ -219,10 +363,13 @@ export default function EvolutionPresentationModal({ isOpen, onClose }) {
           style={{
             flex: 1,
             overflowY: 'auto',
-            padding: '32px 36px',
+            padding: isFullscreen ? '40px max(32px, 8vw)' : '32px 36px',
             display: 'flex',
             flexDirection: 'column',
-            gap: '24px'
+            gap: '24px',
+            maxWidth: isFullscreen ? '1280px' : '100%',
+            width: '100%',
+            margin: isFullscreen ? '0 auto' : '0'
           }}
         >
           {/* Chapter Header */}
@@ -242,7 +389,7 @@ export default function EvolutionPresentationModal({ isOpen, onClose }) {
             </div>
             <h2
               style={{
-                fontSize: 'clamp(20px, 3.2vw, 28px)',
+                fontSize: isFullscreen ? 'clamp(24px, 3.4vw, 36px)' : 'clamp(20px, 3.2vw, 28px)',
                 fontWeight: 800,
                 color: 'var(--folio-ink)',
                 lineHeight: 1.3,
@@ -253,10 +400,10 @@ export default function EvolutionPresentationModal({ isOpen, onClose }) {
             </h2>
             <p
               style={{
-                fontSize: '14.5px',
+                fontSize: isFullscreen ? '16px' : '14.5px',
                 color: 'var(--ink-body)',
                 lineHeight: 1.6,
-                maxWidth: '820px'
+                maxWidth: '960px'
               }}
             >
               {CHAPTERS[currentSlide].subtitle}
@@ -788,7 +935,7 @@ export default function EvolutionPresentationModal({ isOpen, onClose }) {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            padding: '16px 24px',
+            padding: isFullscreen ? '16px 36px' : '14px 24px',
             borderTop: '1px solid var(--card-border)',
             background: 'var(--surface-card-subtle)',
             flexShrink: 0
@@ -818,11 +965,19 @@ export default function EvolutionPresentationModal({ isOpen, onClose }) {
             <span>Previous</span>
           </button>
 
-          {/* Center Indicator */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--ink-muted)' }}>
-              Slide {currentSlide + 1} of {CHAPTERS.length}
+          {/* Center Indicator & Key Shortcuts */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--ink-muted)', fontWeight: 600 }}>
+              Chapter {currentSlide + 1} of {CHAPTERS.length}
             </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--ink-faint)' }}>
+              <span>Nav:</span>
+              <kbd style={{ padding: '2px 5px', borderRadius: '4px', background: 'var(--surface-sunken)', border: '1px solid var(--card-border)' }}>Space</kbd>
+              <span>/</span>
+              <kbd style={{ padding: '2px 5px', borderRadius: '4px', background: 'var(--surface-sunken)', border: '1px solid var(--card-border)' }}>→</kbd>
+              <span>• Fullscreen:</span>
+              <kbd style={{ padding: '2px 5px', borderRadius: '4px', background: 'var(--surface-sunken)', border: '1px solid var(--card-border)' }}>F</kbd>
+            </div>
           </div>
 
           <button
