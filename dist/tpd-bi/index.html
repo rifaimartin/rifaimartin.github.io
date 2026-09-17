@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
-  <title>Simulasi & Profiling TPD PCPM Bank Indonesia - Standar Experd</title>
+  <title>Zahra BI • Simulasi & Tes PCPM Bank Indonesia</title>
   <style>
     :root {
       --primary: #002d62;
@@ -806,17 +806,115 @@
       align-items: center;
     }
     .wrong-item:last-child { border-bottom: none; }
+
+    /* ========================================================
+       ZAHRA BI SUITE STYLES & TRACK SWITCHER
+       ======================================================== */
+    .zahra-banner-container {
+      max-width: 1060px;
+      margin: 12px auto 0;
+      padding: 0 16px;
+    }
+    .zahra-banner-content {
+      background: linear-gradient(135deg, #fff1f2 0%, #fdf2f8 50%, #f5f3ff 100%);
+      border: 1.5px solid rgba(244, 63, 94, 0.35);
+      border-radius: 12px;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      color: #881337;
+      box-shadow: 0 4px 14px rgba(244, 63, 94, 0.08);
+      animation: fadeIn 0.3s ease;
+    }
+    .zahra-banner-icon {
+      font-size: 1.2rem;
+      animation: pulse 1.5s infinite;
+      flex-shrink: 0;
+    }
+    .zahra-banner-text {
+      flex: 1;
+      line-height: 1.45;
+    }
+    .zahra-banner-close {
+      background: transparent;
+      border: none;
+      color: #9f1239;
+      cursor: pointer;
+      font-size: 0.95rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .zahra-banner-close:hover { background: rgba(244, 63, 94, 0.15); }
+
+    /* TRACK SWITCHER */
+    .track-bar-container {
+      max-width: 1060px;
+      margin: 12px auto 0;
+      padding: 0 16px;
+    }
+    .track-switcher {
+      display: flex;
+      background: #e2e8f0;
+      padding: 4px;
+      border-radius: 12px;
+      gap: 4px;
+      border: 1px solid #cbd5e1;
+    }
+    .track-btn {
+      flex: 1;
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: none;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      color: #475569;
+      background: transparent;
+      text-align: center;
+    }
+    .track-btn:hover {
+      color: #0f172a;
+      background: rgba(255, 255, 255, 0.6);
+    }
+    .track-btn.active-tpu {
+      background: #f59e0b;
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(245, 158, 11, 0.35);
+    }
+    .track-btn.active-tpd {
+      background: #ec4899;
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(236, 72, 153, 0.35);
+    }
+    .track-btn.active-all {
+      background: #002d62;
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(0, 45, 98, 0.35);
+    }
+
+    @media (max-width: 640px) {
+      .track-switcher { flex-direction: column; }
+      .track-btn { font-size: 0.78rem; padding: 7px 10px; }
+    }
   </style>
+
 </head>
 <body>
 
   <header>
     <div class="header-container">
       <div class="logo-area">
-        <span class="badge-bi">PCPM BI 39/40</span>
+        <span class="badge-bi" style="background: linear-gradient(135deg, #f43f5e 0%, #ec4899 100%); color: #fff; box-shadow: 0 2px 8px rgba(244,63,94,0.4);">ZAHRA BI ❤️ PCPM</span>
         <div class="title-area">
-          <h1>Simulasi & Profiling Lengkap TPD Experd</h1>
-          <p>86 Soal Komprehensif • Variasi Diagram Venn & Matriks 3x3 • 30 Speed Drill Digit Symbol • Analisis Kelemahan & Rekomendasi Kilat</p>
+          <h1>Zahra BI • Simulasi PCPM Bank Indonesia</h1>
+          <p>Tes Potensi Dasar (TPD Experd) • Tes Pengetahuan Umum (Materi Resmi PDF UU P2SK) • Auto-Scoring & Radar Profiling</p>
         </div>
       </div>
       <div class="header-actions">
@@ -827,6 +925,33 @@
       </div>
     </div>
   </header>
+
+
+  <!-- ZAHRA BI ENCOURAGEMENT BANNER -->
+  <div class="zahra-banner-container" id="zahra-banner">
+    <div class="zahra-banner-content">
+      <span class="zahra-banner-icon">❤️</span>
+      <div class="zahra-banner-text">
+        <strong>Semangat yaa Zahra sayang!</strong> Kerjakan setiap soal dengan tenang, teliti, dan percaya sama kemampuan diri sendiri. Martin selalu dukung dan yakin Zahra pasti lolos PCPM Bank Indonesia! 🥰✨
+      </div>
+      <button class="zahra-banner-close" onclick="document.getElementById('zahra-banner').style.display='none'" title="Tutup">✕</button>
+    </div>
+  </div>
+
+  <!-- TRACK SWITCHER BAR (TPD vs PENGETAHUAN UMUM) -->
+  <div class="track-bar-container">
+    <div class="track-switcher">
+      <button class="track-btn active-tpu" id="track-btn-tpu" onclick="switchTrack('tpu')">
+        🏛️ Pengetahuan Umum PCPM BI (65 Soal Resmi PDF)
+      </button>
+      <button class="track-btn" id="track-btn-tpd" onclick="switchTrack('tpd')">
+        🧠 Tes Potensi Dasar Experd (86 Soal)
+      </button>
+      <button class="track-btn" id="track-btn-all" onclick="switchTrack('all')">
+        🌟 Semua Soal (151 Soal Tryout Lengkap)
+      </button>
+    </div>
+  </div>
 
   <!-- MODE SWITCHER BAR -->
   <div class="mode-bar-container">
@@ -846,17 +971,9 @@
     </div>
   </div>
 
-  <!-- FILTER KATEGORI -->
-  <div class="filter-bar">
-    <button class="filter-btn active" data-cat="ALL" onclick="filterCategory('ALL')">Semua Subtes (86 Soal)</button>
-    <button class="filter-btn" data-cat="Verbal" onclick="filterCategory('Verbal')">1. Verbal & Bahasa Buatan (8 Soal)</button>
-    <button class="filter-btn" data-cat="Numerik" onclick="filterCategory('Numerik')">2. Numerik & Aritmatika (10 Soal)</button>
-    <button class="filter-btn" data-cat="Matriks Numerik" onclick="filterCategory('Matriks Numerik')">3. Matriks Numerik Visual (8 Soal) 🔢</button>
-    <button class="filter-btn" data-cat="Diagrammatic" onclick="filterCategory('Diagrammatic')">4. Diagrammatic & Spasial (8 Soal) 📐</button>
-    <button class="filter-btn" data-cat="Matriks Figural" onclick="filterCategory('Matriks Figural')">5. Matriks Figural 3x3 (8 Soal) 🧩</button>
-    <button class="filter-btn" data-cat="Diagram Venn" onclick="filterCategory('Diagram Venn')">6. Diagram Venn & Himpunan (8 Soal) ⭕</button>
-    <button class="filter-btn" data-cat="Digit Symbol" onclick="filterCategory('Digit Symbol')">7. Digit Symbol (30 Soal Speed Drill) ⚡</button>
-    <button class="filter-btn" data-cat="POF" onclick="filterCategory('POF')">8. POF & Sikap Kerja BI (6 Soal) 🏛️</button>
+  <!-- FILTER KATEGORI (DINAMIS SESUAI TRACK) -->
+  <div class="filter-bar" id="filter-bar-container">
+    <!-- Diisi lewat JavaScript renderFilterButtons() -->
   </div>
 
   <main>
@@ -1148,6 +1265,1177 @@
     // BANK SOAL TPD PCPM BI (86 SOAL TOTAL DENGAN DIAGRAM VENN, MATRIKS FIGURAL 3X3 & DIGIT SYMBOL)
     // ==========================================================
     const allQuestions = [
+{
+    "id": 101,
+    "track": "tpu",
+    "category": "Kelembagaan BI",
+    "subCategory": "Sejarah & Cikal Bakal Bank Indonesia",
+    "module": "Modul 01: Kelembagaan & UU P2SK",
+    "question": "Sebelum dinasionalisasi menjadi Bank Indonesia pada tahun 1953, cikal bakal bank sentral Indonesia adalah De Javasche Bank (DJB) yang didirikan pemerintah kolonial Belanda pada tahun...",
+    "options": [
+      "1828",
+      "1870",
+      "1908",
+      "1928",
+      "1945"
+    ],
+    "correct": 0,
+    "trick": "DJB didirikan tahun 1828 di Batavia dan dinasionalisasi tepat 125 tahun kemudian lewat UU No. 11 Tahun 1953 (1 Juli 1953).",
+    "explanation": "De Javasche Bank (DJB) didirikan pada tahun 1828 berdasarkan oktroi Raja Willem I sebagai bank sirkulasi dan bank komersial di Hindia Belanda, sebelum dinasionalisasi menjadi Bank Indonesia pada 1 Juli 1953."
+  },
+  {
+    "id": 102,
+    "track": "tpu",
+    "category": "Kelembagaan BI",
+    "subCategory": "Dasar Hukum & Evolusi Peran Bank Indonesia",
+    "module": "Modul 01: Kelembagaan & UU P2SK",
+    "question": "Undang-Undang yang pertama kali menegaskan pemisahan fungsi komersial dari Bank Indonesia dan menetapkannya sebagai bank sentral murni yang berfokus pada moneter dan sistem pembayaran adalah...",
+    "options": [
+      "UU No. 11 Tahun 1953",
+      "UU No. 13 Tahun 1968",
+      "UU No. 23 Tahun 1999",
+      "UU No. 3 Tahun 2004",
+      "UU No. 4 Tahun 2023"
+    ],
+    "correct": 1,
+    "trick": "Timeline BI: UU 11/1953 (Dual fungsi) -> UU 13/1968 (Sentral murni, komersial dialihkan ke bank BUMN) -> UU 23/1999 (Independensi penuh) -> UU 4/2023 (UU P2SK).",
+    "explanation": "UU No. 13 Tahun 1968 tentang Bank Sentral mencabut fungsi komersial BI sehingga BI berstatus bank sentral murni, sedangkan operasional perbankan komersial diserahkan kepada bank-bank BUMN."
+  },
+  {
+    "id": 103,
+    "track": "tpu",
+    "category": "Kelembagaan BI",
+    "subCategory": "Mandat Baru Bank Indonesia pasca UU P2SK",
+    "module": "Modul 01: Kelembagaan & UU P2SK",
+    "question": "Berdasarkan UU No. 4 Tahun 2023 tentang Pengembangan dan Penguatan Sektor Keuangan (UU P2SK), mandat dan tujuan Bank Indonesia diperluas menjadi...",
+    "options": [
+      "Hanya menjaga stabilitas nilai Rupiah terhadap mata uang asing",
+      "Mencapai stabilitas nilai Rupiah, memelihara stabilitas sistem pembayaran, dan turut menjaga stabilitas sistem keuangan guna mendukung pertumbuhan ekonomi yang berkelanjutan",
+      "Mengawasi bank secara mikroprudensial dan menjamin simpanan nasabah perbankan",
+      "Mengatur anggaran pendapatan dan belanja negara serta menerbitkan Surat Utang Negara",
+      "Menetapkan tarif pajak nasional dan mengendalikan neraca perdagangan luar negeri"
+    ],
+    "correct": 1,
+    "trick": "Kata Kunci UU P2SK: 'Turut menjaga SSK untuk mendukung pertumbuhan ekonomi berkelanjutan'. Dulu UU 23/1999 mandatnya single objective (kestabilan Rupiah), kini diperluas untuk stabilitas sistem keuangan dan pertumbuhan berkelanjutan.",
+    "explanation": "Pasal 7 UU No. 4 Tahun 2023 (UU P2SK) mengamanatkan tujuan BI adalah mencapai stabilitas nilai Rupiah, memelihara stabilitas sistem pembayaran, dan turut menjaga stabilitas sistem keuangan dalam rangka mendukung pertumbuhan ekonomi yang berkelanjutan."
+  },
+  {
+    "id": 104,
+    "track": "tpu",
+    "category": "Kelembagaan BI",
+    "subCategory": "5 Bentuk Independensi Bank Indonesia",
+    "module": "Modul 01: Kelembagaan & UU P2SK",
+    "question": "Bank Indonesia memiliki hak otonom dalam menetapkan sasaran akhir kebijakan moneter dan memilih instrumen yang digunakan tanpa campur tangan eksekutif. Hal ini mencerminkan bentuk independensi...",
+    "options": [
+      "Independensi Keuangan (Financial Independence)",
+      "Independensi Personel (Personal Independence)",
+      "Independensi Sasaran & Kebijakan (Goal & Instrument Independence)",
+      "Independensi Institusional (Institutional Independence)",
+      "Independensi Yudisial (Judicial Independence)"
+    ],
+    "correct": 2,
+    "trick": "5 Pilar Independensi BI: Kelembagaan (bebas intervensi pihak lain), Sasaran (menentukan sasaran moneter), Kebijakan (memilih instrumen moneter), Keuangan (anggaran operasional mandiri), Personel (pengangkatan/pemberhentian Dewan Gubernur diatur ketat UU).",
+    "explanation": "Independensi sasaran (goal) dan instrumen (policy) memberi wewenang penuh kepada BI dalam merumuskan target dan strategi instrumen moneter bebas dari tekanan politik jangka pendek."
+  },
+  {
+    "id": 105,
+    "track": "tpu",
+    "category": "Kelembagaan BI",
+    "subCategory": "Struktur Dewan Gubernur Bank Indonesia",
+    "module": "Modul 01: Kelembagaan & UU P2SK",
+    "question": "Kepemimpinan Bank Indonesia berada di tangan Dewan Gubernur. Berdasarkan undang-undang, susunan Dewan Gubernur terdiri dari...",
+    "options": [
+      "1 Gubernur, 1 Deputi Gubernur Senior, dan sekurang-kurangnya 4 atau sebanyak-banyaknya 7 Deputi Gubernur",
+      "1 Gubernur dan 3 Deputi Gubernur tanpa Deputi Gubernur Senior",
+      "1 Gubernur, 2 Deputi Gubernur Senior, dan 5 Deputi Gubernur",
+      "1 Gubernur yang merangkap sebagai Menteri Keuangan Republik Indonesia",
+      "1 Gubernur dan perwakilan dari masing-masing direksi perbankan nasional"
+    ],
+    "correct": 0,
+    "trick": "Struktur DG BI: 1 Gubernur + 1 DGS + (4 s.d. 7 Deputi Gubernur). Total anggota DG minimal 6 dan maksimal 9 orang.",
+    "explanation": "Pasal 36 UU Bank Indonesia (jo. UU P2SK) menetapkan Dewan Gubernur terdiri atas seorang Gubernur, seorang Deputi Gubernur Senior, dan sekurang-kurangnya 4 atau sebanyak-banyaknya 7 orang Deputi Gubernur."
+  },
+  {
+    "id": 106,
+    "track": "tpu",
+    "category": "Kelembagaan BI",
+    "subCategory": "Masa Jabatan & Pengangkatan Dewan Gubernur",
+    "module": "Modul 01: Kelembagaan & UU P2SK",
+    "question": "Masa jabatan Gubernur dan anggota Dewan Gubernur Bank Indonesia adalah ... tahun, dan dapat diangkat kembali dalam jabatan yang sama paling banyak untuk ... kali masa jabatan berikutnya.",
+    "options": [
+      "3 tahun; 1 kali",
+      "4 tahun; 2 kali",
+      "5 tahun; 1 kali",
+      "5 tahun; 2 kali",
+      "6 tahun; 1 kali"
+    ],
+    "correct": 2,
+    "trick": "Masa jabatan 5 tahun, maksimal 2 periode (1 kali pengangkatan kembali). Calon diusulkan oleh Presiden dan disetujui DPR.",
+    "explanation": "Anggota Dewan Gubernur diangkat untuk masa jabatan 5 tahun dan dapat diangkat kembali dalam jabatan yang sama untuk paling banyak 1 kali masa jabatan berikutnya (maksimal 2 periode)."
+  },
+  {
+    "id": 107,
+    "track": "tpu",
+    "category": "Kelembagaan BI",
+    "subCategory": "Badan Supervisi Bank Indonesia (BSBI)",
+    "module": "Modul 01: Kelembagaan & UU P2SK",
+    "question": "Lembaga yang dibentuk untuk membantu DPR dalam mengawasi Bank Indonesia agar akuntabilitas, transparansi, dan efisiensi anggaran operasional terjaga tanpa mencampuri independensi kebijakan moneter adalah...",
+    "options": [
+      "Otoritas Jasa Keuangan (OJK)",
+      "Badan Supervisi Bank Indonesia (BSBI)",
+      "Lembaga Penjamin Simpanan (LPS)",
+      "Badan Pemeriksa Keuangan (BPK)",
+      "Komite Privatisasi Sektor Perbankan"
+    ],
+    "correct": 1,
+    "trick": "BSBI (Badan Supervisi Bank Indonesia): Dibentuk berdasarkan UU 3/2004 khusus membantu DPR menelaah kinerja kelembagaan dan anggaran operasional BI (non-kebijakan moneter).",
+    "explanation": "BSBI berkedudukan di bawah DPR untuk meningkatkan akuntabilitas dan efisiensi kelembagaan BI tanpa memengaruhi kewenangan perumusan kebijakan moneter BI."
+  },
+  {
+    "id": 108,
+    "track": "tpu",
+    "category": "Kelembagaan BI",
+    "subCategory": "Pemisahan Fungsi Pengawasan Mikroprudensial",
+    "module": "Modul 01: Kelembagaan & UU P2SK",
+    "question": "Pengalihan fungsi pengawasan bank individual (mikroprudensial) dari Bank Indonesia ke Otoritas Jasa Keuangan (OJK) secara resmi berlaku efektif pada tanggal...",
+    "options": [
+      "1 Januari 2011",
+      "31 Desember 2013",
+      "1 Juli 2015",
+      "1 Januari 2020",
+      "12 Januari 2023"
+    ],
+    "correct": 1,
+    "trick": "Milestone: UU OJK (UU 21/2011), pengawasan pasar modal beralih 31 Des 2012, dan pengawasan perbankan resmi beralih ke OJK per 31 Desember 2013.",
+    "explanation": "Sesuai amanat UU No. 21 Tahun 2011, fungsi pengaturan dan pengawasan bank secara mikroprudensial beralih dari BI ke OJK per 31 Desember 2013. BI tetap menjalankan pengawasan makroprudensial."
+  },
+  {
+    "id": 109,
+    "track": "tpu",
+    "category": "Kebijakan Moneter",
+    "subCategory": "Kerangka Inflation Targeting Framework (ITF)",
+    "module": "Modul 02: Kebijakan Moneter & Devisa",
+    "question": "Sejak Juli 2005, Bank Indonesia secara formal menerapkan kerangka Inflation Targeting Framework (ITF) dengan ciri pokok...",
+    "options": [
+      "Menetapkan nilai tukar Rupiah tetap (fixed exchange rate) terhadap Dolar AS",
+      "Menjadikan inflasi sebagai sasaran utama (overriding objective) dengan mengumumkan target inflasi ke publik dan menggunakan suku bunga acuan sebagai sinyal kebijakan",
+      "Menargetkan jumlah uang beredar (M1 dan M2) secara kaku sebagai sasaran antara",
+      "Membatasi pemberian kredit hanya untuk proyek-proyek BUMN",
+      "Menyerahkan penentuan suku bunga sepenuhnya kepada pasar valas internasional"
+    ],
+    "correct": 1,
+    "trick": "ITF Core: Inflasi sasaran utama (overriding objective), transparan diumumkan ke publik, suku bunga acuan sebagai sinyal kebijakan moneter forward looking.",
+    "explanation": "Dalam ITF, sasaran akhir kebijakan moneter adalah kestabilan inflasi yang diumumkan ke publik. BI kini menerapkan Flexible ITF yang turut mengintegrasikan stabilitas sistem keuangan dan nilai tukar."
+  },
+  {
+    "id": 110,
+    "track": "tpu",
+    "category": "Kebijakan Moneter",
+    "subCategory": "Suku Bunga Acuan BI-Rate",
+    "module": "Modul 02: Kebijakan Moneter & Devisa",
+    "question": "Pada awal tahun 2024, Bank Indonesia kembali menggunakan nama 'BI-Rate' untuk menggantikan nama suku bunga acuan sebelumnya, yaitu...",
+    "options": [
+      "Jakarta Interbank Offered Rate (JIBOR)",
+      "BI 7-Day Reverse Repo Rate (BI7DRR)",
+      "IndONIA (Indonesia Overnight Index Average)",
+      "Secured Overnight Financing Rate (SOFR)",
+      "Sertifikat Bank Indonesia 1 Bulan (SBI-1M)"
+    ],
+    "correct": 1,
+    "trick": "Evolusi Suku Bunga: Dulu BI-Rate (1 thn) -> BI 7-Day Reverse Repo Rate (BI7DRR) tahun 2016 -> dikembalikan namanya menjadi 'BI-Rate' (tenor 7 hari reverse repo) pada 2024 agar lebih komunikatif.",
+    "explanation": "BI mengubah sebutan suku bunga acuan dari BI 7-Day Reverse Repo Rate menjadi BI-Rate per awal 2024 guna memperkuat komunikasi kebijakan moneter ke publik tanpa mengubah tenor operasionalnya (7 hari)."
+  },
+  {
+    "id": 111,
+    "track": "tpu",
+    "category": "Kebijakan Moneter",
+    "subCategory": "Koridor Suku Bunga (Corridor)",
+    "module": "Modul 02: Kebijakan Moneter & Devisa",
+    "question": "Dalam kerangka Operasi Moneter Bank Indonesia, batas bawah (floor) dan batas atas (ceiling) dari koridor suku bunga moneter dibentuk oleh fasilitas...",
+    "options": [
+      "Floor: Deposit Facility (FasBI); Ceiling: Lending Facility",
+      "Floor: Lending Facility; Ceiling: Deposit Facility (FasBI)",
+      "Floor: SBN Ritel; Ceiling: Obligasi Korporasi",
+      "Floor: Tabungan Bank; Ceiling: Deposito Berjangka",
+      "Floor: Pasar Uang Antar Bank (PUAB); Ceiling: Kurs Transaksi BI"
+    ],
+    "correct": 0,
+    "trick": "Bawah = Tempat bank menaruh simpanan ke BI (Deposit Facility / FasBI, floor), Atas = Tempat bank meminjam likuiditas darurat dari BI (Lending Facility, ceiling). Di tengahnya ada BI-Rate (spread biasanya ±75 bps).",
+    "explanation": "Koridor suku bunga membatasi volatilitas suku bunga pasar uang antarbank overnight. Deposit Facility menjadi batas bawah dan Lending Facility menjadi batas atas."
+  },
+  {
+    "id": 112,
+    "track": "tpu",
+    "category": "Kebijakan Moneter",
+    "subCategory": "Instrumen Pro-Market BI (SRBI)",
+    "module": "Modul 02: Kebijakan Moneter & Devisa",
+    "question": "Sebagai instrumen operasi moneter pro-market yang diluncurkan Bank Indonesia untuk menyerap kelebihan likuiditas Rupiah sekaligus menarik aliran modal asing (capital inflows), instrumen yang menggunakan underlying SBN milik BI disebut...",
+    "options": [
+      "Surat Berharga Negara (SBN)",
+      "Sekuritas Rupiah Bank Indonesia (SRBI)",
+      "Sekuritas Valas Bank Indonesia (SVBI)",
+      "Sukuk Valas Bank Indonesia (SUVBI)",
+      "Obligasi Ritel Indonesia (ORI)"
+    ],
+    "correct": 1,
+    "trick": "SRBI = Sekuritas Rupiah Bank Indonesia (Rupiah, underlying SBN, tradable di pasar sekunder). Kalau valas: SVBI dan SUVBI.",
+    "explanation": "SRBI diterbitkan BI sejak September 2023 sebagai instrumen moneter pro-market beragun SBN untuk pendalaman pasar uang dan menjaga stabilitas nilai tukar Rupiah melalui aliran portofolio asing."
+  },
+  {
+    "id": 113,
+    "track": "tpu",
+    "category": "Kebijakan Moneter",
+    "subCategory": "Mekanisme Transmisi Moneter",
+    "module": "Modul 02: Kebijakan Moneter & Devisa",
+    "question": "Ketika kenaikan suku bunga BI-Rate mendorong apresiasi nilai tukar Rupiah sehingga harga barang impor menjadi lebih murah dan menekan laju inflasi, saluran transmisi moneter yang bekerja adalah...",
+    "options": [
+      "Saluran Suku Bunga (Interest Rate Channel)",
+      "Saluran Kredit (Bank Lending Channel)",
+      "Saluran Nilai Tukar (Exchange Rate Channel)",
+      "Saluran Harga Aset (Asset Price Channel)",
+      "Saluran Ekspektasi (Expectations Channel)"
+    ],
+    "correct": 2,
+    "trick": "6 Saluran Transmisi: Suku Bunga, Kredit, Nilai Tukar (kurs Rupiah), Harga Aset (saham/properti), Ekspektasi (ekspektasi inflasi), Neraca Keuangan.",
+    "explanation": "Saluran nilai tukar menjelaskan bagaimana perubahan BI-Rate mempengaruhi selisih suku bunga domestik-luar negeri, menggerakkan arus modal, mengubah kurs Rupiah, dan mempengaruhi harga barang impor."
+  },
+  {
+    "id": 114,
+    "track": "tpu",
+    "category": "Kebijakan Moneter",
+    "subCategory": "Kriteria Kecukupan Cadangan Devisa",
+    "module": "Modul 02: Kebijakan Moneter & Devisa",
+    "question": "Berdasarkan standar kecukupan internasional (IMF), posisi cadangan devisa suatu negara dinilai memadai dan aman apabila setidaknya mampu membiayai kebutuhan impor barang selama minimal...",
+    "options": [
+      "1 bulan",
+      "2 bulan",
+      "3 bulan",
+      "6 bulan",
+      "12 bulan"
+    ],
+    "correct": 2,
+    "trick": "Standar IMF: Kecukupan cadangan devisa minimal adalah 3 bulan impor (atau 3 bulan impor plus pembayaran utang luar negeri jangka pendek). Posisi devisa Indonesia selalu dijaga jauh di atas standar ini.",
+    "explanation": "Aturan praktis internasional (rule of thumb IMF) mematok kecukupan cadangan devisa aman di level 3 bulan kebutuhan impor guna memitigasi risiko guncangan neraca pembayaran eksternal."
+  },
+  {
+    "id": 115,
+    "track": "tpu",
+    "category": "Kebijakan Moneter",
+    "subCategory": "Komponen Cadangan Devisa",
+    "module": "Modul 02: Kebijakan Moneter & Devisa",
+    "question": "Berikut ini yang BUKAN merupakan salah satu dari empat komponen resmi aset cadangan devisa menurut standar IMF adalah...",
+    "options": [
+      "Valuta Asing (Foreign Exchange Currencies & Securities)",
+      "Emas Moneter (Monetary Gold)",
+      "Hak Tarik Khusus (Special Drawing Rights / SDR)",
+      "Cadangan Posisi Dana di IMF (Reserve Tranche Position / RTP)",
+      "Mata Uang Kripto Swasta (Private Cryptocurrencies)"
+    ],
+    "correct": 4,
+    "trick": "4 Komponen Devisa IMF: 1) Valas negara mitra utama, 2) Emas Moneter, 3) SDR, 4) Reserve Tranche di IMF. Kripto swasta bukan instrumen cadangan devisa resmi.",
+    "explanation": "Standar BPM6 IMF menetapkan aset cadangan devisa resmi terdiri atas Valas, Emas Moneter, SDR, dan RTP di IMF. Aset kripto swasta berfluktuasi tinggi dan tidak diakui sebagai cadangan devisa."
+  },
+  {
+    "id": 116,
+    "track": "tpu",
+    "category": "Kebijakan Moneter",
+    "subCategory": "Prinsip Pengelolaan Cadangan Devisa",
+    "module": "Modul 02: Kebijakan Moneter & Devisa",
+    "question": "Dalam mengelola cadangan devisa negara, Bank Indonesia selalu mengutamakan prinsip hierarki portofolio secara berurutan, yaitu...",
+    "options": [
+      "Profitabilitas (Return) -> Likuiditas -> Keamanan (Safety)",
+      "Keamanan (Safety) -> Likuiditas (Liquidity) -> Kemampulabaan (Profitability/Return)",
+      "Spekulasi -> Diversifikasi -> Arbitrase",
+      "Likuiditas -> Leverage -> Volatilitas",
+      "Konsentrasi modal -> Imbal hasil tinggi -> Risiko tinggi"
+    ],
+    "correct": 1,
+    "trick": "Tiga Pilar Devisa: Safety -> Liquidity -> Return (SLR). Bank sentral mengutamakan keamanan dan likuiditas sebelum mencari imbal hasil.",
+    "explanation": "Prinsip utama bank sentral dalam mengelola devisa adalah menjamin keamanan modal dari risiko gagal bayar (Safety), ketersediaan likuiditas saat dibutuhkan (Liquidity), dan optimalisasi hasil investasi yang wajar (Profitability)."
+  },
+  {
+    "id": 117,
+    "track": "tpu",
+    "category": "Sistem Pembayaran",
+    "subCategory": "Sistem Nilai Besar BI-RTGS",
+    "module": "Modul 03: Sistem Pembayaran & Fintech",
+    "question": "Infrastruktur utama yang menjadi tulang punggung penyelesaian transaksi pembayaran wholesale bernilai besar (di atas Rp 100 juta) secara real-time individual adalah...",
+    "options": [
+      "SKNBI (Sistem Kliring Nasional Bank Indonesia)",
+      "BI-FAST",
+      "BI-RTGS (Bank Indonesia Real Time Gross Settlement)",
+      "QRIS Antarnegara",
+      "Kredit Usaha Rakyat (KUR)"
+    ],
+    "correct": 2,
+    "trick": "Nilai Besar (>100jt, instan, per transaksi) = BI-RTGS. Nilai Ritel berkala = SKNBI. Nilai Ritel instan 24/7 = BI-FAST.",
+    "explanation": "BI-RTGS adalah sistem transfer dana elektronik antarbank yang penyelesaiannya dilakukan per transaksi secara individual (gross), seketika (real time), dan bersifat final serta tidak dapat dibatalkan (irrevocable)."
+  },
+  {
+    "id": 118,
+    "track": "tpu",
+    "category": "Sistem Pembayaran",
+    "subCategory": "Limit & Tarif BI-FAST",
+    "module": "Modul 03: Sistem Pembayaran & Fintech",
+    "question": "Infrastruktur sistem pembayaran ritel nasional BI-FAST yang diluncurkan Bank Indonesia pada Desember 2021 memiliki batas nominal transfer maksimal sebesar ... per transaksi, dengan batas tarif maksimal dari bank ke nasabah sebesar...",
+    "options": [
+      "Rp 50 juta; Rp 6.500",
+      "Rp 100 juta; Rp 4.000",
+      "Rp 250 juta; Rp 2.500",
+      "Rp 500 juta; Rp 1.500",
+      "Rp 1 Miliar; Bebas Biaya (Rp 0)"
+    ],
+    "correct": 2,
+    "trick": "Limit BI-FAST = Rp 250 Juta, Tarif nasabah maks = Rp 2.500, Beroperasi 24/7 Real-Time!",
+    "explanation": "Ketentuan BI-FAST menetapkan batas maksimal transaksi ritel sebesar Rp 250.000.000,- per transaksi dan mematok batas atas tarif yang dikenakan bank/PJP ke nasabah maksimal Rp 2.500,-."
+  },
+  {
+    "id": 119,
+    "track": "tpu",
+    "category": "Sistem Pembayaran",
+    "subCategory": "Mode QRIS CPM vs MPM",
+    "module": "Modul 03: Sistem Pembayaran & Fintech",
+    "question": "Dalam ekosistem QRIS, saat pembeli menunjukkan kode QR dari aplikasi ponselnya untuk dipindai oleh scanner kasir toko, mode transaksi tersebut dinamakan...",
+    "options": [
+      "Merchant Presented Mode (MPM) Statis",
+      "Merchant Presented Mode (MPM) Dinamis",
+      "Customer Presented Mode (CPM)",
+      "Near Field Communication (NFC)",
+      "Electronic Data Capture (EDC) Manual"
+    ],
+    "correct": 2,
+    "trick": "Merchant yang pajang stiker/layar = MPM (Merchant Presented Mode). Konsumen buka HP & barcode-nya di-scan kasir = CPM (Customer Presented Mode).",
+    "explanation": "QRIS CPM (Customer Presented Mode) digunakan saat pengguna/konsumen menampilkan kode QR dari aplikasi pembayarannya untuk dibaca oleh pemindai milik merchant."
+  },
+  {
+    "id": 120,
+    "track": "tpu",
+    "category": "Sistem Pembayaran",
+    "subCategory": "Inovasi QRIS TUNTAS",
+    "module": "Modul 03: Sistem Pembayaran & Fintech",
+    "question": "Bank Indonesia meluncurkan inovasi fitur QRIS baru bernama 'QRIS TUNTAS'. Akronim 'TUNTAS' dalam fitur ini mewakili 3 fungsi transaksi, yaitu...",
+    "options": [
+      "Tarik Tunai, Transfer, dan Setor Tunai",
+      "Tabungan Utama, Nilai Tukar, dan Asuransi",
+      "Tagihan Umum, Notifikasi, dan Transaksi Saham",
+      "Tukar Uang, Nominal Transaksi, dan Administrasi Saldo",
+      "Transaksi Usaha, Niaga, Tabungan, dan Sertifikat"
+    ],
+    "correct": 0,
+    "trick": "TUNTAS = TUnai (Tarik Tunai), TraNSfer, dan Setor TUnai. Memungkinkan transaksi tarik dan setor tunai di ATM/agen tanpa kartu fisik.",
+    "explanation": "QRIS TUNTAS diluncurkan pada HUT RI ke-78 untuk memfasilitasi Tarik tunai, TraNsfer, dan Setor tunai antarbank dan penyedia jasa pembayaran tanpa kartu fisik."
+  },
+  {
+    "id": 121,
+    "track": "tpu",
+    "category": "Sistem Pembayaran",
+    "subCategory": "QRIS Antarnegara (Cross-Border)",
+    "module": "Modul 03: Sistem Pembayaran & Fintech",
+    "question": "Dalam konektivitas pembayaran regional ASEAN, implementasi interkoneksi QRIS Antarnegara (Cross-Border QR Payment) yang sudah beroperasi komersial penuh dengan Indonesia adalah dengan...",
+    "options": [
+      "Thailand, Malaysia, dan Singapura",
+      "Jepang, Korea Selatan, dan Tiongkok",
+      "Australia, Selandia Baru, dan Fiji",
+      "Arab Saudi, Uni Emirat Arab, dan Qatar",
+      "Inggris, Jerman, dan Prancis"
+    ],
+    "correct": 0,
+    "trick": "Trinitas Cross-Border ASEAN: Thailand (pertama), Malaysia, dan Singapura. Wisatawan Indonesia bisa scan QR di sana langsung memotong saldo Rupiah rekening domestik!",
+    "explanation": "Bank Indonesia telah mengimplementasikan interkoneksi pembayaran QR lintas negara secara komersial dengan Bank of Thailand, Bank Negara Malaysia, dan Monetary Authority of Singapore (MAS)."
+  },
+  {
+    "id": 122,
+    "track": "tpu",
+    "category": "Sistem Pembayaran",
+    "subCategory": "Standar Nasional Open API (SNAP)",
+    "module": "Modul 03: Sistem Pembayaran & Fintech",
+    "question": "Untuk menciptakan ekosistem pembayaran digital yang aman, terbuka, dan mencegah fragmentasi teknologi antara industri perbankan dan fintech, Bank Indonesia menerbitkan standar protokol integrasi yang dinamakan...",
+    "options": [
+      "BI-RTGS Core",
+      "SNAP (Standar Nasional Open API Pembayaran)",
+      "ISO 27001 Security Gateway",
+      "EMVCo Global Standard",
+      "SWIFT Network Protocols"
+    ],
+    "correct": 1,
+    "trick": "SNAP = Standar Nasional Open API Pembayaran. Menyeragamkan bahasa API perbankan dan fintech agar interkoneksi lebih cepat, murah, dan aman.",
+    "explanation": "SNAP adalah pedoman teknis, spesifikasi keamanan, dan tata kelola Open API pembayaran yang diwajibkan oleh BI kepada seluruh penyedia jasa pembayaran di Indonesia."
+  },
+  {
+    "id": 123,
+    "track": "tpu",
+    "category": "Sistem Pembayaran",
+    "subCategory": "Regulatory Sandbox Bank Indonesia",
+    "module": "Modul 03: Sistem Pembayaran & Fintech",
+    "question": "Fasilitas ruang uji coba terbatas yang disediakan oleh Bank Indonesia bagi pelaku industri fintech untuk menguji coba produk, layanan, teknologi, atau model bisnis baru sebelum diberikan izin operasional resmi disebut...",
+    "options": [
+      "Incubator Hub",
+      "Regulatory Sandbox",
+      "Digital Innovation Factory",
+      "Financial Technology Center",
+      "Market Testing Lab"
+    ],
+    "correct": 1,
+    "trick": "Regulatory Sandbox = 'Kotak pasir' tempat startup fintech menguji inovasi secara aman dan terkontrol di bawah supervisi langsung BI tanpa menimbulkan risiko sistemik.",
+    "explanation": "Regulatory Sandbox adalah ruang uji coba aman dan terbatas untuk memastikan inovasi teknologi finansial memenuhi prinsip kehati-hatian dan perlindungan konsumen."
+  },
+  {
+    "id": 124,
+    "track": "tpu",
+    "category": "Pengelolaan Rupiah",
+    "subCategory": "Dasar Hukum Mata Uang & Kewajiban Rupiah",
+    "module": "Modul 04: Pengelolaan Uang Rupiah & CBDC",
+    "question": "Kewajiban penggunaan Rupiah dalam setiap transaksi pembayaran dan penyelesaian kewajiban keuangan di seluruh wilayah Negara Kesatuan Republik Indonesia (NKRI) secara tegas diatur dalam...",
+    "options": [
+      "UU No. 10 Tahun 1998",
+      "UU No. 7 Tahun 2011 tentang Mata Uang",
+      "UU No. 21 Tahun 2011",
+      "UU No. 9 Tahun 2016",
+      "UU No. 19 Tahun 2016"
+    ],
+    "correct": 1,
+    "trick": "UU Mata Uang = UU No. 7 Tahun 2011. Menegaskan Rupiah sebagai simbol kedaulatan NKRI dan melarang penolakan Rupiah di wilayah Indonesia.",
+    "explanation": "Pasal 21 UU No. 7 Tahun 2011 mewajibkan penggunaan Rupiah untuk setiap transaksi pembayaran, penyelesaian kewajiban, dan transaksi keuangan lainnya di wilayah NKRI."
+  },
+  {
+    "id": 125,
+    "track": "tpu",
+    "category": "Pengelolaan Rupiah",
+    "subCategory": "Siklus 6 Tahap Pengelolaan Uang Rupiah (PUR)",
+    "module": "Modul 04: Pengelolaan Uang Rupiah & CBDC",
+    "question": "Pengelolaan Uang Rupiah oleh Bank Indonesia terdiri dari 6 tahapan yang berkesinambungan. Urutan siklus yang tepat adalah...",
+    "options": [
+      "Pencetakan -> Perencanaan -> Pengedaran -> Pengeluaran -> Pemusnahan -> Penarikan",
+      "Perencanaan -> Pencetakan -> Pengeluaran -> Pengedaran -> Pencabutan & Penarikan -> Pemusnahan",
+      "Perencanaan -> Pengeluaran -> Pencetakan -> Penarikan -> Pengedaran -> Pemusnahan",
+      "Pengeluaran -> Perencanaan -> Pencetakan -> Pengedaran -> Pemusnahan -> Penarikan",
+      "Pencetakan -> Pengedaran -> Perencanaan -> Pengeluaran -> Penarikan -> Pemusnahan"
+    ],
+    "correct": 1,
+    "trick": "Siklus 6 Tahap PUR: Perencanaan -> Pencetakan -> Pengeluaran -> Pengedaran -> Pencabutan & Penarikan -> Pemusnahan.",
+    "explanation": "Sesuai Pasal 11 UU No. 7 Tahun 2011, tahapan Pengelolaan Uang Rupiah meliputi: Perencanaan, Pencetakan, Pengeluaran, Pengedaran, Pencabutan dan Penarikan, serta Pemusnahan."
+  },
+  {
+    "id": 126,
+    "track": "tpu",
+    "category": "Pengelolaan Rupiah",
+    "subCategory": "Kewenangan Pencetakan Rupiah",
+    "module": "Modul 04: Pengelolaan Uang Rupiah & CBDC",
+    "question": "Sesuai amanat Undang-Undang Mata Uang No. 7 Tahun 2011, pencetakan uang Rupiah wajib dilaksanakan di dalam negeri oleh Badan Usaha Milik Negara (BUMN), yaitu...",
+    "options": [
+      "PT Percetakan Negara RI (PNRI)",
+      "Perum Percetakan Uang Republik Indonesia (Perum Peruri)",
+      "PT Bank Rakyat Indonesia (Persero) Tbk",
+      "PT Pos Indonesia (Persero)",
+      "PT Krakatau Steel (Persero) Tbk"
+    ],
+    "correct": 1,
+    "trick": "BUMN Pencetak Rupiah = Perum Peruri (Percetakan Uang Republik Indonesia). Wajib di dalam negeri demi kedaulatan negara.",
+    "explanation": "Pasal 14 UU No. 7 Tahun 2011 menegaskan bahwa pencetakan Rupiah dilakukan oleh Bank Indonesia dan dilaksanakan oleh BUMN, yaitu Perum Peruri."
+  },
+  {
+    "id": 127,
+    "track": "tpu",
+    "category": "Pengelolaan Rupiah",
+    "subCategory": "Unsur Pengaman Rectoverso",
+    "module": "Modul 04: Pengelolaan Uang Rupiah & CBDC",
+    "question": "Unsur pengaman pada uang kertas Rupiah berupa logo Bank Indonesia yang terlihat utuh sempurna bila diterawang ke arah cahaya, di mana bagian depan dan belakang saling melengkapi secara presisi, dinamakan...",
+    "options": [
+      "Latent Image (Gambar Tersembunyi)",
+      "Rectoverso (Gambar Saling Mengisi)",
+      "Optical Variable Magnetic Ink (OVMI)",
+      "Microtext Line",
+      "Blind Code Tactile Feature"
+    ],
+    "correct": 1,
+    "trick": "Diterawang saling melengkapi = Rectoverso. Di uang Rupiah, potongan logo BI di sisi depan dan belakang tampak utuh saat diterawang melawan cahaya.",
+    "explanation": "Rectoverso adalah teknik cetak khusus pada sisi muka dan belakang uang kertas yang bila diterawang akan membentuk suatu gambar ornamen atau logo BI yang utuh."
+  },
+  {
+    "id": 128,
+    "track": "tpu",
+    "category": "Pengelolaan Rupiah",
+    "subCategory": "Uang TE 2022 & Aksesibilitas Tunanetra",
+    "module": "Modul 04: Pengelolaan Uang Rupiah & CBDC",
+    "question": "Pada Uang Rupiah Kertas Tahun Emisi 2022 (TE 2022), Bank Indonesia menerapkan inovasi perbedaan ukuran fisik antarpecahan. Selisih panjang antarpecahan uang kertas TE 2022 adalah sebesar...",
+    "options": [
+      "2 mm",
+      "3 mm",
+      "5 mm",
+      "10 mm",
+      "15 mm"
+    ],
+    "correct": 2,
+    "trick": "Inovasi TE 2022: Selisih panjang 5 mm antar pecahan (makin kecil nominal makin pendek) untuk memudahkan tunanetra membedakan uang secara taktil.",
+    "explanation": "Uang TE 2022 menerapkan selisih panjang 5 mm secara bertingkat dari pecahan tertinggi Rp 100.000 (151 mm) hingga terendah Rp 1.000 (121 mm) untuk aksesibilitas inklusif penyandang disabilitas netra."
+  },
+  {
+    "id": 129,
+    "track": "tpu",
+    "category": "Pengelolaan Rupiah",
+    "subCategory": "Proyek Garuda & Digital Rupiah (CBDC)",
+    "module": "Modul 04: Pengelolaan Uang Rupiah & CBDC",
+    "question": "Bank Indonesia menerbitkan Buku Putih (Whitepaper) 'Proyek Garuda: Menavigasi Arsitektur Digital Rupiah' pada 30 November 2022. Tahap pertama pengembangan Digital Rupiah (CBDC) difokuskan pada...",
+    "options": [
+      "Retail CBDC untuk belanja harian masyarakat di supermarket",
+      "Wholesale Digital Rupiah (w-CBDC) untuk transfer dana antarinstitusi keuangan dan operasi moneter",
+      "Penerbitan kartu debit khusus mata uang kripto swasta",
+      "Penghapusan seluruh uang fisik kartal (kertas dan logam)",
+      "Pemberian pinjaman online langsung dari bank sentral kepada UMKM"
+    ],
+    "correct": 1,
+    "trick": "Tahapan Proyek Garuda: Dimulai dari Wholesale CBDC (w-CBDC untuk bank/pasar uang) -> Integrasi pasar modal -> Retail CBDC (r-CBDC end-to-end masyarakat umum).",
+    "explanation": "Tahap Immediate Proyek Garuda difokuskan pada use case Wholesale Digital Rupiah untuk transfer dana antarinstitusi wholesale, pasar antarbank, dan operasi moneter sebelum menyasar segmen ritel."
+  },
+  {
+    "id": 130,
+    "track": "tpu",
+    "category": "Makroprudensial & SSK",
+    "subCategory": "Definisi Stabilitas Sistem Keuangan",
+    "module": "Modul 05: Makroprudensial & SSK",
+    "question": "Stabilitas Sistem Keuangan (SSK) didefinisikan sebagai suatu kondisi di mana sistem keuangan yang terdiri atas perbankan, pasar keuangan, dan infrastruktur pembayaran...",
+    "options": [
+      "Bebas dari segala bentuk kerugian investasi dan kebangkrutan usaha",
+      "Dapat mengalokasikan sumber dana secara efisien, mengelola risiko, dan bertahan terhadap berbagai guncangan ekonomi sehingga sistem berfungsi normal",
+      "Sepenuhnya dikendalikan dan didanai langsung oleh APBN pemerintah pusat",
+      "Menetapkan suku bunga kredit 0% untuk semua sektor industri",
+      "Menghentikan penerbitan kredit saat terjadi inflasi global"
+    ],
+    "correct": 1,
+    "trick": "SSK Bukan zero failure (tidak mungkin nol risiko), melainkan ketahanan (resilience) sistem keuangan dalam mengelola risiko, menyalurkan dana efisien, dan menyerap shock tanpa krisis.",
+    "explanation": "SSK adalah kondisi sistem keuangan yang berdaya tahan terhadap gejolak ekonomi dan mampu memelihara fungsi intermediasi, transaksi pembayaran, serta alokasi modal secara efektif."
+  },
+  {
+    "id": 131,
+    "track": "tpu",
+    "category": "Makroprudensial & SSK",
+    "subCategory": "Dua Dimensi Risiko Sistemik",
+    "module": "Modul 05: Makroprudensial & SSK",
+    "question": "Risiko sistemik dalam sistem keuangan memiliki dua dimensi fundamental. Dimensi yang mengamati kecenderungan perilaku lembaga keuangan memperkuat siklus ekspansi dan kontraksi ekonomi (prosiklikalitas) disebut...",
+    "options": [
+      "Dimensi Struktural / Keterkaitan Antar-Lembaga (Cross-Section)",
+      "Dimensi Waktu / Prosiklikalitas (Time-Series Dimension)",
+      "Dimensi Likuiditas Domestik",
+      "Dimensi Solvabilitas Mikro",
+      "Dimensi Arbitrase Finansial"
+    ],
+    "correct": 1,
+    "trick": "2 Dimensi Risiko Sistemik: 1) Dimensi Waktu / Time-Series (mengikuti siklus boom-bust / prosiklikalitas). 2) Dimensi Keterkaitan / Cross-Section (efek domino antar bank akibat keterikatan aset/kewajiban).",
+    "explanation": "Dimensi time-series mengacu pada bagaimana risiko terakumulasi seiring berjalannya waktu akibat perilaku prosiklikal institusi keuangan (terlalu agresif saat ekonomi booming, terlalu menahan kredit saat resesi)."
+  },
+  {
+    "id": 132,
+    "track": "tpu",
+    "category": "Makroprudensial & SSK",
+    "subCategory": "Countercyclical Capital Buffer (CCyB)",
+    "module": "Modul 05: Makroprudensial & SSK",
+    "question": "Instrumen makroprudensial Bank Indonesia berupa kewajiban penambahan bantalan modal bank sebesar 0% sampai 2,5% dari ATMR yang harus dipupuk pada saat pertumbuhan kredit berlebihan (booming) disebut...",
+    "options": [
+      "Loan to Value (LTV)",
+      "Countercyclical Capital Buffer (CCyB)",
+      "Rasio Intermediasi Makroprudensial (RIM)",
+      "Penyangga Likuiditas Makroprudensial (PLM)",
+      "Giro Wajib Minimum (GWM) Valas"
+    ],
+    "correct": 1,
+    "trick": "CCyB = Bantalan modal ekstra 0 - 2,5% saat booming kredit yang bisa dilepas/dilonggarkan saat krisis agar bank tetap mampu menyalurkan kredit.",
+    "explanation": "CCyB berfungsi menyerap potensi kerugian saat siklus kredit berbalik turun dan mencegah kontraksi ekonomi berlebihan yang dipicu oleh pengetatan kredit perbankan."
+  },
+  {
+    "id": 133,
+    "track": "tpu",
+    "category": "Makroprudensial & SSK",
+    "subCategory": "Rasio Pembiayaan Inklusif (RPIM)",
+    "module": "Modul 05: Makroprudensial & SSK",
+    "question": "Bank Indonesia menerapkan Rasio Pembiayaan Inklusif Makroprudensial (RPIM) yang mewajibkan bank mengalokasikan porsi kredit tertentu dari total portofolio pembiayaan untuk mendukung...",
+    "options": [
+      "Korporasi multinasional sektor energi fosil",
+      "Pemberdayaan Usaha Mikro, Kecil, dan Menengah (UMKM) serta masyarakat berpenghasilan rendah",
+      "Perusahaan teknologi luar negeri pemegang saham fintech",
+      "Investasi mata uang kripto dan valuta asing berisiko tinggi",
+      "Pembelian obligasi pemerintah negara tetangga"
+    ],
+    "correct": 1,
+    "trick": "RPIM = Pembiayaan Inklusif UMKM & MBR. Target pembiayaan bertahap didorong mencapai minimal 20%-30% guna memperkuat ekonomi kerakyatan.",
+    "explanation": "RPIM adalah instrumen makroprudensial BI yang mendorong intermediasi perbankan ke sektor inklusif (UMKM, korporasi UMKM, dan debitur berpenghasilan rendah) guna memperluas akses pembiayaan produktif."
+  },
+  {
+    "id": 134,
+    "track": "tpu",
+    "category": "Makroprudensial & SSK",
+    "subCategory": "Komite Stabilitas Sistem Keuangan (KSSK)",
+    "module": "Modul 05: Makroprudensial & SSK",
+    "question": "Berdasarkan UU Pencegahan dan Penanganan Krisis Sistem Keuangan (UU PPKSK jo. UU P2SK), keanggotaan KSSK terdiri atas empat lembaga negara dengan Koordinator/Ketua komite dijabat oleh...",
+    "options": [
+      "Gubernur Bank Indonesia",
+      "Menteri Keuangan Republik Indonesia",
+      "Ketua Dewan Komisioner Otoritas Jasa Keuangan (OJK)",
+      "Ketua Dewan Komisioner Lembaga Penjamin Simpanan (LPS)",
+      "Presiden Republik Indonesia"
+    ],
+    "correct": 1,
+    "trick": "4 Pilar KSSK: Kemenkeu, BI, OJK, LPS. Seluruh 4 anggota memiliki hak suara, dan Koordinator merangkap Ketua KSSK adalah Menteri Keuangan.",
+    "explanation": "Pasal 4 UU No. 9 Tahun 2016 jo. UU No. 4 Tahun 2023 menetapkan KSSK dikoordinasikan oleh Menteri Keuangan dengan anggota Gubernur BI, Ketua DK OJK, dan Ketua DK LPS."
+  },
+  {
+    "id": 135,
+    "track": "tpu",
+    "category": "Internasional & Syariah",
+    "subCategory": "Local Currency Transaction (LCT)",
+    "module": "Modul 06: Kerja Sama Internasional & Syariah",
+    "question": "Inisiatif kerja sama Bank Indonesia dengan bank sentral negara mitra untuk menyelesaikan transaksi perdagangan dan investasi bilateral menggunakan mata uang lokal masing-masing tanpa konversi ke Dolar AS dinamakan...",
+    "options": [
+      "Foreign Direct Investment (FDI)",
+      "Local Currency Transaction (LCT) / Local Currency Settlement (LCS)",
+      "Currency Board Arrangement (CBA)",
+      "Bilateral Free Trade Agreement (BFTA)",
+      "Capital Account Liberalization (CAL)"
+    ],
+    "correct": 1,
+    "trick": "LCT/LCS: Mengurangi ketergantungan pada US Dollar (de-dolarisasi), memangkas biaya valas, dan menstabilkan nilai tukar Rupiah dalam transaksi bilateral.",
+    "explanation": "Kerja sama LCT/LCS memungkinkan eksportir dan importir bertransaksi langsung menggunakan Rupiah dan mata uang mitra dagang utama (seperti Yuan Tiongkok, Yen Jepang, Ringgit Malaysia, Baht Thailand, Won Korsel)."
+  },
+  {
+    "id": 136,
+    "track": "tpu",
+    "category": "Internasional & Syariah",
+    "subCategory": "Bilateral Currency Swap Arrangement (BCSA)",
+    "module": "Modul 06: Kerja Sama Internasional & Syariah",
+    "question": "Fasilitas kerja sama bilateral pertukaran mata uang lokal antardua bank sentral yang berfungsi sebagai jaring pengaman keuangan (financial safety net) untuk menjamin likuiditas valas pada saat krisis disebut...",
+    "options": [
+      "Bilateral Currency Swap Arrangement (BCSA)",
+      "Reverse Repo Antarnegara",
+      "Letter of Credit Multilateral",
+      "Special Drawing Rights Allocation",
+      "Sovereign Wealth Fund Placement"
+    ],
+    "correct": 0,
+    "trick": "BCSA = Bilateral Currency Swap Arrangement. Menjadi 'ban serep' devisa apabila terjadi kekeringan likuiditas dolar global di pasar keuangan domestik.",
+    "explanation": "BCSA adalah kesepakatan swap mata uang lokal yang disepakati BI dengan berbagai bank sentral utama (seperti PBOC Tiongkok, BOJ Jepang, BOK Korea Selatan) untuk memitigasi risiko volatilitas neraca pembayaran."
+  },
+  {
+    "id": 137,
+    "track": "tpu",
+    "category": "Internasional & Syariah",
+    "subCategory": "3 Pilar Blueprint Ekonomi Keuangan Syariah BI",
+    "module": "Modul 06: Kerja Sama Internasional & Syariah",
+    "question": "Blueprint Pengembangan Ekonomi dan Keuangan Syariah Bank Indonesia bertumpu pada tiga pilar strategis utama, yaitu...",
+    "options": [
+      "Moneter Syariah, Perbankan Asing, dan Pasar Saham Global",
+      "Penguatan Ekosistem Halal (Halal Value Chain), Pendalaman Pasar Keuangan Syariah, serta Penguatan Riset, Edukasi, dan Literasi",
+      "Penetapan Pajak Zakat Wajib, Larangan Perbankan Konvensional, dan Monopoli Perdagangan Syariah",
+      "Subsidi Bunga Syariah, Ekspor Komoditas Tambang, dan Asuransi Pegawai",
+      "Pembebasan Pajak Usaha, Penggantian Rupiah dengan Dinar, dan Pembatasan Fintech"
+    ],
+    "correct": 1,
+    "trick": "3 Pilar Syariah BI: 1) Halal Value Chain (ekosistem riil), 2) Pendalaman Pasar Keuangan Syariah (instrumen/sukuk), 3) Literasi & Riset (ISEF & riset edukatif).",
+    "explanation": "Visi BI menjadikan Indonesia pusat ekonomi syariah dunia didorong melalui integrasi sektor riil halal (makanan, fesyen, pertanian, pariwisata), pendalaman instrumen keuangan syariah, dan literasi publik."
+  },
+  {
+    "id": 138,
+    "track": "tpu",
+    "category": "Internasional & Syariah",
+    "subCategory": "Instrumen Moneter Syariah Bank Indonesia",
+    "module": "Modul 06: Kerja Sama Internasional & Syariah",
+    "question": "Salah satu instrumen operasi moneter syariah yang diterbitkan oleh Bank Indonesia dengan menggunakan akad syariah dan berlandaskan underlying aset Surat Berharga Syariah Negara (SBSN) adalah...",
+    "options": [
+      "Sertifikat Deposito Berjangka Konvensional",
+      "Sukuk Bank Indonesia (SukBI)",
+      "Sekuritas Valas Komersial",
+      "Promissory Notes Valuta Asing",
+      "Saham Preferen Perbankan"
+    ],
+    "correct": 1,
+    "trick": "Moneter Syariah BI = SukBI (Sukuk Bank Indonesia). Diterbitkan berlandaskan akad syariah yang diawasi Dewan Syariah Nasional (DSN-MUI) untuk mengelola likuiditas perbankan syariah.",
+    "explanation": "SukBI diterbitkan oleh BI dalam mata uang Rupiah berdasarkan prinsip syariah sebagai instrumen absorpsi likuiditas pada perbankan syariah."
+  },
+  {
+    "id": 139,
+    "track": "tpu",
+    "category": "Layanan & Konsumen",
+    "subCategory": "Contact Center Resmi BICARA 1500131",
+    "module": "Modul 08: Layanan Publik & Perlindungan Konsumen",
+    "question": "Masyarakat umum, akademisi, dan pelaku usaha yang membutuhkan informasi resmi, klarifikasi keaslian uang Rupiah, atau menyampaikan pengaduan terkait ketentuan Bank Indonesia dapat menghubungi Contact Center BICARA melalui nomor telepon...",
+    "options": [
+      "14045",
+      "1500131",
+      "1500046",
+      "112",
+      "1500655"
+    ],
+    "correct": 1,
+    "trick": "Nomor Kontak BICARA: 1500131 (email: bicara@bi.go.id). Ingat angka 131 di ujungnya!",
+    "explanation": "BICARA (Bank Indonesia Contact Center 1500131) adalah garda terdepan layanan informasi publik terpadu dan penanganan pengaduan konsumen yang disediakan Bank Indonesia secara profesional."
+  },
+  {
+    "id": 140,
+    "track": "tpu",
+    "category": "Layanan & Konsumen",
+    "subCategory": "Aplikasi Web PINTAR Bank Indonesia",
+    "module": "Modul 08: Layanan Publik & Perlindungan Konsumen",
+    "question": "Aplikasi berbasis web resmi Bank Indonesia yang digunakan oleh masyarakat untuk melakukan pemesanan jadwal penukaran uang Rupiah pecahan baru, uang rusak/cacat, serta kas keliling secara tertib dan transparan adalah...",
+    "options": [
+      "PINTAR BI (pintar.bi.go.id)",
+      "BI-FAST Mobile",
+      "QRIS Merchant Apps",
+      "E-Kas Daerah",
+      "SiAPLah Portal"
+    ],
+    "correct": 0,
+    "trick": "PINTAR BI = Penukaran dan Tarik Uang Rupiah. Website pintar.bi.go.id memudahkan warga menjadwalkan penukaran uang baru saat Idulfitri atau uang lusuh.",
+    "explanation": "PINTAR (Penukaran dan Tarik Uang Rupiah) adalah portal resmi BI untuk mempermudah masyarakat mengakses layanan kas penukaran uang secara terjadwal dan efisien."
+  },
+  {
+    "id": 141,
+    "track": "tpu",
+    "category": "Layanan & Konsumen",
+    "subCategory": "Portal Perizinan Terpadu EASE (e-Licensing)",
+    "module": "Modul 08: Layanan Publik & Perlindungan Konsumen",
+    "question": "Dalam rangka mempermudah dan mempercepat perizinan bagi Pelaku Jasa Sistem Pembayaran (PJSP) dan penyelenggara infrastruktur sistem pembayaran, Bank Indonesia menyediakan portal perizinan digital terpadu bernama...",
+    "options": [
+      "Online Single Submission (OSS)",
+      "EASE (Electronic Authorization and Submission System)",
+      "Portal Satu Data Keuangan",
+      "Digital Sandbox Gate",
+      "Fintech Approval Hub"
+    ],
+    "correct": 1,
+    "trick": "EASE BI: Portal e-Licensing terintegrasi untuk pengajuan izin PJP/PIP, perubahan kepemilikan, dan pelaporan perizinan secara paperless dan transparan.",
+    "explanation": "EASE by Bank Indonesia adalah portal front-office digital yang mengintegrasikan pemrosesan perizinan di bidang moneter, makroprudensial, dan sistem pembayaran secara terpusat."
+  },
+  {
+    "id": 142,
+    "track": "tpu",
+    "category": "Layanan & Konsumen",
+    "subCategory": "5 Prinsip Perlindungan Konsumen BI",
+    "module": "Modul 08: Layanan Publik & Perlindungan Konsumen",
+    "question": "Berdasarkan Peraturan Bank Indonesia (PBI) tentang Perlindungan Konsumen, salah satu prinsip yang mewajibkan penyedia jasa pembayaran untuk menyampaikan syarat, ketentuan, dan rincian biaya layanan secara akurat, jelas, mudah dipahami, dan tidak menyesatkan adalah prinsip...",
+    "options": [
+      "Keterbukaan dan Transparansi",
+      "Perlakuan yang Adil",
+      "Kerahasiaan dan Keamanan Data Konsumen",
+      "Penanganan Pengaduan yang Cepat",
+      "Edukasi Mandiri Konsumen"
+    ],
+    "correct": 0,
+    "trick": "Menyampaikan biaya & syarat dengan jelas tanpa tulisan tersembunyi = Transparansi & Keterbukaan.",
+    "explanation": "Prinsip transparansi menuntut Penyelenggara memberikan informasi produk dan layanan yang benar, jelas, mudah diakses, serta mencantumkan semua biaya terkait kepada konsumen."
+  },
+  {
+    "id": 143,
+    "track": "tpu",
+    "category": "Kelembagaan BI",
+    "subCategory": "Peran Lender of Last Resort (LOLR)",
+    "module": "Modul 01: Kelembagaan & UU P2SK",
+    "question": "Sebagai otoritas moneter, Bank Indonesia memegang fungsi vital sebagai 'Lender of Last Resort' (LOLR). Fungsi LOLR ini bertujuan untuk...",
+    "options": [
+      "Memberikan pembiayaan modal kerja tanpa jaminan kepada seluruh perusahaan rintisan",
+      "Menyediakan pinjaman likuiditas darurat kepada bank yang mengalami kesulitan likuiditas jangka pendek namun masih memiliki tingkat solvabilitas yang sehat",
+      "Mengambil alih seluruh utang luar negeri swasta yang mengalami gagal bayar",
+      "Menyita aset properti nasabah perbankan yang bermasalah",
+      "Menjadi pembeli tunggal seluruh saham perbankan di bursa efek"
+    ],
+    "correct": 1,
+    "trick": "LOLR (Pemberi Pinjaman Terakhir): Fasilitas likuiditas darurat BI untuk bank 'illiquid but solvent' (kekurangan likuiditas sementara tetapi aset/modal masih sehat dan didukung agunan memadai).",
+    "explanation": "Fungsi LOLR dimaksudkan untuk mencegah krisis likuiditas pada satu bank menjalar menjadi krisis sistemik (bank run) dengan menyediakan Pinjaman Likuiditas Jangka Pendek (PLJP)."
+  },
+  {
+    "id": 144,
+    "track": "tpu",
+    "category": "Kebijakan Moneter",
+    "subCategory": "Rapat Dewan Gubernur (RDG) Bulanan",
+    "module": "Modul 02: Kebijakan Moneter & Devisa",
+    "question": "Keputusan mengenai penetapan suku bunga acuan BI-Rate dan arah bauran kebijakan moneter Bank Indonesia diputuskan secara kolegial melalui forum resmi...",
+    "options": [
+      "Musyawarah Pimpinan Nasional",
+      "Rapat Dewan Gubernur (RDG) Bulanan",
+      "Sidang Paripurna DPR RI",
+      "Konferensi Tingkat Tinggi G20",
+      "Rapat Kerja Terbatas Kementerian Koordinator Perekonomian"
+    ],
+    "correct": 1,
+    "trick": "RDG Bulanan: Berlangsung 2 hari tiap bulan untuk mengevaluasi kondisi makroekonomi, menetapkan BI-Rate, dan langsung diumumkan ke publik lewat press conference Gubernur BI.",
+    "explanation": "Pasal 43 UU Bank Indonesia mengatur bahwa kebijakan moneter diputuskan dalam Rapat Dewan Gubernur (RDG) yang diselenggarakan sekurang-kurangnya 1 kali dalam sebulan."
+  },
+  {
+    "id": 145,
+    "track": "tpu",
+    "category": "Pengelolaan Rupiah",
+    "subCategory": "Uang Peringatan Kemerdekaan (UPK 75)",
+    "module": "Modul 04: Pengelolaan Uang Rupiah & CBDC",
+    "question": "Pada tanggal 17 Agustus 2020 memperingati 75 tahun Kemerdekaan RI, Bank Indonesia bersama Pemerintah menerbitkan Uang Peringatan Kemerdekaan (UPK 75) berupa uang kertas pecahan...",
+    "options": [
+      "Rp 50.000",
+      "Rp 75.000",
+      "Rp 100.000",
+      "Rp 750.000",
+      "Rp 7.500"
+    ],
+    "correct": 1,
+    "trick": "UPK 75: Uang kertas khusus peringatan 75 tahun RI dengan nominal unik Rp 75.000 yang dicetak terbatas dan sah sebagai alat pembayaran tunai.",
+    "explanation": "UPK 75 Tahun RI diterbitkan sebagai bentuk syukur kemerdekaan, memperteguh kebhinekaan dengan ilustrasi pakaian adat nusantara, dan menyongsong masa depan gemilang."
+  },
+  {
+    "id": 146,
+    "track": "tpu",
+    "category": "Makroprudensial & SSK",
+    "subCategory": "Kebijakan Insentif Likuiditas Makroprudensial (KLM)",
+    "module": "Modul 05: Makroprudensial & SSK",
+    "question": "Kebijakan Bank Indonesia yang memberikan insentif pengurangan kewajiban Giro Wajib Minimum (GWM) Rupiah bagi perbankan yang aktif menyalurkan pembiayaan ke sektor-sektor prioritas (hilirisasi minerba/non-minerba, perumahan, pariwisata, dan UMKM) dinamakan...",
+    "options": [
+      "Kebijakan Insentif Likuiditas Makroprudensial (KLM)",
+      "Countercyclical Capital Buffer (CCyB)",
+      "Loan to Value Relaksasi Ekstrem",
+      "Fasilitas Diskonto Khusus",
+      "Dana Alokasi Khusus Perbankan"
+    ],
+    "correct": 0,
+    "trick": "KLM = Kebijakan Likuiditas Makroprudensial. Memberikan insentif kelonggaran likuiditas (potongan GWM) agar bank makin terpacu membiayai sektor hilirisasi dan UMKM.",
+    "explanation": "KLM diluncurkan BI sejak Oktober 2023 untuk memperkuat transmisi kebijakan makroprudensial akomodatif guna mendorong intermediasi perbankan ke sektor yang berdaya ungkit ekonomi tinggi."
+  },
+  {
+    "id": 147,
+    "track": "tpu",
+    "category": "Internasional & Syariah",
+    "subCategory": "Keanggotaan Bank Indonesia di Forum Global",
+    "module": "Modul 06: Kerja Sama Internasional & Syariah",
+    "question": "Bank Indonesia merupakan pemegang saham dan anggota dari 'Bank Sentralnya Bank Sentral Dunia' yang bermarkas di Basel, Swiss. Lembaga internasional tersebut adalah...",
+    "options": [
+      "International Monetary Fund (IMF)",
+      "Bank for International Settlements (BIS)",
+      "World Bank Group",
+      "Financial Stability Board (FSB)",
+      "Asian Development Bank (ADB)"
+    ],
+    "correct": 1,
+    "trick": "Bank Sentralnya Bank Sentral di Basel = BIS (Bank for International Settlements). BI resmi menjadi anggota BIS sejak tahun 2003.",
+    "explanation": "BIS memfasilitasi kerja sama antarbank sentral dunia dan menjadi forum penyusun standar regulasi keuangan global (seperti Basel Core Principles)."
+  },
+  {
+    "id": 148,
+    "track": "tpu",
+    "category": "Sistem Pembayaran",
+    "subCategory": "Prinsip Sistem Pembayaran 4K",
+    "module": "Modul 03: Sistem Pembayaran & Fintech",
+    "question": "Dalam mengemban mandat sistem pembayaran, Bank Indonesia senantiasa menerapkan 4 prinsip utama, yaitu...",
+    "options": [
+      "Kecepatan, Kemewahan, Keuntungan, dan Keterbukaan",
+      "Keamanan, Efisiensi, Kesetaraan Akses (Perluasan Akses), dan Perlindungan Konsumen",
+      "Komersial, Keuntungan, Kekuasaan, dan Kerapian",
+      "Kerahasiaan Mutlak, Keringanan Pajak, Komisi Murah, dan Kepastian Saham",
+      "Konsentrasi, Ketergantungan, Keberlanjutan, dan Kepemilikan Asing"
+    ],
+    "correct": 1,
+    "trick": "4 Pilar Sistem Pembayaran BI: Aman, Efisien, Akses Luas (Inklusif), dan Lindungi Konsumen.",
+    "explanation": "Bank Indonesia wajib menjamin bahwa sistem pembayaran berjalan secara aman, efisien, memberikan perlindungan konsumen yang adil, serta membuka kesetaraan akses bagi seluruh lapisan masyarakat."
+  },
+  {
+    "id": 149,
+    "track": "tpu",
+    "category": "Pengelolaan Rupiah",
+    "subCategory": "Khazanah Digital Rupiah",
+    "module": "Modul 04: Pengelolaan Uang Rupiah & CBDC",
+    "question": "Dalam arsitektur Proyek Garuda, wadah atau platform komputasi terintegrasi yang berfungsi mengelola siklus hidup penerbitan, transfer, penukaran, dan pembakaran (burn) Digital Rupiah oleh Bank Indonesia dinamakan...",
+    "options": [
+      "Khazanah Digital Rupiah",
+      "Blockchain Konsorsium Finansial",
+      "Garuda Vault Portal",
+      "Central Ledger Network",
+      "Smart Contract Pool"
+    ],
+    "correct": 0,
+    "trick": "Istilah Resmi BI: 'Khazanah Digital Rupiah'. Kata 'Khazanah' terinspirasi dari ruang penyimpanan uang fisik bank sentral yang kini ditransformasikan ke era digital.",
+    "explanation": "Khazanah Digital Rupiah adalah platform inti penyedia infrastruktur w-CBDC dan r-CBDC yang memastikan tata kelola dan keamanan penerbitan uang digital resmi bank sentral."
+  },
+  {
+    "id": 150,
+    "track": "tpu",
+    "category": "Layanan & Konsumen",
+    "subCategory": "Pemberantasan Uang Palsu & Botasupal",
+    "module": "Modul 08: Layanan Publik & Perlindungan Konsumen",
+    "question": "Untuk menanggulangi tindak pidana pemalsuan uang Rupiah secara terpadu lintas institusi penegak hukum, Bank Indonesia tergabung dalam badan koordinasi nasional yang bernama...",
+    "options": [
+      "Badan Siber dan Sandi Negara (BSSN)",
+      "Badan Koordinasi Pemberantasan Uang Palsu (Botasupal)",
+      "Satgas Waspada Investasi (SWI)",
+      "Pusat Pelaporan dan Analisis Transaksi Keuangan (PPATK)",
+      "Komisi Pemberantasan Korupsi (KPK)"
+    ],
+    "correct": 1,
+    "trick": "Botasupal = Badan Koordinasi Pemberantasan Uang Palsu. Terdiri dari BIN, Polri, Kejaksaan Agung, Kemenkeu, dan Bank Indonesia.",
+    "explanation": "Botasupal bertugas mengoordinasikan kebijakan pencegahan dan penindakan hukum terhadap jaringan peredaran dan produksi uang palsu di seluruh wilayah Indonesia."
+  },
+  {
+    "id": 151,
+    "track": "tpu",
+    "category": "Kebijakan Moneter",
+    "subCategory": "Komponen Inflasi BPS & BI",
+    "module": "Modul 02: Kebijakan Moneter & Devisa",
+    "question": "Dalam perumusan kebijakan moneter, Bank Indonesia membedakan inflasi IHK menjadi 3 komponen. Komponen inflasi yang dipengaruhi oleh guncangan sisi penawaran musiman (panen/cuaca) seperti beras, aneka cabai, dan bawang merah disebut...",
+    "options": [
+      "Inflasi Inti (Core Inflation)",
+      "Inflasi Harga Bergejolak (Volatile Food)",
+      "Inflasi Harga yang Diatur Pemerintah (Administered Prices)",
+      "Inflasi Impor (Imported Inflation)",
+      "Hiperinflasi Ekspektatif"
+    ],
+    "correct": 1,
+    "trick": "3 Jenis Inflasi IHK: 1) Inti (fundamental permintaan-penawaran), 2) Volatile Food (pangan musiman/cuaca), 3) Administered Prices (tarif BBM, listrik, rokok, rokok cukai yang diatur pemerintah).",
+    "explanation": "Volatile Food adalah inflasi yang pergerakan harganya sangat dipengaruhi oleh pasokan hasil panen, musim kemarau/hujan, dan distribusi logistik antarwilayah."
+  },
+  {
+    "id": 152,
+    "track": "tpu",
+    "category": "Kebijakan Moneter",
+    "subCategory": "Gerakan Nasional Pengendalian Inflasi Pangan (GNPIP)",
+    "module": "Modul 02: Kebijakan Moneter & Devisa",
+    "question": "Sebagai langkah sinergi konkret Bank Indonesia bersama Tim Pengendalian Inflasi Pusat (TPIP) dan Daerah (TPID) untuk menjaga ketahanan pangan dan meredam lonjakan volatile food di seluruh pelosok tanah air, diluncurkan program...",
+    "options": [
+      "Operasi Pasar Beras Murah",
+      "Gerakan Nasional Pengendalian Inflasi Pangan (GNPIP)",
+      "Bantuan Langsung Tunai Pangan",
+      "Swasembada Gula Nasional",
+      "Subsidi Pupuk Terpadu"
+    ],
+    "correct": 1,
+    "trick": "GNPIP = Gerakan Nasional Pengendalian Inflasi Pangan. Program unggulan BI bersama TPIP/TPID melalui 7 program strategis (termasuk pasar murah, kerjasama antardaerah/KAD, dan digital farming).",
+    "explanation": "GNPIP diinisiasi BI bersama pemerintah untuk memperkuat pasokan dan efisiensi rantai pasok pangan nasional guna menekan inflasi volatile food."
+  },
+  {
+    "id": 153,
+    "track": "tpu",
+    "category": "Kebijakan Moneter",
+    "subCategory": "Term Deposit Devisa Hasil Ekspor (TD Valas DHE)",
+    "module": "Modul 02: Kebijakan Moneter & Devisa",
+    "question": "Berdasarkan Peraturan Pemerintah (PP) No. 36 Tahun 2023, eksportir Sumber Daya Alam (SDA) diwajibkan menempatkan Devisa Hasil Ekspor (DHE) minimal 30% di sistem keuangan Indonesia selama sekurang-kurangnya 3 bulan. Bank Indonesia memfasilitasi penempatan devisa tersebut melalui instrumen...",
+    "options": [
+      "Term Deposit (TD) Valas DHE dengan insentif imbal hasil kompetitif dan fasilitas pajak PPh final 0%",
+      "Kredit Investasi Valas Tanpa Jaminan",
+      "Penukaran Wajib ke Mata Uang Dinar",
+      "Surat Utang Negara Ritel Valuta Asing",
+      "Tabungan Giro Bebas Bunga"
+    ],
+    "correct": 0,
+    "trick": "TD Valas DHE: Instrumen BI untuk menampung devisa ekspor SDA (minimal 30% selama 3 bulan) dengan suku bunga menarik dan insentif pajak bunga deposito hingga 0%.",
+    "explanation": "Instrumen TD Valas DHE memperkuat pasokan cadangan devisa nasional dan menjaga stabilitas nilai tukar Rupiah dari penerimaan ekspor pertambangan, perkebunan, kehutanan, dan perikanan."
+  },
+  {
+    "id": 154,
+    "track": "tpu",
+    "category": "Kebijakan Moneter",
+    "subCategory": "Strategi Stabilisasi Triple Intervention BI",
+    "module": "Modul 02: Kebijakan Moneter & Devisa",
+    "question": "Untuk memastikan stabilitas nilai tukar Rupiah dari gejolak pasar keuangan global, Bank Indonesia menjalankan strategi intervensi terpadu 'Triple Intervention', yaitu intervensi secara simultan pada...",
+    "options": [
+      "Pasar Spot, Pasar Domestic Non-Deliverable Forward (DNDF), dan Pasar Sekunder Surat Berharga Negara (SBN)",
+      "Pasar Saham, Pasar Kripto, dan Pasar Emas Fisik",
+      "Pasar Properti, Pasar Mobil, dan Pasar Komoditas Berjangka",
+      "Pasar Uang Antarbank, Kredit Konsumsi, dan Kas Keliling",
+      "Pasar Ekspor, Pasar Impor, dan Tarif Bea Cukai"
+    ],
+    "correct": 0,
+    "trick": "Triple Intervention BI: 1) Pasar Spot (jual valas riil), 2) Pasar DNDF (lindung nilai forward domestik tanpa transfer dolar fisik), 3) Pasar SBN Sekunder (beli obligasi negara saat yield naik tajam).",
+    "explanation": "Strategi Triple Intervention menjaga likuiditas valas dan Rupiah tetap seimbang di pasar spot, memitigasi ekspektasi depresiasi via DNDF, dan menjaga stabilitas yield di pasar SBN."
+  },
+  {
+    "id": 155,
+    "track": "tpu",
+    "category": "Sistem Pembayaran",
+    "subCategory": "Fitur Proxy Address BI-FAST",
+    "module": "Modul 03: Sistem Pembayaran & Fintech",
+    "question": "Salah satu keunggulan utama sistem BI-FAST yang mempermudah nasabah dalam melakukan transfer dana tanpa perlu menghafal dan mengetikkan nomor rekening bank yang panjang adalah fitur...",
+    "options": [
+      "Virtual ATM Gateway",
+      "Proxy Address (menggunakan Nomor HP atau Alamat Email yang tertaut)",
+      "One Time Password Otomatis",
+      "Biometric Retina Scan",
+      "QRIS Dinamis Otomatis"
+    ],
+    "correct": 1,
+    "trick": "Proxy Address BI-FAST: Nomor HP atau Email bisa didaftarkan sebagai pengganti nomor rekening bank. Transfer cukup kirim ke nomor HP!",
+    "explanation": "Fitur Proxy Address memungkinkan nasabah menautkan alias (nomor ponsel atau surel) dengan nomor rekeningnya, sehingga pengirim cukup menginput nomor ponsel penerima."
+  },
+  {
+    "id": 156,
+    "track": "tpu",
+    "category": "Sistem Pembayaran",
+    "subCategory": "Batas Batasan Saldo Uang Elektronik",
+    "module": "Modul 03: Sistem Pembayaran & Fintech",
+    "question": "Berdasarkan regulasi Bank Indonesia terkait Penyelenggaraan Uang Elektronik, batas maksimum saldo yang dapat tersimpan pada uang elektronik terdaftar (registered e-money / upgrade akun) adalah sebesar...",
+    "options": [
+      "Rp 2.000.000,-",
+      "Rp 5.000.000,-",
+      "Rp 10.000.000,-",
+      "Rp 20.000.000,-",
+      "Rp 50.000.000,-"
+    ],
+    "correct": 3,
+    "trick": "Batas Saldo E-Money: Unregistered (belum verifikasi KTP) = Rp 2 Juta. Registered (sudah KYC/KTP) = Rp 20 Juta (dengan limit transaksi masuk maks Rp 40 Juta/bulan).",
+    "explanation": "BI menetapkan batas maksimal nilai uang elektronik registered sebesar Rp 20 juta guna mendukung inklusi keuangan digital dengan tetap mengedepankan mitigasi anti-pencucian uang (APU-PPT)."
+  },
+  {
+    "id": 157,
+    "track": "tpu",
+    "category": "Pengelolaan Rupiah",
+    "subCategory": "Kriteria Penggantian Uang Rupiah Rusak",
+    "module": "Modul 04: Pengelolaan Uang Rupiah & CBDC",
+    "question": "Masyarakat dapat menukarkan fisik uang kertas Rupiah yang rusak/cacat (terbakar/robek) ke Bank Indonesia dan memperoleh penggantian sebesar nilai nominal penuh (100%), asalkan fisik uang kertas tersebut masih tersisa sekurang-kurangnya sebesar...",
+    "options": [
+      "Lebih dari 1/2 bagian (50%)",
+      "Lebih besar dari 2/3 (dua pertiga) bagian ukuran aslinya (> 67%) dan ciri keasliannya masih dapat dikenali",
+      "Tersisa 1/4 bagian (25%)",
+      "Cukup nomor serinya saja yang terbaca tanpa peduli fisik kertas",
+      "Wajib 90% utuh tanpa sobekan sama sekali"
+    ],
+    "correct": 1,
+    "trick": "Aturan Ganti Uang Rusak BI: Fisik uang harus lebih besar dari 2/3 (>67%) ukuran aslinya dan keasliannya masih dapat diverifikasi. Jika <= 2/3, maka tidak memperoleh penggantian.",
+    "explanation": "Ketentuan penukaran uang rusak BI menetapkan uang kertas rusak diberi penggantian sebesar nilai nominal apabila fisik uang kertas lebih besar dari 2/3 ukuran aslinya dan dapat dikenali keasliannya."
+  },
+  {
+    "id": 158,
+    "track": "tpu",
+    "category": "Pengelolaan Rupiah",
+    "subCategory": "Teknik Cetak Intaglio Uang Kertas",
+    "module": "Modul 04: Pengelolaan Uang Rupiah & CBDC",
+    "question": "Ciri khas uang kertas Rupiah asli yang terasa kasar saat diraba pada bagian gambar pahlawan, lambang negara Garuda Pancasila, angka nominal, dan frasa 'NEGARA KESATUAN REPUBLIK INDONESIA' dihasilkan melalui teknik cetak khusus yang dinamakan...",
+    "options": [
+      "Offset Printing",
+      "Cetak Intaglio (Engraving Print)",
+      "Digital Laserjet Printing",
+      "Letterpress Relief",
+      "Sablon Silkscreen"
+    ],
+    "correct": 1,
+    "trick": "Diraba terasa kasar = Cetak Intaglio. Tinta cetak timbul khusus uang kertas yang sangat sulit ditiru mesin printer biasa.",
+    "explanation": "Cetak intaglio adalah teknik cetak dengan pelat berukir dalam di mana tinta mengendap tebal di atas kertas sehingga menghasilkan tekstur rabaan kasar yang khas pada uang asli."
+  },
+  {
+    "id": 159,
+    "track": "tpu",
+    "category": "Makroprudensial & SSK",
+    "subCategory": "Target Koridor Rasio Intermediasi Makroprudensial (RIM)",
+    "module": "Modul 05: Makroprudensial & SSK",
+    "question": "Dalam rangka mengendalikan fungsi intermediasi perbankan agar tidak kekurangan likuiditas dan tidak pula menahan kredit, Bank Indonesia menetapkan target koridor Rasio Intermediasi Makroprudensial (RIM) perbankan pada rentang...",
+    "options": [
+      "50% - 70%",
+      "65% - 85%",
+      "84% - 94%",
+      "95% - 110%",
+      "100% - 120%"
+    ],
+    "correct": 2,
+    "trick": "Koridor RIM BI: 84% - 94%. Jika RIM bank di bawah 84% (terlalu malas menyalurkan kredit) atau di atas 94% (terlalu ekspansif/risiko likuiditas), bank dikenakan disinsentif giro RIM.",
+    "explanation": "RIM mengukur perbandingan penyaluran kredit dan pembiayaan ditambah surat berharga korporasi terhadap dana pihak ketiga (DPK) ditambah surat berharga yang diterbitkan bank, dengan batas toleransi sehat 84% - 94%."
+  },
+  {
+    "id": 160,
+    "track": "tpu",
+    "category": "Makroprudensial & SSK",
+    "subCategory": "Loan to Value (LTV) Properti Hijau",
+    "module": "Modul 05: Makroprudensial & SSK",
+    "question": "Sebagai bentuk dukungan Bank Indonesia terhadap pembiayaan berkelanjutan (green financing), rasio Loan to Value (LTV) / Financing to Value (FTV) untuk pembelian properti pertama berwawasan lingkungan (green property) dapat diberikan pelonggaran hingga sebesar...",
+    "options": [
+      "Maksimal 60% (DP 40%)",
+      "Maksimal 75% (DP 25%)",
+      "Maksimal 85% (DP 15%)",
+      "Paling tinggi 100% (Down Payment 0%)",
+      "Paling tinggi 120%"
+    ],
+    "correct": 3,
+    "trick": "Insentif Properti Hijau: LTV hingga 100% alias DP 0%! Pembeli rumah ramah lingkungan bisa mengajukan KPR tanpa uang muka bagi bank yang memenuhi rasio NPL sehat.",
+    "explanation": "BI melonggarkan ketentuan rasio LTV/FTV kredit properti hingga paling tinggi 100% untuk mendorong sektor properti berwawasan lingkungan dan memfasilitasi kepemilikan rumah pertama."
+  },
+  {
+    "id": 161,
+    "track": "tpu",
+    "category": "Internasional & Syariah",
+    "subCategory": "Cash Waqf Linked Sukuk (CWLS)",
+    "module": "Modul 06: Kerja Sama Internasional & Syariah",
+    "question": "Instrumen investasi sosial syariah inovatif yang mengintegrasikan dana wakaf uang temporer/abadi dari wakif untuk diinvestasikan pada Surat Berharga Syariah Negara (SBSN), di mana imbal hasilnya disalurkan untuk program sosial dan pemberdayaan umat dinamakan...",
+    "options": [
+      "Cash Waqf Linked Sukuk (CWLS)",
+      "Zakat Saham Syariah",
+      "Infaq Produktif Berjangka",
+      "Mudharabah Muqayyadah Bank",
+      "Sukuk Ritel Komersial"
+    ],
+    "correct": 0,
+    "trick": "CWLS = Cash Waqf Linked Sukuk. Sinergi Kemenkeu, Bank Indonesia, BWI (Badan Wakaf Indonesia), dan Baznas memadukan instrumen sukuk negara dengan wakaf produktif.",
+    "explanation": "CWLS memfasilitasi pewakaf uang untuk menempatkan dananya pada instrumen SBSN yang aman dan amanah, di mana pokok dana wakaf tetap utuh dan kupon/imbalannya dimanfaatkan untuk program kemaslahatan umat."
+  },
+  {
+    "id": 162,
+    "track": "tpu",
+    "category": "Internasional & Syariah",
+    "subCategory": "Indonesia Sharia Economic Festival (ISEF)",
+    "module": "Modul 06: Kerja Sama Internasional & Syariah",
+    "question": "Penyelenggaraan acara tahunan bertaraf internasional terbesar di Indonesia yang diinisiasi oleh Bank Indonesia bersama KNEKS untuk mengintegrasikan pameran industri halal, peragaan busana muslim, temu bisnis (business matching), dan konferensi ekonomi syariah dinamakan...",
+    "options": [
+      "Jakarta Islamic Fair",
+      "Indonesia Sharia Economic Festival (ISEF)",
+      "Halal World Expo",
+      "Sharia Banking Summit",
+      "Nusantara Syariah Exhibition"
+    ],
+    "correct": 1,
+    "trick": "ISEF = Indonesia Sharia Economic Festival. Acara tahunan bergengsi BI yang menjadi etalase utama ekonomi dan keuangan syariah Indonesia di kancah global.",
+    "explanation": "ISEF diselenggarakan secara rutin tiap tahun oleh Bank Indonesia sebagai akselerator implementasi Masterplan Ekonomi Syariah Indonesia."
+  },
+  {
+    "id": 163,
+    "track": "tpu",
+    "category": "Kelembagaan BI",
+    "subCategory": "Akuntabilitas Pelaporan Bank Indonesia",
+    "module": "Modul 01: Kelembagaan & UU P2SK",
+    "question": "Sebagai wujud akuntabilitas publik dan checks and balances, Bank Indonesia diwajibkan oleh undang-undang untuk menyampaikan laporan pelaksanaan tugas dan wewenangnya kepada DPR dan Pemerintah secara berkala...",
+    "options": [
+      "Setiap 1 bulan sekali",
+      "Setiap triwulan dan tahunan",
+      "Hanya setiap 5 tahun sekali saat pergantian Gubernur BI",
+      "Hanya saat diminta secara khusus oleh Presiden",
+      "Setiap pekan melalui jumpa pers daring"
+    ],
+    "correct": 1,
+    "trick": "Pelaporan BI: Laporan Triwulanan dan Tahunan disampaikan secara resmi kepada DPR dan Presiden serta dipublikasikan kepada masyarakat luas melalui media massa.",
+    "explanation": "Pasal 58 UU Bank Indonesia mengatur BI wajib menyampaikan laporan triwulan dan tahunan mengenai pelaksanaan tugas dan wewenangnya kepada DPR dan Pemerintah."
+  },
+  {
+    "id": 164,
+    "track": "tpu",
+    "category": "Layanan & Konsumen",
+    "subCategory": "Perlindungan Data Pribadi Konsumen Finansial",
+    "module": "Modul 08: Layanan Publik & Perlindungan Konsumen",
+    "question": "Dalam penyelenggaraan sistem pembayaran, Penyelenggara Jasa Pembayaran (PJP) dilarang memberikan atau menyebarluaskan data transaksi dan data pribadi konsumen kepada pihak ketiga tanpa persetujuan tertulis dari konsumen. Hal ini merupakan wujud penegakan...",
+    "options": [
+      "Prinsip Kerahasiaan dan Keamanan Data serta UU Perlindungan Data Pribadi (UU PDP)",
+      "Prinsip Monopoli Data Industri",
+      "Prinsip Pembatasan Investasi Asing",
+      "Prinsip Kuota Transaksi Bulanan",
+      "Prinsip Audit Forensik Mandiri"
+    ],
+    "correct": 0,
+    "trick": "Kerahasiaan Data: Selaras dengan UU No. 27 Tahun 2022 tentang Perlindungan Data Pribadi (UU PDP) dan PBI Perlindungan Konsumen.",
+    "explanation": "Bank Indonesia mewajibkan seluruh penyelenggara jasa sistem pembayaran menjaga kerahasiaan dan integritas data nasabah dari kebocoran dan penyalahgunaan."
+  },
+  {
+    "id": 165,
+    "track": "tpu",
+    "category": "Kebijakan Moneter",
+    "subCategory": "Trilemma Kebijakan Moneter (Impossible Trinity)",
+    "module": "Modul 02: Kebijakan Moneter & Devisa",
+    "question": "Konsep teori moneter klasik 'Impossible Trinity' (Trilemma Kebijakan) menyatakan bahwa suatu bank sentral tidak dapat secara bersamaan mencapai 3 hal sekaligus, yaitu...",
+    "options": [
+      "Suku bunga rendah, pajak rendah, dan belanja negara tinggi",
+      "Stabilitas nilai tukar tetap (fixed exchange rate), Arus modal bebas lalu lintas (free capital flow), dan Kebijakan moneter yang independen (independent monetary policy)",
+      "Inflasi tinggi, pengangguran tinggi, dan defisit neraca dagang",
+      "Cetak uang banyak, cadangan devisa melimpah, dan utang nihil",
+      "Kredit konsumtif, kredit investasi, dan tabungan deposito"
+    ],
+    "correct": 1,
+    "trick": "Impossible Trinity: Pilih 2 dari 3! Tidak bisa sekaligus: 1) Kurs Tetap, 2) Bebas Devisa Arus Modal, 3) Independensi Moneter. Indonesia memilih kurs mengambang fleksibel, arus modal terbuka, dan kebijakan moneter independen.",
+    "explanation": "Teori Mundell-Fleming menegaskan bahwa dengan sistem devisa bebas dan kebijakan moneter yang independen, nilai tukar harus dibiarkan fleksibel dan tidak dipatok kaku."
+  },
+
   {
     "id": 1,
     "category": "Verbal",
@@ -2514,11 +3802,13 @@
 ];
 
     // ==========================================
-    // CONTROLLER & PROFILING ENGINE
+    // CONTROLLER & PROFILING ENGINE (ZAHRA BI SUITE)
     // ==========================================
+    let currentTrack = "tpu"; // "tpu" | "tpd" | "all"
     let appMode = "instant"; // "instant" | "exam" | "identifier"
     let currentFilter = "ALL";
-    let filteredQuestions = [...allQuestions];
+    let trackQuestions = [];
+    let filteredQuestions = [];
     let currentIndex = 0;
     let userAnswers = {}; // id -> answerIndex
     let identifierAnswers = {}; // id -> { chosen: string, isCorrect: boolean }
@@ -2528,10 +3818,102 @@
     let timerInterval = null;
     let isSubmitted = false;
 
+    function getTrackScopeQuestions() {
+      if (currentTrack === "tpu") {
+        return allQuestions.filter(q => q.track === "tpu");
+      } else if (currentTrack === "tpd") {
+        return allQuestions.filter(q => q.track !== "tpu");
+      } else {
+        return [...allQuestions];
+      }
+    }
+
     function init() {
+      // Parse query parameter: ?track=tpu | ?track=tpd | ?track=all
+      const urlParams = new URLSearchParams(window.location.search);
+      const trackParam = urlParams.get("track");
+      if (trackParam === "tpd" || trackParam === "tpu" || trackParam === "all") {
+        currentTrack = trackParam;
+      }
+
+      updateTrackUI();
       updateModeUI();
+      renderFilterButtons();
       applyFilter("ALL");
       openBriefingModal();
+    }
+
+    function switchTrack(track) {
+      if (currentTrack === track) return;
+      currentTrack = track;
+      updateTrackUI();
+      renderFilterButtons();
+      applyFilter("ALL");
+    }
+
+    function updateTrackUI() {
+      const btnTpu = document.getElementById("track-btn-tpu");
+      const btnTpd = document.getElementById("track-btn-tpd");
+      const btnAll = document.getElementById("track-btn-all");
+
+      [btnTpu, btnTpd, btnAll].forEach(b => {
+        if (b) {
+          b.classList.remove("active-tpu", "active-tpd", "active-all");
+        }
+      });
+
+      if (currentTrack === "tpu" && btnTpu) btnTpu.classList.add("active-tpu");
+      else if (currentTrack === "tpd" && btnTpd) btnTpd.classList.add("active-tpd");
+      else if (currentTrack === "all" && btnAll) btnAll.classList.add("active-all");
+    }
+
+    function renderFilterButtons() {
+      const container = document.getElementById("filter-bar-container");
+      if (!container) return;
+      container.innerHTML = "";
+
+      trackQuestions = getTrackScopeQuestions();
+      let categories = [];
+
+      if (currentTrack === "tpu") {
+        categories = [
+          { id: "ALL", label: `Semua Materi PU (${trackQuestions.length} Soal)` },
+          { id: "Kelembagaan BI", label: "1. Kelembagaan & UU P2SK" },
+          { id: "Kebijakan Moneter", label: "2. Kebijakan Moneter & Devisa" },
+          { id: "Sistem Pembayaran", label: "3. BI-FAST, QRIS & Fintech" },
+          { id: "Pengelolaan Rupiah", label: "4. Rupiah & Digital Rupiah" },
+          { id: "Makroprudensial & SSK", label: "5. Makroprudensial & SSK" },
+          { id: "Internasional & Syariah", label: "6. Kerjasama Global & Syariah" },
+          { id: "Layanan & Konsumen", label: "7. Layanan BICARA & Konsumen" }
+        ];
+      } else if (currentTrack === "tpd") {
+        categories = [
+          { id: "ALL", label: `Semua Subtes TPD (${trackQuestions.length} Soal)` },
+          { id: "Verbal", label: "1. Verbal & Bahasa Buatan" },
+          { id: "Numerik", label: "2. Numerik & Aritmatika" },
+          { id: "Matriks Numerik", label: "3. Matriks Numerik Visual 🔢" },
+          { id: "Diagrammatic", label: "4. Diagrammatic & Spasial 📐" },
+          { id: "Matriks Figural", label: "5. Matriks Figural 3x3 🧩" },
+          { id: "Diagram Venn", label: "6. Diagram Venn & Himpunan ⭕" },
+          { id: "Digit Symbol", label: "7. Digit Symbol Speed Drill ⚡" },
+          { id: "POF", label: "8. POF Sikap Kerja BI 🏛️" }
+        ];
+      } else {
+        categories = [
+          { id: "ALL", label: `Semua Soal Gabungan (${trackQuestions.length} Soal)` },
+          { id: "TPU", label: "🏛️ Materi Pengetahuan Umum BI" },
+          { id: "TPD", label: "🧠 Subtes TPD Experd" }
+        ];
+      }
+
+      categories.forEach((cat, idx) => {
+        const btn = document.createElement("button");
+        btn.className = `filter-btn ${cat.id === currentFilter ? "active" : ""}`;
+        btn.dataset.cat = cat.id;
+        btn.innerText = cat.label;
+        btn.onclick = () => filterCategory(cat.id);
+        container.appendChild(btn);
+      });
     }
 
     function openBriefingModal() {
@@ -2607,11 +3989,18 @@
 
     function applyFilter(category) {
       currentFilter = category;
+      trackQuestions = getTrackScopeQuestions();
+
       if (category === "ALL") {
-        filteredQuestions = [...allQuestions];
+        filteredQuestions = [...trackQuestions];
+      } else if (category === "TPU") {
+        filteredQuestions = allQuestions.filter(q => q.track === "tpu");
+      } else if (category === "TPD") {
+        filteredQuestions = allQuestions.filter(q => q.track !== "tpu");
       } else {
-        filteredQuestions = allQuestions.filter(q => q.category === category);
+        filteredQuestions = trackQuestions.filter(q => q.category === category);
       }
+
       currentIndex = 0;
       renderGridNav();
       loadQuestion(0);
@@ -3129,9 +4518,25 @@
         }
       });
 
-      const score = Math.round((correctTotal / allQuestions.length) * 100);
+      const scopeQ = getTrackScopeQuestions();
+      let scopeAnswered = 0;
+      let scopeCorrect = 0;
+      let scopeWrong = [];
+
+      scopeQ.forEach(q => {
+        if (userAnswers[q.id] !== undefined) {
+          scopeAnswered++;
+          if (userAnswers[q.id] === q.correct) {
+            scopeCorrect++;
+          } else {
+            scopeWrong.push(q);
+          }
+        }
+      });
+
+      const score = scopeQ.length > 0 ? Math.round((scopeCorrect / scopeQ.length) * 100) : 0;
       document.getElementById("final-score").innerText = score;
-      document.getElementById("progress-summary").innerText = `Soal Terjawab: ${answeredTotal} dari ${allQuestions.length} (${correctTotal} Benar, ${wrongQuestions.length} Salah)`;
+      document.getElementById("progress-summary").innerText = `Soal Terjawab: ${scopeAnswered} dari ${scopeQ.length} (${scopeCorrect} Benar, ${scopeWrong.length} Salah)`;
 
       // Status Badge
       const statusBadge = document.getElementById("status-badge");

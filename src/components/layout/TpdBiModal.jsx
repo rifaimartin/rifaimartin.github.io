@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { X, ExternalLink, RotateCcw, Smartphone, Monitor, Landmark } from 'lucide-react';
+import { X, ExternalLink, RotateCcw, Smartphone, Monitor, Landmark, Heart, Brain, Layers } from 'lucide-react';
 import { soundFx } from '../../utils/audio';
 
-export default function TpdBiModal({ isOpen, onClose }) {
+export default function TpdBiModal({ isOpen, onClose, initialTrack = 'all' }) {
   const [deviceMode, setDeviceMode] = useState('wide'); // 'wide' | 'mobile'
   const [iframeKey, setIframeKey] = useState(0);
+  const [activeTrack, setActiveTrack] = useState(initialTrack);
+
+  useEffect(() => {
+    if (initialTrack) {
+      setActiveTrack(initialTrack);
+    }
+  }, [initialTrack]);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -29,6 +36,12 @@ export default function TpdBiModal({ isOpen, onClose }) {
     setIframeKey((prev) => prev + 1);
   };
 
+  const handleTrackChange = (track) => {
+    soundFx.playCardClick();
+    setActiveTrack(track);
+    setIframeKey((prev) => prev + 1);
+  };
+
   return (
     <div
       style={{
@@ -39,7 +52,7 @@ export default function TpdBiModal({ isOpen, onClose }) {
         alignItems: 'center',
         justifyContent: 'center',
         padding: '16px',
-        backgroundColor: 'rgba(0, 0, 0, 0.82)',
+        backgroundColor: 'rgba(0, 0, 0, 0.84)',
         backdropFilter: 'blur(16px)',
         WebkitBackdropFilter: 'blur(16px)',
         animation: 'fadeIn 0.2s ease-out'
@@ -51,13 +64,13 @@ export default function TpdBiModal({ isOpen, onClose }) {
       <div
         style={{
           background: 'var(--surface-card)',
-          border: '1px solid var(--card-border)',
+          border: '1px solid rgba(244, 63, 94, 0.3)',
           borderRadius: '24px',
-          maxWidth: deviceMode === 'mobile' ? '480px' : '1060px',
+          maxWidth: deviceMode === 'mobile' ? '480px' : '1080px',
           width: '100%',
           height: '92vh',
           maxHeight: '880px',
-          boxShadow: '0 30px 80px rgba(0,0,0,0.6)',
+          boxShadow: '0 30px 80px rgba(0,0,0,0.6), 0 0 40px rgba(244, 63, 94, 0.15)',
           position: 'relative',
           display: 'flex',
           flexDirection: 'column',
@@ -69,48 +82,51 @@ export default function TpdBiModal({ isOpen, onClose }) {
         {/* Top Control Bar */}
         <div
           style={{
-            padding: '14px 18px',
+            padding: '12px 18px',
             borderBottom: '1px solid var(--card-border)',
             background: 'var(--surface-sunken)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            gap: '10px'
+            gap: '10px',
+            flexWrap: 'wrap'
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: 0 }}>
             <div
               style={{
-                width: '32px',
-                height: '32px',
-                borderRadius: '8px',
-                background: 'rgba(245, 158, 11, 0.15)',
+                width: '34px',
+                height: '34px',
+                borderRadius: '10px',
+                background: 'linear-gradient(135deg, #f43f5e 0%, #ec4899 100%)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: '#f59e0b',
+                color: '#ffffff',
+                boxShadow: '0 2px 8px rgba(244, 63, 94, 0.3)',
                 flexShrink: 0
               }}
             >
-              <Landmark size={16} />
+              <Heart size={18} fill="#ffffff" />
             </div>
             <div style={{ minWidth: 0 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <span style={{ fontWeight: 700, fontSize: '14px', color: 'var(--folio-ink)' }}>
-                  TPD Bank Indonesia
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
+                <span style={{ fontWeight: 800, fontSize: '14.5px', color: 'var(--folio-ink)' }}>
+                  Zahra BI Learning Suite
                 </span>
                 <span
                   style={{
                     fontFamily: 'var(--font-mono)',
                     fontSize: '10px',
-                    padding: '1px 5px',
-                    borderRadius: '4px',
-                    background: 'rgba(245, 158, 11, 0.15)',
-                    color: '#f59e0b',
-                    fontWeight: 600
+                    padding: '2px 7px',
+                    borderRadius: '999px',
+                    background: 'rgba(244, 63, 94, 0.15)',
+                    color: '#f43f5e',
+                    fontWeight: 700,
+                    border: '1px solid rgba(244, 63, 94, 0.25)'
                   }}
                 >
-                  PCPM EXPERD
+                  PCPM 2026 ❤️
                 </span>
               </div>
               <div
@@ -122,9 +138,85 @@ export default function TpdBiModal({ isOpen, onClose }) {
                   whiteSpace: 'nowrap'
                 }}
               >
-                Simulasi & Profiling Tes Potensi Dasar Bank Indonesia
+                TPD Experd & Pengetahuan Umum PCPM Bank Indonesia
               </div>
             </div>
+          </div>
+
+          {/* Quick Track Switcher Pills */}
+          <div
+            style={{
+              display: 'flex',
+              background: 'var(--surface-chip)',
+              borderRadius: '8px',
+              padding: '2px',
+              border: '1px solid var(--card-border)',
+              gap: '2px'
+            }}
+          >
+            <button
+              onClick={() => handleTrackChange('tpd')}
+              style={{
+                border: 'none',
+                background: activeTrack === 'tpd' ? '#ec4899' : 'transparent',
+                color: activeTrack === 'tpd' ? '#ffffff' : 'var(--folio-mute)',
+                borderRadius: '6px',
+                padding: '4px 9px',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
+                fontSize: '11px',
+                fontWeight: 700,
+                transition: 'all 0.15s'
+              }}
+              title="Filter ke Modul TPD Experd"
+            >
+              <Brain size={12} />
+              <span>TPD</span>
+            </button>
+            <button
+              onClick={() => handleTrackChange('tpu')}
+              style={{
+                border: 'none',
+                background: activeTrack === 'tpu' ? '#f59e0b' : 'transparent',
+                color: activeTrack === 'tpu' ? '#ffffff' : 'var(--folio-mute)',
+                borderRadius: '6px',
+                padding: '4px 9px',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
+                fontSize: '11px',
+                fontWeight: 700,
+                transition: 'all 0.15s'
+              }}
+              title="Filter ke Modul Pengetahuan Umum BI"
+            >
+              <Landmark size={12} />
+              <span>Pengetahuan Umum</span>
+            </button>
+            <button
+              onClick={() => handleTrackChange('all')}
+              style={{
+                border: 'none',
+                background: activeTrack === 'all' ? 'var(--folio-blue)' : 'transparent',
+                color: activeTrack === 'all' ? '#ffffff' : 'var(--folio-mute)',
+                borderRadius: '6px',
+                padding: '4px 9px',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
+                fontSize: '11px',
+                fontWeight: 700,
+                transition: 'all 0.15s'
+              }}
+              title="Tampilkan Semua Soal (Tryout Lengkap)"
+            >
+              <Layers size={12} />
+              <span>Semua</span>
+            </button>
           </div>
 
           {/* Action Buttons */}
@@ -160,7 +252,7 @@ export default function TpdBiModal({ isOpen, onClose }) {
                 title="Expanded Desktop Exam View"
               >
                 <Monitor size={12} />
-                <span>Expanded</span>
+                <span>Desktop</span>
               </button>
               <button
                 onClick={() => {
@@ -208,7 +300,7 @@ export default function TpdBiModal({ isOpen, onClose }) {
 
             {/* Open in New Tab */}
             <a
-              href="./tpd-bi/"
+              href={`./tpd-bi/?track=${activeTrack}`}
               target="_blank"
               rel="noreferrer noopener"
               style={{
@@ -221,52 +313,47 @@ export default function TpdBiModal({ isOpen, onClose }) {
                 display: 'flex',
                 alignItems: 'center',
                 gap: '4px',
+                textDecoration: 'none',
                 fontSize: '11px',
-                fontWeight: 600,
-                textDecoration: 'none'
+                fontWeight: 600
               }}
-              title="Open full page in new tab"
+              title="Buka di Tab Penuh"
             >
-              <ExternalLink size={13} />
+              <ExternalLink size={12} />
               <span>Full Tab</span>
             </a>
 
-            {/* Close Button */}
+            {/* Close Modal */}
             <button
-              onClick={() => {
-                soundFx.playCardClick();
-                onClose();
-              }}
+              onClick={onClose}
               style={{
                 border: 'none',
-                background: 'var(--surface-chip)',
-                color: 'var(--folio-ink)',
+                background: 'rgba(239, 68, 68, 0.1)',
+                color: '#ef4444',
                 borderRadius: '8px',
-                width: '28px',
-                height: '28px',
+                padding: '6px',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center'
               }}
-              title="Close (Esc)"
+              title="Tutup Modal"
             >
               <X size={15} />
             </button>
           </div>
         </div>
 
-        {/* Device Frame Viewport */}
+        {/* Iframe Viewport */}
         <div
           style={{
             flex: 1,
             position: 'relative',
-            background: '#0c0e12',
+            background: deviceMode === 'mobile' ? '#0b0f19' : 'transparent',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            overflow: 'hidden',
-            padding: deviceMode === 'mobile' ? '12px' : '0'
+            overflow: 'hidden'
           }}
         >
           <div
@@ -280,9 +367,9 @@ export default function TpdBiModal({ isOpen, onClose }) {
             }}
           >
             <iframe
-              key={iframeKey}
-              src="./tpd-bi/"
-              title="TPD PCPM Bank Indonesia Simulator"
+              key={`${iframeKey}-${activeTrack}`}
+              src={`./tpd-bi/?track=${activeTrack}`}
+              title="Zahra BI — PCPM Bank Indonesia Simulator"
               style={{
                 width: '100%',
                 height: '100%',

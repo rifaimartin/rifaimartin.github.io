@@ -55,13 +55,13 @@ function createBoardingPassTexture(isDark = false) {
   ctx.font = 'bold 54px "Plus Jakarta Sans", sans-serif';
   ctx.fillText('MUHAMMAD RIFAI', 80, 320);
 
-  ctx.font = '600 28px "JetBrains Mono", monospace';
+  ctx.font = '600 27px "JetBrains Mono", monospace';
   ctx.fillStyle = '#2c6fff';
-  ctx.fillText('SQUAD LEAD & IT MIDDLEWARE ENGINEER', 80, 370);
+  ctx.fillText('AI INFERENCE ENGINEER & IT MIDDLEWARE', 80, 370);
 
   ctx.fillStyle = isDark ? '#9e9da6' : '#6b6973';
-  ctx.font = '500 24px "Plus Jakarta Sans", sans-serif';
-  ctx.fillText('SPECIALIZATION: HIGH-THROUGHPUT SWITCHING & BANKING INTEGRATION', 80, 415);
+  ctx.font = '500 23px "Plus Jakarta Sans", sans-serif';
+  ctx.fillText('SPECIALIZATION: AI INFERENCE (vLLM / CUDA / RUST) & BANKING MIDDLEWARE', 80, 415);
 
   // Grid Stats Box
   ctx.fillStyle = isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)';
@@ -78,7 +78,7 @@ function createBoardingPassTexture(isDark = false) {
     ctx.fillText(val, x, y + 45);
   };
 
-  drawStat('Role & Team', 'SQUAD LEAD @ BCA DIGITAL', 110, 520);
+  drawStat('Role & Team', 'AI INFERENCE @ BCA DIGITAL', 110, 520);
   drawStat('Core Focus', 'MULTI-BILLER & QRIS', 520, 520);
   drawStat('Gate Check', 'GATE 01 (PROD)', 110, 610);
   drawStat('Status', 'CRUISING ✈️', 520, 610);

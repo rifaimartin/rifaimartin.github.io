@@ -1,7 +1,7 @@
 import React from 'react';
 import { soundFx } from '../../utils/audio';
 import { useVisitorCount } from '../../utils/visitorCounter';
-import { Sun, Moon, Sparkles, Mail, ArrowUp, BookOpen, Eye, Dumbbell, Award, Landmark, Cpu, Tv } from 'lucide-react';
+import { Sun, Moon, Sparkles, Mail, ArrowUp, BookOpen, Eye, Dumbbell, Award, Landmark, Cpu, Tv, Heart } from 'lucide-react';
 
 function GithubIcon({ size = 14 }) {
   return (
@@ -22,7 +22,7 @@ function LinkedinIcon({ size = 14 }) {
   );
 }
 
-export default function ProgressiveBlurDock({ onResetGate, onOpenOpenGym, onOpenPsikotest, onOpenTpdBi, onOpenPresentations, onOpenEvolution, isDark, onToggleTheme }) {
+export default function ProgressiveBlurDock({ onResetGate, onOpenOpenGym, onOpenPsikotest, onOpenTpdBi, onOpenZahraBi, onOpenPresentations, onOpenEvolution, isDark, onToggleTheme }) {
   const { formattedCount } = useVisitorCount();
 
   const scrollToTop = () => {
@@ -103,17 +103,18 @@ export default function ProgressiveBlurDock({ onResetGate, onOpenOpenGym, onOpen
               <span>Psiko</span>
             </button>
 
-            {/* TPD Bank Indonesia Simulator direct launcher */}
+            {/* Zahra BI Learning Suite direct launcher */}
             <button
-              className="ff-link"
+              className="ff-link zahra-dock-btn"
               onClick={() => {
                 soundFx.playCardClick();
-                if (onOpenTpdBi) onOpenTpdBi();
+                if (onOpenZahraBi) onOpenZahraBi();
+                else if (onOpenTpdBi) onOpenTpdBi();
               }}
-              title="Launch TPD Bank Indonesia (PCPM Experd) Simulator"
+              title="Launch Zahra BI — PCPM Bank Indonesia Learning & Test Suite"
             >
-              <Landmark size={13} color="#f59e0b" />
-              <span>TPD BI</span>
+              <Heart size={13} fill="#f43f5e" color="#f43f5e" className="zahra-heart-icon" />
+              <span style={{ fontWeight: 700, color: 'var(--folio-ink)' }}>Zahra BI</span>
             </button>
 
             {/* Presentations & Technical Talks Hub launcher */}

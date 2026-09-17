@@ -10,6 +10,8 @@ import ArticleModal from './components/layout/ArticleModal';
 import OpenGymModal from './components/layout/OpenGymModal';
 import PsikotestModal from './components/layout/PsikotestModal';
 import TpdBiModal from './components/layout/TpdBiModal';
+import ZahraBiToastSelector from './components/layout/ZahraBiToastSelector';
+import ZahraEncouragementModal from './components/layout/ZahraEncouragementModal';
 import MemoriesPolaroid from './components/layout/MemoriesPolaroid';
 import ProgressiveBlurDock from './components/layout/ProgressiveBlurDock';
 import CaseStudyModal from './components/layout/CaseStudyModal';
@@ -38,11 +40,36 @@ export default function App() {
   const [isOpenGymOpen, setIsOpenGymOpen] = useState(false);
   const [isPsikotestOpen, setIsPsikotestOpen] = useState(false);
   const [isTpdBiOpen, setIsTpdBiOpen] = useState(false);
+  const [isZahraToastOpen, setIsZahraToastOpen] = useState(false);
+  const [isZahraEncouragementOpen, setIsZahraEncouragementOpen] = useState(false);
+  const [zahraSelectedTrack, setZahraSelectedTrack] = useState('tpu');
+  const [zahraSelectedTrackTitle, setZahraSelectedTrackTitle] = useState('Tes Pengetahuan Umum (PCPM BI)');
   const [isPresentationHubOpen, setIsPresentationHubOpen] = useState(false);
   const [isEvolutionOpen, setIsEvolutionOpen] = useState(false);
   const [isPersonalKeynoteOpen, setIsPersonalKeynoteOpen] = useState(false);
   const [presentationFullscreen, setPresentationFullscreen] = useState(false);
   const [shadeProgress, setShadeProgress] = useState(() => (isDark ? 1 : 0));
+
+  const handleOpenZahraBi = () => {
+    setIsZahraToastOpen(true);
+  };
+
+  const handleSelectZahraTrack = (trackId, trackTitle) => {
+    setZahraSelectedTrack(trackId);
+    setZahraSelectedTrackTitle(trackTitle);
+    setIsZahraToastOpen(false);
+    setIsZahraEncouragementOpen(true);
+  };
+
+  const handleStartTestAfterEncouragement = () => {
+    setIsZahraEncouragementOpen(false);
+    setIsTpdBiOpen(true);
+  };
+
+  const handleBackToZahraSelector = () => {
+    setIsZahraEncouragementOpen(false);
+    setIsZahraToastOpen(true);
+  };
 
   // Sync theme attribute with DOM
   useEffect(() => {
@@ -117,7 +144,7 @@ export default function App() {
         <div className="fs-lines">
           <span className="fs-name">{profileData.name}</span>
           <br />
-          <span>MIDDLEWARE • SYS ARCH</span>
+          <span>AI INFERENCE • MIDDLEWARE</span>
           <br />
           <span>{profileData.location}</span>
         </div>
@@ -152,7 +179,8 @@ export default function App() {
         <ProjectList
           onOpenOpenGym={() => setIsOpenGymOpen(true)}
           onOpenPsikotest={() => setIsPsikotestOpen(true)}
-          onOpenTpdBi={() => setIsTpdBiOpen(true)}
+          onOpenTpdBi={handleOpenZahraBi}
+          onOpenZahraBi={handleOpenZahraBi}
         />
 
         {/* In-Flight Magazine & Technical Essays */}
@@ -194,10 +222,29 @@ export default function App() {
         onClose={() => setIsPsikotestOpen(false)}
       />
 
-      {/* TPD Bank Indonesia Interactive In-App Simulator Modal */}
+      {/* Zahra BI Selector Toast / Popover */}
+      <ZahraBiToastSelector
+        isOpen={isZahraToastOpen}
+        onClose={() => setIsZahraToastOpen(false)}
+        onSelectTrack={handleSelectZahraTrack}
+        isDark={isDark}
+      />
+
+      {/* Special Encouragement Modal for Zahra Sayang before Test */}
+      <ZahraEncouragementModal
+        isOpen={isZahraEncouragementOpen}
+        trackTitle={zahraSelectedTrackTitle}
+        onStart={handleStartTestAfterEncouragement}
+        onBack={handleBackToZahraSelector}
+        onClose={() => setIsZahraEncouragementOpen(false)}
+        isDark={isDark}
+      />
+
+      {/* Zahra BI / TPD Bank Indonesia Interactive Simulator Modal */}
       <TpdBiModal
         isOpen={isTpdBiOpen}
         onClose={() => setIsTpdBiOpen(false)}
+        initialTrack={zahraSelectedTrack}
       />
 
       {/* Technical Keynotes & Talks Catalog Hub Modal */}
@@ -232,7 +279,8 @@ export default function App() {
         onResetGate={handleResetGate}
         onOpenOpenGym={() => setIsOpenGymOpen(true)}
         onOpenPsikotest={() => setIsPsikotestOpen(true)}
-        onOpenTpdBi={() => setIsTpdBiOpen(true)}
+        onOpenTpdBi={handleOpenZahraBi}
+        onOpenZahraBi={handleOpenZahraBi}
         onOpenPresentations={() => setIsPresentationHubOpen(true)}
         isDark={isDark}
         onToggleTheme={() => setIsDark((prev) => !prev)}

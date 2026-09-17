@@ -898,4 +898,73 @@ button {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
+/* ========================================================
+   ZAHRA BI LEARNING SUITE & ANIMATIONS
+   ======================================================== */
+.zahra-dock-btn {
+  border-color: rgba(244, 63, 94, 0.3) !important;
+  background: rgba(244, 63, 94, 0.08) !important;
+}
+
+.zahra-dock-btn:hover {
+  border-color: rgba(244, 63, 94, 0.6) !important;
+  background: rgba(244, 63, 94, 0.16) !important;
+  box-shadow: 0 0 14px rgba(244, 63, 94, 0.35) !important;
+}
+
+.zahra-heart-icon {
+  animation: zahraHeartBeat 2.2s infinite ease-in-out;
+}
+
+.zahra-track-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(244, 63, 94, 0.45) !important;
+  box-shadow: 0 8px 24px rgba(244, 63, 94, 0.12) !important;
+}
+
+.zahra-start-btn:hover {
+  transform: scale(1.02);
+  box-shadow: 0 10px 25px rgba(244, 63, 94, 0.5) !important;
+}
+
+@keyframes zahraToastPop {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes zahraModalPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.92) translateY(15px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes zahraHeartBeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  14% {
+    transform: scale(1.18);
+  }
+  28% {
+    transform: scale(1);
+  }
+  42% {
+    transform: scale(1.12);
+  }
+  70% {
+    transform: scale(1);
+  }
+}
+
 

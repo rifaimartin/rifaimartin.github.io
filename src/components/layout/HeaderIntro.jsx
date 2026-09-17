@@ -95,6 +95,11 @@ export default function HeaderIntro({ isDark, onShadeChange, onShadeDrag, onOpen
             <span>Specialized Architecture & Stack</span>
           </div>
           <div className="skills-tags-wrap">
+            {profileData.skills.inference && profileData.skills.inference.map((inf, i) => (
+              <span key={`inf-${i}`} className="skill-tag" style={{ borderColor: 'rgba(236, 72, 153, 0.4)', color: '#ec4899', fontWeight: 600 }}>
+                ⚡ {inf}
+              </span>
+            ))}
             {profileData.skills.finance.map((f, i) => (
               <span key={i} className="skill-tag" style={{ borderColor: 'rgba(44,111,255,0.4)', color: 'var(--folio-blue)', fontWeight: 600 }}>
                 {f}

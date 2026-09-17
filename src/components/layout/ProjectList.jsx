@@ -1,9 +1,9 @@
 import React from 'react';
 import { profileData } from '../../data/profileData';
-import { Code2, Star, ExternalLink, Terminal, Play, Sparkles } from 'lucide-react';
+import { Code2, Star, ExternalLink, Terminal, Play, Sparkles, Heart } from 'lucide-react';
 import { soundFx } from '../../utils/audio';
 
-export default function ProjectList({ onOpenOpenGym, onOpenPsikotest, onOpenTpdBi }) {
+export default function ProjectList({ onOpenOpenGym, onOpenPsikotest, onOpenTpdBi, onOpenZahraBi }) {
   return (
     <div className="projects-block reveal">
       <div className="projects-title">
@@ -73,16 +73,21 @@ export default function ProjectList({ onOpenOpenGym, onOpenPsikotest, onOpenTpdB
                         soundFx.playCardClick();
                         if (proj.id === 'opengym' && onOpenOpenGym) {
                           onOpenOpenGym();
-                        } else if (proj.id === 'tpd-bi' && onOpenTpdBi) {
-                          onOpenTpdBi();
+                        } else if (proj.id === 'tpd-bi') {
+                          if (onOpenZahraBi) onOpenZahraBi();
+                          else if (onOpenTpdBi) onOpenTpdBi();
                         } else {
                           window.open(proj.demoUrl || proj.repo, '_blank');
                         }
                       }}
                       style={{ border: 'none', cursor: 'pointer' }}
                     >
-                      <Play size={12} fill="currentColor" />
-                      <span>{proj.id === 'tpd-bi' ? 'Launch TPD BI (In-App)' : 'Try Live in App'}</span>
+                      {proj.id === 'tpd-bi' ? (
+                        <Heart size={12} fill="#f43f5e" color="#f43f5e" />
+                      ) : (
+                        <Play size={12} fill="currentColor" />
+                      )}
+                      <span>{proj.id === 'tpd-bi' ? 'Launch Zahra BI (In-App)' : 'Try Live in App'}</span>
                     </button>
                     <a
                       href={proj.demoUrl || proj.repo}
