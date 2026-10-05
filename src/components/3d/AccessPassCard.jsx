@@ -78,7 +78,7 @@ function createBoardingPassTexture(isDark = false) {
     ctx.fillText(val, x, y + 45);
   };
 
-  drawStat('Role & Team', 'AI INFERENCE @ BCA DIGITAL', 110, 520);
+  drawStat('Role & Team', 'IT MIDDLEWARE @ BCA DIGITAL', 110, 520);
   drawStat('Core Focus', 'MULTI-BILLER & QRIS', 520, 520);
   drawStat('Gate Check', 'GATE 01 (PROD)', 110, 610);
   drawStat('Status', 'CRUISING ✈️', 520, 610);

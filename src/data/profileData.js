@@ -1,15 +1,15 @@
 export const profileData = {
   name: "Muhammad Rifai",
   preferredName: "Rifai Martin",
-  title: "AI Inference Engineer & IT Middleware",
-  tagline: "AI Inference Engineer & IT Middleware",
-  subTagline: "AI Inference Engineer & IT Middleware at BCA Digital — exploring low-latency AI model inference (vLLM, CUDA, Rust) alongside distributed banking middleware, high-throughput national transfer switches (BI-FAST, RTGS, SKN), multi-biller payment gateways, and containerized microservices on Kubernetes (K8s) handling millions of daily transactions.",
+  title: "IT Middleware Engineer & AI Systems",
+  tagline: "Squad Lead & IT Middleware Engineer",
+  subTagline: "Squad Lead & IT Middleware Engineer at BCA Digital — architecting high-throughput national transfer switches (BI-FAST, RTGS, SKN), multi-biller payment gateways, QRIS multi-switchers, and event-driven microservices on Kubernetes (K8s) handling millions of daily transactions, alongside independent research in low-latency AI model inference.",
   location: "Jakarta, Indonesia",
-  status: "AI Inference Engineer & IT Middleware at BCA Digital",
+  status: "Squad Lead & IT Middleware Engineer at BCA Digital",
   flightNumber: "RM-2026",
   gate: "GATE 01 (BCA DIGITAL)",
   seat: "1A (PROD)",
-  class: "AI Inference & Middleware",
+  class: "First Class Middleware",
   boardingTime: "08:30 WIB",
   
   socials: [
@@ -24,7 +24,7 @@ export const profileData = {
       id: "bca-digital",
       company: "PT Bank Digital BCA (BCA Digital)",
       companyShort: "BCA DIGITAL",
-      role: "AI Inference Engineer & IT Middleware",
+      role: "Squad Lead & IT Middleware Engineer",
       period: "Mar 2021 — Present (5 yrs 6 mos)",
       year: "2021",
       route: "CGK → PROD",
@@ -36,11 +36,11 @@ export const profileData = {
         { src: "./blu-bca.png", name: "blu by BCA Digital" }
       ],
       badgeColor: "#0060af",
-      desc: "Junior developer & engineer focusing on high-throughput AI model inference (vLLM, CUDA, Rust) and assisting in distributed banking middleware on Kubernetes (K8s), including national fund transfers (BI-FAST, RTGS, SKN), multi-biller gateways, and payment switches under high transactional concurrency.",
+      desc: "Leading engineering squads, driving microservices architecture on Kubernetes (K8s), and architecting core national fund transfers (BI-FAST, RTGS, SKN) and multi-biller payment gateways under extreme transactional concurrency.",
       highlights: [
-        "Contributing as a junior developer to AI inference optimization (utilizing vLLM, CUDA, and Rust for low-latency model serving and token throughput) while collaborating with the engineering team on core banking services.",
-        "Working on containerized microservices on Kubernetes (K8s), supporting high availability, auto-scaling, and resilient production deployments.",
-        "Assisting on mission-critical national fund transfer switches (BI-FAST Phase 1 & 2, RTGS Clearing, SKN, and Online Interbank Transfers) processing high-volume daily interbank settlements.",
+        "Leading and collaborating with squad engineering teams on distributed microservices architecture, technical specifications, and production stability.",
+        "Architecting and managing high-availability containerized microservices deployed on Kubernetes (K8s), ensuring 99.99% uptime, auto-scaling, and resilient production deployments.",
+        "Engineering mission-critical national fund transfer switches (BI-FAST Phase 1 & 2, RTGS Clearing, SKN, and Online Interbank Transfers) processing high-volume daily interbank settlements.",
         "Implementing multi-biller payment integrations connected with 12+ major national partners (Tokopedia, Garuda Indonesia, DANA, GoPay, PLN ICON+, ALTO, Baznas, Mitracom, BCA, Artajasa, Alterra).",
         "Developing QRIS payment solutions (MPM, CPM, NFC/TAP, Cross-Border) with intelligent multi-switcher routing connectivity.",
         "Building asynchronous event-driven architectures with Apache Kafka, slashing response latency by 50% on mission-critical payment workflows.",
@@ -48,7 +48,7 @@ export const profileData = {
         "Implementing SNAP Bank Indonesia security encryption standards (symmetric/asymmetric) for robust inter-system banking integrations.",
         "Documenting technical specifications and system workflows across digital banking services."
       ],
-      stack: ["vLLM", "CUDA", "Rust", "Python", "Kubernetes (K8s)", "Java", "Spring Boot", "Go (Golang)", "Apache Kafka", "Redis", "Elasticsearch", "ISO 8583", "BI-FAST", "National Transfers", "QRIS", "SNAP BI", "Docker"],
+      stack: ["Kubernetes (K8s)", "Java", "Spring Boot", "Go (Golang)", "Apache Kafka", "Redis", "Elasticsearch", "ISO 8583", "BI-FAST", "National Transfers", "QRIS", "SNAP BI", "Docker"],
       cases: [
         {
           id: "transfers-bifast",
@@ -596,10 +596,10 @@ Momen-momen seperti ini yang memperkaya jam terbang, memperluas wawasan teknis, 
 
   memories: [
     {
-      title: "AI Inference & IT Middleware",
+      title: "BCA Digital Squad Lead",
       year: "2021",
-      label: "Inference & K8s",
-      desc: "Junior developer focusing on AI inference (vLLM, CUDA, Rust) and distributed banking middleware on K8s."
+      label: "Leadership & Scale",
+      desc: "Leading squad engineers architecting multi-biller gateways & QRIS multi-switchers on K8s."
     },
     {
       title: "BI-FAST & National Clearing",
