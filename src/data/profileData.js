@@ -319,27 +319,31 @@ export const profileData = {
   articles: [
     {
       id: "gemini-4-argon-agentic",
-      title: "Gemini 4 Argon & Era Baru Ngoding: Catatan Santai dari Tweet Sundar & Greg",
+      title: "Gemini 4 Argon, Hemat 300 TiB RAM Google, & Tamparan Buat yang Masih Meremehkan 'Vibe Coders'",
       category: "AI & Engineering Mindset",
-      readTime: "4 min read",
+      readTime: "5 min read",
       date: "02 Okt 2026",
-      desc: "Refleksi santai dari tweet Sundar Pichai dan utas Greg Isenberg soal rilis Gemini 4 Argon—kenapa paradigma software engineering lagi bergeser dari sekadar ngetik kode ke orkestrasi agent.",
-      tags: ["Gemini 4 Argon", "Agentic AI", "Sundar Pichai", "Greg Isenberg", "Software Engineering", "Future Tech"],
+      desc: "Refleksi santai dari rilis Gemini 4 Argon: saat AI berhasil membebaskan ratusan TiB RAM di server live Google dan refactor C++ ke Rust, kenapa debat kuno soal 'kamu nggak paham OOP' sudah basi dan masa depan ada di tangan orkestrator sistem.",
+      tags: ["Gemini 4 Argon", "Agentic AI", "Vibe Coding", "Software Architecture", "Engineering Mindset", "Future of Work"],
       content: `Semalam timeline X (Twitter) gue mendadak ramai banget. Pas lagi santai rehat ngoding, muncul tweet dari Sundar Pichai yang ngumumin rilisnya model baru Google: Gemini 4 Argon. Nggak lama setelah itu, Greg Isenberg ikutan nimbrung bikin utas yang ngebahas dampaknya buat para founder, builder, dan ekosistem startup.
 
-Biasanya kalau ada rilis model AI baru, reaksi gue ya cukup "oke, benchmark-nya naik berapa persen lagi nih?". Tapi kali ini ada hal yang bikin gue mikir agak lama. Di tweet-nya Sundar, poin yang paling ditekankan bukan lagi sekadar skor tes ujian atau kemampuan jawab trivia, melainkan kemampuan eksekusi di dunia nyata: alur kerja multi-langkah yang rumit, software engineering otonom, sampai urusan nambal celah keamanan (cybersecurity vulnerability patching) secara mandiri. Belum lagi limit output-nya yang tembus 1 juta token dengan harga API yang makin ditekan murah ($2 per 1M input dan $10 per 1M output).
+Biasanya kalau ada rilis model AI baru, reaksi gue ya cukup "oke, benchmark-nya naik berapa persen lagi nih?". Tapi kali ini ada hal yang bikin gue mikir agak lama. Di tweet dan pengumuman resminya, Sundar bukan cuma pamer skor tes ujian di atas kertas, melainkan pembuktian langsung di dapur produksi (*production dogfooding*) skala masif milik Google sendiri.
 
-Lalu Greg Isenberg nambahin dari kacamata builder: kita ini sebenarnya sudah resmi bergeser dari era "chatting sama bot" ke era "agentic workflows". Dan itu beneran kena banget di realita kerjaan sehari-hari.
+Coba bayangin ini: Google ngelepas agen berbasis Argon langsung ke armada data center global mereka buat nge-profiling telemetri server secara live. Hasilnya? Agen ini secara mandiri nemuin inefisiensi memori dan berhasil membebaskan lebih dari 300 TiB RAM di sistem production secara live, dengan proyeksi penghematan tembus 500 TiB sampai 1 PiB RAM tanpa Google perlu beli satu pun keping hardware baru! Belum cukup di situ, model ini juga dipakai tim internal Google buat refactor codebase sistem kritis dari C/C++ ke Rust (termasuk komponen kernel Zircon di Fuchsia OS dan library regex re2) demi keamanan memori, plus nemuin dan langsung bikin patch celah keamanan secara otonom.
 
-Kalau diingat-ingat, dua atau tiga tahun lalu, kita pakai AI itu ibarat punya asisten yang tiap lima menit harus kita pantau dan kita suapin instruksi kecil-kecil. "Tolong bikinin fungsi ini", "Tolong benerin error baris ini". Tapi sekarang, dengan model sekelas Argon dan ekosistem agentic harness, bentuk perintahnya berubah total: "Ini codebase-nya, ini issue-nya di production, coba telusuri root cause-nya, bikin unit test-nya, terus buat pull request kalau semuanya hijau."
+Lalu Greg Isenberg nambahin dari kacamata builder: kita ini sebenarnya sudah resmi bergeser dari era "chatting sama bot" ke era "agentic workflows". Dan di sinilah titik di mana banyak orang di industri teknologi bakal kena tamparan realita.
 
-"Pertanyaan klasik yang sering ditakutin orang: Apakah profesi programmer bakal hilang?"
+"Debat Klasik: Kenapa Masih Ada yang Sibuk Meremehkan 'Vibe Coders'?"
 
-Jawaban jujur gue: enggak, tapi cara kerja kita yang bakal berubah drastis. Yang hilang itu kebiasaan ngetik kode boilerplate berulang-ulang tanpa mikir arsitektur. Peran kita bergeser jadi arsitek sistem atau invariant designer—orang yang ngejaga logika bisnis, mastiin integritas sistem, dan nentuin batasan serta guardrails buat para agen cerdas ini bekerja.
+Sampai hari ini, gue masih sering nemu sebagian programmer yang doyan gatekeeping: merasa paling superior karena hafal luar kepala konsep OOP yang rumit, doyan pamer istilah AbstractFactoryProvider, dan memandang rendah mereka yang dijuluki "vibe coders"—orang-orang yang ngoding dibantu AI, fokus ke ide produk, dan ship fitur secepat kilat.
 
-Bagi gue pribadi yang sehari-hari berkutat di dunia inference dan middleware, rilisnya model kayak gini bukan sinyal buat panik atau ngerasa terancam, melainkan pengingat buat terus ngasah fundamental. Mau seberapa pintar pun modelnya, pemahaman mendalam soal system design, trade-off arsitektur, dan critical thinking tetap ada di tangan manusia yang pegang kendali.
+Padahal kalau kita belajar dari sejarah rekayasa perangkat lunak, tingkat abstraksi itu selalu naik kelas. Dulu waktu bahasa C lahir, programmer Assembly mencibir: "Itu bukan programmer sejati, programmer sejati itu yang ngatur register dan opcode manual." Waktu bahasa pemrograman tingkat tinggi dan framework modern muncul, programmer C bilang hal serupa. Dan sekarang, ketika AI bisa rewrite puluhan ribu baris kode C++ ke Rust dan ngehemat ratusan terabyte RAM di server produksi Google, masihkah relevan kita membanggakan hafalan syntax dan boilerplate?
 
-Dunia tech bergerak cepat banget, tapi serunya ya justru di situ. Daripada sibuk debat AI bakal gantiin siapa, mending kita pelajari alatnya, manfaatin buat bikin karya yang bermanfaat, dan tetap enjoy menikmati proses belajarnya.`
+Tentu bukan berarti fundamental computer science jadi nggak berguna sama sekali. Justru sebaliknya. Tapi definisi "fundamental" itu sendiri sudah bergeser. Menghafal boilerplate class dan design pattern berulang-ulang bukan lagi keunggulan kompetitif. Nilai tawar seorang engineer sekarang ada di Product Taste, System Architecture, Invariant Design, dan Kemampuan Memvalidasi Solusi.
+
+Seorang "vibe coder" yang punya taste produk tajam, paham masalah nyata pengguna, dan tahu cara nge-harness armada AI bakal bisa rilis produk bernilai tinggi dalam hitungan hari. Sementara orang yang terjebak debat ego soal apakah sebuah interface harus di-extend atau di-compose, bisa-bisa produknya nggak pernah rilis ke publik.
+
+Bagi gue pribadi yang berkutat di dunia inference dan IT middleware, kehadiran model seperti Gemini 4 Argon adalah pengingat yang menyegarkan: jangan pernah jatuh cinta pada 'cara ngetik kode'-nya, tapi jatuh cintalah pada 'masalah yang kita selesaikan'. Dunia sudah berubah; yang bertahan bukan yang paling kaku mempertahankan cara lama, melainkan yang paling adaptif menunggangi gelombang abstraksi baru ini.`
     },
     {
       id: "evolution-agent-harness",
