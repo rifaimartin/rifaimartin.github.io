@@ -1,15 +1,15 @@
 export const profileData = {
   name: "Muhammad Rifai",
   preferredName: "Rifai Martin",
-  title: "IT Middleware Engineer & AI Systems",
-  tagline: "Squad Lead & IT Middleware Engineer",
-  subTagline: "Squad Lead & IT Middleware Engineer at BCA Digital — architecting high-throughput national transfer switches (BI-FAST, RTGS, SKN), multi-biller payment gateways, QRIS multi-switchers, and event-driven microservices on Kubernetes (K8s) handling millions of daily transactions, alongside independent research in low-latency AI model inference.",
+  title: "Junior IT Middleware Developer",
+  tagline: "Junior IT Middleware Developer",
+  subTagline: "Junior IT Middleware Developer at BCA Digital — assisting in distributed banking middleware on Kubernetes (K8s), high-throughput national transfer switches (BI-FAST, RTGS, SKN), multi-biller payment gateways, and microservices handling millions of daily transactions, alongside independent research in low-latency AI inference.",
   location: "Jakarta, Indonesia",
-  status: "Squad Lead & IT Middleware Engineer at BCA Digital",
+  status: "Junior IT Middleware Developer at BCA Digital",
   flightNumber: "RM-2026",
   gate: "GATE 01 (BCA DIGITAL)",
   seat: "1A (PROD)",
-  class: "First Class Middleware",
+  class: "Economy Class / Junior Dev",
   boardingTime: "08:30 WIB",
   
   socials: [
@@ -24,7 +24,7 @@ export const profileData = {
       id: "bca-digital",
       company: "PT Bank Digital BCA (BCA Digital)",
       companyShort: "BCA DIGITAL",
-      role: "Squad Lead & IT Middleware Engineer",
+      role: "Junior IT Middleware Developer",
       period: "Mar 2021 — Present (5 yrs 6 mos)",
       year: "2021",
       route: "CGK → PROD",
@@ -36,11 +36,11 @@ export const profileData = {
         { src: "./blu-bca.png", name: "blu by BCA Digital" }
       ],
       badgeColor: "#0060af",
-      desc: "Leading engineering squads, driving microservices architecture on Kubernetes (K8s), and architecting core national fund transfers (BI-FAST, RTGS, SKN) and multi-biller payment gateways under extreme transactional concurrency.",
+      desc: "Junior developer focusing on distributed banking middleware on Kubernetes (K8s), assisting on core national fund transfers (BI-FAST, RTGS, SKN), multi-biller gateways, and payment switches under high transactional concurrency.",
       highlights: [
-        "Leading and collaborating with squad engineering teams on distributed microservices architecture, technical specifications, and production stability.",
-        "Architecting and managing high-availability containerized microservices deployed on Kubernetes (K8s), ensuring 99.99% uptime, auto-scaling, and resilient production deployments.",
-        "Engineering mission-critical national fund transfer switches (BI-FAST Phase 1 & 2, RTGS Clearing, SKN, and Online Interbank Transfers) processing high-volume daily interbank settlements.",
+        "Collaborating with engineering squads on distributed microservices architecture, technical specifications, and production stability.",
+        "Assisting in managing high-availability containerized microservices deployed on Kubernetes (K8s), supporting uptime, auto-scaling, and resilient production deployments.",
+        "Contributing to mission-critical national fund transfer switches (BI-FAST Phase 1 & 2, RTGS Clearing, SKN, and Online Interbank Transfers) processing high-volume daily interbank settlements.",
         "Implementing multi-biller payment integrations connected with 12+ major national partners (Tokopedia, Garuda Indonesia, DANA, GoPay, PLN ICON+, ALTO, Baznas, Mitracom, BCA, Artajasa, Alterra).",
         "Developing QRIS payment solutions (MPM, CPM, NFC/TAP, Cross-Border) with intelligent multi-switcher routing connectivity.",
         "Building asynchronous event-driven architectures with Apache Kafka, slashing response latency by 50% on mission-critical payment workflows.",
@@ -596,10 +596,10 @@ Momen-momen seperti ini yang memperkaya jam terbang, memperluas wawasan teknis, 
 
   memories: [
     {
-      title: "BCA Digital Squad Lead",
+      title: "BCA Digital Middleware",
       year: "2021",
-      label: "Leadership & Scale",
-      desc: "Leading squad engineers architecting multi-biller gateways & QRIS multi-switchers on K8s."
+      label: "Junior Developer",
+      desc: "Junior developer assisting on multi-biller gateways & QRIS multi-switchers on K8s."
     },
     {
       title: "BI-FAST & National Clearing",

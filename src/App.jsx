@@ -144,7 +144,7 @@ export default function App() {
     if (activeArticle) {
       document.title = `${activeArticle.title} — Muhammad Rifai`;
     } else {
-      document.title = 'Muhammad Rifai — AI Inference Engineer & IT Middleware';
+      document.title = 'Muhammad Rifai — Junior IT Middleware Developer';
     }
   }, [activeArticle]);
 
@@ -221,7 +221,7 @@ export default function App() {
         <div className="fs-lines">
           <span className="fs-name">{profileData.name}</span>
           <br />
-          <span>AI INFERENCE • MIDDLEWARE</span>
+          <span>JUNIOR IT MIDDLEWARE</span>
           <br />
           <span>{profileData.location}</span>
         </div>

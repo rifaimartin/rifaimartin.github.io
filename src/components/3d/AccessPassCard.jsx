@@ -57,11 +57,11 @@ function createBoardingPassTexture(isDark = false) {
 
   ctx.font = '600 27px "JetBrains Mono", monospace';
   ctx.fillStyle = '#2c6fff';
-  ctx.fillText('AI INFERENCE ENGINEER & IT MIDDLEWARE', 80, 370);
+  ctx.fillText('JUNIOR IT MIDDLEWARE DEVELOPER', 80, 370);
 
   ctx.fillStyle = isDark ? '#9e9da6' : '#6b6973';
   ctx.font = '500 23px "Plus Jakarta Sans", sans-serif';
-  ctx.fillText('SPECIALIZATION: AI INFERENCE (vLLM / CUDA / RUST) & BANKING MIDDLEWARE', 80, 415);
+  ctx.fillText('SPECIALIZATION: BANKING MIDDLEWARE & DISTRIBUTED SYSTEMS', 80, 415);
 
   // Grid Stats Box
   ctx.fillStyle = isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)';
