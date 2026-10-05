@@ -29,3 +29,10 @@ if (fs.existsSync('dist/assets')) {
   console.log(`✓ Synced ${files.length} build asset files to assets/`);
 }
 
+// Sync dist/index.html to root index.html so GitHub Pages serving from root branch / works seamlessly
+if (fs.existsSync('dist/index.html')) {
+  fs.copyFileSync('dist/index.html', 'index.html');
+  console.log('✓ Synced dist/index.html -> root index.html');
+}
+
+
