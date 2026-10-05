@@ -967,4 +967,77 @@ button {
   }
 }
 
+/* In-Flight Article Share Strip & WhatsApp Action Buttons */
+.article-share-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 10px 14px;
+  background: var(--surface-sunken);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  margin: 4px 0;
+}
+
+.article-share-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.article-share-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--folio-mute);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.article-share-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.art-share-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--card-border);
+  background: var(--surface-card);
+  color: var(--folio-ink);
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.art-share-pill:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.art-share-pill.wa-pill {
+  background: #25d366;
+  color: #ffffff;
+  border-color: #25d366;
+}
+
+.art-share-pill.wa-pill:hover {
+  background: #20ba59;
+}
+
+.art-share-pill.copy-pill:hover {
+  border-color: var(--folio-blue);
+  color: var(--folio-blue);
+}
+
+
 

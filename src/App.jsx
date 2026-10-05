@@ -29,6 +29,10 @@ export default function App() {
 
   const [gateOpen, setGateOpen] = useState(() => {
     try {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('read') || params.get('article') || window.location.hash.includes('read')) {
+        return false; // Automatically bypass gate for direct deep links from WA/social
+      }
       return localStorage.getItem('rifai_pass_granted') !== 'true';
     } catch {
       return true;
@@ -36,7 +40,23 @@ export default function App() {
   });
 
   const [activeCaseStudy, setActiveCaseStudy] = useState(null);
-  const [activeArticle, setActiveArticle] = useState(null);
+  const [activeArticle, setActiveArticle] = useState(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const readId = params.get('read') || params.get('article');
+      if (readId && profileData.articles) {
+        const found = profileData.articles.find((a) => a.id === readId && !a.isPresentation);
+        if (found) return found;
+      }
+      const hash = window.location.hash;
+      if (hash.startsWith('#read/') || hash.startsWith('#read=')) {
+        const id = hash.replace(/^#read[/=]/, '');
+        const found = profileData.articles.find((a) => a.id === id && !a.isPresentation);
+        if (found) return found;
+      }
+    } catch {}
+    return null;
+  });
   const [isOpenGymOpen, setIsOpenGymOpen] = useState(false);
   const [isPsikotestOpen, setIsPsikotestOpen] = useState(false);
   const [isTpdBiOpen, setIsTpdBiOpen] = useState(false);
@@ -70,6 +90,63 @@ export default function App() {
     setIsZahraEncouragementOpen(false);
     setIsZahraToastOpen(true);
   };
+
+  const handleOpenArticle = (article) => {
+    if (article.isPresentation) {
+      setIsPresentationHubOpen(true);
+    } else {
+      setActiveArticle(article);
+      try {
+        const url = new URL(window.location.href);
+        url.searchParams.set('read', article.id);
+        window.history.pushState({ articleId: article.id }, '', url.toString());
+      } catch {}
+    }
+  };
+
+  const handleCloseArticle = () => {
+    setActiveArticle(null);
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.delete('read');
+      url.searchParams.delete('article');
+      if (url.hash.includes('read')) {
+        url.hash = '';
+      }
+      window.history.pushState(null, '', url.pathname + (url.search ? url.search : ''));
+    } catch {}
+  };
+
+  // Handle popstate for deep-linked read articles (e.g. mobile Back button)
+  useEffect(() => {
+    const handlePopState = () => {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const readId = params.get('read') || params.get('article');
+        if (readId && profileData.articles) {
+          const found = profileData.articles.find((a) => a.id === readId && !a.isPresentation);
+          if (found) {
+            setActiveArticle(found);
+            setGateOpen(false);
+            return;
+          }
+        }
+        setActiveArticle(null);
+      } catch {}
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  // Update dynamic page title when reading article
+  useEffect(() => {
+    if (activeArticle) {
+      document.title = `${activeArticle.title} — Muhammad Rifai`;
+    } else {
+      document.title = 'Muhammad Rifai — AI Inference Engineer & IT Middleware';
+    }
+  }, [activeArticle]);
 
   // Sync theme attribute with DOM
   useEffect(() => {
@@ -185,13 +262,7 @@ export default function App() {
 
         {/* In-Flight Magazine & Technical Essays */}
         <InFlightMagazine
-          onOpenArticle={(article) => {
-            if (article.isPresentation) {
-              setIsPresentationHubOpen(true);
-            } else {
-              setActiveArticle(article);
-            }
-          }}
+          onOpenArticle={handleOpenArticle}
         />
 
         {/* Polaroid Memories Fan Outro */}
@@ -207,7 +278,7 @@ export default function App() {
       {/* Article Reader Lightbox Modal */}
       <ArticleModal
         article={activeArticle}
-        onClose={() => setActiveArticle(null)}
+        onClose={handleCloseArticle}
       />
 
       {/* openGym Interactive In-App Simulator Modal */}
