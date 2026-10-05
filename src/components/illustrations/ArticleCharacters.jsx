@@ -6,6 +6,46 @@ export function ArticleCharacter({ id, size = 'card', width: customWidth, height
   const height = customHeight || (isModal ? 80 : 64);
 
   switch (id) {
+    case 'gemini-4-argon-agentic':
+      // Cybernetic Autonomous Agent Engineer with Glowing Argon Plasma Core & Visor
+      return (
+        <svg width={width} height={height} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="46" fill="url(#grad-argon)" />
+          {/* Constellation & Neural Orbit Lines */}
+          <path d="M22 30 Q50 14 78 26" stroke="#ffffff" strokeWidth="1.5" strokeDasharray="3 3" strokeOpacity="0.6" />
+          <circle cx="22" cy="30" r="2.5" fill="#38bdf8" />
+          <circle cx="78" cy="26" r="2.5" fill="#a855f7" />
+          <circle cx="82" cy="56" r="2" fill="#38bdf8" />
+          {/* Floating Argon Plasma Core */}
+          <circle cx="74" cy="38" r="7" fill="#06b6d4" fillOpacity="0.4" />
+          <circle cx="74" cy="38" r="4.5" fill="#38bdf8" />
+          <circle cx="74" cy="38" r="2" fill="#ffffff" />
+          <path d="M74 29 L74 31 M74 45 L74 47 M65 38 L67 38 M81 38 L83 38" stroke="#38bdf8" strokeWidth="1.5" strokeLinecap="round" />
+          {/* Character Head */}
+          <circle cx="50" cy="46" r="16" fill="#fde047" />
+          {/* Cyber Visor Frame */}
+          <rect x="36" y="40" width="28" height="10" rx="5" fill="#0f172a" />
+          {/* Glowing Visor Glass */}
+          <rect x="38.5" y="42.5" width="23" height="5" rx="2.5" fill="#38bdf8" fillOpacity="0.95" />
+          <line x1="41" y1="45" x2="47" y2="45" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round" />
+          <circle cx="56.5" cy="45" r="1.2" fill="#ec4899" />
+          {/* Confident Smile */}
+          <path d="M46 54 Q50 58 54 54" stroke="#1e293b" strokeWidth="2.2" strokeLinecap="round" />
+          {/* Cyber Hoodie / Body */}
+          <path d="M34 64 C34 58, 66 58, 66 64 L70 84 L30 84 Z" fill="#1e293b" />
+          {/* Neon Cyan Trim & Zipper */}
+          <line x1="50" y1="64" x2="50" y2="84" stroke="#06b6d4" strokeWidth="2" strokeLinecap="round" />
+          {/* Argon Core Diamond Badge */}
+          <polygon points="50,67 54,72 50,77 46,72" fill="#a855f7" />
+          <defs>
+            <linearGradient id="grad-argon" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#6366f1" />
+              <stop offset="1" stopColor="#0284c7" />
+            </linearGradient>
+          </defs>
+        </svg>
+      );
+
     case 'ini-bukan-akhir':
       // Aviator Developer with Rocket & Clouds (Telkom Journey)
       return (

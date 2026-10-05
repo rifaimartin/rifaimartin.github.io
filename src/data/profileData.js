@@ -318,6 +318,30 @@ export const profileData = {
 
   articles: [
     {
+      id: "gemini-4-argon-agentic",
+      title: "Gemini 4 Argon & Era Baru Ngoding: Catatan Santai dari Tweet Sundar & Greg",
+      category: "AI & Engineering Mindset",
+      readTime: "4 min read",
+      date: "02 Okt 2026",
+      desc: "Refleksi santai dari tweet Sundar Pichai dan utas Greg Isenberg soal rilis Gemini 4 Argon—kenapa paradigma software engineering lagi bergeser dari sekadar ngetik kode ke orkestrasi agent.",
+      tags: ["Gemini 4 Argon", "Agentic AI", "Sundar Pichai", "Greg Isenberg", "Software Engineering", "Future Tech"],
+      content: `Semalam timeline X (Twitter) gue mendadak ramai banget. Pas lagi santai rehat ngoding, muncul tweet dari Sundar Pichai yang ngumumin rilisnya model baru Google: Gemini 4 Argon. Nggak lama setelah itu, Greg Isenberg ikutan nimbrung bikin utas yang ngebahas dampaknya buat para founder, builder, dan ekosistem startup.
+
+Biasanya kalau ada rilis model AI baru, reaksi gue ya cukup "oke, benchmark-nya naik berapa persen lagi nih?". Tapi kali ini ada hal yang bikin gue mikir agak lama. Di tweet-nya Sundar, poin yang paling ditekankan bukan lagi sekadar skor tes ujian atau kemampuan jawab trivia, melainkan kemampuan eksekusi di dunia nyata: alur kerja multi-langkah yang rumit, software engineering otonom, sampai urusan nambal celah keamanan (cybersecurity vulnerability patching) secara mandiri. Belum lagi limit output-nya yang tembus 1 juta token dengan harga API yang makin ditekan murah ($2 per 1M input dan $10 per 1M output).
+
+Lalu Greg Isenberg nambahin dari kacamata builder: kita ini sebenarnya sudah resmi bergeser dari era "chatting sama bot" ke era "agentic workflows". Dan itu beneran kena banget di realita kerjaan sehari-hari.
+
+Kalau diingat-ingat, dua atau tiga tahun lalu, kita pakai AI itu ibarat punya asisten yang tiap lima menit harus kita pantau dan kita suapin instruksi kecil-kecil. "Tolong bikinin fungsi ini", "Tolong benerin error baris ini". Tapi sekarang, dengan model sekelas Argon dan ekosistem agentic harness, bentuk perintahnya berubah total: "Ini codebase-nya, ini issue-nya di production, coba telusuri root cause-nya, bikin unit test-nya, terus buat pull request kalau semuanya hijau."
+
+"Pertanyaan klasik yang sering ditakutin orang: Apakah profesi programmer bakal hilang?"
+
+Jawaban jujur gue: enggak, tapi cara kerja kita yang bakal berubah drastis. Yang hilang itu kebiasaan ngetik kode boilerplate berulang-ulang tanpa mikir arsitektur. Peran kita bergeser jadi arsitek sistem atau invariant designer—orang yang ngejaga logika bisnis, mastiin integritas sistem, dan nentuin batasan serta guardrails buat para agen cerdas ini bekerja.
+
+Bagi gue pribadi yang sehari-hari berkutat di dunia inference dan middleware, rilisnya model kayak gini bukan sinyal buat panik atau ngerasa terancam, melainkan pengingat buat terus ngasah fundamental. Mau seberapa pintar pun modelnya, pemahaman mendalam soal system design, trade-off arsitektur, dan critical thinking tetap ada di tangan manusia yang pegang kendali.
+
+Dunia tech bergerak cepat banget, tapi serunya ya justru di situ. Daripada sibuk debat AI bakal gantiin siapa, mending kita pelajari alatnya, manfaatin buat bikin karya yang bermanfaat, dan tetap enjoy menikmati proses belajarnya.`
+    },
+    {
       id: "evolution-agent-harness",
       isPresentation: true,
       title: "The Evolution of Coding: From Writing Instructions to Orchestrating Agent Harnesses",
