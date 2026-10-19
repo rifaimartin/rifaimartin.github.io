@@ -146,7 +146,7 @@ export default function PresentationHubModal({ isOpen, onClose, onLaunchPresenta
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '20px',
+        padding: 'clamp(8px, 3vw, 20px)',
         backgroundColor: 'rgba(5, 5, 8, 0.82)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
@@ -163,7 +163,7 @@ export default function PresentationHubModal({ isOpen, onClose, onLaunchPresenta
           borderRadius: '24px',
           maxWidth: '900px',
           width: '100%',
-          maxHeight: '88vh',
+          maxHeight: 'min(88vh, calc(100dvh - 16px))',
           display: 'flex',
           flexDirection: 'column',
           overflow: 'hidden',
@@ -178,17 +178,19 @@ export default function PresentationHubModal({ isOpen, onClose, onLaunchPresenta
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            padding: '20px 26px',
+            gap: '12px',
+            padding: 'clamp(14px, 3vw, 20px) clamp(16px, 3.5vw, 26px)',
             borderBottom: '1px solid var(--card-border)',
             background: 'var(--surface-card-subtle)',
             flexShrink: 0
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', minWidth: 0 }}>
             <div
               style={{
                 width: '38px',
                 height: '38px',
+                flexShrink: 0,
                 borderRadius: '12px',
                 background: 'rgba(168, 85, 247, 0.15)',
                 border: '1px solid rgba(168, 85, 247, 0.35)',
@@ -200,9 +202,9 @@ export default function PresentationHubModal({ isOpen, onClose, onLaunchPresenta
             >
               <Tv size={20} />
             </div>
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <h3 style={{ fontSize: '18px', fontWeight: 800, color: 'var(--folio-ink)' }}>
+            <div style={{ minWidth: 0 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                <h3 style={{ fontSize: 'clamp(15px, 2.4vw, 18px)', fontWeight: 800, color: 'var(--folio-ink)' }}>
                   Presentations & Talks Hub
                 </h3>
                 <span
@@ -231,6 +233,7 @@ export default function PresentationHubModal({ isOpen, onClose, onLaunchPresenta
             style={{
               width: '34px',
               height: '34px',
+              flexShrink: 0,
               borderRadius: '10px',
               background: 'var(--surface-sunken)',
               border: '1px solid var(--card-border)',
@@ -250,7 +253,9 @@ export default function PresentationHubModal({ isOpen, onClose, onLaunchPresenta
         {/* Hub Scrollable Content */}
         <div
           style={{
-            padding: '24px 26px',
+            flex: 1,
+            minHeight: 0,
+            padding: 'clamp(14px, 3vw, 24px) clamp(14px, 3.5vw, 26px)',
             overflowY: 'auto',
             display: 'flex',
             flexDirection: 'column',
@@ -265,7 +270,8 @@ export default function PresentationHubModal({ isOpen, onClose, onLaunchPresenta
                 key={pres.id}
                 onClick={() => handleOpenPres(pres)}
                 style={{
-                  padding: '22px',
+                  flexShrink: 0,
+                  padding: 'clamp(16px, 3vw, 22px)',
                   borderRadius: '18px',
                   background: isReady ? 'var(--surface-card-subtle)' : 'var(--surface-sunken)',
                   border: isReady ? '1.5px solid rgba(168, 85, 247, 0.4)' : '1px dashed var(--card-border)',
@@ -409,7 +415,9 @@ export default function PresentationHubModal({ isOpen, onClose, onLaunchPresenta
               borderRadius: '20px',
               maxWidth: '560px',
               width: '100%',
-              padding: '26px',
+              maxHeight: 'calc(100dvh - 32px)',
+              overflowY: 'auto',
+              padding: 'clamp(16px, 4vw, 26px)',
               display: 'flex',
               flexDirection: 'column',
               gap: '18px',
