@@ -51,8 +51,30 @@ export const PRESENTATIONS_DATA = [
     ]
   },
   {
-    id: 'multi-agent-coordination',
+    id: 'graphify-poc-report',
     number: '03',
+    title: 'Graphify vs Baseline: POC Knowledge Graph untuk Cursor Agent',
+    subtitle: 'Laporan POC: dua repo frontend pada commit yang sama, satu dengan knowledge graph graphify, satu tanpa. Dibandingkan dari token, file yang dibaca, tool call, dan akurasi.',
+    status: 'available',
+    statusLabel: 'Ready to Present',
+    statusColor: '#10b981',
+    badge: 'POC REPORT',
+    chaptersCount: 5,
+    estimatedMinutes: 10,
+    date: 'Oktober 2026',
+    tags: ['Graphify', 'Cursor Agent', 'Knowledge Graph', 'POC', 'Token Efficiency'],
+    description: 'Hasil POC membandingkan Cursor agent dengan dan tanpa knowledge graph graphify pada repo frontend internal: metodologi pengukuran, hasil prompt trace flow, analisis, dan rekomendasi kolaborasi lintas tim.',
+    chapters: [
+      { num: '01', name: 'Latar Belakang & Setup POC' },
+      { num: '02', name: 'Metodologi Pengukuran' },
+      { num: '03', name: 'Hasil Prompt #1: Trace Flow' },
+      { num: '04', name: 'Analisis: Kapan Graph Memberi Nilai' },
+      { num: '05', name: 'Kolaborasi Tim & Langkah Berikutnya' }
+    ]
+  },
+  {
+    id: 'multi-agent-coordination',
+    number: '04',
     title: 'Multi-Agent Coordination & Communication Protocols',
     subtitle: 'Deep-dive protokol inter-agent: Anthropic MCP vs Google A2A dalam sistem terdistribusi',
     status: 'upcoming',
@@ -73,7 +95,7 @@ export const PRESENTATIONS_DATA = [
   },
   {
     id: 'next-presentation-slot',
-    number: '03',
+    number: '05',
     title: '+ Slot Presentasi Berikutnya',
     subtitle: 'Slot presentasi baru yang siap dikonfigurasi untuk topik riset, workshop, atau presentasi Anda selanjutnya',
     status: 'draft',

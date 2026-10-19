@@ -18,6 +18,7 @@ import CaseStudyModal from './components/layout/CaseStudyModal';
 import GatePassOverlay from './components/3d/GatePassOverlay';
 import EvolutionPresentationModal from './components/layout/EvolutionPresentationModal';
 import PersonalKeynoteModal from './components/layout/PersonalKeynoteModal';
+import GraphifyPocReportModal from './components/layout/GraphifyPocReportModal';
 import PresentationHubModal from './components/layout/PresentationHubModal';
 import { profileData } from './data/profileData';
 import './styles/main.css';
@@ -67,6 +68,7 @@ export default function App() {
   const [isPresentationHubOpen, setIsPresentationHubOpen] = useState(false);
   const [isEvolutionOpen, setIsEvolutionOpen] = useState(false);
   const [isPersonalKeynoteOpen, setIsPersonalKeynoteOpen] = useState(false);
+  const [isGraphifyPocOpen, setIsGraphifyPocOpen] = useState(false);
   const [presentationFullscreen, setPresentationFullscreen] = useState(false);
   const [shadeProgress, setShadeProgress] = useState(() => (isDark ? 1 : 0));
 
@@ -193,6 +195,8 @@ export default function App() {
       setIsEvolutionOpen(true);
     } else if (presentationId === 'behind-the-terminal') {
       setIsPersonalKeynoteOpen(true);
+    } else if (presentationId === 'graphify-poc-report') {
+      setIsGraphifyPocOpen(true);
     }
   };
 
@@ -341,6 +345,16 @@ export default function App() {
         initialFullscreen={presentationFullscreen}
         onClose={() => {
           setIsPersonalKeynoteOpen(false);
+          setPresentationFullscreen(false);
+        }}
+      />
+
+      {/* Graphify vs Baseline POC Report Presentation Modal */}
+      <GraphifyPocReportModal
+        isOpen={isGraphifyPocOpen}
+        initialFullscreen={presentationFullscreen}
+        onClose={() => {
+          setIsGraphifyPocOpen(false);
           setPresentationFullscreen(false);
         }}
       />
