@@ -19,6 +19,7 @@ import GatePassOverlay from './components/3d/GatePassOverlay';
 import EvolutionPresentationModal from './components/layout/EvolutionPresentationModal';
 import PersonalKeynoteModal from './components/layout/PersonalKeynoteModal';
 import GraphifyPocReportModal from './components/layout/GraphifyPocReportModal';
+import QrisCbPresentationModal from './components/layout/QrisCbPresentationModal';
 import PresentationHubModal from './components/layout/PresentationHubModal';
 import { profileData } from './data/profileData';
 import './styles/main.css';
@@ -69,6 +70,7 @@ export default function App() {
   const [isEvolutionOpen, setIsEvolutionOpen] = useState(false);
   const [isPersonalKeynoteOpen, setIsPersonalKeynoteOpen] = useState(false);
   const [isGraphifyPocOpen, setIsGraphifyPocOpen] = useState(false);
+  const [isQrisCbOpen, setIsQrisCbOpen] = useState(false);
   const [presentationFullscreen, setPresentationFullscreen] = useState(false);
   const [shadeProgress, setShadeProgress] = useState(() => (isDark ? 1 : 0));
 
@@ -95,7 +97,13 @@ export default function App() {
 
   const handleOpenArticle = (article) => {
     if (article.isPresentation) {
-      setIsPresentationHubOpen(true);
+      if (article.id === 'qris-cb-redis-architecture') {
+        setIsQrisCbOpen(true);
+      } else if (article.id === 'evolution-agent-harness') {
+        setIsEvolutionOpen(true);
+      } else {
+        setIsPresentationHubOpen(true);
+      }
     } else {
       setActiveArticle(article);
       try {
@@ -197,6 +205,8 @@ export default function App() {
       setIsPersonalKeynoteOpen(true);
     } else if (presentationId === 'graphify-poc-report') {
       setIsGraphifyPocOpen(true);
+    } else if (presentationId === 'qris-cb-redis-architecture') {
+      setIsQrisCbOpen(true);
     }
   };
 
@@ -355,6 +365,16 @@ export default function App() {
         initialFullscreen={presentationFullscreen}
         onClose={() => {
           setIsGraphifyPocOpen(false);
+          setPresentationFullscreen(false);
+        }}
+      />
+
+      {/* QRIS MPM Dual-Layer Circuit Breaker & Redis Architecture Presentation Modal */}
+      <QrisCbPresentationModal
+        isOpen={isQrisCbOpen}
+        initialFullscreen={presentationFullscreen}
+        onClose={() => {
+          setIsQrisCbOpen(false);
           setPresentationFullscreen(false);
         }}
       />

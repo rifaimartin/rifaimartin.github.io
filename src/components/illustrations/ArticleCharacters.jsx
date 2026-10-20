@@ -6,6 +6,35 @@ export function ArticleCharacter({ id, size = 'card', width: customWidth, height
   const height = customHeight || (isModal ? 80 : 64);
 
   switch (id) {
+    case 'qris-cb-redis-architecture':
+      // Banking Middleware Engineer with Circuit Breaker Lightning & Redis Core Shield
+      return (
+        <svg width={width} height={height} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="46" fill="url(#grad-qris-cb)" />
+          {/* Circuit Breaker Trip Pulse Rings */}
+          <circle cx="50" cy="50" r="40" stroke="#00a4e4" strokeWidth="1.5" strokeDasharray="4 4" strokeOpacity="0.7" />
+          {/* Dual Layer Shield */}
+          <polygon points="50,16 76,28 76,56 50,78 24,56 24,28" stroke="#38bdf8" strokeWidth="1.8" fill="#0f172a" fillOpacity="0.75" />
+          {/* Redis Hex Core */}
+          <polygon points="50,30 64,38 64,54 50,62 36,54 36,38" fill="#ef4444" fillOpacity="0.85" />
+          <polygon points="50,34 60,40 60,50 50,56 40,50 40,40" fill="#dc2626" />
+          {/* Lightning Bolt (Circuit Breaker Trip & Sync) */}
+          <polygon points="52,22 43,42 49,42 47,60 58,38 52,38" fill="#fbbf24" stroke="#d97706" strokeWidth="1" />
+          {/* Pod Beacon Nodes */}
+          <circle cx="28" cy="74" r="3" fill="#10b981" />
+          <circle cx="50" cy="84" r="3.5" fill="#00a4e4" />
+          <circle cx="72" cy="74" r="3" fill="#10b981" />
+          <line x1="28" y1="74" x2="50" y2="84" stroke="#00a4e4" strokeWidth="1.5" strokeDasharray="2 2" strokeOpacity="0.8" />
+          <line x1="72" y1="74" x2="50" y2="84" stroke="#00a4e4" strokeWidth="1.5" strokeDasharray="2 2" strokeOpacity="0.8" />
+          <defs>
+            <linearGradient id="grad-qris-cb" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#0369a1" />
+              <stop offset="1" stopColor="#0f172a" />
+            </linearGradient>
+          </defs>
+        </svg>
+      );
+
     case 'gemini-4-argon-agentic':
       // Cybernetic Autonomous Agent Engineer with Glowing Argon Plasma Core & Visor
       return (

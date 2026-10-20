@@ -346,6 +346,22 @@ Seorang "vibe coder" yang punya taste produk tajam, paham masalah nyata pengguna
 Bagi gue pribadi yang berkutat di dunia inference dan IT middleware, kehadiran model seperti Gemini 4 Argon adalah pengingat yang menyegarkan: jangan pernah jatuh cinta pada 'cara ngetik kode'-nya, tapi jatuh cintalah pada 'masalah yang kita selesaikan'. Dunia sudah berubah; yang bertahan bukan yang paling kaku mempertahankan cara lama, melainkan yang paling adaptif menunggangi gelombang abstraksi baru ini.`
     },
     {
+      id: "qris-cb-redis-architecture",
+      isPresentation: true,
+      title: "Dual-Layer Circuit Breaker & Redis Architecture in QRIS MPM",
+      category: "Banking Middleware & Resilience",
+      readTime: "20 min keynote",
+      date: "Oktober 2026",
+      desc: "Deep-dive teknis arsitektur L1 Global Switcher vs L2 NNS Circuit Breaker, real-time sync Redis Pub/Sub vs Dual-Tier Hash Snapshot, post-mortem regex memory leak, dan sanitasi log.",
+      tags: ["QRIS MPM", "Circuit Breaker", "Resilience4j", "Redis Pub/Sub", "Spring WebFlux", "Control Panel"],
+      content: `Presentasi interaktif ini mengupas 5 bab penting arsitektur ketahanan sistem QRIS MPM:
+1. Background & Arsitektur Circuit Breaker 2-Layer (L1 Global Switcher vs L2 Granular Acquirer NNS).
+2. Redis Dual-Tier Mechanism: Real-time Pub/Sub vs Periodic Hash Snapshot Aggregation.
+3. Hands-on Verification: Redis CLI State Injection (qris:cb:state:events) & Pod Reaction.
+4. Post-Mortem Control Panel: Root cause regex memory leak (qris-qris-alto) & optimasi latensi dashboard dari 4 detik ke < 20ms.
+5. Clean Logging & Production Readiness Invariants: Sanitasi 50KB payload dump GET NNS dan proteksi write ops.`
+    },
+    {
       id: "evolution-agent-harness",
       isPresentation: true,
       title: "The Evolution of Coding: From Writing Instructions to Orchestrating Agent Harnesses",
