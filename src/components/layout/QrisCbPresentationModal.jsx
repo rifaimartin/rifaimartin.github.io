@@ -492,7 +492,7 @@ export default function QrisCbPresentationModal({ isOpen, onClose, initialFullsc
 
                   <div style={{ ...cardStyle, borderTop: `4px solid ${ACCENT_GREEN}` }}>
                     <CardTitle icon={Cpu} color={ACCENT_GREEN}>Layer 2: Granular NNS CB</CardTitle>
-                    <div style={{ ...monoLabel, color: ACCENT_GREEN }}>Breaker: "alto-nns-{nns}" | "rintis-nns-{nns}"</div>
+                    <div style={{ ...monoLabel, color: ACCENT_GREEN }}>{'Breaker: "alto-nns-{nns}" | "rintis-nns-{nns}"'}</div>
                     <BulletList
                       items={[
                         'Scope Mikro: Melindungi transaksi spesifik per Bank Issuer / Acquirer via National Numbering System (NNS 8 digit).',
