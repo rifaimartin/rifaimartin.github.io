@@ -3,7 +3,7 @@ import {
   X, ChevronLeft, ChevronRight, Tv, Clock, Maximize2, Minimize2,
   ShieldAlert, RefreshCw, Zap, Server, Activity, Database, CheckCircle2,
   XCircle, AlertTriangle, Layers, Terminal, FileDown, Cpu, ArrowRightLeft,
-  Flame, Gauge, Radio, Sparkles, Filter, Bug, FastForward
+  Flame, Gauge, Radio, Sparkles, Filter, Bug, FastForward, BookOpen, ExternalLink
 } from 'lucide-react';
 import { soundFx } from '../../utils/audio';
 import { HystrixVsResilience4jVisualizer, CircuitBreakerFuseVisualizer, FailoverPacketFlowVisualizer } from '../illustrations/CircuitBreakerInteractiveAnimations';
@@ -442,9 +442,9 @@ export default function QrisCbPresentationModal({ isOpen, onClose, initialFullsc
                     <CardTitle icon={AlertTriangle} color={ACCENT_RED}>Mengapa Netflix Hystrix Ditinggalkan?</CardTitle>
                     <BulletList
                       items={[
-                        'Thread-Pool Overhead: Hystrix membungkus setiap breaker ke dalam thread pool OS terpisah. Pada 50+ endpoint, ratusan thread memicu CPU thrashing akibat context-switching.',
-                        'Inkompatibel dengan Reactive: Arsitektur Netty / Spring WebFlux dirancang single-thread event loop per core. Memasang blocking thread pool Hystrix di atas WebFlux adalah arsitektural anti-pattern.',
-                        'Monolithic & Deprecated: Netflix menghentikan pembaruan pada 2018 karena kompleksitas internal dan dependensi RxJava 1.x legacy.'
+                        'Thread-Pool Isolation Overhead: Hystrix membungkus setiap breaker ke dalam thread pool OS terpisah. Pada microservices dengan 50+ remote calls, alokasi ratusan thread memboroskan JVM stack memory (~1MB/thread) dan memicu CPU thrashing hebat akibat jutaan context-switch OS.',
+                        'Inkompatibel dengan Arsitektur Non-Blocking & Asynchronous: Runtime server modern beroperasi dengan non-blocking event-loop (sedikit thread CPU untuk ribuan koneksi concurrent). Memasang blocking thread pool Hystrix di atas arsitektur asynchronous adalah anti-pattern yang merusak efisiensi I/O dan latensi.',
+                        'Monolithic & Deprecated (Maintenance Mode 2018): Netflix resmi menghentikan pembaruan aktif pada November 2018 karena kompleksitas internal dan dependensi library RxJava 1.x yang usang. Netflix secara eksplisit merekomendasikan industri untuk bermigrasi ke Resilience4j.'
                       ]}
                     />
                   </div>
@@ -453,11 +453,133 @@ export default function QrisCbPresentationModal({ isOpen, onClose, initialFullsc
                     <CardTitle icon={CheckCircle2} color={ACCENT_GREEN}>Kemenangan Arsitektur Resilience4j</CardTitle>
                     <BulletList
                       items={[
-                        'Zero-Thread Lock-Free: Menggunakan in-memory Atomic RingBitSet yang mengevaluasi failure rate di CPU L1/L2 cache tanpa context-switch OS.',
-                        'WebFlux-Native: Dirancang khusus untuk functional reactive stream (Mono / Flux) tanpa memblokir thread I/O server Netty.',
-                        'Modular & Ringan: Zero third-party dependencies, hanya mengimpor modul yang dibutuhkan (core, circuitbreaker, timelimiter).'
+                        'Zero-Thread & Lock-Free Atomic RingBitSet: Tidak membuat thread OS baru. Evaluasi failure rate dihitung secara lock-free di memory menggunakan circular bit array yang dieksekusi langsung pada CPU L1/L2 cache dalam hitungan nanodetik.',
+                        'Functional Decorator & Asynchronous-Native: Didesain murni menggunakan prinsip Functional Programming (Higher-Order Functions / Decorator pattern via Java 8 Lambdas, CompletableFuture). Menempel secara alami pada alur asynchronous tanpa memblokir thread eksekusi caller.',
+                        'Modular, Ringan & Zero Third-Party Dependencies: Bersih tanpa runtime dependency eksternal yang membengkakkan container image (< 300KB JAR). Resmi menjadi implementasi de-facto standar dalam ekosistem Spring Cloud CircuitBreaker.'
                       ]}
                     />
+                  </div>
+                </div>
+
+                {/* Referensi & Sumber Literatur Resmi */}
+                <div style={{
+                  ...cardStyle,
+                  borderTop: `3px solid ${ACCENT}`,
+                  background: 'linear-gradient(180deg, var(--surface-card) 0%, rgba(0, 164, 228, 0.04) 100%)'
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
+                    <CardTitle icon={BookOpen} color={ACCENT}>Referensi &amp; Sumber Literatur Resmi (Authoritative Citations)</CardTitle>
+                    <span style={{ ...monoLabel, color: ACCENT, fontSize: '10.5px' }}>INDUSTRY STANDARDS</span>
+                  </div>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '10px' }}>
+                    <a
+                      href="https://pragprog.com/titles/mnee2/release-it-second-edition/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        padding: '10px 12px',
+                        borderRadius: '8px',
+                        background: 'var(--surface-sunken)',
+                        border: '1px solid var(--card-border)',
+                        textDecoration: 'none',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '4px'
+                      }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <span style={{ ...monoLabel, color: ACCENT, fontSize: '10px' }}>BUKU STANDAR (2007)</span>
+                        <ExternalLink size={12} color="var(--ink-muted)" />
+                      </div>
+                      <div style={{ fontSize: '12.5px', fontWeight: 700, color: 'var(--folio-ink)' }}>
+                        Michael T. Nygard — "Release It!"
+                      </div>
+                      <div style={{ fontSize: '11px', color: 'var(--ink-muted)', lineHeight: 1.4 }}>
+                        Pragmatic Bookshelf (ISBN: 978-0978739256). Formulasi arsitektural pertama yang memperkenalkan pola Circuit Breaker untuk mencegah cascading failures di sistem software produksi.
+                      </div>
+                    </a>
+
+                    <a
+                      href="https://github.com/Netflix/Hystrix"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        padding: '10px 12px',
+                        borderRadius: '8px',
+                        background: 'var(--surface-sunken)',
+                        border: '1px solid var(--card-border)',
+                        textDecoration: 'none',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '4px'
+                      }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <span style={{ ...monoLabel, color: ACCENT_RED, fontSize: '10px' }}>NETFLIX OFFICIAL EOL (2018)</span>
+                        <ExternalLink size={12} color="var(--ink-muted)" />
+                      </div>
+                      <div style={{ fontSize: '12.5px', fontWeight: 700, color: 'var(--folio-ink)' }}>
+                        Netflix/Hystrix Deprecation Notice
+                      </div>
+                      <div style={{ fontSize: '11px', color: 'var(--ink-muted)', lineHeight: 1.4 }}>
+                        Pengumuman resmi status Maintenance Mode Netflix: <em>"Hystrix is no longer in active development... Netflix recommends Resilience4j for new applications."</em>
+                      </div>
+                    </a>
+
+                    <a
+                      href="https://martinfowler.com/bliki/CircuitBreaker.html"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        padding: '10px 12px',
+                        borderRadius: '8px',
+                        background: 'var(--surface-sunken)',
+                        border: '1px solid var(--card-border)',
+                        textDecoration: 'none',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '4px'
+                      }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <span style={{ ...monoLabel, color: ACCENT_ORANGE, fontSize: '10px' }}>PATTERN SPECIFICATION</span>
+                        <ExternalLink size={12} color="var(--ink-muted)" />
+                      </div>
+                      <div style={{ fontSize: '12.5px', fontWeight: 700, color: 'var(--folio-ink)' }}>
+                        Martin Fowler — CircuitBreaker Bliki
+                      </div>
+                      <div style={{ fontSize: '11px', color: 'var(--ink-muted)', lineHeight: 1.4 }}>
+                        Dokumentasi kanonikal arsitektur microservice yang mendefinisikan state machine CLOSED, OPEN, HALF-OPEN, sliding window, dan mekanisme fast-fail fallback.
+                      </div>
+                    </a>
+
+                    <a
+                      href="https://resilience4j.readme.io/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        padding: '10px 12px',
+                        borderRadius: '8px',
+                        background: 'var(--surface-sunken)',
+                        border: '1px solid var(--card-border)',
+                        textDecoration: 'none',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '4px'
+                      }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <span style={{ ...monoLabel, color: ACCENT_GREEN, fontSize: '10px' }}>OFFICIAL REPO &amp; DOCS</span>
+                        <ExternalLink size={12} color="var(--ink-muted)" />
+                      </div>
+                      <div style={{ fontSize: '12.5px', fontWeight: 700, color: 'var(--folio-ink)' }}>
+                        Resilience4j Architecture Guide
+                      </div>
+                      <div style={{ fontSize: '11px', color: 'var(--ink-muted)', lineHeight: 1.4 }}>
+                        Panduan teknis modul RingBitSet lock-free in-memory evaluation dan adopsi spesifikasi Spring Cloud Circuit Breaker resmi oleh VMware/Pivotal.
+                      </div>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -895,12 +1017,20 @@ return executePaymentViaAlto(request, nns); // Jalur Utama`}
                                     {idx === 0 && (
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
                 <div style={cardStyle}>
-                  <CardTitle icon={AlertTriangle} color={ACCENT_RED}>Sejarah: Mengapa Hystrix Dipensiunkan</CardTitle>
-                  <BulletList items={['2007: Michael Nygard memperkenalkan pola Circuit Breaker di buku Release It!.', '2012: Netflix merilis Hystrix, namun bergantung pada dedicated thread pool per breaker.', 'Thread-pool isolation memicu CPU context switching berat dan tidak cocok untuk stack reactive.', '2018: Netflix resmi memensiunkan Hystrix dan menyarankan migrasi ke Resilience4j.']} />
+                  <CardTitle icon={AlertTriangle} color={ACCENT_RED}>Mengapa Netflix Hystrix Ditinggalkan?</CardTitle>
+                  <BulletList items={[
+                    'Thread-Pool Overhead: Hystrix membungkus tiap breaker dalam OS thread pool terpisah (~1MB/thread), memicu CPU thrashing hebat akibat jutaan context-switch OS pada microservices multi-endpoint.',
+                    'Inkompatibel Asynchronous: Memasang thread pool blocking di atas runtime non-blocking event-loop adalah anti-pattern yang merusak efisiensi I/O dan latensi.',
+                    'Maintenance Mode 2018: Netflix resmi menghentikan pembaruan karena kompleksitas internal & RxJava 1.x legacy; merekomendasikan migrasi ke Resilience4j.'
+                  ]} />
                 </div>
                 <div style={cardStyle}>
-                  <CardTitle icon={CheckCircle2} color={ACCENT_GREEN}>Keunggulan Modern Resilience4j</CardTitle>
-                  <BulletList items={['Lock-free Atomic RingBitSet: Evaluasi failure rate di in-memory cache tanpa thread pool tambahan.', 'Reactive-native: Kompatibel sempurna dengan Spring WebFlux (Mono/Flux) dan Netty event loop.', 'Zero third-party dependencies, modular, dan standar resmi Spring Cloud CircuitBreaker.']} />
+                  <CardTitle icon={CheckCircle2} color={ACCENT_GREEN}>Kemenangan Arsitektur Resilience4j</CardTitle>
+                  <BulletList items={[
+                    'Lock-free Atomic RingBitSet: Evaluasi failure rate dieksekusi secara lock-free di memory pada CPU L1/L2 cache tanpa OS context switch dan 0 thread tambahan.',
+                    'Functional Decorator Native: Didesain murni untuk Java 8+ lambdas, higher-order functions, dan asynchronous non-blocking stream tanpa blocking.',
+                    'Standar De-Facto Industri: Zero third-party dependencies (<300KB JAR) dan menjadi standar resmi implementasi Spring Cloud CircuitBreaker.'
+                  ]} />
                 </div>
               </div>
             )}
@@ -908,8 +1038,8 @@ return executePaymentViaAlto(request, nns); // Jalur Utama`}
             {idx === 1 && (
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
                 <div style={cardStyle}>
-                  <CardTitle icon={ShieldAlert} color={ACCENT}>Filosofi Sekering & Mengapa Resilience4j</CardTitle>
-                  <BulletList items={['Analogi sekering: Memutus aliran request sebelum seluruh sistem thread starvation.', 'Fail-fast: Menolak dalam 1ms daripada menahan thread berdetik-detik.', 'Modern reactive library untuk Spring WebFlux (penerus resmi Hystrix).']} />
+                  <CardTitle icon={ShieldAlert} color={ACCENT}>Filosofi Sekering &amp; Mengapa Resilience4j</CardTitle>
+                  <BulletList items={['Analogi sekering: Memutus aliran request sebelum seluruh sistem thread starvation.', 'Fail-fast: Menolak dalam 1ms daripada menahan thread berdetik-detik.', 'Modern fault-tolerance library untuk distributed system (penerus resmi Hystrix).']} />
                 </div>
                 <div style={cardStyle}>
                   <CardTitle icon={CheckCircle2} color={ACCENT_GREEN}>Kapan Perlu vs Anti-Pattern</CardTitle>

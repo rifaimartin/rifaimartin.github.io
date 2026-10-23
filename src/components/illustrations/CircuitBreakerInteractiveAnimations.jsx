@@ -482,7 +482,7 @@ export function FailoverPacketFlowVisualizer() {
 /**
  * 3. Interactive Evolution Visualizer: Netflix Hystrix vs Resilience4j
  * Shows the history timeline from Michael Nygard (2007) to Netflix Hystrix (2012)
- * to Hystrix Deprecation (2018) and Modern Resilience4j Reactive architecture.
+ * to Hystrix Deprecation (2018) and Modern Resilience4j architecture.
  */
 export function HystrixVsResilience4jVisualizer() {
   const [era, setEra] = useState('MODERN'); // '2007' | '2012' | '2018' | 'MODERN'
@@ -491,7 +491,7 @@ export function HystrixVsResilience4jVisualizer() {
     { id: '2007', label: '2007: Release It!', title: 'Kelahiran Konsep (Michael Nygard)' },
     { id: '2012', label: '2012: Netflix Hystrix', title: 'Era Hystrix (Thread-Pool Isolation)' },
     { id: '2018', label: '2018: Hystrix EOL', title: 'Netflix Deprecates Hystrix' },
-    { id: 'MODERN', label: '2026: Resilience4j ⚡', title: 'Modern Non-Blocking Reactive Standard' }
+    { id: 'MODERN', label: '2026: Resilience4j ⚡', title: 'Modern Non-Blocking & Functional Standard' }
   ];
 
   return (
@@ -550,14 +550,14 @@ export function HystrixVsResilience4jVisualizer() {
             <div style={{ color: ACCENT, fontSize: '12px', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>ORIGIN STORY</div>
             <div style={{ fontSize: '14px', fontWeight: 700, color: '#f8fafc', margin: '4px 0' }}>Buku Legendaris "Release It!" (2007)</div>
             <p style={{ fontSize: '12px', color: '#cbd5e1', lineHeight: 1.5, margin: 0 }}>
-              Michael Nygard pertama kali memformalkan pola <strong>Circuit Breaker</strong> untuk rekayasa perangkat lunak. Terinspirasi dari sekering listrik di rumah tangga: kegagalan di satu sirkuit tidak boleh memadamkan seluruh jaringan listrik kota.
+              Michael T. Nygard memformalkan pola <strong>Circuit Breaker</strong> untuk rekayasa perangkat lunak enterprise. Filosofi dasarnya diadaptasi dari saklar sekering listrik: kegagalan di satu komponen terisolasi tidak boleh memadamkan seluruh sistem.
             </p>
           </div>
           <div style={{ padding: '12px 14px', borderRadius: '8px', background: '#1e293b', border: '1px solid #334155' }}>
-            <div style={{ color: ACCENT_ORANGE, fontSize: '12px', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>MASALAH YANG DISELESAIKAN</div>
+            <div style={{ color: ACCENT_ORANGE, fontSize: '12px', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>PROBLEMATIKA UTAMA</div>
             <div style={{ fontSize: '14px', fontWeight: 700, color: '#f8fafc', margin: '4px 0' }}>Mencegah Cascading Outages</div>
             <p style={{ fontSize: '12px', color: '#cbd5e1', lineHeight: 1.5, margin: 0 }}>
-              Sebelum ada CB, sistem perbankan &amp; e-commerce rontok massal hanya karena satu API downstream mengalami timeout lambat (2-5 detik), menghabiskan seluruh thread pool web server.
+              Sebelum adanya Circuit Breaker, sistem backend rontok massal saat satu API downstream lambat (&gt; 2000ms), mengunci seluruh worker threads server hingga terjadi pemadaman total (resource starvation).
             </p>
           </div>
         </div>
@@ -567,17 +567,17 @@ export function HystrixVsResilience4jVisualizer() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '12px' }}>
           <div style={{ padding: '12px 14px', borderRadius: '8px', background: '#1e293b', border: '1px solid #ef444455' }}>
             <div style={{ color: ACCENT_RED, fontSize: '12px', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>ERA NETFLIX OSS (2012)</div>
-            <div style={{ fontSize: '14px', fontWeight: 700, color: '#f8fafc', margin: '4px 0' }}>Netflix Hystrix: De-Facto Standar Pertama</div>
+            <div style={{ fontSize: '14px', fontWeight: 700, color: '#f8fafc', margin: '4px 0' }}>Netflix Hystrix: Pelopor Circuit Breaker Microservices</div>
             <p style={{ fontSize: '12px', color: '#cbd5e1', lineHeight: 1.5, margin: 0 }}>
-              Netflix mempopulerkan Circuit Breaker di ekosistem Spring Boot dengan merilis Hystrix. Sangat berjasa memperkenalkan fail-fast dan dashboard metrik (Turbine).
+              Netflix mempopulerkan toleransi kegagalan cloud dengan merilis Hystrix. Sangat berjasa memperkenalkan fail-fast, fallback otomatis, dan dashboard telemetry real-time (Turbine).
             </p>
           </div>
           <div style={{ padding: '12px 14px', borderRadius: '8px', background: '#450a0a25', border: '1px solid #ef444440' }}>
-            <div style={{ color: ACCENT_RED, fontSize: '12px', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>KELEMAHAN FATAL HYSTRIX ⚠️</div>
-            <div style={{ fontSize: '12px', color: '#fca5a5', marginTop: '4px', display: 'flex', flexDirection: 'column', gap: '3px' }}>
-              <span>• <strong>Thread Pool Isolation:</strong> 1 breaker butuh 1 dedicated OS thread pool terpisah!</span>
-              <span>• <strong>Heavy Context Switching:</strong> Ribuan request memicu beban CPU context switch tinggi.</span>
-              <span>• <strong>Monolithic Legacy:</strong> Menggunakan RxJava 1.x dan dependensi usang (Archaius).</span>
+            <div style={{ color: ACCENT_RED, fontSize: '12px', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>BATASAN TEKNIKAL HYSTRIX ⚠️</div>
+            <div style={{ fontSize: '12px', color: '#fca5a5', marginTop: '4px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+              <span>• <strong>Thread-Pool Isolation Overhead:</strong> Tiap breaker membutuhkan OS thread pool terpisah (~1MB JVM stack per thread).</span>
+              <span>• <strong>CPU Context-Switch Thrashing:</strong> Ratusan thread pada puluhan endpoint memicu jutaan switch context OS di traffic tinggi.</span>
+              <span>• <strong>Monolithic &amp; RxJava 1.x Legacy:</strong> Kompleksitas arsitektur internal yang sulit dioptimasi untuk arsitektur modern.</span>
             </div>
           </div>
         </div>
@@ -586,17 +586,17 @@ export function HystrixVsResilience4jVisualizer() {
       {era === '2018' && (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '12px' }}>
           <div style={{ padding: '12px 14px', borderRadius: '8px', background: '#1e293b', border: '1px solid #f59e0b55' }}>
-            <div style={{ color: ACCENT_ORANGE, fontSize: '12px', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>MILESTONE (NOVEMBER 2018)</div>
-            <div style={{ fontSize: '14px', fontWeight: 700, color: '#f8fafc', margin: '4px 0' }}>Netflix Resmi Memensiunkan Hystrix</div>
+            <div style={{ color: ACCENT_ORANGE, fontSize: '12px', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>MILESTONE RESMI (NOVEMBER 2018)</div>
+            <div style={{ fontSize: '14px', fontWeight: 700, color: '#f8fafc', margin: '4px 0' }}>Netflix Resmi Deprecate Hystrix</div>
             <p style={{ fontSize: '12px', color: '#cbd5e1', lineHeight: 1.5, margin: 0 }}>
-              Netflix mengumumkan: <em>"Hystrix is no longer in active development, and is currently in maintenance mode."</em> Netflix secara eksplisit merekomendasikan komunitas Java untuk bermigrasi ke <strong>Resilience4j</strong>.
+              Netflix Tech Announcement: <em>"Hystrix is no longer in active development, and is currently in maintenance mode."</em> Netflix secara eksplisit merekomendasikan komunitas Java enterprise bermigrasi ke <strong>Resilience4j</strong>.
             </p>
           </div>
           <div style={{ padding: '12px 14px', borderRadius: '8px', background: '#1e293b', border: '1px solid #334155' }}>
-            <div style={{ color: ACCENT_GREEN, fontSize: '12px', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>MENGAPA BERUBAH?</div>
-            <div style={{ fontSize: '14px', fontWeight: 700, color: '#f8fafc', margin: '4px 0' }}>Lahirnya Era Reactive &amp; Netty</div>
+            <div style={{ color: ACCENT_GREEN, fontSize: '12px', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>PERUBAHAN PARADIGMA ARSITEKTUR</div>
+            <div style={{ fontSize: '14px', fontWeight: 700, color: '#f8fafc', margin: '4px 0' }}>Transisi ke Arsitektur Asynchronous &amp; Non-Blocking</div>
             <p style={{ fontSize: '12px', color: '#cbd5e1', lineHeight: 1.5, margin: 0 }}>
-              Dunia bergeser dari Thread-per-request (Tomcat MVC) menuju arsitektur Non-blocking Event-Loop (Spring WebFlux / Netty). Thread pool per-breaker milik Hystrix menjadi anti-pattern mematikan.
+              Dunia backend bertransformasi dari <em>Thread-per-Request</em> (blocking I/O) menuju runtime <em>Non-blocking Event Loop</em>. Mempertahankan thread-pool isolasi Hystrix menjadi anti-pattern yang membunuh throughput dan latensi.
             </p>
           </div>
         </div>
@@ -606,18 +606,18 @@ export function HystrixVsResilience4jVisualizer() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '12px' }}>
           <div style={{ padding: '12px 14px', borderRadius: '8px', background: '#064e3b25', border: '1px solid #10b98155' }}>
             <div style={{ color: ACCENT_GREEN, fontSize: '12px', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>MODERN STANDARD: RESILIENCE4J ⚡</div>
-            <div style={{ fontSize: '14px', fontWeight: 700, color: '#f8fafc', margin: '4px 0' }}>Lock-Free, Lightweight &amp; Reactive-Native</div>
-            <div style={{ fontSize: '12px', color: '#6ee7b7', marginTop: '4px', display: 'flex', flexDirection: 'column', gap: '3px' }}>
-              <span>• <strong>Zero Thread Overhead:</strong> Menggunakan in-memory Atomic RingBitSet lock-free.</span>
-              <span>• <strong>WebFlux Native:</strong> Kompatibel sempurna dengan Project Reactor (Mono / Flux).</span>
-              <span>• <strong>Zero Third-Party Deps:</strong> Sangat ringan, tidak membengkakkan binary container K8s.</span>
+            <div style={{ fontSize: '14px', fontWeight: 700, color: '#f8fafc', margin: '4px 0' }}>Lock-Free, Functional &amp; Asynchronous Native</div>
+            <div style={{ fontSize: '12px', color: '#6ee7b7', marginTop: '4px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+              <span>• <strong>Zero Extra Threads:</strong> Evaluasi failure rate lock-free di memory menggunakan Atomic RingBitSet pada level CPU cache.</span>
+              <span>• <strong>Functional Decorator:</strong> Dibangun untuk Java 8+ Lambdas, Higher-Order Functions, dan CompletableFuture tanpa blocking.</span>
+              <span>• <strong>Zero Third-Party Deps:</strong> Modular dan ultra-ringan (&lt; 300KB JAR), tanpa memory bloat di container Kubernetes.</span>
             </div>
           </div>
           <div style={{ padding: '12px 14px', borderRadius: '8px', background: '#1e293b', border: '1px solid #334155' }}>
-            <div style={{ color: '#38bdf8', fontSize: '12px', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>SPRING CLOUD CIRCUIT BREAKER</div>
-            <div style={{ fontSize: '14px', fontWeight: 700, color: '#f8fafc', margin: '4px 0' }}>Pilihan Utama Arsitektur Perbankan</div>
+            <div style={{ color: '#38bdf8', fontSize: '12px', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>DE-FACTO CLUSTER STANDARD</div>
+            <div style={{ fontSize: '14px', fontWeight: 700, color: '#f8fafc', margin: '4px 0' }}>Pilihan Utama Arsitektur Finansial Enterprise</div>
             <p style={{ fontSize: '12px', color: '#cbd5e1', lineHeight: 1.5, margin: 0 }}>
-              Diadopsi secara resmi oleh tim Spring Framework sebagai pondasi default <code>Spring Cloud CircuitBreaker</code>, menjadi standar emas ketahanan transaksi finansial modern.
+              Resmi menjadi pondasi implementasi standar di <code>Spring Cloud CircuitBreaker</code> oleh VMware, menggantikan posisi Hystrix sebagai standar emas ketahanan sistem transaksi pembayaran modern.
             </p>
           </div>
         </div>
@@ -636,18 +636,18 @@ export function HystrixVsResilience4jVisualizer() {
       }}>
         <div style={{ fontWeight: 700, color: '#94a3b8' }}>Parameter</div>
         <div style={{ fontWeight: 700, color: '#ef4444' }}>Netflix Hystrix (Legacy 2012)</div>
-        <div style={{ fontWeight: 700, color: '#10b981' }}>Resilience4j (Modern 2026) ⚡</div>
+        <div style={{ fontWeight: 700, color: '#10b981' }}>Resilience4j (Modern Standard) ⚡</div>
 
         <div style={{ color: '#cbd5e1' }}>Thread Model</div>
         <div style={{ color: '#fca5a5' }}>ThreadPool per Breaker (Heavy Context Switch)</div>
         <div style={{ color: '#86efac' }}>Lock-Free Atomic RingBitSet (0 Extra Threads)</div>
 
-        <div style={{ color: '#cbd5e1' }}>Reactive Stack</div>
-        <div style={{ color: '#fca5a5' }}>RxJava 1.x Legacy (Blocking Adaptors)</div>
-        <div style={{ color: '#86efac' }}>Spring WebFlux / Reactor Native (Mono / Flux)</div>
+        <div style={{ color: '#cbd5e1' }}>Concurrency Model</div>
+        <div style={{ color: '#fca5a5' }}>Blocking Thread-per-Command (RxJava 1.x)</div>
+        <div style={{ color: '#86efac' }}>Non-Blocking Asynchronous &amp; Functional Decorator</div>
 
         <div style={{ color: '#cbd5e1' }}>Status Industri</div>
-        <div style={{ color: '#fca5a5' }}>Deprecated (Maintenance Mode sejak 2018)</div>
+        <div style={{ color: '#fca5a5' }}>Deprecated (Maintenance Mode sejak Nov 2018)</div>
         <div style={{ color: '#86efac' }}>Standar De-Facto Industri Perbankan &amp; Cloud</div>
       </div>
     </div>
