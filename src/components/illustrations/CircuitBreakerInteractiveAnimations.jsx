@@ -252,11 +252,13 @@ export function CircuitBreakerFuseVisualizer() {
 
 /**
  * 2. Interactive 2-Layer Failover Packet Flow Visualizer
- * Visualizes incoming QRIS packets branching between ALTO (Primary) and RINTIS (Secondary),
- * demonstrating Global Switcher vs Granular NNS rerouting.
+ * Visualizes incoming QRIS packets branching between:
+ * - Layer 1: Global Switcher CB ("alto" / "rintis")
+ * - Layer 2: Granular NNS CB Matrix ("qris-alto-{nns}")
+ * Demonstrating how Mandiri (93600008) fails over to RINTIS while BCA (93600014) stays on ALTO.
  */
 export function FailoverPacketFlowVisualizer() {
-  const [scenario, setScenario] = useState('NORMAL'); // 'NORMAL' | 'ALTO_DOWN' | 'NNS_DOWN'
+  const [scenario, setScenario] = useState('NORMAL'); // 'NORMAL' | 'NNS_DOWN' | 'ALTO_DOWN'
 
   return (
     <div style={{
@@ -273,11 +275,11 @@ export function FailoverPacketFlowVisualizer() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <Layers size={16} color={ACCENT} />
           <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', fontWeight: 700, color: '#f8fafc' }}>
-            SIMULASI ARSITEKTUR 2-LAYER: PACKET ROUTING &amp; FAILOVER
+            SIMULASI ARSITEKTUR 2-LAYER: GLOBAL SWITCHER &amp; GRANULAR NNS
           </span>
         </div>
 
-        <div style={{ display: 'flex', gap: '6px' }}>
+        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
           <button
             type="button"
             onClick={() => setScenario('NORMAL')}
@@ -293,7 +295,7 @@ export function FailoverPacketFlowVisualizer() {
               cursor: 'pointer'
             }}
           >
-            1. Normal (ALTO 100%)
+            1. Normal (L1 &amp; L2 Closed)
           </button>
           <button
             type="button"
@@ -310,7 +312,7 @@ export function FailoverPacketFlowVisualizer() {
               cursor: 'pointer'
             }}
           >
-            2. Layer 2: Mandiri Down
+            2. Layer 2: Mandiri Down (qris-alto-93600008)
           </button>
           <button
             type="button"
@@ -327,150 +329,341 @@ export function FailoverPacketFlowVisualizer() {
               cursor: 'pointer'
             }}
           >
-            3. Layer 1: ALTO Total Down
+            3. Layer 1: ALTO Total Down ("alto")
           </button>
         </div>
       </div>
 
-      {/* SVG Routing Schema */}
-      <div style={{ width: '100%', height: '140px', position: 'relative' }}>
-        <svg viewBox="0 0 760 140" style={{ width: '100%', height: '100%' }}>
-          {/* Incoming Source */}
-          <rect x="20" y="45" width="130" height="50" rx="8" fill="#1e293b" stroke="#38bdf8" strokeWidth="1.5" />
-          <text x="85" y="67" fill="#f8fafc" fontSize="11" fontWeight="700" textAnchor="middle" fontFamily="var(--font-mono)">QRIS GATEWAY</text>
-          <text x="85" y="83" fill="#94a3b8" fontSize="9.5" textAnchor="middle" fontFamily="var(--font-mono)">Decision Engine</text>
+      {/* SVG Routing Schema with Layer 1 and Layer 2 Boxes */}
+      <div style={{ width: '100%', height: '220px', position: 'relative' }}>
+        <svg viewBox="0 0 920 220" style={{ width: '100%', height: '100%' }}>
+          <defs>
+            <filter id="glowCyan" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="3" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+            <filter id="glowAmber" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="3" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+            <filter id="glowRedSmall" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="3" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+          </defs>
 
-          {/* Upper Route: ALTO (Primary) */}
+          {/* Static Background Routing Lines */}
+          {/* Path 1: Gateway -> L1 Global CB */}
           <path
-            d="M 150 70 C 230 70, 260 35, 340 35 L 560 35"
+            d="M 145 110 C 165 110, 165 70, 185 70"
             fill="none"
             stroke={scenario === 'ALTO_DOWN' ? '#ef4444' : '#334155'}
-            strokeWidth="3"
-            strokeDasharray={scenario === 'ALTO_DOWN' ? '6 6' : 'none'}
+            strokeWidth="2.5"
           />
 
-          {/* Lower Route: RINTIS (Secondary) */}
+          {/* Path 2: L1 -> L2 BCA */}
           <path
-            d="M 150 70 C 230 70, 260 105, 340 105 L 560 105"
+            d="M 325 70 C 350 70, 350 56, 375 56"
             fill="none"
-            stroke={scenario === 'NORMAL' ? '#334155' : '#10b981'}
-            strokeWidth="3"
+            stroke={scenario === 'ALTO_DOWN' ? '#334155' : '#334155'}
+            strokeWidth="2"
+            strokeDasharray={scenario === 'ALTO_DOWN' ? '4 4' : 'none'}
           />
 
-          {/* Moving Animated Packets to ALTO (if normal or partial) */}
-          {scenario === 'NORMAL' && (
-            <circle r="5" fill="#38bdf8" filter="drop-shadow(0 0 6px #38bdf8)">
-              <animateMotion
-                path="M 150 70 C 230 70, 260 35, 340 35 L 560 35"
-                dur="1.2s"
-                repeatCount="indefinite"
-              />
-            </circle>
-          )}
+          {/* Path 3: L1 -> L2 Mandiri */}
+          <path
+            d="M 325 70 C 350 70, 350 94, 375 94"
+            fill="none"
+            stroke={scenario === 'ALTO_DOWN' ? '#334155' : '#334155'}
+            strokeWidth="2"
+            strokeDasharray={scenario === 'ALTO_DOWN' ? '4 4' : 'none'}
+          />
 
-          {/* Scenario NNS DOWN: Split routing */}
-          {scenario === 'NNS_DOWN' && (
+          {/* Path 4: L2 BCA -> ALTO Switcher */}
+          <path
+            d="M 645 56 L 695 56"
+            fill="none"
+            stroke={scenario === 'ALTO_DOWN' ? '#334155' : '#10b981'}
+            strokeWidth="2.5"
+          />
+
+          {/* Path 5: L2 Mandiri -> ALTO Switcher (Active if NORMAL) */}
+          <path
+            d="M 645 94 C 665 94, 675 76, 695 76"
+            fill="none"
+            stroke={scenario === 'NORMAL' ? '#10b981' : '#334155'}
+            strokeWidth="2"
+            strokeDasharray={scenario === 'NORMAL' ? 'none' : '4 4'}
+          />
+
+          {/* Path 6: L2 Mandiri Failover -> RINTIS Switcher (Active if NNS_DOWN) */}
+          <path
+            d="M 645 94 C 670 94, 665 168, 695 168"
+            fill="none"
+            stroke={scenario === 'NNS_DOWN' ? '#f59e0b' : '#1e293b'}
+            strokeWidth={scenario === 'NNS_DOWN' ? '2.5' : '1.5'}
+            strokeDasharray={scenario === 'NNS_DOWN' ? 'none' : '4 4'}
+          />
+
+          {/* Path 7: L1 Macro Bypass -> RINTIS Switcher (Active if ALTO_DOWN) */}
+          <path
+            d="M 145 110 C 220 110, 310 185, 695 185"
+            fill="none"
+            stroke={scenario === 'ALTO_DOWN' ? '#ef4444' : '#1e293b'}
+            strokeWidth={scenario === 'ALTO_DOWN' ? '3' : '1.5'}
+            strokeDasharray={scenario === 'ALTO_DOWN' ? 'none' : '4 4'}
+          />
+
+          {/* === ANIMATED FLOW PARTICLES === */}
+          {/* Scenario 1: NORMAL */}
+          {scenario === 'NORMAL' && (
             <>
-              {/* BCA / BRI packet to ALTO */}
-              <circle r="4.5" fill="#38bdf8" filter="drop-shadow(0 0 5px #38bdf8)">
+              {/* BCA Packet (Cyan) */}
+              <circle r="4.5" fill="#38bdf8" filter="url(#glowCyan)">
                 <animateMotion
-                  path="M 150 70 C 230 70, 260 35, 340 35 L 560 35"
-                  dur="1.3s"
+                  path="M 145 110 C 165 110, 165 70, 185 70 L 325 70 C 350 70, 350 56, 375 56 L 645 56 L 695 56"
+                  dur="1.4s"
                   repeatCount="indefinite"
                 />
               </circle>
-              {/* Mandiri packet diverted to RINTIS */}
-              <circle r="5.5" fill="#f59e0b" filter="drop-shadow(0 0 6px #f59e0b)">
+              {/* Mandiri Packet (Emerald) */}
+              <circle r="4.5" fill="#34d399" filter="url(#glowCyan)">
                 <animateMotion
-                  path="M 150 70 C 230 70, 260 105, 340 105 L 560 105"
-                  dur="1.1s"
+                  path="M 145 110 C 165 110, 165 70, 185 70 L 325 70 C 350 70, 350 94, 375 94 L 645 94 C 665 94, 675 76, 695 76"
+                  dur="1.6s"
                   repeatCount="indefinite"
                 />
               </circle>
             </>
           )}
 
-          {/* Scenario ALTO TOTAL DOWN: All packets to RINTIS */}
+          {/* Scenario 2: NNS_DOWN (Mandiri Down, BCA Normal) */}
+          {scenario === 'NNS_DOWN' && (
+            <>
+              {/* BCA Packet continues to ALTO */}
+              <circle r="4.5" fill="#38bdf8" filter="url(#glowCyan)">
+                <animateMotion
+                  path="M 145 110 C 165 110, 165 70, 185 70 L 325 70 C 350 70, 350 56, 375 56 L 645 56 L 695 56"
+                  dur="1.4s"
+                  repeatCount="indefinite"
+                />
+              </circle>
+              {/* Mandiri Packet diverted at L2 down to RINTIS! */}
+              <circle r="5" fill="#f59e0b" filter="url(#glowAmber)">
+                <animateMotion
+                  path="M 145 110 C 165 110, 165 70, 185 70 L 325 70 C 350 70, 350 94, 375 94 L 645 94 C 670 94, 665 168, 695 168"
+                  dur="1.5s"
+                  repeatCount="indefinite"
+                />
+              </circle>
+            </>
+          )}
+
+          {/* Scenario 3: ALTO_DOWN (Macro L1 Cut-off) */}
           {scenario === 'ALTO_DOWN' && (
-            <circle r="5.5" fill="#10b981" filter="drop-shadow(0 0 8px #10b981)">
+            <circle r="5.5" fill="#ef4444" filter="url(#glowRedSmall)">
               <animateMotion
-                path="M 150 70 C 230 70, 260 105, 340 105 L 560 105"
-                dur="1.0s"
+                path="M 145 110 C 220 110, 310 185, 695 185"
+                dur="1.1s"
                 repeatCount="indefinite"
               />
             </circle>
           )}
 
-          {/* ALTO Destination Box */}
+          {/* === 1. INCOMING GATEWAY BOX (LEFT) === */}
+          <rect x="15" y="80" width="130" height="60" rx="8" fill="#1e293b" stroke="#38bdf8" strokeWidth="1.5" />
+          <text x="80" y="102" fill="#f8fafc" fontSize="11" fontWeight="700" textAnchor="middle" fontFamily="var(--font-mono)">
+            QRIS GATEWAY
+          </text>
+          <text x="80" y="117" fill="#94a3b8" fontSize="9" textAnchor="middle" fontFamily="var(--font-mono)">
+            Failover Router
+          </text>
+          <text x="80" y="130" fill="#38bdf8" fontSize="8.5" textAnchor="middle" fontFamily="var(--font-mono)">
+            NNS Extractor
+          </text>
+
+          {/* === 2. LAYER 1: GLOBAL SWITCHER CB BOX === */}
           <rect
-            x="560"
-            y="12"
-            width="170"
-            height="46"
+            x="185"
+            y="40"
+            width="140"
+            height="60"
             rx="8"
-            fill={scenario === 'ALTO_DOWN' ? '#450a0a' : scenario === 'NNS_DOWN' ? '#311d04' : '#064e3b'}
+            fill={scenario === 'ALTO_DOWN' ? '#450a0a' : '#064e3b30'}
+            stroke={scenario === 'ALTO_DOWN' ? '#ef4444' : '#10b981'}
+            strokeWidth="1.5"
+          />
+          <text x="255" y="58" fill="#f8fafc" fontSize="10" fontWeight="700" textAnchor="middle" fontFamily="var(--font-mono)">
+            LAYER 1: GLOBAL CB
+          </text>
+          <text x="255" y="73" fill={scenario === 'ALTO_DOWN' ? '#f87171' : '#34d399'} fontSize="11" fontWeight="800" textAnchor="middle" fontFamily="var(--font-mono)">
+            CB: "alto"
+          </text>
+          <text x="255" y="89" fill={scenario === 'ALTO_DOWN' ? '#fca5a5' : '#86efac'} fontSize="8.5" textAnchor="middle" fontFamily="var(--font-mono)">
+            {scenario === 'ALTO_DOWN' ? '⚡ OPEN (Trip Macro!)' : '● CLOSED (Healthy)'}
+          </text>
+
+          {/* === 3. LAYER 2: GRANULAR NNS CB MATRIX (qris-alto-{nns}) === */}
+          {/* Outer Grouping Container */}
+          <rect
+            x="365"
+            y="16"
+            width="280"
+            height="108"
+            rx="8"
+            fill="#0b1120"
+            stroke={scenario === 'NNS_DOWN' ? '#f59e0b' : '#334155'}
+            strokeWidth="1.5"
+            strokeDasharray="4 4"
+          />
+          <text x="505" y="32" fill="#93c5fd" fontSize="9.5" fontWeight="700" textAnchor="middle" fontFamily="var(--font-mono)">
+            LAYER 2: GRANULAR NNS BREAKERS (qris-alto-{'{nns}'})
+          </text>
+
+          {/* Sub-box A: BCA / blu (qris-alto-93600014) */}
+          <rect
+            x="378"
+            y="40"
+            width="254"
+            height="31"
+            rx="5"
+            fill={scenario === 'ALTO_DOWN' ? '#1e293b50' : '#064e3b25'}
+            stroke={scenario === 'ALTO_DOWN' ? '#475569' : '#10b981'}
+            strokeWidth="1.2"
+          />
+          <text x="388" y="58" fill="#f8fafc" fontSize="9.5" fontWeight="600" fontFamily="var(--font-mono)">
+            qris-alto-93600014 (BCA/blu)
+          </text>
+          <text x="620" y="58" fill={scenario === 'ALTO_DOWN' ? '#94a3b8' : '#34d399'} fontSize="9" fontWeight="700" textAnchor="end" fontFamily="var(--font-mono)">
+            {scenario === 'ALTO_DOWN' ? 'BYPASS' : 'CLOSED ●'}
+          </text>
+
+          {/* Sub-box B: Mandiri (qris-alto-93600008) */}
+          <rect
+            x="378"
+            y="78"
+            width="254"
+            height="31"
+            rx="5"
+            fill={scenario === 'ALTO_DOWN' ? '#1e293b50' : scenario === 'NNS_DOWN' ? '#450a0a' : '#064e3b25'}
+            stroke={scenario === 'ALTO_DOWN' ? '#475569' : scenario === 'NNS_DOWN' ? '#ef4444' : '#10b981'}
+            strokeWidth="1.2"
+          />
+          <text x="388" y="96" fill="#f8fafc" fontSize="9.5" fontWeight="600" fontFamily="var(--font-mono)">
+            qris-alto-93600008 (Mandiri)
+          </text>
+          <text
+            x="620"
+            y="96"
+            fill={scenario === 'ALTO_DOWN' ? '#94a3b8' : scenario === 'NNS_DOWN' ? '#f87171' : '#34d399'}
+            fontSize="9"
+            fontWeight="700"
+            textAnchor="end"
+            fontFamily="var(--font-mono)"
+          >
+            {scenario === 'ALTO_DOWN' ? 'BYPASS' : scenario === 'NNS_DOWN' ? 'OPEN ⚡ (Trip!)' : 'CLOSED ●'}
+          </text>
+
+          {/* === 4. DESTINATION SWITCHERS (RIGHT) === */}
+          {/* ALTO Primary Destination Box */}
+          <rect
+            x="695"
+            y="32"
+            width="210"
+            height="68"
+            rx="8"
+            fill={scenario === 'ALTO_DOWN' ? '#450a0a' : scenario === 'NNS_DOWN' ? '#271904' : '#064e3b'}
             stroke={scenario === 'ALTO_DOWN' ? '#ef4444' : scenario === 'NNS_DOWN' ? '#f59e0b' : '#10b981'}
             strokeWidth="1.5"
           />
-          <text x="645" y="32" fill="#f8fafc" fontSize="11" fontWeight="700" textAnchor="middle" fontFamily="var(--font-mono)">
+          <text x="800" y="52" fill="#f8fafc" fontSize="11" fontWeight="700" textAnchor="middle" fontFamily="var(--font-mono)">
             SWITCHER ALTO
           </text>
+          <text x="800" y="67" fill="#94a3b8" fontSize="8.5" textAnchor="middle" fontFamily="var(--font-mono)">
+            Primary Payment Switcher
+          </text>
           <text
-            x="645"
-            y="47"
-            fill={scenario === 'ALTO_DOWN' ? '#fca5a5' : scenario === 'NNS_DOWN' ? '#fde68a' : '#6ee7b7'}
-            fontSize="9"
+            x="800"
+            y="85"
+            fill={scenario === 'ALTO_DOWN' ? '#fca5a5' : scenario === 'NNS_DOWN' ? '#fde68a' : '#86efac'}
+            fontSize="8.5"
+            fontWeight="700"
             textAnchor="middle"
             fontFamily="var(--font-mono)"
           >
-            {scenario === 'ALTO_DOWN' ? '🔴 L1 OPEN (CUT-OFF)' : scenario === 'NNS_DOWN' ? '🟡 L2 Mandiri OPEN' : '🟢 ALL CLOSED (Active)'}
+            {scenario === 'ALTO_DOWN'
+              ? '🔴 L1 OPEN (TOTAL CUT-OFF)'
+              : scenario === 'NNS_DOWN'
+              ? '🟡 BCA Active (Mandiri Diverted)'
+              : '🟢 100% Traffic Healthy (Active)'}
           </text>
 
-          {/* RINTIS Destination Box */}
+          {/* RINTIS Secondary Destination Box */}
           <rect
-            x="560"
-            y="82"
-            width="170"
-            height="46"
+            x="695"
+            y="145"
+            width="210"
+            height="58"
             rx="8"
             fill={scenario === 'NORMAL' ? '#1e293b' : '#064e3b'}
             stroke={scenario === 'NORMAL' ? '#475569' : '#10b981'}
             strokeWidth="1.5"
           />
-          <text x="645" y="102" fill="#f8fafc" fontSize="11" fontWeight="700" textAnchor="middle" fontFamily="var(--font-mono)">
+          <text x="800" y="165" fill="#f8fafc" fontSize="11" fontWeight="700" textAnchor="middle" fontFamily="var(--font-mono)">
             SWITCHER RINTIS
           </text>
+          <text x="800" y="179" fill="#94a3b8" fontSize="8.5" textAnchor="middle" fontFamily="var(--font-mono)">
+            Secondary Fallback Switcher
+          </text>
           <text
-            x="645"
-            y="117"
-            fill={scenario === 'NORMAL' ? '#94a3b8' : '#6ee7b7'}
-            fontSize="9"
+            x="800"
+            y="194"
+            fill={scenario === 'NORMAL' ? '#94a3b8' : '#86efac'}
+            fontSize="8.5"
+            fontWeight="700"
             textAnchor="middle"
             fontFamily="var(--font-mono)"
           >
-            {scenario === 'NORMAL' ? 'STANDBY (Idle)' : scenario === 'NNS_DOWN' ? '🟢 FAILOVER (Mandiri Only)' : '🟢 100% TRAFFIC FAILOVER'}
+            {scenario === 'NORMAL'
+              ? '⚪ STANDBY (Idle - 0 TPS)'
+              : scenario === 'NNS_DOWN'
+              ? '🟢 FAILOVER (Mandiri 93600008 Only)'
+              : '🟢 100% TRAFFIC FAILOVER ACTIVE'}
           </text>
         </svg>
       </div>
 
-      {/* Scenario Legend */}
+      {/* Dynamic Scenario Legend */}
       <div style={{
         fontSize: '11.5px',
-        padding: '6px 12px',
+        padding: '8px 14px',
         borderRadius: '6px',
         background: '#1e293b',
         border: '1px solid #334155',
         color: '#e2e8f0',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        lineHeight: 1.45
       }}>
         <span>
-          {scenario === 'NORMAL' && '🟢 Kondisi Normal: Seluruh pembayaran QRIS dialirkan ke ALTO sebagai primary switcher.'}
-          {scenario === 'NNS_DOWN' && '🟡 Isolasi Granular: Bank Mandiri (93600008) gangguan di ALTO. Hanya transaksi Mandiri yang dialihkan ke RINTIS! BCA & BRI tetap di ALTO.'}
-          {scenario === 'ALTO_DOWN' && '🔴 Pemadaman Makro: ALTO down total. L1 Global CB trip OPEN, 100% volume pembayaran instan dialihkan ke RINTIS!'}
+          {scenario === 'NORMAL' && (
+            <>
+              <strong>🟢 Kondisi Normal:</strong> L1 Global (<code>alto</code>) = CLOSED &amp; L2 Granular (<code>qris-alto-{'{nns}'}</code>) = CLOSED. Seluruh transaksi dialirkan ke ALTO.
+            </>
+          )}
+          {scenario === 'NNS_DOWN' && (
+            <>
+              <strong>🟡 Isolasi Granular L2:</strong> L1 Global (<code>alto</code>) tetap CLOSED. Hanya <code>qris-alto-93600008</code> (Mandiri) yang trip OPEN ⚡! Transaksi Mandiri otomatis reroute ke RINTIS, sedangkan BCA (<code>qris-alto-93600014</code>) tetap di ALTO.
+            </>
+          )}
+          {scenario === 'ALTO_DOWN' && (
+            <>
+              <strong>🔴 Pemadaman Makro L1:</strong> L1 Global (<code>alto</code>) trip OPEN ⚡ (VPN / core network switcher down). 100% volume pembayaran QRIS langsung dialihkan ke RINTIS tanpa memeriksa L2.
+            </>
+          )}
         </span>
-        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10.5px', color: '#38bdf8' }}>
+        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10.5px', color: '#38bdf8', whiteSpace: 'nowrap', marginLeft: '12px' }}>
           Decision Latency: &lt; 0.5ms
         </span>
       </div>
