@@ -81,17 +81,18 @@ export const PRESENTATIONS_DATA = [
     statusLabel: 'Ready to Present',
     statusColor: '#00a4e4',
     badge: 'TECHNICAL SHARING',
-    chaptersCount: 5,
-    estimatedMinutes: 20,
+    chaptersCount: 6,
+    estimatedMinutes: 25,
     date: 'Oktober 2026',
     tags: ['QRIS MPM', 'Circuit Breaker', 'Resilience4j', 'Redis Pub/Sub', 'Spring WebFlux', 'Runbook'],
-    description: 'Deep-dive teknis implementasi Circuit Breaker 2 Layer (Global Switcher vs Granular Acquirer NNS), synchronizer state terdistribusi Redis Pub/Sub, Hash Snapshot pod aggregation, implementasi reactive Spring WebFlux dynamic breakers, serta testing automation & audit logging runbook.',
+    description: 'Deep-dive teknis arsitektur ketahanan sistem: Filosofi Resilience4j & Decision Matrix kapan perlu pakai CB, problem in-memory multi-pod di K8s, kaskade 2-layer failover (Global vs Granular NNS), synchronizer Redis Dual-Tier, setup reactive dynamic breakers, dan operational testing runbook.',
     chapters: [
-      { num: '01', name: 'The Multi-Pod Problem: Mengapa In-Memory CB Gagal di K8s' },
-      { num: '02', name: 'Arsitektur 2-Layer Failover: Global Switcher vs Granular NNS' },
-      { num: '03', name: 'Redis Dual-Tier: Instant Pub/Sub vs Snapshot Aggregator' },
-      { num: '04', name: 'Reactive Implementation & Dynamic Breakers on WebFlux' },
-      { num: '05', name: 'Testing Automation, Observability & Operational Runbook' }
+      { num: '01', name: 'Circuit Breaker & Resilience4j: Kapan Perlu vs Anti-Pattern' },
+      { num: '02', name: 'The Multi-Pod Problem: Mengapa In-Memory CB Gagal di K8s' },
+      { num: '03', name: 'Arsitektur 2-Layer Failover: Global Switcher vs Granular NNS' },
+      { num: '04', name: 'Redis Dual-Tier: Instant Pub/Sub vs Snapshot Aggregator' },
+      { num: '05', name: 'Reactive Implementation & Dynamic Breakers on WebFlux' },
+      { num: '06', name: 'Testing Automation, Observability & Operational Runbook' }
     ]
   },
   {

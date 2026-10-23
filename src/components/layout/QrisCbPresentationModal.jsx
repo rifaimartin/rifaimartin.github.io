@@ -15,36 +15,43 @@ const ACCENT_PURPLE = '#8b5cf6';
 
 const CHAPTERS = [
   {
-    id: 'problem',
+    id: 'fundamentals',
     number: '01',
+    badge: 'FOUNDATIONS & DECISION MATRIX',
+    title: 'Circuit Breaker & Resilience4j: Kapan Perlu, Kapan Anti-Pattern?',
+    subtitle: 'Memahami filosofi perlindungan microservice: analogi sekering listrik, state machine Resilience4j, dan boundary kapan wajib vs dilarang menggunakan CB.'
+  },
+  {
+    id: 'problem',
+    number: '02',
     badge: 'DISTRIBUTED SYSTEMS CHALLENGE',
     title: 'The Multi-Pod Problem: Mengapa In-Memory Circuit Breaker Saja Gagal?',
-    subtitle: 'Di balik deployment Kubernetes 4-pod high-throughput QRIS MPM: bahaya asimetri status CB lokal dan cascading failover latency.'
+    subtitle: 'Di balik deployment Kubernetes 4-pod high-throughput QRIS MPM: bahaya asimetri status CB lokal, cascading failure, dan failover latency.'
   },
   {
     id: 'architecture',
-    number: '02',
+    number: '03',
     badge: '2-LAYER FAILOVER ARCHITECTURE',
     title: 'Arsitektur 2-Layer CB: Global Switcher vs Granular NNS Isolation',
     subtitle: 'Mencegah pemadaman massal dengan isolasi kegagalan bertingkat: saat Bank X gangguan di ALTO, hanya rute Bank X yang dialihkan ke RINTIS.'
   },
   {
     id: 'redis-sync',
-    number: '03',
+    number: '04',
     badge: 'REDIS DUAL-TIER SYNC',
     title: 'Redis Dual-Tier: Real-Time Event Pub/Sub & Fleet Snapshot Aggregator',
     subtitle: 'Dua kecepatan sinkronisasi: broadcast instan zero-delay via Redis Pub/Sub dan snapshot agregasi periodik worst-wins untuk observability.'
   },
   {
     id: 'reactive-setup',
-    number: '04',
+    number: '05',
     badge: 'REACTIVE SETUP & DYNAMIC BREAKERS',
     title: 'Implementasi Reactive: Resilience4j WebFlux & Dynamic Breakers On-the-Fly',
     subtitle: 'Setup non-blocking di Spring WebFlux, registrasi dinamis breaker L2 per-bank tanpa restart aplikasi, dan isolasi multi-service Redis.'
   },
   {
     id: 'testing-runbook',
-    number: '05',
+    number: '06',
     badge: 'TESTING & OPERATIONAL RUNBOOK',
     title: 'Testing Automation, Observability & Self-Healing Operational Runbook',
     subtitle: 'Simulasi via Redis CLI, script otomasi pengujian, MDC context logging untuk audit ELK, dan siklus pemulihan otomatis (self-healing).'
@@ -416,8 +423,74 @@ export default function QrisCbPresentationModal({ isOpen, onClose, initialFullsc
               </p>
             </div>
 
-            {/* Slide 1: The Multi-Pod Problem */}
+                        {/* Slide 1: Circuit Breaker & Resilience4j Fundamentals */}
             {currentSlide === 0 && (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '16px' }}>
+                  <div style={{ ...cardStyle, borderLeft: `4px solid ${ACCENT}` }}>
+                    <CardTitle icon={ShieldAlert} color={ACCENT}>Filosofi Sekering Listrik & Mengapa Resilience4j?</CardTitle>
+                    <BulletList
+                      items={[
+                        'Analogi Sekering Rumah Tangga: Ketika ada korsleting pada satu perangkat, sekering otomatis memutus aliran listrik sebelum kabel utama terbakar atau seluruh gedung padam.',
+                        'Fail-Fast Principle: Lebih baik menolak request dalam 1ms (CallNotPermittedException) daripada membiarkan ribuan request antre dan menggantung selama 3-5 detik.',
+                        'Mengapa Resilience4j: Ringan (tanpa dependensi berat), arsitektur modular, functional style, dan dirancang khusus untuk non-blocking reactive stack (Spring WebFlux).',
+                        'Penerus Resmi Hystrix: Netflix resmi merekomendasikan Resilience4j sebagai pengganti Hystrix yang sudah deprecated.'
+                      ]}
+                    />
+                  </div>
+
+                  <div style={{ ...cardStyle, borderLeft: `4px solid ${ACCENT_GREEN}` }}>
+                    <CardTitle icon={CheckCircle2} color={ACCENT_GREEN}>Kapan WAJIB Menggunakan Circuit Breaker?</CardTitle>
+                    <BulletList
+                      items={[
+                        'Remote External Downstream: Transaksi ke Payment Switcher (ALTO/RINTIS), Core Banking, atau API Pihak Ketiga yang memiliki SLA jaringan di luar kendali kita.',
+                        'High-Latency Danger: Pemanggilan synchronous yang jika lambat (>2000ms) akan menahan thread server (Netty worker) hingga menyebabkan thread starvation.',
+                        'Adanya Jalur Alternatif (Fallback): Sistem memiliki rute cadangan (misal: jika ALTO trip OPEN, traffic otomatis dialihkan ke RINTIS).',
+                        'Cascading Failure Protection: Menjaga core microservice gateway tetap hidup melayani fitur lain meskipun downstream tertentu down.'
+                      ]}
+                    />
+                  </div>
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '16px' }}>
+                  <div style={{ ...cardStyle, borderLeft: `4px solid ${ACCENT_RED}` }}>
+                    <CardTitle icon={XCircle} color={ACCENT_RED}>Kapan JANGAN Menggunakan (Anti-Pattern)?</CardTitle>
+                    <BulletList
+                      items={[
+                        'Internal Database Queries (PostgreSQL / MySQL): Jangan pasang CB pada database lokal! Gunakan Database Connection Pooling (HikariCP/R2DBC) & Query Timeout.',
+                        'In-Memory Cache Lokal (Redis / Caffeine): Akses cache lokal berkecepatan sub-milidetik (<1ms). Memasang CB hanya menambah CPU overhead dan kompleksitas percuma.',
+                        'Asynchronous Event / Queue (Kafka Consumers): Pada message consumer, gunakan Retry Topics dan Dead Letter Queue (DLQ), bukan Circuit Breaker.',
+                        'Stateless Non-Critical Ops: Pemanggilan yang murni idempotent dan cepat di mana simple retry sudah cukup menyelesaikan masalah.'
+                      ]}
+                    />
+                  </div>
+
+                  <div style={{ ...cardStyle, borderLeft: `4px solid ${ACCENT_PURPLE}` }}>
+                    <CardTitle icon={Activity} color={ACCENT_PURPLE}>Tiga Pilar State Machine Resilience4j</CardTitle>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px', marginTop: '4px' }}>
+                      <div style={{ padding: '10px 8px', borderRadius: '8px', background: '#10b98115', border: '1px solid #10b98140', textAlign: 'center' }}>
+                        <div style={{ ...monoLabel, color: ACCENT_GREEN, fontSize: '10.5px' }}>STATE 1</div>
+                        <div style={{ fontSize: '13px', fontWeight: 800, color: ACCENT_GREEN, margin: '4px 0' }}>CLOSED</div>
+                        <div style={{ fontSize: '10px', color: 'var(--ink-muted)' }}>Normal. Request dialirkan, kegagalan dicatat di sliding window.</div>
+                      </div>
+                      <div style={{ padding: '10px 8px', borderRadius: '8px', background: '#ef444415', border: '1px solid #ef444440', textAlign: 'center' }}>
+                        <div style={{ ...monoLabel, color: ACCENT_RED, fontSize: '10.5px' }}>STATE 2</div>
+                        <div style={{ fontSize: '13px', fontWeight: 800, color: ACCENT_RED, margin: '4px 0' }}>OPEN</div>
+                        <div style={{ fontSize: '10px', color: 'var(--ink-muted)' }}>Trip (&gt;90% gagal). Langsung tolak instan &amp; aktifkan fallback.</div>
+                      </div>
+                      <div style={{ padding: '10px 8px', borderRadius: '8px', background: '#f59e0b15', border: '1px solid #f59e0b40', textAlign: 'center' }}>
+                        <div style={{ ...monoLabel, color: ACCENT_ORANGE, fontSize: '10.5px' }}>STATE 3</div>
+                        <div style={{ fontSize: '13px', fontWeight: 800, color: ACCENT_ORANGE, margin: '4px 0' }}>HALF-OPEN</div>
+                        <div style={{ fontSize: '10px', color: 'var(--ink-muted)' }}>Setelah 15s, uji beberapa request untuk cek kesembuhan.</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Slide 2: The Multi-Pod Problem */}
+            {currentSlide === 1 && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '16px' }}>
                   <div style={{ ...cardStyle, borderLeft: `4px solid ${ACCENT_RED}` }}>
@@ -473,8 +546,8 @@ export default function QrisCbPresentationModal({ isOpen, onClose, initialFullsc
               </div>
             )}
 
-            {/* Slide 2: 2-Layer CB Architecture */}
-            {currentSlide === 1 && (
+            {/* Slide 3: 2-Layer CB Architecture */}
+            {currentSlide === 2 && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '16px' }}>
                   <div style={{ ...cardStyle, borderTop: `4px solid ${ACCENT}` }}>
@@ -524,8 +597,8 @@ return executePaymentViaAlto(request, nns); // Jalur Utama`}
               </div>
             )}
 
-            {/* Slide 3: Redis Dual-Tier Sync */}
-            {currentSlide === 2 && (
+            {/* Slide 4: Redis Dual-Tier Sync */}
+            {currentSlide === 3 && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '16px' }}>
                   <div style={{ ...cardStyle, borderLeft: `4px solid ${ACCENT}` }}>
@@ -570,8 +643,8 @@ return executePaymentViaAlto(request, nns); // Jalur Utama`}
               </div>
             )}
 
-            {/* Slide 4: Reactive Setup & Dynamic Breakers */}
-            {currentSlide === 3 && (
+            {/* Slide 5: Reactive Setup & Dynamic Breakers */}
+            {currentSlide === 4 && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '16px' }}>
                   <div style={{ ...cardStyle, borderLeft: `4px solid ${ACCENT}` }}>
@@ -634,8 +707,8 @@ return executePaymentViaAlto(request, nns); // Jalur Utama`}
               </div>
             )}
 
-            {/* Slide 5: Testing & Operational Runbook */}
-            {currentSlide === 4 && (
+            {/* Slide 6: Testing & Operational Runbook */}
+            {currentSlide === 5 && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '16px' }}>
                   <div style={{ ...cardStyle, borderLeft: `4px solid ${ACCENT}` }}>
@@ -797,7 +870,7 @@ return executePaymentViaAlto(request, nns); // Jalur Utama`}
             <h2 style={{ fontSize: '20px', fontWeight: 800, margin: '4px 0', color: '#0f172a' }}>{ch.title}</h2>
             <p style={{ fontSize: '13px', color: '#475569', margin: '0 0 10px' }}>{ch.subtitle}</p>
 
-            {idx === 0 && (
+            {idx === 5 && (
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
                 <div style={cardStyle}>
                   <CardTitle icon={AlertTriangle} color={ACCENT_RED}>The In-Memory Isolation Trap</CardTitle>
@@ -806,6 +879,19 @@ return executePaymentViaAlto(request, nns); // Jalur Utama`}
                 <div style={cardStyle}>
                   <CardTitle icon={Flame} color={ACCENT_ORANGE}>Dampak Fatal & Solusi</CardTitle>
                   <BulletList items={['Cascading failure & thread exhaustion di pod-pod yang blind.', 'Inkonsistensi failover per nasabah.', 'Solusi: Distributed state propagation instan via Redis Pub/Sub dalam hitungan milidetik.']} />
+                </div>
+              </div>
+            )}
+
+                        {idx === 0 && (
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+                <div style={cardStyle}>
+                  <CardTitle icon={ShieldAlert} color={ACCENT}>Filosofi Sekering & Mengapa Resilience4j</CardTitle>
+                  <BulletList items={['Analogi sekering: Memutus aliran request sebelum seluruh sistem thread starvation.', 'Fail-fast: Menolak dalam 1ms daripada menahan thread berdetik-detik.', 'Modern reactive library untuk Spring WebFlux (penerus resmi Hystrix).']} />
+                </div>
+                <div style={cardStyle}>
+                  <CardTitle icon={CheckCircle2} color={ACCENT_GREEN}>Kapan Perlu vs Anti-Pattern</CardTitle>
+                  <BulletList items={['WAJIB: Remote external payment switcher (ALTO/RINTIS) & downstream dengan fallback.', 'ANTI-PATTERN: Internal database (gunakan pool/timeout), cache in-memory lokal (Redis <1ms), dan async queue (Kafka DLQ).']} />
                 </div>
               </div>
             )}
