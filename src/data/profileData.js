@@ -352,14 +352,14 @@ Bagi gue pribadi yang berkutat di dunia inference dan IT middleware, kehadiran m
       category: "Banking Middleware & Resilience",
       readTime: "20 min keynote",
       date: "Oktober 2026",
-      desc: "Deep-dive teknis arsitektur L1 Global Switcher vs L2 NNS Circuit Breaker, real-time sync Redis Pub/Sub vs Dual-Tier Hash Snapshot, post-mortem regex memory leak, dan sanitasi log.",
-      tags: ["QRIS MPM", "Circuit Breaker", "Resilience4j", "Redis Pub/Sub", "Spring WebFlux", "Control Panel"],
+      desc: "Deep-dive teknis arsitektur L1 Global Switcher vs L2 NNS Circuit Breaker, real-time sync Redis Pub/Sub vs Dual-Tier Hash Snapshot, implementasi Spring WebFlux reactive, serta operational runbook & testing automation.",
+      tags: ["QRIS MPM", "Circuit Breaker", "Resilience4j", "Redis Pub/Sub", "Spring WebFlux", "Runbook"],
       content: `Presentasi interaktif ini mengupas 5 bab penting arsitektur ketahanan sistem QRIS MPM:
-1. Background & Arsitektur Circuit Breaker 2-Layer (L1 Global Switcher vs L2 Granular Acquirer NNS).
-2. Redis Dual-Tier Mechanism: Real-time Pub/Sub vs Periodic Hash Snapshot Aggregation.
-3. Hands-on Verification: Redis CLI State Injection (qris:cb:state:events) & Pod Reaction.
-4. Post-Mortem Control Panel: Root cause regex memory leak (qris-qris-alto) & optimasi latensi dashboard dari 4 detik ke < 20ms.
-5. Clean Logging & Production Readiness Invariants: Sanitasi 50KB payload dump GET NNS dan proteksi write ops.`
+1. The Multi-Pod Problem: Mengapa In-Memory Circuit Breaker Saja Gagal di Kubernetes.
+2. Arsitektur 2-Layer Failover: Global Switcher (L1) vs Granular NNS Isolation (L2).
+3. Redis Dual-Tier Mechanism: Real-Time Event Pub/Sub & Fleet Snapshot Aggregator.
+4. Reactive Implementation: Resilience4j Spring WebFlux & Dynamic Breakers On-the-Fly.
+5. Testing Automation & Runbook: Simulasi Redis CLI, Script Otomasi, Audit Log ELK & Self-Healing.`
     },
     {
       id: "evolution-agent-harness",

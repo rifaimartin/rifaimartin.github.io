@@ -76,7 +76,7 @@ export const PRESENTATIONS_DATA = [
     id: 'qris-cb-redis-architecture',
     number: '04',
     title: 'Dual-Layer Circuit Breaker & Redis Architecture in QRIS MPM',
-    subtitle: 'Arsitektur Kaskade L1 Switcher vs L2 NNS, Real-time Sync Pub/Sub vs Dual-Tier Hash Snapshot, dan Post-Mortem Control Panel Regex Memory Leak',
+    subtitle: 'Arsitektur Kaskade L1 Switcher vs L2 NNS, Real-time Sync Pub/Sub vs Dual-Tier Hash Snapshot, Reactive WebFlux Setup, dan Testing Automation Runbook',
     status: 'available', // 'available' | 'upcoming' | 'draft'
     statusLabel: 'Ready to Present',
     statusColor: '#00a4e4',
@@ -84,14 +84,14 @@ export const PRESENTATIONS_DATA = [
     chaptersCount: 5,
     estimatedMinutes: 20,
     date: 'Oktober 2026',
-    tags: ['QRIS MPM', 'Circuit Breaker', 'Resilience4j', 'Redis Pub/Sub', 'Spring WebFlux', 'Post-Mortem'],
-    description: 'Deep-dive teknis implementasi Circuit Breaker 2 Layer (Global Switcher vs Granular Acquirer NNS), synchronizer state terdistribusi Redis Pub/Sub, Hash Snapshot pod aggregation, post-mortem regex memory leak & latensi dashboard control panel, serta clean logging filter hygiene.',
+    tags: ['QRIS MPM', 'Circuit Breaker', 'Resilience4j', 'Redis Pub/Sub', 'Spring WebFlux', 'Runbook'],
+    description: 'Deep-dive teknis implementasi Circuit Breaker 2 Layer (Global Switcher vs Granular Acquirer NNS), synchronizer state terdistribusi Redis Pub/Sub, Hash Snapshot pod aggregation, implementasi reactive Spring WebFlux dynamic breakers, serta testing automation & audit logging runbook.',
     chapters: [
-      { num: '01', name: 'Background & Arsitektur Circuit Breaker 2-Layer (L1 vs L2)' },
-      { num: '02', name: 'Redis Dual-Tier Mechanism: Real-time Pub/Sub vs Hash Snapshot' },
-      { num: '03', name: 'Hands-on Verification: Redis CLI State Injection & Pod Reaction' },
-      { num: '04', name: 'Post-Mortem Control Panel: Regex Memory Leak & Latency Slashing' },
-      { num: '05', name: 'Clean Logging & Production Readiness Invariants' }
+      { num: '01', name: 'The Multi-Pod Problem: Mengapa In-Memory CB Gagal di K8s' },
+      { num: '02', name: 'Arsitektur 2-Layer Failover: Global Switcher vs Granular NNS' },
+      { num: '03', name: 'Redis Dual-Tier: Instant Pub/Sub vs Snapshot Aggregator' },
+      { num: '04', name: 'Reactive Implementation & Dynamic Breakers on WebFlux' },
+      { num: '05', name: 'Testing Automation, Observability & Operational Runbook' }
     ]
   },
   {

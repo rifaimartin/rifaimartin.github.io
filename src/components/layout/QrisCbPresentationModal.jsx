@@ -36,18 +36,18 @@ const CHAPTERS = [
     subtitle: 'Dua kecepatan sinkronisasi: broadcast instan zero-delay via Redis Pub/Sub dan snapshot agregasi periodik worst-wins untuk observability.'
   },
   {
-    id: 'post-mortem',
+    id: 'reactive-setup',
     number: '04',
-    badge: 'ROOT CAUSE ANALYSIS & PERF TUNING',
-    title: 'Post-Mortem: Bug Prefix Memory Leak & 20ms Latency Tuning',
-    subtitle: 'Pembedahan bug regex alternation (cb-|cb-qris-) yang melahirkan instance memory qris-qris-alto, serta optimasi fast-return & in-memory caching.'
+    badge: 'REACTIVE SETUP & DYNAMIC BREAKERS',
+    title: 'Implementasi Reactive: Resilience4j WebFlux & Dynamic Breakers On-the-Fly',
+    subtitle: 'Setup non-blocking di Spring WebFlux, registrasi dinamis breaker L2 per-bank tanpa restart aplikasi, dan isolasi multi-service Redis.'
   },
   {
-    id: 'guidelines',
+    id: 'testing-runbook',
     number: '05',
-    badge: 'PRODUCTION INVARIANTS',
-    title: 'Key Invariants: Log Hygiene & Operational Excellence',
-    subtitle: 'Pembersihan 50KB log noise GET NNS, audit trail write ops, dan 5 hukum invariansi distributed resilience untuk payment gateway modern.'
+    badge: 'TESTING & OPERATIONAL RUNBOOK',
+    title: 'Testing Automation, Observability & Self-Healing Operational Runbook',
+    subtitle: 'Simulasi via Redis CLI, script otomasi pengujian, MDC context logging untuk audit ELK, dan siklus pemulihan otomatis (self-healing).'
   }
 ];
 
@@ -570,54 +570,63 @@ return executePaymentViaAlto(request, nns); // Jalur Utama`}
               </div>
             )}
 
-            {/* Slide 4: Root Cause Analysis & Perf Tuning */}
+            {/* Slide 4: Reactive Setup & Dynamic Breakers */}
             {currentSlide === 3 && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '16px' }}>
-                  <div style={{ ...cardStyle, borderLeft: `4px solid ${ACCENT_RED}` }}>
-                    <CardTitle icon={Bug} color={ACCENT_RED}>Bug: The Prefix Alternation Regex Leak</CardTitle>
+                  <div style={{ ...cardStyle, borderLeft: `4px solid ${ACCENT}` }}>
+                    <CardTitle icon={Zap} color={ACCENT}>Non-Blocking Reactive Setup (Spring WebFlux)</CardTitle>
                     <BulletList
                       items={[
-                        'Gejala: Setiap klik Force Open/Reset di dashboard Control Panel, muncul instance liar baru: "qris-alto", "qris-qris-alto", dst.',
-                        'Root Cause: Backend Control Panel menggunakan regex: id.replaceAll("^(cb-|cb-qris-)", "").',
-                        'Karena "cb-" diletakkan di depan "cb-qris-", engine regex mencocokkan "cb-" duluan! String "cb-qris-alto" hanya dipotong "cb-", menyisakan "qris-alto".',
-                        'Spring Actuator otomatis meng-instantiate breaker baru bernama "qris-alto" di memory microservice!'
+                        'Zero-Blocking Core: Terintegrasi murni di reactive stream (Mono / Flux) tanpa memanggil .block() atau .get() yang dapat mengunci event-loop Netty.',
+                        'Dedicated Schedulers: Listener Pub/Sub Redis dan eksekusi event publisher dijalankan di Schedulers.boundedElastic() agar IO thread tetap responsif.',
+                        'Resilient Subscription: Redis listener dilengkapi auto-retry dan onErrorResume() sehingga koneksi Pub/Sub pulih otomatis saat Redis restart.',
+                        'Self-Echo Prevention: Pod mengabaikan pesan dari podName dirinya sendiri untuk memutus infinite broadcast loop di cluster.'
                       ]}
                     />
                   </div>
 
                   <div style={{ ...cardStyle, borderLeft: `4px solid ${ACCENT_GREEN}` }}>
-                    <CardTitle icon={CheckCircle2} color={ACCENT_GREEN}>Solusi: Hierarchical Trimming & Sanitasi</CardTitle>
+                    <CardTitle icon={Cpu} color={ACCENT_GREEN}>Dynamic L2 NNS Registration On-The-Fly</CardTitle>
                     <BulletList
                       items={[
-                        'Metode extractCleanName(id): Mengecek prefix spesifik (cb-qris-, cb-ft-) terlebih dahulu sebelum prefix umum (cb-).',
-                        'Defensive Regex Cleanup: clean.replaceAll("^(qris-)+(alto|rintis.*)", "$2") menormalkan instance tercemar kembali ke "alto".',
-                        'Dashboard Filtering: Otomatis men-skip instance berawalan "qris-alto" atau "qris-qris-" dari response UI.',
-                        'Auto-Flush Lifecycle: Pod menghapus key snapshot dirinya di Redis saat shutdown (@PreDestroy) & startup.'
+                        'Tanpa Pre-Config YAML: Ratusan NNS bank penerima (93600008, 93600014, dll.) tidak perlu didaftarkan secara statis di application.yaml.',
+                        'On-Demand Instantiation: Saat transaksi pembayaran masuk, getOrCreateNnsBreaker(nns) memeriksa registry; jika belum ada, instance di-spawn dinamis dari template config L1.',
+                        'Lifecycle Auto-Binding: Setiap breaker dinamis yang lahir langsung terikat ke listener sinkronisasi via registry.getEventPublisher().onEntryAdded().',
+                        'Fleet-Wide Auto Snapshot: Snapshot publisher (Flux.interval 5s) otomatis mengiterasi seluruh dynamic breaker yang aktif untuk diunggah ke Redis Hash.'
                       ]}
                     />
                   </div>
                 </div>
 
                 <div style={cardStyle}>
-                  <CardTitle icon={FastForward} color={ACCENT}>Optimasi Latensi Dashboard: Dari 4000ms Menjadi &lt; 20ms</CardTitle>
+                  <CardTitle icon={Layers} color={ACCENT_PURPLE}>Multi-Service Namespace & Sliding Window Parameters</CardTitle>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
                     <div style={{ padding: '12px', borderRadius: '10px', background: 'var(--surface-card)', border: '1px solid var(--card-border)' }}>
-                      <div style={{ ...monoLabel, color: ACCENT_RED }}>Problem #1: Double-Fetch</div>
-                      <div style={{ fontSize: '12px', color: 'var(--ink-body)', marginTop: '4px' }}>
-                        performOverride memanggil getInstances() sinkron, lalu frontend memanggilnya lagi. <strong>Solusi: Fast-Return DTO instan tanpa re-query.</strong>
+                      <div style={{ ...monoLabel, color: ACCENT }}>Sliding Window Config</div>
+                      <div style={{ fontSize: '12px', color: 'var(--ink-body)', marginTop: '4px', display: 'flex', flexDirection: 'column', gap: '3px' }}>
+                        <span>• Type: <strong>COUNT_BASED</strong> (300 calls)</span>
+                        <span>• Min Calls: <strong>3 calls</strong> (Fast Trip)</span>
+                        <span>• Threshold: <strong>90.0%</strong> failure rate</span>
+                        <span>• Wait Duration: <strong>15-30s</strong> in OPEN</span>
                       </div>
                     </div>
                     <div style={{ padding: '12px', borderRadius: '10px', background: 'var(--surface-card)', border: '1px solid var(--card-border)' }}>
-                      <div style={{ ...monoLabel, color: ACCENT_RED }}>Problem #2: FT Timeout</div>
-                      <div style={{ fontSize: '12px', color: 'var(--ink-body)', marginTop: '4px' }}>
-                        Tembakan ke service Fund Transfer yang mati menunggu 2000ms. <strong>Solusi: Filter target service (hanya tembak QRIS saat di tab QRIS).</strong>
+                      <div style={{ ...monoLabel, color: ACCENT_GREEN }}>QRIS MPM Namespace</div>
+                      <div style={{ fontSize: '12px', color: 'var(--ink-body)', marginTop: '4px', display: 'flex', flexDirection: 'column', gap: '3px' }}>
+                        <span>• Channel: <code style={{ color: '#38bdf8' }}>qris:cb:state:events</code></span>
+                        <span>• Snapshot: <code style={{ color: '#38bdf8' }}>cb:snapshot:orch-qris-*</code></span>
+                        <span>• L1 Breakers: <code style={{ color: '#38bdf8' }}>alto, rintis</code></span>
+                        <span>• L2 Breakers: <code style={{ color: '#38bdf8' }}>alto-nns-*, rintis-nns-*</code></span>
                       </div>
                     </div>
                     <div style={{ padding: '12px', borderRadius: '10px', background: 'var(--surface-card)', border: '1px solid var(--card-border)' }}>
-                      <div style={{ ...monoLabel, color: ACCENT_RED }}>Problem #3: Heavy Master Data</div>
-                      <div style={{ fontSize: '12px', color: 'var(--ink-body)', marginTop: '4px' }}>
-                        Query ratusan NNS & tabel bank_codes tiap klik. <strong>Solusi: In-Memory Caching dengan TTL 5 menit (refresh on-demand).</strong>
+                      <div style={{ ...monoLabel, color: ACCENT_ORANGE }}>Fund Transfer Namespace</div>
+                      <div style={{ fontSize: '12px', color: 'var(--ink-body)', marginTop: '4px', display: 'flex', flexDirection: 'column', gap: '3px' }}>
+                        <span>• Channel: <code style={{ color: '#f59e0b' }}>ft:cb:state:events</code></span>
+                        <span>• Snapshot: <code style={{ color: '#f59e0b' }}>cb:ft:snapshot:*</code></span>
+                        <span>• L1 Breakers: <code style={{ color: '#f59e0b' }}>online-switching-alto, rintis, bifast</code></span>
+                        <span>• L2 Breakers: <code style={{ color: '#f59e0b' }}>online-switching-alto-bank-*</code></span>
                       </div>
                     </div>
                   </div>
@@ -625,50 +634,57 @@ return executePaymentViaAlto(request, nns); // Jalur Utama`}
               </div>
             )}
 
-            {/* Slide 5: Production Invariants */}
+            {/* Slide 5: Testing & Operational Runbook */}
             {currentSlide === 4 && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '16px' }}>
-                  <div style={cardStyle}>
-                    <CardTitle icon={Filter} color={ACCENT}>Log Hygiene: Takeout Masif GET NNS</CardTitle>
+                  <div style={{ ...cardStyle, borderLeft: `4px solid ${ACCENT}` }}>
+                    <CardTitle icon={Terminal} color={ACCENT}>Simulasi Uji Coba Tanpa Mengorbankan Partner</CardTitle>
                     <BulletList
                       items={[
-                        'InboundRequestLoggingFilter sebelumnya mencetak seluruh payload GET /api/v1/nns (+50KB JSON dump berisi ratusan bank) ke log console/ELK.',
-                        'Dampak buruk: Memboroskan storage log aggregator, membuat lag container I/O, dan mengotori investigasi log transaksi riil.',
-                        'Solusi Bersih: Query GET /nns di-bypass dari logging INBOUND & OUTBOUND. Internal logger diturunkan ke DEBUG.',
-                        'Audit Trail Utuh: Operasi mutasi POST (Create), PUT (Update), dan DELETE TETAP dicatat 100% lengkap dengan request body & response.'
+                        'Zero Partner Outage: Pengujian failover dapat dilakukan kapan pun di environment live tanpa harus mematikan koneksi fisik/VPN switcher ALTO & RINTIS.',
+                        'Simulasi Redis CLI: Mengirim event trip secara langsung: PUBLISH qris:cb:state:events "alto:OPEN:cli-test-pod". Seluruh pod langsung sinkron dalam < 5ms.',
+                        'Control Panel Manual Override: UI menyediakan tombol Force Open & Reset untuk kebutuhan mitigasi insiden operasional tim IT Ops.',
+                        'Verifikasi Snapshot: Metrik HGET cb:snapshot:<pod> alto langsung mencerminkan state OPEN secara real-time.'
                       ]}
                     />
                   </div>
 
-                  <div style={cardStyle}>
-                    <CardTitle icon={ShieldAlert} color={ACCENT_GREEN}>5 Invariant Rules untuk Distributed CB</CardTitle>
+                  <div style={{ ...cardStyle, borderLeft: `4px solid ${ACCENT_GREEN}` }}>
+                    <CardTitle icon={Activity} color={ACCENT_GREEN}>Automated Verification & Banking Log Audit</CardTitle>
                     <BulletList
                       items={[
-                        'Rule 1: In-Memory CB lokal wajib dipasangkan dengan real-time distributed broadcast (Redis Pub/Sub).',
-                        'Rule 2: Desain bertingkat (Layer 1 Global vs Layer 2 Granular) wajib dimiliki untuk mencegah pemadaman massal saat hanya 1 partner yang down.',
-                        'Rule 3: Pisahkan jalur Fast State Synchronization (milidetik) dari jalur Full Metric Observability (detik).',
-                        'Rule 4: Jangan izinkan Actuator endpoint membuat dynamic breaker secara tak terbatas tanpa input sanitization.',
-                        'Rule 5: Semua read data master di dashboard manajemen harus menggunakan caching untuk melindungi SLA operasi.'
+                        'Script Otomasi Mandiri (automate-cb-sync.js): Menjalankan full cycle test otomatis: Discovery Pods (KEYS) ➔ Inspect HGETALL ➔ Publish Trip ➔ Verify Sync ➔ Auto-Restore ke CLOSED.',
+                        'MDC Context Injection: Memasang MDC.put("elkFlag", "ELKORCH1") pada thread context agar log [CB-SYNC] lolos filter dan tercatat permanen di transaction.log.',
+                        'Audit Trail Perbankan: Setiap transisi status memiliki timestamp ISO-8601, pod sumber, dan identitas trigger untuk kebutuhan audit regulasi perbankan.',
+                        'Cluster Aggregation Endpoint: GET /api/v1/circuit-breaker/status menerapkan logika "Worst-Wins" (jika 1 pod OPEN, seluruh cluster dilaporkan OPEN).'
                       ]}
                     />
                   </div>
                 </div>
 
-                <div style={{ ...cardStyle, background: 'linear-gradient(135deg, rgba(0, 164, 228, 0.08), rgba(16, 185, 129, 0.08))', border: `1px solid ${ACCENT}40` }}>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <div>
-                      <h4 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--folio-ink)', margin: 0 }}>
-                        Siap untuk Sesi Sharing Teknikal &amp; Audit Arsitektur!
-                      </h4>
-                      <p style={{ fontSize: '12.5px', color: 'var(--ink-muted)', margin: '4px 0 0' }}>
-                        Tekan tombol <strong>PDF Export</strong> di pojok kanan atas untuk mencetak slide ini ke format 16:9 PDF Widescreen.
-                      </p>
+                <div style={cardStyle}>
+                  <CardTitle icon={RefreshCw} color={ACCENT_PURPLE}>Siklus Self-Healing Otomatis (Auto-Recovery Lifecycle)</CardTitle>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px' }}>
+                    <div style={{ padding: '12px', borderRadius: '10px', background: '#10b98115', border: '1px solid #10b98140', textAlign: 'center' }}>
+                      <div style={{ ...monoLabel, color: ACCENT_GREEN }}>FASE 1: NORMAL</div>
+                      <div style={{ fontSize: '15px', fontWeight: 800, color: ACCENT_GREEN, margin: '6px 0' }}>CLOSED</div>
+                      <div style={{ fontSize: '11px', color: 'var(--ink-muted)' }}>100% Traffic dialirkan ke ALTO (Primary).</div>
                     </div>
-                    <div style={{ display: 'flex', gap: '8px' }}>
-                      <span style={{ padding: '6px 12px', borderRadius: '8px', background: `${ACCENT}25`, border: `1px solid ${ACCENT}60`, color: ACCENT, fontSize: '12px', fontWeight: 700 }}>
-                        QRIS MPM v1.2-STABLE
-                      </span>
+                    <div style={{ padding: '12px', borderRadius: '10px', background: '#ef444415', border: '1px solid #ef444440', textAlign: 'center' }}>
+                      <div style={{ ...monoLabel, color: ACCENT_RED }}>FASE 2: TRIP & FAILOVER</div>
+                      <div style={{ fontSize: '15px', fontWeight: 800, color: ACCENT_RED, margin: '6px 0' }}>OPEN (Sync)</div>
+                      <div style={{ fontSize: '11px', color: 'var(--ink-muted)' }}>Failure rate &gt; 90%. 100% dialihkan ke RINTIS.</div>
+                    </div>
+                    <div style={{ padding: '12px', borderRadius: '10px', background: '#f59e0b15', border: '1px solid #f59e0b40', textAlign: 'center' }}>
+                      <div style={{ ...monoLabel, color: ACCENT_ORANGE }}>FASE 3: TEST PROBE</div>
+                      <div style={{ fontSize: '15px', fontWeight: 800, color: ACCENT_ORANGE, margin: '6px 0' }}>HALF-OPEN</div>
+                      <div style={{ fontSize: '11px', color: 'var(--ink-muted)' }}>Setelah 15s, kirim 10 panggilan uji ke ALTO.</div>
+                    </div>
+                    <div style={{ padding: '12px', borderRadius: '10px', background: '#38bdf815', border: '1px solid #38bdf840', textAlign: 'center' }}>
+                      <div style={{ ...monoLabel, color: '#38bdf8' }}>FASE 4: SELF-HEAL</div>
+                      <div style={{ fontSize: '15px', fontWeight: 800, color: '#38bdf8', margin: '6px 0' }}>AUTO RECOVER</div>
+                      <div style={{ fontSize: '11px', color: 'var(--ink-muted)' }}>Jika probe sukses, otomatis kembali ke CLOSED!</div>
                     </div>
                   </div>
                 </div>
@@ -823,12 +839,12 @@ return executePaymentViaAlto(request, nns); // Jalur Utama`}
             {idx === 3 && (
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
                 <div style={cardStyle}>
-                  <CardTitle icon={Bug} color={ACCENT_RED}>Bug Regex Prefix Leak</CardTitle>
-                  <BulletList items={['Alternation ^(cb-|cb-qris-) memotong cb- lebih dulu, menyisakan qris-alto.', 'Actuator Resilience4j membuat instance liar di runtime.', 'Solusi: extractCleanName berjenjang + sanitasi regex.']} />
+                  <CardTitle icon={Zap} color={ACCENT}>Non-Blocking Reactive Setup</CardTitle>
+                  <BulletList items={['Murni non-blocking di pipeline Mono/Flux tanpa pemanggilan .block() atau .get().', 'Schedulers.boundedElastic() untuk Redis subscriber & event publisher.', 'Self-echo prevention memutus infinite broadcast loop di K8s cluster.', 'Isolasi namespace Redis memisahkan QRIS MPM (qris:cb:*) dan Fund Transfer (ft:cb:*).']} />
                 </div>
                 <div style={cardStyle}>
-                  <CardTitle icon={FastForward} color={ACCENT}>Optimasi Latensi Dashboard (&lt; 20ms)</CardTitle>
-                  <BulletList items={['Hapus double-fetch getInstances() di performOverride.', 'Eliminasi timeout 2s Fund Transfer.', 'In-memory caching master data NNS & Bank Codes dengan TTL 5 menit.']} />
+                  <CardTitle icon={Cpu} color={ACCENT_GREEN}>Dynamic L2 NNS Registration</CardTitle>
+                  <BulletList items={['Ratusan NNS bank penerima di-spawn secara dinamis saat transaksi masuk (on-demand).', 'Tidak memerlukan deklarasi statis di application.yaml ataupun container restart.', 'Instance baru otomatis terikat ke sync listener via onEntryAdded().', 'Fleet snapshot periodik otomatis mengunggah metrik seluruh dynamic breaker ke Redis.']} />
                 </div>
               </div>
             )}
@@ -836,12 +852,12 @@ return executePaymentViaAlto(request, nns); // Jalur Utama`}
             {idx === 4 && (
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
                 <div style={cardStyle}>
-                  <CardTitle icon={Filter} color={ACCENT}>Clean Log Hygiene</CardTitle>
-                  <BulletList items={['Query GET /api/v1/nns (+50KB dump) di-takeout dari filter logging.', 'Hanya operasi mutasi POST, PUT, DELETE yang dicatat penuh untuk audit trail.']} />
+                  <CardTitle icon={Terminal} color={ACCENT}>Simulasi Uji Coba & Automation</CardTitle>
+                  <BulletList items={['Simulasi via Redis CLI: PUBLISH qris:cb:state:events "alto:OPEN:cli-test-pod" tanpa mematikan partner live.', 'Script otomasi automate-cb-sync.js: Scan pods, check metrik, publish trip, verifikasi, dan auto-restore.', 'Control Panel visual trigger untuk tim operasional IT Ops saat mitigasi insiden.']} />
                 </div>
                 <div style={cardStyle}>
-                  <CardTitle icon={ShieldAlert} color={ACCENT_GREEN}>5 Invariant Rules</CardTitle>
-                  <BulletList items={['1. Local CB wajib disinkronkan lintas pod via Redis Pub/Sub.', '2. Isolasi kegagalan bertingkat (L1 & L2) mencegah pemadaman massal.', '3. Pisahkan sinkronisasi cepat dari observability agregat.', '4. Sanitasi ketat input actuator.', '5. Caching master data di border API.']} />
+                  <CardTitle icon={Activity} color={ACCENT_GREEN}>Banking Audit Log & Self-Healing</CardTitle>
+                  <BulletList items={['Injeksi MDC elkFlag=ELKORCH1 memastikan log [CB-SYNC] tercatat di transaction.log.', 'Audit trail lengkap dengan ISO-8601 timestamp dan pod identifier untuk compliance perbankan.', 'Self-healing otomatis: CLOSED -> OPEN -> HALF-OPEN (probe test) -> CLOSED tanpa intervensi manual.', 'API status cluster aggregator mengadopsi prinsip "Worst-Wins" untuk observability Control Panel.']} />
                 </div>
               </div>
             )}
