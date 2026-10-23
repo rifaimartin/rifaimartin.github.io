@@ -6,7 +6,7 @@ import {
   Flame, Gauge, Radio, Sparkles, Filter, Bug, FastForward
 } from 'lucide-react';
 import { soundFx } from '../../utils/audio';
-import { CircuitBreakerFuseVisualizer, FailoverPacketFlowVisualizer } from '../illustrations/CircuitBreakerInteractiveAnimations';
+import { HystrixVsResilience4jVisualizer, CircuitBreakerFuseVisualizer, FailoverPacketFlowVisualizer } from '../illustrations/CircuitBreakerInteractiveAnimations';
 
 const ACCENT = '#00a4e4'; // Digital Blue (blu by BCA Digital)
 const ACCENT_GREEN = '#10b981';
@@ -16,43 +16,50 @@ const ACCENT_PURPLE = '#8b5cf6';
 
 const CHAPTERS = [
   {
-    id: 'fundamentals',
+    id: 'history',
     number: '01',
-    badge: 'FOUNDATIONS & DECISION MATRIX',
+    badge: 'HISTORY & EVOLUTION',
+    title: 'The Evolution of Resilience: Dari Netflix Hystrix ke Resilience4j',
+    subtitle: 'Menelusuri sejarah lahirnya Circuit Breaker: dari buku "Release It!" (2007), era keemasan Netflix Hystrix (2012), hingga mengapa industri beralih ke Resilience4j (2018+).'
+  },
+  {
+    id: 'fundamentals',
+    number: '02',
+    badge: 'CORE PHILOSOPHY & DECISION MATRIX',
     title: 'Circuit Breaker & Resilience4j: Kapan Perlu, Kapan Anti-Pattern?',
     subtitle: 'Memahami filosofi perlindungan microservice: analogi sekering listrik, state machine Resilience4j, dan boundary kapan wajib vs dilarang menggunakan CB.'
   },
   {
     id: 'problem',
-    number: '02',
+    number: '03',
     badge: 'DISTRIBUTED SYSTEMS CHALLENGE',
     title: 'The Multi-Pod Problem: Mengapa In-Memory Circuit Breaker Saja Gagal?',
     subtitle: 'Di balik deployment Kubernetes 4-pod high-throughput QRIS MPM: bahaya asimetri status CB lokal, cascading failure, dan failover latency.'
   },
   {
     id: 'architecture',
-    number: '03',
+    number: '04',
     badge: '2-LAYER FAILOVER ARCHITECTURE',
     title: 'Arsitektur 2-Layer CB: Global Switcher vs Granular NNS Isolation',
     subtitle: 'Mencegah pemadaman massal dengan isolasi kegagalan bertingkat: saat Bank X gangguan di ALTO, hanya rute Bank X yang dialihkan ke RINTIS.'
   },
   {
     id: 'redis-sync',
-    number: '04',
+    number: '05',
     badge: 'REDIS DUAL-TIER SYNC',
     title: 'Redis Dual-Tier: Real-Time Event Pub/Sub & Fleet Snapshot Aggregator',
     subtitle: 'Dua kecepatan sinkronisasi: broadcast instan zero-delay via Redis Pub/Sub dan snapshot agregasi periodik worst-wins untuk observability.'
   },
   {
     id: 'reactive-setup',
-    number: '05',
+    number: '06',
     badge: 'REACTIVE SETUP & DYNAMIC BREAKERS',
     title: 'Implementasi Reactive: Resilience4j WebFlux & Dynamic Breakers On-the-Fly',
     subtitle: 'Setup non-blocking di Spring WebFlux, registrasi dinamis breaker L2 per-bank tanpa restart aplikasi, dan isolasi multi-service Redis.'
   },
   {
     id: 'testing-runbook',
-    number: '06',
+    number: '07',
     badge: 'TESTING & OPERATIONAL RUNBOOK',
     title: 'Testing Automation, Observability & Self-Healing Operational Runbook',
     subtitle: 'Simulasi via Redis CLI, script otomasi pengujian, MDC context logging untuk audit ELK, dan siklus pemulihan otomatis (self-healing).'
@@ -424,8 +431,40 @@ export default function QrisCbPresentationModal({ isOpen, onClose, initialFullsc
               </p>
             </div>
 
-                        {/* Slide 1: Circuit Breaker & Resilience4j Fundamentals */}
+                                    {/* Slide 1: History & Evolution (Hystrix to Resilience4j) */}
             {currentSlide === 0 && (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                {/* Interactive History Timeline & Comparison */}
+                <HystrixVsResilience4jVisualizer />
+
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '16px' }}>
+                  <div style={{ ...cardStyle, borderLeft: `4px solid ${ACCENT_RED}` }}>
+                    <CardTitle icon={AlertTriangle} color={ACCENT_RED}>Mengapa Netflix Hystrix Ditinggalkan?</CardTitle>
+                    <BulletList
+                      items={[
+                        'Thread-Pool Overhead: Hystrix membungkus setiap breaker ke dalam thread pool OS terpisah. Pada 50+ endpoint, ratusan thread memicu CPU thrashing akibat context-switching.',
+                        'Inkompatibel dengan Reactive: Arsitektur Netty / Spring WebFlux dirancang single-thread event loop per core. Memasang blocking thread pool Hystrix di atas WebFlux adalah arsitektural anti-pattern.',
+                        'Monolithic & Deprecated: Netflix menghentikan pembaruan pada 2018 karena kompleksitas internal dan dependensi RxJava 1.x legacy.'
+                      ]}
+                    />
+                  </div>
+
+                  <div style={{ ...cardStyle, borderLeft: `4px solid ${ACCENT_GREEN}` }}>
+                    <CardTitle icon={CheckCircle2} color={ACCENT_GREEN}>Kemenangan Arsitektur Resilience4j</CardTitle>
+                    <BulletList
+                      items={[
+                        'Zero-Thread Lock-Free: Menggunakan in-memory Atomic RingBitSet yang mengevaluasi failure rate di CPU L1/L2 cache tanpa context-switch OS.',
+                        'WebFlux-Native: Dirancang khusus untuk functional reactive stream (Mono / Flux) tanpa memblokir thread I/O server Netty.',
+                        'Modular & Ringan: Zero third-party dependencies, hanya mengimpor modul yang dibutuhkan (core, circuitbreaker, timelimiter).'
+                      ]}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Slide 2: Circuit Breaker & Resilience4j Fundamentals */}
+            {currentSlide === 1 && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 {/* Interactive Animated Electric Fuse Schematic */}
                 <CircuitBreakerFuseVisualizer />
@@ -458,8 +497,8 @@ export default function QrisCbPresentationModal({ isOpen, onClose, initialFullsc
               </div>
             )}
 
-            {/* Slide 2: The Multi-Pod Problem */}
-            {currentSlide === 1 && (
+            {/* Slide 3: The Multi-Pod Problem */}
+            {currentSlide === 2 && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '16px' }}>
                   <div style={{ ...cardStyle, borderLeft: `4px solid ${ACCENT_RED}` }}>
@@ -515,8 +554,8 @@ export default function QrisCbPresentationModal({ isOpen, onClose, initialFullsc
               </div>
             )}
 
-            {/* Slide 3: 2-Layer CB Architecture */}
-            {currentSlide === 2 && (
+            {/* Slide 4: 2-Layer CB Architecture */}
+            {currentSlide === 3 && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 {/* Interactive Animated Packet Flow Visualizer */}
                 <FailoverPacketFlowVisualizer />
@@ -567,8 +606,8 @@ return executePaymentViaAlto(request, nns); // Jalur Utama`}
               </div>
             )}
 
-            {/* Slide 4: Redis Dual-Tier Sync */}
-            {currentSlide === 3 && (
+            {/* Slide 5: Redis Dual-Tier Sync */}
+            {currentSlide === 4 && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '16px' }}>
                   <div style={{ ...cardStyle, borderLeft: `4px solid ${ACCENT}` }}>
@@ -613,8 +652,8 @@ return executePaymentViaAlto(request, nns); // Jalur Utama`}
               </div>
             )}
 
-            {/* Slide 5: Reactive Setup & Dynamic Breakers */}
-            {currentSlide === 4 && (
+            {/* Slide 6: Reactive Setup & Dynamic Breakers */}
+            {currentSlide === 5 && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '16px' }}>
                   <div style={{ ...cardStyle, borderLeft: `4px solid ${ACCENT}` }}>
@@ -677,8 +716,8 @@ return executePaymentViaAlto(request, nns); // Jalur Utama`}
               </div>
             )}
 
-            {/* Slide 6: Testing & Operational Runbook */}
-            {currentSlide === 5 && (
+            {/* Slide 7: Testing & Operational Runbook */}
+            {currentSlide === 6 && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '16px' }}>
                   <div style={{ ...cardStyle, borderLeft: `4px solid ${ACCENT}` }}>
@@ -840,7 +879,7 @@ return executePaymentViaAlto(request, nns); // Jalur Utama`}
             <h2 style={{ fontSize: '20px', fontWeight: 800, margin: '4px 0', color: '#0f172a' }}>{ch.title}</h2>
             <p style={{ fontSize: '13px', color: '#475569', margin: '0 0 10px' }}>{ch.subtitle}</p>
 
-            {idx === 5 && (
+            {idx === 6 && (
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
                 <div style={cardStyle}>
                   <CardTitle icon={AlertTriangle} color={ACCENT_RED}>The In-Memory Isolation Trap</CardTitle>
@@ -853,7 +892,20 @@ return executePaymentViaAlto(request, nns); // Jalur Utama`}
               </div>
             )}
 
-                        {idx === 0 && (
+                                    {idx === 0 && (
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+                <div style={cardStyle}>
+                  <CardTitle icon={AlertTriangle} color={ACCENT_RED}>Sejarah: Mengapa Hystrix Dipensiunkan</CardTitle>
+                  <BulletList items={['2007: Michael Nygard memperkenalkan pola Circuit Breaker di buku Release It!.', '2012: Netflix merilis Hystrix, namun bergantung pada dedicated thread pool per breaker.', 'Thread-pool isolation memicu CPU context switching berat dan tidak cocok untuk stack reactive.', '2018: Netflix resmi memensiunkan Hystrix dan menyarankan migrasi ke Resilience4j.']} />
+                </div>
+                <div style={cardStyle}>
+                  <CardTitle icon={CheckCircle2} color={ACCENT_GREEN}>Keunggulan Modern Resilience4j</CardTitle>
+                  <BulletList items={['Lock-free Atomic RingBitSet: Evaluasi failure rate di in-memory cache tanpa thread pool tambahan.', 'Reactive-native: Kompatibel sempurna dengan Spring WebFlux (Mono/Flux) dan Netty event loop.', 'Zero third-party dependencies, modular, dan standar resmi Spring Cloud CircuitBreaker.']} />
+                </div>
+              </div>
+            )}
+
+            {idx === 1 && (
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
                 <div style={cardStyle}>
                   <CardTitle icon={ShieldAlert} color={ACCENT}>Filosofi Sekering & Mengapa Resilience4j</CardTitle>
@@ -866,7 +918,7 @@ return executePaymentViaAlto(request, nns); // Jalur Utama`}
               </div>
             )}
 
-            {idx === 1 && (
+            {idx === 2 && (
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
                 <div style={cardStyle}>
                   <CardTitle icon={Layers} color={ACCENT}>Layer 1: Global Switcher CB</CardTitle>
@@ -879,7 +931,7 @@ return executePaymentViaAlto(request, nns); // Jalur Utama`}
               </div>
             )}
 
-            {idx === 2 && (
+            {idx === 3 && (
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
                 <div style={cardStyle}>
                   <CardTitle icon={Radio} color={ACCENT}>Tier 1: Real-Time Event Pub/Sub</CardTitle>
@@ -892,7 +944,7 @@ return executePaymentViaAlto(request, nns); // Jalur Utama`}
               </div>
             )}
 
-            {idx === 3 && (
+            {idx === 4 && (
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
                 <div style={cardStyle}>
                   <CardTitle icon={Zap} color={ACCENT}>Non-Blocking Reactive Setup</CardTitle>
@@ -905,7 +957,7 @@ return executePaymentViaAlto(request, nns); // Jalur Utama`}
               </div>
             )}
 
-            {idx === 4 && (
+            {idx === 5 && (
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
                 <div style={cardStyle}>
                   <CardTitle icon={Terminal} color={ACCENT}>Simulasi Uji Coba & Automation</CardTitle>

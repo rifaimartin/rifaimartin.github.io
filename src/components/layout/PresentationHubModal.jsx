@@ -81,18 +81,19 @@ export const PRESENTATIONS_DATA = [
     statusLabel: 'Ready to Present',
     statusColor: '#00a4e4',
     badge: 'TECHNICAL SHARING',
-    chaptersCount: 6,
-    estimatedMinutes: 25,
+    chaptersCount: 7,
+    estimatedMinutes: 30,
     date: 'Oktober 2026',
-    tags: ['QRIS MPM', 'Circuit Breaker', 'Resilience4j', 'Redis Pub/Sub', 'Spring WebFlux', 'Runbook'],
-    description: 'Deep-dive teknis arsitektur ketahanan sistem: Filosofi Resilience4j & Decision Matrix kapan perlu pakai CB, problem in-memory multi-pod di K8s, kaskade 2-layer failover (Global vs Granular NNS), synchronizer Redis Dual-Tier, setup reactive dynamic breakers, dan operational testing runbook.',
+    tags: ['QRIS MPM', 'Circuit Breaker', 'Resilience4j', 'Hystrix', 'Spring WebFlux', 'History'],
+    description: 'Deep-dive teknis komprehensif ketahanan sistem perbankan: Sejarah dari Netflix Hystrix ke Resilience4j, filosofi & decision matrix sekering, tantangan multi-pod K8s, failover 2-layer (Global vs NNS), sinkronisasi Redis Dual-Tier, setup reactive WebFlux, dan operational testing runbook.',
     chapters: [
-      { num: '01', name: 'Circuit Breaker & Resilience4j: Kapan Perlu vs Anti-Pattern' },
-      { num: '02', name: 'The Multi-Pod Problem: Mengapa In-Memory CB Gagal di K8s' },
-      { num: '03', name: 'Arsitektur 2-Layer Failover: Global Switcher vs Granular NNS' },
-      { num: '04', name: 'Redis Dual-Tier: Instant Pub/Sub vs Snapshot Aggregator' },
-      { num: '05', name: 'Reactive Implementation & Dynamic Breakers on WebFlux' },
-      { num: '06', name: 'Testing Automation, Observability & Operational Runbook' }
+      { num: '01', name: 'The Evolution of Resilience: Dari Netflix Hystrix ke Resilience4j' },
+      { num: '02', name: 'Circuit Breaker & Resilience4j: Kapan Perlu vs Anti-Pattern' },
+      { num: '03', name: 'The Multi-Pod Problem: Mengapa In-Memory CB Gagal di K8s' },
+      { num: '04', name: 'Arsitektur 2-Layer Failover: Global Switcher vs Granular NNS' },
+      { num: '05', name: 'Redis Dual-Tier: Instant Pub/Sub vs Snapshot Aggregator' },
+      { num: '06', name: 'Reactive Implementation & Dynamic Breakers on WebFlux' },
+      { num: '07', name: 'Testing Automation, Observability & Operational Runbook' }
     ]
   },
   {

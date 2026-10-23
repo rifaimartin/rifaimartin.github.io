@@ -350,17 +350,18 @@ Bagi gue pribadi yang berkutat di dunia inference dan IT middleware, kehadiran m
       isPresentation: true,
       title: "Dual-Layer Circuit Breaker & Redis Architecture in QRIS MPM",
       category: "Banking Middleware & Resilience",
-      readTime: "25 min keynote",
+      readTime: "30 min keynote",
       date: "Oktober 2026",
-      desc: "Deep-dive komprehensif arsitektur resilience: Pengenalan Resilience4j & Decision Matrix kapan perlu vs anti-pattern, tantangan multi-pod K8s, failover 2-layer (Global vs NNS), sinkronisasi Redis Dual-Tier, setup reactive WebFlux, dan operational runbook.",
-      tags: ["QRIS MPM", "Circuit Breaker", "Resilience4j", "Redis Pub/Sub", "Spring WebFlux", "Runbook"],
-      content: `Presentasi interaktif ini mengupas 6 bab penting arsitektur ketahanan sistem QRIS MPM:
-1. Circuit Breaker & Resilience4j: Filosofi Sekering, 3 State Machine, Kapan Perlu vs Anti-Pattern.
-2. The Multi-Pod Problem: Mengapa In-Memory Circuit Breaker Saja Gagal di Kubernetes.
-3. Arsitektur 2-Layer Failover: Global Switcher (L1) vs Granular NNS Isolation (L2).
-4. Redis Dual-Tier Mechanism: Real-Time Event Pub/Sub & Fleet Snapshot Aggregator.
-5. Reactive Implementation: Resilience4j Spring WebFlux & Dynamic Breakers On-the-Fly.
-6. Testing Automation & Runbook: Simulasi Redis CLI, Script Otomasi, Audit Log ELK & Self-Healing.`
+      desc: "Deep-dive komprehensif arsitektur resilience: Sejarah evolusi dari Netflix Hystrix ke Resilience4j, filosofi sekering & decision matrix, tantangan multi-pod K8s, failover 2-layer (Global vs NNS), sinkronisasi Redis Dual-Tier, setup reactive WebFlux, dan operational runbook.",
+      tags: ["QRIS MPM", "Circuit Breaker", "Resilience4j", "Netflix Hystrix", "Spring WebFlux", "History"],
+      content: `Presentasi interaktif ini mengupas 7 bab penting arsitektur ketahanan sistem QRIS MPM:
+1. The Evolution of Resilience: Sejarah Michael Nygard (2007), Netflix Hystrix (2012), hingga Lahirnya Resilience4j (2018+).
+2. Circuit Breaker Fundamentals: Analogi Sekering Listrik, 3 State Machine, Kapan Wajib vs Anti-Pattern.
+3. The Multi-Pod Problem: Mengapa In-Memory Circuit Breaker Saja Gagal di Kubernetes.
+4. Arsitektur 2-Layer Failover: Global Switcher (L1) vs Granular NNS Isolation (L2).
+5. Redis Dual-Tier Mechanism: Real-Time Event Pub/Sub & Fleet Snapshot Aggregator.
+6. Reactive Implementation: Resilience4j Spring WebFlux & Dynamic Breakers On-the-Fly.
+7. Testing Automation & Runbook: Simulasi Redis CLI, Script Otomasi, Audit Log ELK & Self-Healing.`
     },
     {
       id: "evolution-agent-harness",
