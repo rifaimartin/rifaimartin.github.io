@@ -6,6 +6,7 @@ import {
   Flame, Gauge, Radio, Sparkles, Filter, Bug, FastForward
 } from 'lucide-react';
 import { soundFx } from '../../utils/audio';
+import { CircuitBreakerFuseVisualizer, FailoverPacketFlowVisualizer } from '../illustrations/CircuitBreakerInteractiveAnimations';
 
 const ACCENT = '#00a4e4'; // Digital Blue (blu by BCA Digital)
 const ACCENT_GREEN = '#10b981';
@@ -426,33 +427,22 @@ export default function QrisCbPresentationModal({ isOpen, onClose, initialFullsc
                         {/* Slide 1: Circuit Breaker & Resilience4j Fundamentals */}
             {currentSlide === 0 && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '16px' }}>
-                  <div style={{ ...cardStyle, borderLeft: `4px solid ${ACCENT}` }}>
-                    <CardTitle icon={ShieldAlert} color={ACCENT}>Filosofi Sekering Listrik & Mengapa Resilience4j?</CardTitle>
-                    <BulletList
-                      items={[
-                        'Analogi Sekering Rumah Tangga: Ketika ada korsleting pada satu perangkat, sekering otomatis memutus aliran listrik sebelum kabel utama terbakar atau seluruh gedung padam.',
-                        'Fail-Fast Principle: Lebih baik menolak request dalam 1ms (CallNotPermittedException) daripada membiarkan ribuan request antre dan menggantung selama 3-5 detik.',
-                        'Mengapa Resilience4j: Ringan (tanpa dependensi berat), arsitektur modular, functional style, dan dirancang khusus untuk non-blocking reactive stack (Spring WebFlux).',
-                        'Penerus Resmi Hystrix: Netflix resmi merekomendasikan Resilience4j sebagai pengganti Hystrix yang sudah deprecated.'
-                      ]}
-                    />
-                  </div>
+                {/* Interactive Animated Electric Fuse Schematic */}
+                <CircuitBreakerFuseVisualizer />
 
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '16px' }}>
                   <div style={{ ...cardStyle, borderLeft: `4px solid ${ACCENT_GREEN}` }}>
                     <CardTitle icon={CheckCircle2} color={ACCENT_GREEN}>Kapan WAJIB Menggunakan Circuit Breaker?</CardTitle>
                     <BulletList
                       items={[
-                        'Remote External Downstream: Transaksi ke Payment Switcher (ALTO/RINTIS), Core Banking, atau API Pihak Ketiga yang memiliki SLA jaringan di luar kendali kita.',
+                        'Remote External Downstream: Transaksi ke Payment Switcher (ALTO/RINTIS), Core Banking, atau API Pihak Ketiga yang SLA jaringannya di luar kendali kita.',
                         'High-Latency Danger: Pemanggilan synchronous yang jika lambat (>2000ms) akan menahan thread server (Netty worker) hingga menyebabkan thread starvation.',
                         'Adanya Jalur Alternatif (Fallback): Sistem memiliki rute cadangan (misal: jika ALTO trip OPEN, traffic otomatis dialihkan ke RINTIS).',
                         'Cascading Failure Protection: Menjaga core microservice gateway tetap hidup melayani fitur lain meskipun downstream tertentu down.'
                       ]}
                     />
                   </div>
-                </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '16px' }}>
                   <div style={{ ...cardStyle, borderLeft: `4px solid ${ACCENT_RED}` }}>
                     <CardTitle icon={XCircle} color={ACCENT_RED}>Kapan JANGAN Menggunakan (Anti-Pattern)?</CardTitle>
                     <BulletList
@@ -463,27 +453,6 @@ export default function QrisCbPresentationModal({ isOpen, onClose, initialFullsc
                         'Stateless Non-Critical Ops: Pemanggilan yang murni idempotent dan cepat di mana simple retry sudah cukup menyelesaikan masalah.'
                       ]}
                     />
-                  </div>
-
-                  <div style={{ ...cardStyle, borderLeft: `4px solid ${ACCENT_PURPLE}` }}>
-                    <CardTitle icon={Activity} color={ACCENT_PURPLE}>Tiga Pilar State Machine Resilience4j</CardTitle>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px', marginTop: '4px' }}>
-                      <div style={{ padding: '10px 8px', borderRadius: '8px', background: '#10b98115', border: '1px solid #10b98140', textAlign: 'center' }}>
-                        <div style={{ ...monoLabel, color: ACCENT_GREEN, fontSize: '10.5px' }}>STATE 1</div>
-                        <div style={{ fontSize: '13px', fontWeight: 800, color: ACCENT_GREEN, margin: '4px 0' }}>CLOSED</div>
-                        <div style={{ fontSize: '10px', color: 'var(--ink-muted)' }}>Normal. Request dialirkan, kegagalan dicatat di sliding window.</div>
-                      </div>
-                      <div style={{ padding: '10px 8px', borderRadius: '8px', background: '#ef444415', border: '1px solid #ef444440', textAlign: 'center' }}>
-                        <div style={{ ...monoLabel, color: ACCENT_RED, fontSize: '10.5px' }}>STATE 2</div>
-                        <div style={{ fontSize: '13px', fontWeight: 800, color: ACCENT_RED, margin: '4px 0' }}>OPEN</div>
-                        <div style={{ fontSize: '10px', color: 'var(--ink-muted)' }}>Trip (&gt;90% gagal). Langsung tolak instan &amp; aktifkan fallback.</div>
-                      </div>
-                      <div style={{ padding: '10px 8px', borderRadius: '8px', background: '#f59e0b15', border: '1px solid #f59e0b40', textAlign: 'center' }}>
-                        <div style={{ ...monoLabel, color: ACCENT_ORANGE, fontSize: '10.5px' }}>STATE 3</div>
-                        <div style={{ fontSize: '13px', fontWeight: 800, color: ACCENT_ORANGE, margin: '4px 0' }}>HALF-OPEN</div>
-                        <div style={{ fontSize: '10px', color: 'var(--ink-muted)' }}>Setelah 15s, uji beberapa request untuk cek kesembuhan.</div>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -549,15 +518,17 @@ export default function QrisCbPresentationModal({ isOpen, onClose, initialFullsc
             {/* Slide 3: 2-Layer CB Architecture */}
             {currentSlide === 2 && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                {/* Interactive Animated Packet Flow Visualizer */}
+                <FailoverPacketFlowVisualizer />
+
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '16px' }}>
                   <div style={{ ...cardStyle, borderTop: `4px solid ${ACCENT}` }}>
                     <CardTitle icon={Layers} color={ACCENT}>Layer 1: Global Switcher CB</CardTitle>
                     <div style={{ ...monoLabel, color: ACCENT }}>Breaker: "alto" | "rintis"</div>
                     <BulletList
                       items={[
-                        'Scope Makro: Melindungi core network, VPN tunnel, dan infrastruktur fisik switcher.',
-                        'Threshold: slidingWindow=300 calls, failureRateThreshold=90%, minimumCalls=3.',
-                        'Dampak Trip: Jika L1 Global ALTO OPEN, sistem langsung membelokkan seluruh volume pembayaran QRIS ke switcher RINTIS tanpa mencoba ALTO sama sekali.',
+                        'Scope Makro: Melindungi core network fisik & VPN tunnel switcher.',
+                        'Dampak Trip: Jika L1 Global ALTO OPEN, sistem membelokkan 100% volume pembayaran QRIS ke switcher RINTIS.',
                         'Fast Fail: Menghilangkan overhead connection timeout jaringan 3000ms menjadi fast-switch < 1ms.'
                       ]}
                     />
@@ -568,10 +539,9 @@ export default function QrisCbPresentationModal({ isOpen, onClose, initialFullsc
                     <div style={{ ...monoLabel, color: ACCENT_GREEN }}>{'Breaker: "alto-nns-{nns}" | "rintis-nns-{nns}"'}</div>
                     <BulletList
                       items={[
-                        'Scope Mikro: Melindungi transaksi spesifik per Bank Issuer / Acquirer via National Numbering System (NNS 8 digit).',
-                        'Contoh NNS: 93600008 (Mandiri), 93600014 (BCA), 93600002 (BRI), 93600009 (BNI).',
-                        'Fault Isolation: Jika Bank Mandiri mengalami gangguan internal di switcher ALTO, hanya breaker "alto-nns-93600008" yang trip ke OPEN!',
-                        'High Availability: Transaksi nasabah ke BCA, BRI, dan BNI TETAP diproses lewat ALTO. Hanya transaksi Mandiri yang dialihkan ke RINTIS!'
+                        'Scope Mikro: Melindungi transaksi spesifik per Bank Issuer (NNS 8 digit: Mandiri 93600008, BCA 93600014).',
+                        'Fault Isolation: Jika Bank Mandiri gangguan di ALTO, hanya breaker "alto-nns-93600008" yang trip ke OPEN!',
+                        'High Availability: Transaksi ke BCA & BRI TETAP normal via ALTO. Hanya Mandiri yang dialihkan ke RINTIS!'
                       ]}
                     />
                   </div>
@@ -589,7 +559,7 @@ CircuitBreaker altoNns = getCircuitBreaker("alto-nns-" + nns);
 if (altoGlobal.getState() == OPEN || altoNns.getState() == OPEN) {
     log.warn("ALTO breaker is OPEN (Global={} / NNS={}) - activating failover to RINTIS",
              altoGlobal.getState(), altoNns.getState());
-    return executePaymentViaRintis(request, nns); // Otomatis Failover
+    return executePaymentViaRintis(request, nns); // Otomatis Failover ke Secondary
 }
 return executePaymentViaAlto(request, nns); // Jalur Utama`}
                   />
