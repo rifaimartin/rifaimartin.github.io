@@ -31,23 +31,24 @@ export const PRESENTATIONS_DATA = [
   {
     id: 'behind-the-terminal',
     number: '02',
-    title: 'Behind the Terminal: Systems, Markets & The -100M Crucible',
-    subtitle: 'Dari Benih IT di SMK & 1 Tahun Magang di Ink & Canvas ke Pasar Kripto: Pelajaran Mengenal Diri, Pengalaman Minus 100 Juta, dan Lab Simulator Leverage Rupiah',
+    title: 'Behind the Terminal: Curiosity, The -100M Crucible & The Rise of Nemo',
+    subtitle: 'Dari Hobi Belajar Hal Baru, Ilusi Ingin Cepat Kaya di Kripto, Tempaan Likuidasi -100 Juta, hingga Era Vibe Coding yang Melahirkan Nemo',
     status: 'available', // 'available' | 'upcoming' | 'draft'
     statusLabel: 'Ready to Present',
     statusColor: '#f59e0b',
     badge: 'PERSONAL KEYNOTE',
-    chaptersCount: 5,
+    chaptersCount: 6,
     estimatedMinutes: 18,
-    date: 'April 2026',
-    tags: ['Personal Story', 'SMK to Dev', 'Futures Trading', 'Crypto Leverage', 'Risk Management', 'Self Mastery'],
-    description: 'Kisah awal mula mengenal dunia IT dari bangku SMK, tempaan 1 tahun magang di Ink & Canvas Bogor, transisi ke pasar probabilistik futures, pelajaran berharga mengenal ego dan emosi diri, bukti otentik likuidasi Rp 100 juta di Binance, serta kalkulator interaktif leverage Rupiah.',
+    date: 'Oktober 2026',
+    tags: ['Personal Story', 'Continuous Learning', 'Crypto Crucible', 'Likuidasi 100M', 'Vibe Coding', 'Project Nemo', 'Explorer Spirit'],
+    description: 'Kisah personal Rifai Martin yang digerakkan oleh rasa penasaran tak terbatas: hobi belajar hal baru yang membawanya ke pasar kripto dengan mimpi cepat kaya, realita pahit likuidasi -100 juta di Binance Futures (bukti otentik dilampirkan), simulator interaktif leverage Rupiah, kebangkitan lewat gairah vibe coding yang melahirkan Nemo, hingga filosofi penjelajah tempat & hal baru.',
     chapters: [
-      { num: '01', name: 'Origin Story: Benih IT di SMK & 1 Tahun Magang di Ink & Canvas' },
-      { num: '02', name: 'Melangkah ke Pasar Finansial: Cermin Paling Jujur Mengenal Diri Sendiri' },
-      { num: '03', name: 'Kuliah Termahal: Riwayat Margin Call Binance Futures -100 Juta' },
+      { num: '01', name: 'The Perpetual Learner: Selalu Penasaran & Senang Belajar Hal Baru' },
+      { num: '02', name: 'Masuk ke Dunia Kripto: Dari Rasa Ingin Tahu ke Obsesi Ingin Cepat Kaya' },
+      { num: '03', name: 'Kuliah Termahal: Riwayat Likuidasi Binance Futures -100 Juta' },
       { num: '04', name: 'Futures & Leverage Lab: Simulasi Kalkulator Rupiah (BTC, ETH, HBAR, SOL)' },
-      { num: '05', name: 'Personal Manifesto: Stoikisme, Damai dalam Ketidakpastian & Compounding' }
+      { num: '05', name: 'Jatuh Cinta pada Vibe Coding: Hingga Melahirkan Nemo 🐙' },
+      { num: '06', name: 'The Explorer Spirit: Mencoba Tempat Baru, Stoikisme & Compounding' }
     ]
   },
   {

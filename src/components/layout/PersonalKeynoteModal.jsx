@@ -4,45 +4,52 @@ import {
   TrendingUp, TrendingDown, ShieldAlert, AlertTriangle, CheckCircle2, 
   Flame, RefreshCw, ZoomIn, Sparkles, Award, Cpu, BookOpen, 
   Compass, ArrowRight, DollarSign, Activity, Percent, Code2, 
-  Terminal, Brain, Heart, Layers
+  Terminal, Brain, Heart, Layers, Bot, Wand2, MapPin, Coffee, Rocket, Globe, Zap
 } from 'lucide-react';
 import { soundFx } from '../../utils/audio';
 
 const CHAPTERS = [
   {
-    id: 'origin',
+    id: 'intro-curiosity',
     number: '01',
-    badge: 'FOUNDATIONS & GRIT',
-    title: 'Origin Story: Benih IT di SMK & 1 Tahun Magang di Ink & Canvas',
-    subtitle: 'Awal mula mengenal baris kode di bangku SMK, tempaan 1 tahun magang di industri nyata (Ink & Canvas), dan pelajaran tentang jam terbang.'
+    badge: 'THE INQUISITIVE MIND',
+    title: 'The Perpetual Learner: Selalu Penasaran & Senang Belajar Hal Baru',
+    subtitle: 'Mengenal Rifai Martin di balik terminal: bukan tentang menjadi yang terpintar, melainkan tentang rasa penasaran tak terbatas, hobi membongkar hal baru, dan dorongan untuk terus berevolusi.'
   },
   {
-    id: 'into-trading',
+    id: 'crypto-ambition',
     number: '02',
-    badge: 'SELF-DISCOVERY',
-    title: 'Melangkah ke Pasar Finansial: Cermin Paling Jujur Mengenal Diri Sendiri',
-    subtitle: 'Dari kode deterministik menuju pasar probabilistik: bagaimana trading membenturkan logika dengan ego, keserakahan, dan disiplin emosional.'
+    badge: 'THE GET-RICH ILLUSION',
+    title: 'Masuk ke Dunia Kripto: Dari Rasa Ingin Tahu ke Obsesi Ingin Cepat Kaya',
+    subtitle: 'Ketika hobi belajar hal baru membawa saya ke pasar blockchain: pesona volatilitas 24/7, ilusi cepat kaya dalam semalam, dan jebakan leverage yang mengikis logika.'
   },
   {
-    id: 'margin-call',
+    id: 'margin-call-crucible',
     number: '03',
     badge: 'THE -100M CRUCIBLE',
-    title: 'Kuliah Termahal: Riwayat Margin Call Binance Futures -100 Juta',
-    subtitle: 'Bukti otentik likuidasi bear market 2022: Mengakui kesalahan, matematika drawdown, dan titik balik menjadi disciplined risk manager.'
+    title: 'Kuliah Termahal: Riwayat Likuidasi Binance Futures -100 Juta',
+    subtitle: 'Bukti otentik email margin call bear market 2022: Menghadapi kehancuran modal, matematika kejam drawdown, dan titik balik dari spekulan menuju disciplined risk manager.'
   },
   {
     id: 'simulator',
     number: '04',
     badge: 'INTERACTIVE LAB',
     title: 'Futures & Leverage Lab: Simulasi Kalkulator Rupiah (BTC, ETH, HBAR, SOL)',
-    subtitle: 'Eksplorasi interaktif bagaimana leverage melipatgandakan profit sekaligus mempersempit batas likuidasi hingga ke titik nol.'
+    subtitle: 'Eksplorasi interaktif bagaimana leverage melipatgandakan profit sekaligus mempersempit batas likuidasi hingga melenyapkan modal dalam hitungan detik.'
   },
   {
-    id: 'manifesto',
+    id: 'vibe-coding-nemo',
     number: '05',
-    badge: 'SELF-MASTERY & LIFE',
-    title: 'Personal Manifesto: Stoikisme, Damai dalam Ketidakpastian & Compounding',
-    subtitle: 'Sintesis antara logika kode dan psikologi pasar: Hidup dengan dikotomi kendali Seneca dan bertumbuh 1% setiap hari.'
+    badge: 'THE AI RENAISSANCE',
+    title: 'Jatuh Cinta pada Vibe Coding: Hingga Melahirkan Nemo 🐙',
+    subtitle: 'Dari luka pasar kembali ke gairah murni membangun perangkat lunak: era vibe coding dengan generative AI, coding dalam kondisi flow, dan kelahiran project Nemo.'
+  },
+  {
+    id: 'explorer-manifesto',
+    number: '06',
+    badge: 'WANDERING & LIFE MASTERY',
+    title: 'The Explorer Spirit: Mencoba Tempat Baru, Stoikisme & Compounding',
+    subtitle: 'Hidup sebagai penjelajah tanpa henti: eksplorasi tempat kerja & petualangan baru, damai dalam ketidakpastian lewat dikotomi kendali Seneca, dan bertumbuh 1% setiap hari.'
   }
 ];
 
@@ -52,6 +59,20 @@ const ASSETS = [
   { id: 'HBAR', name: 'Hedera', symbol: 'HBAR/USDT', icon: 'ℏ', color: '#00a3e0', defaultPrice: 3200 },
   { id: 'SOL', name: 'Solana', symbol: 'SOL/USDT', icon: '◎', color: '#14f195', defaultPrice: 3100000 }
 ];
+
+const formatIDR = (num) => {
+  return new Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR',
+    maximumFractionDigits: 0
+  }).format(num);
+};
+
+const formatTime = (seconds) => {
+  const mins = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+  return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+};
 
 export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscreen = false }) {
   const containerRef = useRef(null);
@@ -107,58 +128,25 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
     };
   }, []);
 
-  // Auto-launch fullscreen if requested
-  useEffect(() => {
-    if (isOpen && initialFullscreen) {
-      const isCurrentlyFs = Boolean(
-        document.fullscreenElement ||
-        document.webkitFullscreenElement ||
-        document.mozFullScreenElement ||
-        document.msFullscreenElement
-      );
-      if (!isCurrentlyFs) {
-        const elem = containerRef.current || document.documentElement;
-        if (elem.requestFullscreen) {
-          elem.requestFullscreen().catch(() => {});
-        } else if (elem.webkitRequestFullscreen) {
-          elem.webkitRequestFullscreen();
-        } else if (elem.msRequestFullscreen) {
-          elem.msRequestFullscreen();
-        }
-      }
-    }
-  }, [isOpen, initialFullscreen]);
-
   const toggleFullscreen = async () => {
     soundFx.playCardClick();
     try {
-      const isCurrentlyFs = Boolean(
-        document.fullscreenElement ||
-        document.webkitFullscreenElement ||
-        document.mozFullScreenElement ||
-        document.msFullscreenElement
-      );
-
-      if (!isCurrentlyFs) {
+      if (!document.fullscreenElement && !document.webkitFullscreenElement) {
         const elem = containerRef.current || document.documentElement;
         if (elem.requestFullscreen) {
           await elem.requestFullscreen();
         } else if (elem.webkitRequestFullscreen) {
           await elem.webkitRequestFullscreen();
-        } else if (elem.msRequestFullscreen) {
-          await elem.msRequestFullscreen();
         }
       } else {
         if (document.exitFullscreen) {
           await document.exitFullscreen();
         } else if (document.webkitExitFullscreen) {
           await document.webkitExitFullscreen();
-        } else if (document.msExitFullscreen) {
-          await document.msExitFullscreen();
         }
       }
     } catch (err) {
-      console.warn('Fullscreen toggle encountered an issue:', err);
+      console.warn('Fullscreen toggle failed:', err);
     }
   };
 
@@ -167,36 +155,21 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
     if (document.fullscreenElement || document.webkitFullscreenElement) {
       try {
         if (document.exitFullscreen) document.exitFullscreen();
-      } catch {}
+      } catch (e) {}
     }
     onClose();
   };
 
-  const formatTime = (secs) => {
-    const m = Math.floor(secs / 60).toString().padStart(2, '0');
-    const s = (secs % 60).toString().padStart(2, '0');
-    return `${m}:${s}`;
-  };
-
-  const formatIDR = (val) => {
-    return new Intl.NumberFormat('id-ID', {
-      style: 'currency',
-      currency: 'IDR',
-      maximumFractionDigits: 0
-    }).format(val);
-  };
-
-  // Keyboard navigation (Arrows, Space, F, Escape)
+  // Keyboard Navigation: Space / Arrows / F / Esc
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === 'Escape') {
-        if (previewImage) {
-          setPreviewImage(null);
-          return;
-        }
-        if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-          handleClose();
-        }
+      if (previewImage) {
+        if (e.key === 'Escape') setPreviewImage(null);
+        return;
+      }
+
+      if (e.key === 'Escape' && !document.fullscreenElement && !document.webkitFullscreenElement) {
+        handleClose();
       }
       if (e.key === 'f' || e.key === 'F') {
         e.preventDefault();
@@ -388,7 +361,7 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
               title={isFullscreen ? 'Exit Fullscreen (Esc / F)' : 'Enter Fullscreen Presentation Mode (F)'}
             >
               {isFullscreen ? <Minimize2 size={13} /> : <Maximize2 size={13} />}
-              <span>{isFullscreen ? 'Exit Fullscreen' : 'Present (F)'}</span>
+              <span>{isFullscreen ? 'Exit' : 'Fullscreen'}</span>
             </button>
 
             <button
@@ -447,7 +420,7 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
           >
             {CHAPTERS[currentSlide].title}
           </h2>
-          <p style={{ fontSize: '13px', color: 'var(--ink-muted)', lineHeight: 1.5 }}>
+          <p style={{ fontSize: '13px', color: 'var(--ink-muted)', lineHeight: 1.5, margin: 0 }}>
             {CHAPTERS[currentSlide].subtitle}
           </p>
         </div>
@@ -463,156 +436,192 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
             gap: '24px'
           }}
         >
-          {/* SLIDE 0: Origin Story: SMK & 1 Tahun Magang di Ink & Canvas */}
+          {/* SLIDE 0: The Perpetual Learner: Selalu Penasaran & Senang Belajar Hal Baru */}
           {currentSlide === 0 && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <div
                 style={{
                   display: 'grid',
                   gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                  gap: '16px'
+                  gap: '18px',
+                  alignItems: 'stretch'
                 }}
               >
-                {/* Stage 1: Bangku SMK */}
+                {/* Left Column: Framed Introduction Photo */}
                 <div
                   style={{
-                    padding: '22px',
-                    borderRadius: '16px',
+                    borderRadius: '18px',
+                    overflow: 'hidden',
                     background: 'var(--surface-card-subtle)',
-                    border: '1px solid var(--card-border)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '12px'
-                  }}
-                >
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 800, color: '#f59e0b' }}>
-                      FASE 01 • BANGKU SMK
-                    </span>
-                    <span style={{ fontSize: '11px', padding: '2px 8px', borderRadius: '6px', background: 'var(--surface-sunken)', color: 'var(--folio-ink)', fontFamily: 'var(--font-mono)' }}>
-                      Rekayasa Perangkat Lunak
-                    </span>
-                  </div>
-                  <h4 style={{ fontSize: '15.5px', fontWeight: 700, color: 'var(--folio-ink)' }}>
-                    Menyemai Benih: Mengenal Logika & Baris Kode Pertama
-                  </h4>
-                  <p style={{ fontSize: '12.5px', color: 'var(--ink-body)', lineHeight: 1.65 }}>
-                    Tidak berawal dari privilese atau perangkat serba canggih. Perjalanan dimulai dari layar komputer lab SMK. Saat pertama kali mengetikkan tag HTML, CSS, dan algoritma dasar, ada rasa takjub yang mendalam: bagaimana baris-baris teks statis bisa diubah menjadi antarmuka yang hidup dan berinteraksi.
-                  </p>
-                  <p style={{ fontSize: '12px', color: 'var(--ink-faint)', lineHeight: 1.6 }}>
-                    Rasa ingin tahu yang besar menjadi pendorong utama. Menghabiskan waktu membaca dokumentasi, membedah script open-source sederhana, dan menyadari bahwa di dunia pemrograman, batasan utama hanyalah sejauh mana kita mau belajar dan mencoba.
-                  </p>
-                  <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginTop: '2px' }}>
-                    {['Dasar Algoritma', 'HTML & CSS', 'JavaScript', 'Logic Building', 'Rasa Ingin Tahu'].map((tag, i) => (
-                      <span key={i} style={{ fontSize: '10.5px', fontFamily: 'var(--font-mono)', padding: '2px 7px', borderRadius: '4px', background: 'var(--surface-sunken)', color: 'var(--ink-muted)' }}>
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Stage 2: 1 Tahun Magang di Ink & Canvas */}
-                <div
-                  style={{
-                    padding: '22px',
-                    borderRadius: '16px',
-                    background: 'rgba(245, 158, 11, 0.04)',
                     border: '1.5px solid rgba(245, 158, 11, 0.35)',
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: '12px'
+                    boxShadow: '0 16px 36px rgba(0, 0, 0, 0.35)'
                   }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 800, color: '#f59e0b' }}>
-                      FASE 02 • 1 TAHUN MAGANG INDUSTRI
-                    </span>
-                    <span style={{ fontSize: '11px', padding: '2px 8px', borderRadius: '6px', background: 'rgba(245, 158, 11, 0.15)', color: '#f59e0b', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>
-                      INK & CANVAS (Bogor)
-                    </span>
+                  <div
+                    style={{
+                      position: 'relative',
+                      width: '100%',
+                      aspectRatio: '4/3',
+                      overflow: 'hidden',
+                      cursor: 'zoom-in',
+                      background: '#090d16',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                    onClick={() => setPreviewImage('./rifaimartin-introduction.jpeg')}
+                    title="Klik untuk memperbesar foto profil"
+                  >
+                    <img
+                      src="./rifaimartin-introduction.jpeg"
+                      alt="Muhammad Rifai (Rifai Martin)"
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        objectPosition: 'center top',
+                        transition: 'transform 0.3s ease'
+                      }}
+                    />
+                    <div
+                      style={{
+                        position: 'absolute',
+                        bottom: '10px',
+                        right: '12px',
+                        background: 'rgba(0, 0, 0, 0.75)',
+                        backdropFilter: 'blur(8px)',
+                        color: '#ffffff',
+                        padding: '4px 10px',
+                        borderRadius: '6px',
+                        fontSize: '11px',
+                        fontFamily: 'var(--font-mono)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '5px'
+                      }}
+                    >
+                      <ZoomIn size={12} />
+                      <span>Zoom Foto</span>
+                    </div>
                   </div>
-                  <h4 style={{ fontSize: '15.5px', fontWeight: 700, color: 'var(--folio-ink)' }}>
-                    Kaget Budaya: Dari Teori Sekolah ke Realitas Industri
-                  </h4>
-                  <p style={{ fontSize: '12.5px', color: 'var(--ink-body)', lineHeight: 1.65 }}>
-                    Menjalani magang selama hampir 1 tahun penuh di INK & CANVAS (Nov 2017 – Sep 2018). Bukan magang formalitas administrasi, melainkan langsung diterjunkan ke proyek nyata: transformasi digital institusi bahasa LIA, slicing UI responsif, konfigurasi Linux Server, dan DevOps workflow dasar.
-                  </p>
-                  <p style={{ fontSize: '12px', color: 'var(--ink-faint)', lineHeight: 1.6 }}>
-                    Perbedaan mendasar langsung terasa: di sekolah, kode salah hanya berakibat nilai merah di rapor; di industri, bug atau server crash berdampak langsung pada pengguna riil dan operasional klien. Di sinilah standar profesional dan tanggung jawab dibentuk.
-                  </p>
-                  <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginTop: '2px' }}>
-                    {['LIA Digitalization', 'Linux Server', 'DevOps Dasar', 'Responsive UI/UX', 'Produksi Riil'].map((tag, i) => (
-                      <span key={i} style={{ fontSize: '10.5px', fontFamily: 'var(--font-mono)', padding: '2px 7px', borderRadius: '4px', background: 'var(--surface-sunken)', color: 'var(--ink-muted)' }}>
-                        {tag}
+
+                  <div style={{ padding: '16px 18px', display: 'flex', flexDirection: 'column', gap: '6px', background: 'var(--surface-sunken)', borderTop: '1px solid var(--card-border)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                      <span style={{ fontSize: '14.5px', fontWeight: 800, color: 'var(--folio-ink)' }}>
+                        Muhammad Rifai
                       </span>
-                    ))}
+                      <span style={{ fontSize: '10.5px', fontFamily: 'var(--font-mono)', padding: '2px 8px', borderRadius: '4px', background: 'rgba(245, 158, 11, 0.15)', color: '#f59e0b', fontWeight: 700 }}>
+                        RIFAI MARTIN
+                      </span>
+                    </div>
+                    <p style={{ fontSize: '12px', color: 'var(--ink-muted)', margin: 0, lineHeight: 1.45 }}>
+                      Junior IT Middleware Developer • blu by BCA Digital
+                    </p>
+                    <div style={{ display: 'flex', gap: '5px', flexWrap: 'wrap', marginTop: '4px' }}>
+                      {['Perpetual Learner', 'Explorer', 'Vibe Coder', 'Systems Tinkerer'].map((tag, i) => (
+                        <span key={i} style={{ fontSize: '10px', fontFamily: 'var(--font-mono)', padding: '2px 6px', borderRadius: '4px', background: 'var(--surface-card)', color: '#f59e0b', border: '1px solid var(--card-border)' }}>
+                          #{tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right Column: DNA Suka Belajar Hal Baru */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                  <div
+                    style={{
+                      padding: '20px',
+                      borderRadius: '16px',
+                      background: 'rgba(245, 158, 11, 0.04)',
+                      border: '1.5px solid rgba(245, 158, 11, 0.25)',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '8px'
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#f59e0b' }}>
+                      <Sparkles size={18} />
+                      <h4 style={{ fontSize: '15px', fontWeight: 800, margin: 0 }}>
+                        Dopamine Terbesar: Hobi Membongkar Hal Baru
+                      </h4>
+                    </div>
+                    <p style={{ fontSize: '12.5px', color: 'var(--ink-body)', lineHeight: 1.65, margin: 0 }}>
+                      Bagi saya, belajar hal baru bukan sekadar tuntutan tugas atau pekerjaan—itu adalah <strong>hobi paling membahagiakan dan sumber dopamine utama</strong>. Dari bangku SMK merakit baris HTML pertama, ngoprek server Linux di Ink &amp; Canvas, arsitektur event-loop perbankan di BCA Digital, hingga generative AI dan agentic workflows.
+                    </p>
+                  </div>
+
+                  <div
+                    style={{
+                      padding: '18px 20px',
+                      borderRadius: '16px',
+                      background: 'var(--surface-sunken)',
+                      border: '1px solid var(--card-border)',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '8px'
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#38bdf8' }}>
+                      <Compass size={18} />
+                      <h4 style={{ fontSize: '14.5px', fontWeight: 800, margin: 0 }}>
+                        Bukan yang Paling Pintar, Tapi Pantang Berhenti
+                      </h4>
+                    </div>
+                    <p style={{ fontSize: '12px', color: 'var(--ink-body)', lineHeight: 1.6, margin: 0 }}>
+                      Saya tidak pernah menganggap diri saya jenius. Namun saya memiliki rasa penasaran yang luar biasa lapar. Ketika melihat sistem kompleks yang belum saya kuasai, naluri saya bukan menghindar, melainkan bertanya: <em>"Bagaimana cara kerjanya di balik layar? Bisakah kita rancang ulang menjadi lebih baik?"</em>
+                    </p>
+                  </div>
+
+                  <div
+                    style={{
+                      padding: '18px 20px',
+                      borderRadius: '16px',
+                      background: 'var(--surface-sunken)',
+                      border: '1px solid var(--card-border)',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '8px'
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#10b981' }}>
+                      <MapPin size={18} />
+                      <h4 style={{ fontSize: '14.5px', fontWeight: 800, margin: 0 }}>
+                        Jiwa Penjelajah: Suka Suasana &amp; Tempat Baru
+                      </h4>
+                    </div>
+                    <p style={{ fontSize: '12px', color: 'var(--ink-body)', lineHeight: 1.6, margin: 0 }}>
+                      Kreativitas saya layu jika terperangkap di ruangan yang itu-itu saja. Saya gemar berpindah suasana: mencoba coworking space baru, sudut cafe yang tenang di berbagai sudut kota, atau menantang diri beradaptasi dengan ritme lingkungan baru.
+                    </p>
                   </div>
                 </div>
               </div>
 
-              {/* 3 Lessons Learned from SMK & Internship */}
+              {/* Bottom Quote Banner */}
               <div
                 style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-                  gap: '14px'
-                }}
-              >
-                <div style={{ padding: '16px', borderRadius: '14px', background: 'var(--surface-sunken)', border: '1px solid var(--card-border)' }}>
-                  <div style={{ color: '#f59e0b', fontWeight: 800, fontSize: '13px', marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    <Clock size={15} />
-                    <span>1. Jam Terbang Mengalahkan Bakat</span>
-                  </div>
-                  <p style={{ fontSize: '12px', color: 'var(--ink-body)', lineHeight: 1.6 }}>
-                    Di awal magang sempat merasa minder dan lambat dibanding engineer lain. Pelajaran pentingnya: tidak ada jalan pintas selain melipatgandakan jam terbang. Berjam-jam menatap terminal, membedah error log, dan pantang pulang sebelum solusi ditemukan adalah pembentuk grit sejati.
-                  </p>
-                </div>
-
-                <div style={{ padding: '16px', borderRadius: '14px', background: 'var(--surface-sunken)', border: '1px solid var(--card-border)' }}>
-                  <div style={{ color: '#38bdf8', fontWeight: 800, fontSize: '13px', marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    <Code2 size={15} />
-                    <span>2. Craftsmanship di Atas "Asal Jalan"</span>
-                  </div>
-                  <p style={{ fontSize: '12px', color: 'var(--ink-body)', lineHeight: 1.6 }}>
-                    INK & CANVAS menanamkan bahwa kode bukan sekadar tugas yang selesai dikerjakan, melainkan karya kerajinan tangan (*craftsmanship*). Struktur folder yang rapi, clean code, efisiensi konsumsi memori server, dan empati pada developer yang akan membaca kode kita berikutnya.
-                  </p>
-                </div>
-
-                <div style={{ padding: '16px', borderRadius: '14px', background: 'var(--surface-sunken)', border: '1px solid var(--card-border)' }}>
-                  <div style={{ color: '#10b981', fontWeight: 800, fontSize: '13px', marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    <Compass size={15} />
-                    <span>3. Berani Bertanya & Menurunkan Ego</span>
-                  </div>
-                  <p style={{ fontSize: '12px', color: 'var(--ink-body)', lineHeight: 1.6 }}>
-                    Pura-pura paham karena gengsi adalah bahaya terbesar di fase belajar. Belajar cara merumuskan pertanyaan dengan konteks yang jelas, menerima kritik pedas atas pull request dengan lapang dada, dan memandang setiap kegagalan sebagai data poin untuk perbaikan.
-                  </p>
-                </div>
-              </div>
-
-              {/* Reflection Callout */}
-              <div
-                style={{
-                  padding: '16px 20px',
+                  padding: '14px 20px',
                   borderRadius: '14px',
                   background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(56, 189, 248, 0.06))',
                   border: '1px solid rgba(245, 158, 11, 0.25)',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '14px'
+                  gap: '12px'
                 }}
               >
-                <Flame size={26} color="#f59e0b" style={{ flexShrink: 0 }} />
-                <p style={{ fontSize: '12.5px', color: 'var(--folio-ink)', lineHeight: 1.6 }}>
-                  <strong>Prinsip Inti:</strong> Fondasi terkuat seorang engineer tidak ditentukan oleh almamater bergengsi, melainkan oleh ketahanan mental di hadapan tumpukan error, rasa ingin tahu yang tak kunjung padam, dan komitmen untuk terus belajar dari dasar.
+                <Flame size={22} color="#f59e0b" style={{ flexShrink: 0 }} />
+                <p style={{ fontSize: '12.5px', color: 'var(--folio-ink)', lineHeight: 1.6, margin: 0 }}>
+                  <strong>Prinsip Penjelajah:</strong> "Zona nyaman adalah pembunuh potensi paling sunyi. Belajar hal baru adalah satu-satunya cara memastikan bahwa diri kita hari ini lebih tangguh daripada kemarin."
                 </p>
               </div>
             </div>
           )}
 
-          {/* SLIDE 1: Melangkah ke Pasar Finansial: Cermin Paling Jujur Mengenal Diri Sendiri */}
+          {/* SLIDE 1: Masuk ke Dunia Kripto: Dari Rasa Ingin Tahu ke Obsesi Ingin Cepat Kaya */}
           {currentSlide === 1 && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-              {/* Paradigm Clash: Deterministic Code vs Probabilistic Markets */}
               <div
                 style={{
                   display: 'grid',
@@ -620,10 +629,10 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
                   gap: '16px'
                 }}
               >
-                {/* Left: Dunia Kode Deterministik */}
+                {/* Left Card: Awal Rasa Ingin Tahu */}
                 <div
                   style={{
-                    padding: '20px',
+                    padding: '22px',
                     borderRadius: '16px',
                     background: 'var(--surface-sunken)',
                     border: '1px solid var(--card-border)',
@@ -633,53 +642,53 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#38bdf8' }}>
-                    <Terminal size={18} />
+                    <Globe size={18} />
                     <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 800 }}>
-                      DUNIA KODE • DETERMINISTIK
+                      FASE 01 • RASA INGIN TAHU TEKNOLOGI
                     </span>
                   </div>
-                  <h4 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--folio-ink)' }}>
-                    Logika Pasti: 1 + 1 Selalu Menghasilkan 2
+                  <h4 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--folio-ink)', margin: 0 }}>
+                    Pesona Awal Blockchain &amp; Pasar Desentralisasi (2020–2021)
                   </h4>
-                  <p style={{ fontSize: '12.5px', color: 'var(--ink-body)', lineHeight: 1.6 }}>
-                    Di dunia software engineering, sistem bersifat deterministik. Jika ada bug, ada stack trace dan log error yang bisa di-debug hingga akar masalah. Aturannya pasti: <code>if condition then action</code>.
+                  <p style={{ fontSize: '12.5px', color: 'var(--ink-body)', lineHeight: 1.65, margin: 0 }}>
+                    Karena hobi belajar hal baru, perhatian saya terseret ke fenomena Web3 dan pasar kripto global. Saya terpukau oleh konsep desentralisasi, smart contracts, dan likuiditas 24 jam nonstop yang tidak pernah tidur.
                   </p>
-                  <div style={{ fontSize: '12px', padding: '10px', borderRadius: '8px', background: 'var(--surface-card)', borderLeft: '3px solid #38bdf8', color: 'var(--ink-muted)', fontStyle: 'italic' }}>
-                    "Ego seorang engineer seringkali merasa bahwa jika kita menganalisis cukup dalam, kita bisa mengendalikan seluruh sistem."
+                  <div style={{ fontSize: '12px', padding: '10px', borderRadius: '8px', background: 'var(--surface-card)', borderLeft: '3px solid #38bdf8', color: 'var(--ink-muted)' }}>
+                    "Awalnya murni eksplorasi teknis: bagaimana arsitektur konsensus Proof of Work dan Proof of Stake memfasilitasi transaksi bernilai triliunan rupiah tanpa perantara."
                   </div>
                 </div>
 
-                {/* Right: Dunia Pasar Finansial Probabilistik */}
+                {/* Right Card: Tergelincir ke Nafsu Cepat Kaya */}
                 <div
                   style={{
-                    padding: '20px',
+                    padding: '22px',
                     borderRadius: '16px',
-                    background: 'rgba(245, 158, 11, 0.05)',
-                    border: '1.5px solid rgba(245, 158, 11, 0.35)',
+                    background: 'rgba(239, 68, 68, 0.05)',
+                    border: '1.5px solid rgba(239, 68, 68, 0.35)',
                     display: 'flex',
                     flexDirection: 'column',
                     gap: '10px'
                   }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#f59e0b' }}>
-                    <Activity size={18} />
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#ef4444' }}>
+                    <Flame size={18} />
                     <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 800 }}>
-                      DUNIA TRADING • PROBABILISTIK
+                      FASE 02 • THE GET-RICH-QUICK TRAP
                     </span>
                   </div>
-                  <h4 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--folio-ink)' }}>
-                    Ketidakpastian Mutlak: Setup Sempurna Tetap Bisa Gagal
+                  <h4 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--folio-ink)', margin: 0 }}>
+                    Ego Engineer &amp; Ilusi Menjadi Milyarder Dalam Semalam
                   </h4>
-                  <p style={{ fontSize: '12.5px', color: 'var(--ink-body)', lineHeight: 1.6 }}>
-                    Saat melangkah ke pasar kripto dan futures, semua ilusi kontrol runtuh. Pasar tidak memiliki kompilator. Analisis teknikal tercanggih dan indikator paling akurat sekalipun tetap bisa berbalik arah dalam hitungan detik karena arus likuiditas global.
+                  <p style={{ fontSize: '12.5px', color: 'var(--ink-body)', lineHeight: 1.65, margin: 0 }}>
+                    Namun ada dorongan manusiawi yang sangat licik: <strong>Nafsu ingin cepat kaya</strong>. Melihat tangkapan layar profit ratusan persen orang lain di media sosial, ego coder saya berbisik: <em>"Gua ngerti logika dan matematika, masa nggak bisa menaklukkan pasar ini?"</em>
                   </p>
-                  <div style={{ fontSize: '12px', padding: '10px', borderRadius: '8px', background: 'var(--surface-card)', borderLeft: '3px solid #f59e0b', color: 'var(--ink-muted)', fontStyle: 'italic' }}>
-                    "Pasar tidak peduli seberapa pintar kita menulis kode. Pasar adalah arena psikologi massal jutaan manusia yang bergerak probabilistik."
+                  <div style={{ fontSize: '12px', padding: '10px', borderRadius: '8px', background: 'var(--surface-card)', borderLeft: '3px solid #ef4444', color: '#fca5a5' }}>
+                    "Saya meninggalkan spot trading yang konservatif, dan melompat ke jurang Binance Futures dengan daya ungkit (leverage) 10x, 20x, hingga 50x."
                   </div>
                 </div>
               </div>
 
-              {/* Trading as the Mirror to Self-Discovery */}
+              {/* 4 Siklus Jebakan Mentalitas */}
               <div
                 style={{
                   padding: '20px',
@@ -693,13 +702,10 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                   <Brain size={20} color="#f59e0b" />
-                  <h4 style={{ fontSize: '15px', fontWeight: 800, color: 'var(--folio-ink)' }}>
-                    Cermin Mengenal Diri Sendiri: 4 Emosi yang Ditelanjangi oleh Pasar
+                  <h4 style={{ fontSize: '15px', fontWeight: 800, color: 'var(--folio-ink)', margin: 0 }}>
+                    Anatomi Ilusi Cepat Kaya: 4 Fase Keruntuhan Logika di Pasar Kripto
                   </h4>
                 </div>
-                <p style={{ fontSize: '12.5px', color: 'var(--ink-body)', lineHeight: 1.6 }}>
-                  Trading bukan sekadar memencet tombol Buy atau Sell; trading adalah proses psikoanalisis paling intens dan jujur. Di hadapan grafik candlestick yang bergerak cepat, sifat asli manusia yang biasanya tertutup rapat akan keluar ke permukaan:
-                </p>
 
                 <div
                   style={{
@@ -708,49 +714,45 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
                     gap: '12px'
                   }}
                 >
-                  {/* 1. Greed & FOMO */}
-                  <div style={{ padding: '14px', borderRadius: '12px', background: 'var(--surface-sunken)', border: '1px solid var(--card-border)' }}>
-                    <div style={{ color: '#ef4444', fontWeight: 800, fontSize: '12.5px', marginBottom: '4px' }}>
-                      1. Greed & Euphoria (Keserakahan)
-                    </div>
-                    <p style={{ fontSize: '11.5px', color: 'var(--ink-body)', lineHeight: 1.55 }}>
-                      Saat menang beruntun, ego membisikkan bahwa kita jenius. Kita memperbesar leverage dan mengabaikan trading plan. Keserakahan adalah awal dari bencana likuidasi.
-                    </p>
-                  </div>
-
-                  {/* 2. Denial & Hope */}
-                  <div style={{ padding: '14px', borderRadius: '12px', background: 'var(--surface-sunken)', border: '1px solid var(--card-border)' }}>
-                    <div style={{ color: '#f59e0b', fontWeight: 800, fontSize: '12.5px', marginBottom: '4px' }}>
-                      2. Denial & Hope (Penyangkalan)
-                    </div>
-                    <p style={{ fontSize: '11.5px', color: 'var(--ink-body)', lineHeight: 1.55 }}>
-                      Saat posisi minus dan menyentuh stop loss, ego coder menolak kalah: <em>"Pasti mantul lagi."</em> Berharap pada keajaiban menggantikan disiplin eksekusi cut loss.
-                    </p>
-                  </div>
-
-                  {/* 3. Revenge Trading */}
-                  <div style={{ padding: '14px', borderRadius: '12px', background: 'var(--surface-sunken)', border: '1px solid var(--card-border)' }}>
-                    <div style={{ color: '#a855f7', fontWeight: 800, fontSize: '12.5px', marginBottom: '4px' }}>
-                      3. Revenge Trading (Dendam & Amarah)
-                    </div>
-                    <p style={{ fontSize: '11.5px', color: 'var(--ink-body)', lineHeight: 1.55 }}>
-                      Keinginan impulsif untuk "membalas pasar" setelah rugi. Membuka posisi baru tanpa setup yang valid, meningkatkan risiko, dan mempercepat kehancuran portofolio.
-                    </p>
-                  </div>
-
-                  {/* 4. Humility */}
                   <div style={{ padding: '14px', borderRadius: '12px', background: 'var(--surface-sunken)', border: '1px solid var(--card-border)' }}>
                     <div style={{ color: '#10b981', fontWeight: 800, fontSize: '12.5px', marginBottom: '4px' }}>
-                      4. Humility (Kerendahan Hati)
+                      1. Beginner's Luck (Kutukan Awal)
                     </div>
-                    <p style={{ fontSize: '11.5px', color: 'var(--ink-body)', lineHeight: 1.55 }}>
-                      Pelajaran puncak: berdamai bahwa kita tidak bisa mengontrol pasar. Kemenangan sejati adalah kemampuan mengendalikan diri sendiri, emosi, dan ukuran risiko.
+                    <p style={{ fontSize: '11.5px', color: 'var(--ink-body)', lineHeight: 1.55, margin: 0 }}>
+                      Menang beberapa kali di awal saat market sedang rally. Otak mengira itu keahlian analisa, padahal hanya terbawa arus bull market. Ego membengkak.
+                    </p>
+                  </div>
+
+                  <div style={{ padding: '14px', borderRadius: '12px', background: 'var(--surface-sunken)', border: '1px solid var(--card-border)' }}>
+                    <div style={{ color: '#f59e0b', fontWeight: 800, fontSize: '12.5px', marginBottom: '4px' }}>
+                      2. The Leverage Addiction
+                    </div>
+                    <p style={{ fontSize: '11.5px', color: 'var(--ink-body)', lineHeight: 1.55, margin: 0 }}>
+                      Untung 5-10% terasa terlalu lambat untuk mimpi cepat kaya. Leverage dinaikkan ke 20x-50x. Nilai posisi menjadi puluhan kali lipat modal asli.
+                    </p>
+                  </div>
+
+                  <div style={{ padding: '14px', borderRadius: '12px', background: 'var(--surface-sunken)', border: '1px solid var(--card-border)' }}>
+                    <div style={{ color: '#ef4444', fontWeight: 800, fontSize: '12.5px', marginBottom: '4px' }}>
+                      3. Denial &amp; Menolak Cut Loss
+                    </div>
+                    <p style={{ fontSize: '11.5px', color: 'var(--ink-body)', lineHeight: 1.55, margin: 0 }}>
+                      Saat harga drop menembus level batas, ego coder menolak mengakui salah. Menolak cut loss dengan dalih: <em>"Pasti mantul lagi!"</em> hingga jaminan tersisa 20%.
+                    </p>
+                  </div>
+
+                  <div style={{ padding: '14px', borderRadius: '12px', background: 'var(--surface-sunken)', border: '1px solid var(--card-border)' }}>
+                    <div style={{ color: '#a855f7', fontWeight: 800, fontSize: '12.5px', marginBottom: '4px' }}>
+                      4. Revenge Trading (Kemarahan)
+                    </div>
+                    <p style={{ fontSize: '11.5px', color: 'var(--ink-body)', lineHeight: 1.55, margin: 0 }}>
+                      Nafsu membabi-buta untuk membalas kerugian seketika. Masuk posisi baru secara impulsif tanpa analisa matang, mempercepat kehancuran portofolio.
                     </p>
                   </div>
                 </div>
               </div>
 
-              {/* Core Epiphany Card */}
+              {/* Reflection Callout */}
               <div
                 style={{
                   padding: '16px 20px',
@@ -763,8 +765,8 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
                 }}
               >
                 <Sparkles size={24} color="#f59e0b" style={{ flexShrink: 0 }} />
-                <p style={{ fontSize: '12.5px', color: 'var(--ink-body)', lineHeight: 1.6 }}>
-                  <strong>Lesson Learned:</strong> Musuh terbesar di pasar finansial bukan bandar atau algoritma bursa, melainkan bayangan diri kita sendiri di cermin. Trading mengajarkan bahwa sebelum kita mampu mengelola risiko di pasar, kita harus terlebih dahulu mampu mengelola ego dan impulsivitas di dalam diri.
+                <p style={{ fontSize: '12.5px', color: 'var(--ink-body)', lineHeight: 1.6, margin: 0 }}>
+                  <strong>Pelajaran Krusial:</strong> Keinginan untuk cepat kaya adalah racun paling mematikan bagi seorang pembelajar. Ketika rasa penasaran murni terdistorsi oleh keserakahan, logika sains terbungkam oleh emosi, dan pintu menuju petaka likuidasi terbuka lebar.
                 </p>
               </div>
             </div>
@@ -788,7 +790,7 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#ef4444' }}>
                     <ShieldAlert size={20} />
-                    <h4 style={{ fontSize: '15.5px', fontWeight: 800 }}>
+                    <h4 style={{ fontSize: '15.5px', fontWeight: 800, margin: 0 }}>
                       Bukti Nyata (Evidence): Riwayat Margin Call Binance Futures 2022
                     </h4>
                   </div>
@@ -807,8 +809,8 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
                   </span>
                 </div>
 
-                <p style={{ fontSize: '13px', color: 'var(--ink-body)', lineHeight: 1.6 }}>
-                  Email beruntun dari Binance: <em>"The margin ratio of your Binance USDⓈ-M Futures account has reached 80%. To avoid being liquidated..."</em>. Terjadi berulang kali sepanjang market crash 2022 akibat overleveraging dan menolak cut loss.
+                <p style={{ fontSize: '13px', color: 'var(--ink-body)', lineHeight: 1.6, margin: 0 }}>
+                  Email beruntun dari Binance masuk tanpa henti: <em>"The margin ratio of your Binance USDⓈ-M Futures account has reached 80%. To avoid being liquidated..."</em>. Terjadi berulang kali sepanjang market crash 2022 akibat overleveraging dan menolak cut loss hingga modal hangus total <strong>-Rp 100 Juta</strong>.
                 </p>
 
                 {/* Framed Image with Zoom */}
@@ -827,6 +829,7 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
                     justifyContent: 'center'
                   }}
                   onClick={() => setPreviewImage('./margin-call-history.png')}
+                  title="Klik untuk melihat bukti otentik email Binance margin call"
                 >
                   <img
                     src="./margin-call-history.png"
@@ -872,16 +875,16 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
                   <div style={{ color: '#ef4444', fontWeight: 800, fontSize: '13px', marginBottom: '4px' }}>
                     1. Matematika Drawdown Itu Brutal
                   </div>
-                  <p style={{ fontSize: '12px', color: 'var(--ink-body)', lineHeight: 1.6 }}>
+                  <p style={{ fontSize: '12px', color: 'var(--ink-body)', lineHeight: 1.6, margin: 0 }}>
                     Kehilangan modal 50% tidak membutuhkan kenaikan 50% untuk balik modal, melainkan butuh <strong>+100% gain</strong>. Saat modal minus 90%, Anda butuh <strong>+900% gain</strong> hanya untuk impas. Menjaga modal (*capital preservation*) adalah hukum nomor satu.
                   </p>
                 </div>
 
                 <div style={{ padding: '16px', borderRadius: '14px', background: 'var(--surface-sunken)', border: '1px solid var(--card-border)' }}>
                   <div style={{ color: '#f59e0b', fontWeight: 800, fontSize: '13px', marginBottom: '4px' }}>
-                    2. Leverage Adalah Pisau Bermata Dua
+                    2. Leverage Adalah Mesin Penghancur
                   </div>
-                  <p style={{ fontSize: '12px', color: 'var(--ink-body)', lineHeight: 1.6 }}>
+                  <p style={{ fontSize: '12px', color: 'var(--ink-body)', lineHeight: 1.6, margin: 0 }}>
                     Di leverage 20x, penurunan harga sekecil 5% sudah melenyapkan 100% margin Anda. Tanpa risk management ketat, leverage bukan alat akselerasi, melainkan mesin likuidasi instan.
                   </p>
                 </div>
@@ -890,8 +893,8 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
                   <div style={{ color: '#10b981', fontWeight: 800, fontSize: '13px', marginBottom: '4px' }}>
                     3. Dari Spekulan Menjadi Risk Manager
                   </div>
-                  <p style={{ fontSize: '12px', color: 'var(--ink-body)', lineHeight: 1.6 }}>
-                    Minus Rp 100 juta adalah "uang kuliah termahal" yang mengajarkan kerendahan hati. Sejak saat itu, saya tidak lagi trading dengan nafsu cepat kaya, melainkan dengan kalkulasi probabilitas dan hard stop loss.
+                  <p style={{ fontSize: '12px', color: 'var(--ink-body)', lineHeight: 1.6, margin: 0 }}>
+                    Minus Rp 100 juta adalah "uang kuliah termahal" yang mengajarkan kerendahan hati. Sejak saat itu, saya tidak lagi mengejar ilusi cepat kaya, melainkan menghormati kalkulasi probabilitas dan hard stop loss.
                   </p>
                 </div>
               </div>
@@ -921,8 +924,8 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
                     gap: '16px'
                   }}
                 >
-                  <h4 style={{ fontSize: '14.5px', fontWeight: 800, color: 'var(--folio-ink)' }}>
-                    Konfigurasi Posisi Futures
+                  <h4 style={{ fontSize: '14.5px', fontWeight: 800, color: 'var(--folio-ink)', margin: 0 }}>
+                    Konfigurasi Posisi Futures (Simulator)
                   </h4>
 
                   {/* Asset Selector */}
@@ -1099,9 +1102,9 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
                       <span
                         style={{
                           fontFamily: 'var(--font-mono)',
-                          fontSize: '12.5px',
+                          fontSize: '12px',
                           fontWeight: 800,
-                          color: priceChangePercent > 0 ? '#10b981' : priceChangePercent < 0 ? '#ef4444' : 'var(--ink)'
+                          color: priceChangePercent > 0 ? '#10b981' : priceChangePercent < 0 ? '#ef4444' : 'var(--ink-muted)'
                         }}
                       >
                         {priceChangePercent > 0 ? `+${priceChangePercent}%` : `${priceChangePercent}%`}
@@ -1109,36 +1112,27 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
                     </div>
                     <input
                       type="range"
-                      min="-20"
-                      max="20"
+                      min="-25"
+                      max="25"
                       step="1"
                       value={priceChangePercent}
                       onChange={(e) => setPriceChangePercent(Number(e.target.value))}
-                      style={{ width: '100%', accentColor: '#f59e0b', cursor: 'pointer' }}
+                      style={{
+                        width: '100%',
+                        cursor: 'pointer',
+                        accentColor: priceChangePercent >= 0 ? '#10b981' : '#ef4444'
+                      }}
                     />
-                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '10px', fontFamily: 'var(--font-mono)', color: 'var(--ink-faint)', marginTop: '2px' }}>
-                      <span>-20% Crash</span>
-                      <span>0% Flat</span>
-                      <span>+20% Pump</span>
-                    </div>
                   </div>
                 </div>
 
-                {/* Right Column: Real-Time PnL & Risk Gauge */}
+                {/* Right Column: Dynamic Live Calculation & Warning */}
                 <div
                   style={{
                     padding: '20px',
                     borderRadius: '16px',
-                    background: isLiquidated 
-                      ? 'rgba(239, 68, 68, 0.08)' 
-                      : roePercent >= 0 
-                      ? 'rgba(16, 185, 129, 0.06)' 
-                      : 'rgba(245, 158, 11, 0.06)',
-                    border: isLiquidated 
-                      ? '2px solid #ef4444' 
-                      : roePercent >= 0 
-                      ? '1.5px solid rgba(16, 185, 129, 0.4)' 
-                      : '1.5px solid rgba(245, 158, 11, 0.4)',
+                    background: isLiquidated ? 'rgba(239, 68, 68, 0.08)' : 'var(--surface-card-subtle)',
+                    border: isLiquidated ? '2px solid #ef4444' : '1px solid var(--card-border)',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
@@ -1146,60 +1140,78 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
                   }}
                 >
                   <div>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
-                      <span style={{ fontSize: '12px', fontFamily: 'var(--font-mono)', color: 'var(--ink-muted)' }}>
-                        TOTAL POSITION SIZE:
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
+                      <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 800, color: 'var(--ink-muted)' }}>
+                        HASIL KALKULASI POSISI
                       </span>
-                      <span style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', fontWeight: 700, color: 'var(--folio-ink)' }}>
-                        {formatIDR(totalPositionSize)} ({leverage}x Notional)
+                      <span
+                        style={{
+                          fontFamily: 'var(--font-mono)',
+                          fontSize: '11px',
+                          padding: '3px 8px',
+                          borderRadius: '6px',
+                          background: isLiquidated ? '#ef4444' : roePercent >= 0 ? 'rgba(16, 185, 129, 0.15)' : 'rgba(239, 68, 68, 0.15)',
+                          color: isLiquidated ? '#fff' : roePercent >= 0 ? '#10b981' : '#ef4444',
+                          fontWeight: 800
+                        }}
+                      >
+                        {isLiquidated ? 'STATUS: LIKUIDASI' : `ROE: ${roePercent > 0 ? '+' : ''}${roePercent}%`}
                       </span>
                     </div>
 
-                    {/* Big PnL Display */}
-                    <div style={{ padding: '16px', borderRadius: '14px', background: 'var(--surface-card)', border: '1px solid var(--card-border)', textAlign: 'center' }}>
-                      <span style={{ fontSize: '11px', fontFamily: 'var(--font-mono)', color: 'var(--ink-faint)' }}>
-                        ESTIMASI PROFIT / LOSS
-                      </span>
-                      <div
-                        style={{
-                          fontSize: isFullscreen ? '28px' : '24px',
-                          fontWeight: 900,
-                          fontFamily: 'var(--font-mono)',
-                          color: isLiquidated ? '#ef4444' : roePercent >= 0 ? '#10b981' : '#ef4444',
-                          margin: '4px 0'
-                        }}
-                      >
-                        {isLiquidated ? 'LIKUIDASI (Rp 0)' : `${pnlIDR >= 0 ? '+' : ''}${formatIDR(pnlIDR)}`}
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                      <div style={{ padding: '12px', borderRadius: '10px', background: 'var(--surface-sunken)' }}>
+                        <span style={{ fontSize: '10.5px', fontFamily: 'var(--font-mono)', color: 'var(--ink-muted)', display: 'block' }}>
+                          Total Ukuran Posisi:
+                        </span>
+                        <span style={{ fontSize: '15px', fontWeight: 800, fontFamily: 'var(--font-mono)', color: 'var(--folio-ink)' }}>
+                          {formatIDR(totalPositionSize)}
+                        </span>
                       </div>
-                      <div
-                        style={{
-                          display: 'inline-block',
-                          padding: '3px 10px',
-                          borderRadius: '999px',
-                          background: isLiquidated ? '#ef4444' : roePercent >= 0 ? '#10b981' : '#ef4444',
-                          color: '#fff',
-                          fontWeight: 800,
-                          fontSize: '12px',
-                          fontFamily: 'var(--font-mono)'
-                        }}
-                      >
-                        ROE: {roePercent >= 0 ? `+${roePercent.toFixed(1)}%` : `${roePercent.toFixed(1)}%`}
+
+                      <div style={{ padding: '12px', borderRadius: '10px', background: 'var(--surface-sunken)' }}>
+                        <span style={{ fontSize: '10.5px', fontFamily: 'var(--font-mono)', color: 'var(--ink-muted)', display: 'block' }}>
+                          Estimasi Profit / Loss:
+                        </span>
+                        <span
+                          style={{
+                            fontSize: '15px',
+                            fontWeight: 800,
+                            fontFamily: 'var(--font-mono)',
+                            color: pnlIDR > 0 ? '#10b981' : pnlIDR < 0 ? '#ef4444' : 'var(--folio-ink)'
+                          }}
+                        >
+                          {pnlIDR > 0 ? `+${formatIDR(pnlIDR)}` : formatIDR(pnlIDR)}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div style={{ marginTop: '14px', padding: '14px', borderRadius: '12px', background: 'var(--surface-sunken)', border: '1px solid var(--card-border)' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
+                        <span style={{ fontSize: '12px', color: 'var(--ink-muted)' }}>Sisa Saldo Jaminan (Equity):</span>
+                        <span style={{ fontSize: '14px', fontWeight: 800, fontFamily: 'var(--font-mono)', color: isLiquidated ? '#ef4444' : 'var(--folio-ink)' }}>
+                          {formatIDR(finalEquity)}
+                        </span>
+                      </div>
+                      <div style={{ width: '100%', height: '8px', borderRadius: '999px', background: 'var(--card-border)', overflow: 'hidden' }}>
+                        <div
+                          style={{
+                            width: `${Math.max(0, Math.min(100, (finalEquity / initialMargin) * 100))}%`,
+                            height: '100%',
+                            background: isLiquidated ? '#ef4444' : (finalEquity / initialMargin) < 0.3 ? '#ef4444' : '#10b981',
+                            transition: 'width 0.2s ease'
+                          }}
+                        />
                       </div>
                     </div>
                   </div>
 
-                  {/* Liquidation Threshold & Safety Warning */}
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                    <div style={{ padding: '12px', borderRadius: '10px', background: 'var(--surface-sunken)', border: '1px solid var(--card-border)' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11.5px', marginBottom: '4px' }}>
-                        <span style={{ color: 'var(--ink-muted)' }}>Jarak ke Harga Likuidasi:</span>
-                        <strong style={{ color: '#ef4444', fontFamily: 'var(--font-mono)' }}>
-                          ±{liquidationBufferPercent.toFixed(1)}%
-                        </strong>
-                      </div>
-                      <p style={{ fontSize: '11px', color: 'var(--ink-faint)', lineHeight: 1.4 }}>
-                        Jika harga bergerak berlawanan sebesar <strong>{liquidationBufferPercent.toFixed(1)}%</strong>, seluruh modal {formatIDR(initialMargin)} hangus seketika.
-                      </p>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    <div style={{ padding: '10px 12px', borderRadius: '8px', background: 'var(--surface-sunken)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                      <span style={{ fontSize: '11px', color: 'var(--ink-muted)' }}>Ambang Batas Likuidasi:</span>
+                      <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11.5px', fontWeight: 800, color: '#f59e0b' }}>
+                        ± {liquidationBufferPercent.toFixed(1)}% pergerakan harga
+                      </span>
                     </div>
 
                     {isLiquidated ? (
@@ -1215,7 +1227,7 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
                     ) : (
                       <div style={{ padding: '12px', borderRadius: '10px', background: 'rgba(16, 185, 129, 0.1)', border: '1px solid #10b981', display: 'flex', alignItems: 'center', gap: '8px', color: '#10b981', fontSize: '12px', fontWeight: 700 }}>
                         <CheckCircle2 size={18} />
-                        <span>Posisi Aman: Selalu lindungi modal Anda dengan rencana take profit & cut loss.</span>
+                        <span>Posisi Aman: Selalu lindungi modal Anda dengan rencana take profit &amp; cut loss.</span>
                       </div>
                     )}
                   </div>
@@ -1224,8 +1236,155 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
             </div>
           )}
 
-          {/* SLIDE 4: Personal Manifesto: Stoikisme, Damai dalam Ketidakpastian & Compounding */}
+          {/* SLIDE 4: Jatuh Cinta pada Vibe Coding: Hingga Melahirkan Nemo 🐙 */}
           {currentSlide === 4 && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                  gap: '16px'
+                }}
+              >
+                {/* Left Card: The Vibe Coding Revolution */}
+                <div
+                  style={{
+                    padding: '22px',
+                    borderRadius: '16px',
+                    background: 'rgba(168, 85, 247, 0.05)',
+                    border: '1.5px solid rgba(168, 85, 247, 0.35)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '12px'
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#a855f7' }}>
+                    <Wand2 size={18} />
+                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 800 }}>
+                      ERA GENERATIVE AI • THE FLOW STATE
+                    </span>
+                  </div>
+                  <h4 style={{ fontSize: '16px', fontWeight: 800, color: 'var(--folio-ink)', margin: 0 }}>
+                    Menemukan Kembali Sukacita Berkreasi: Vibe Coding
+                  </h4>
+                  <p style={{ fontSize: '12.5px', color: 'var(--ink-body)', lineHeight: 1.65, margin: 0 }}>
+                    Setelah melewati luka tempaan pasar kripto, rasa penasaran saya menemukan muara baru yang paling menggetarkan: <strong>Vibe Coding</strong>. Menulis kode bukan lagi proses birokratis yang lambat mengetik ribuan boilerplate berulang.
+                  </p>
+                  <p style={{ fontSize: '12px', color: 'var(--ink-muted)', lineHeight: 1.6, margin: 0 }}>
+                    Vibe coding adalah kondisi di mana seorang engineer bertindak sebagai <em>arsitek &amp; konduktor ide</em>: berdialog secara intens dengan model AI cerdas, menguji hipotesis dalam hitungan menit, dan merealisasikan prototipe fungsional tanpa hambatan sintaksis.
+                  </p>
+                  <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginTop: '2px' }}>
+                    {['Flow State', 'Zero Boilerplate', 'Rapid Prototyping', 'AI Pair Programming', 'High Velocity'].map((tag, i) => (
+                      <span key={i} style={{ fontSize: '10.5px', fontFamily: 'var(--font-mono)', padding: '2px 7px', borderRadius: '4px', background: 'var(--surface-sunken)', color: '#c084fc' }}>
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Right Card: The Birth of Nemo */}
+                <div
+                  style={{
+                    padding: '22px',
+                    borderRadius: '16px',
+                    background: 'linear-gradient(135deg, rgba(0, 164, 228, 0.08), rgba(168, 85, 247, 0.08))',
+                    border: '1.5px solid rgba(0, 164, 228, 0.35)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '12px'
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#00a4e4' }}>
+                      <Bot size={20} />
+                      <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 800 }}>
+                        PROJECT NEMO 🐙
+                      </span>
+                    </div>
+                    <span style={{ fontSize: '10.5px', padding: '2px 8px', borderRadius: '4px', background: 'rgba(0, 164, 228, 0.15)', color: '#00a4e4', fontFamily: 'var(--font-mono)', fontWeight: 700 }}>
+                      PERSONAL AI AGENT
+                    </span>
+                  </div>
+                  <h4 style={{ fontSize: '16px', fontWeight: 800, color: 'var(--folio-ink)', margin: 0 }}>
+                    Dari Kecanduan Vibe Coding, Lahirlah "Nemo"
+                  </h4>
+                  <p style={{ fontSize: '12.5px', color: 'var(--ink-body)', lineHeight: 1.65, margin: 0 }}>
+                    Kecintaan bereksperimen dengan AI melahirkan project <strong>NEMO</strong>: asisten pintar dan sistem agen personal yang saya bangun untuk menemani alur kerja harian. Nemo membantu merapikan catatan riset, mengotomasi workflow repetitif, membedah codebase, hingga mengevaluasi ide-ide baru.
+                  </p>
+                  <p style={{ fontSize: '12px', color: 'var(--ink-muted)', lineHeight: 1.6, margin: 0 }}>
+                    Nemo adalah bukti nyata: ketika hobi belajar hal baru dipadukan dengan vibe coding, jarak antara ide di kepala dan aplikasi hidup yang bisa digunakan menjadi hampir nol.
+                  </p>
+                  <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginTop: '2px' }}>
+                    {['Autonomous Agent', 'Workflow Orchestrator', 'Personal Copilot', 'Continuous Tinkering'].map((tag, i) => (
+                      <span key={i} style={{ fontSize: '10.5px', fontFamily: 'var(--font-mono)', padding: '2px 7px', borderRadius: '4px', background: 'var(--surface-sunken)', color: '#38bdf8' }}>
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* 3 Keajaiban Vibe Coding & Nemo */}
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                  gap: '14px'
+                }}
+              >
+                <div style={{ padding: '16px', borderRadius: '14px', background: 'var(--surface-sunken)', border: '1px solid var(--card-border)' }}>
+                  <div style={{ color: '#a855f7', fontWeight: 800, fontSize: '13px', marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <Zap size={15} />
+                    <span>1. Flow State Tanpa Gesekan</span>
+                  </div>
+                  <p style={{ fontSize: '12px', color: 'var(--ink-body)', lineHeight: 1.6, margin: 0 }}>
+                    Tidak ada lagi waktu terbuang mencari sintaks regex atau boilerplate class. Pikiran bebas menjelajah desain arsitektur, abstraksi sistem, dan pengalaman pengguna secara murni.
+                  </p>
+                </div>
+
+                <div style={{ padding: '16px', borderRadius: '14px', background: 'var(--surface-sunken)', border: '1px solid var(--card-border)' }}>
+                  <div style={{ color: '#00a4e4', fontWeight: 800, fontSize: '13px', marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <Rocket size={15} />
+                    <span>2. Kecepatan Realisasi Ide</span>
+                  </div>
+                  <p style={{ fontSize: '12px', color: 'var(--ink-body)', lineHeight: 1.6, margin: 0 }}>
+                    Ide yang terlintas saat ngopi di pagi hari bisa diuji coba dan dirilis di sore hari. Kecepatan feedback loop ini memicu adiksi belajar hal baru yang semakin membara.
+                  </p>
+                </div>
+
+                <div style={{ padding: '16px', borderRadius: '14px', background: 'var(--surface-sunken)', border: '1px solid var(--card-border)' }}>
+                  <div style={{ color: '#10b981', fontWeight: 800, fontSize: '13px', marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <Heart size={15} />
+                    <span>3. Rekan Berpikir Selevel (Thought Partner)</span>
+                  </div>
+                  <p style={{ fontSize: '12px', color: 'var(--ink-body)', lineHeight: 1.6, margin: 0 }}>
+                    Nemo bukan pengganti peran developer, melainkan tandem sparring partner yang memperluas kapasitas intelektual dan menantang sudut pandang kita dalam memecahkan masalah.
+                  </p>
+                </div>
+              </div>
+
+              {/* Epiphany Banner */}
+              <div
+                style={{
+                  padding: '16px 20px',
+                  borderRadius: '14px',
+                  background: 'linear-gradient(135deg, rgba(168, 85, 247, 0.08), rgba(0, 164, 228, 0.08))',
+                  border: '1px solid rgba(168, 85, 247, 0.25)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '14px'
+                }}
+              >
+                <Sparkles size={24} color="#a855f7" style={{ flexShrink: 0 }} />
+                <p style={{ fontSize: '12.5px', color: 'var(--folio-ink)', lineHeight: 1.6, margin: 0 }}>
+                  <strong>Sintesis Kreatif:</strong> "Jika pasar finansial mengajarkan saya kerendahan hati dalam mengelola risiko, vibe coding dan Nemo mengembalikan kegembiraan murni masa kecil: bahwa kita bisa menciptakan dunia apa pun yang kita bayangkan di atas terminal."
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* SLIDE 5: The Explorer Spirit: Mencoba Tempat Baru, Stoikisme & Compounding */}
+          {currentSlide === 5 && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <div
                 style={{
@@ -1234,47 +1393,47 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
                   gap: '16px'
                 }}
               >
-                {/* Pillar 1: Dikotomi Kendali Seneca */}
+                {/* Pillar 1: Suka Tempat Baru & Lingkungan Baru */}
                 <div style={{ padding: '20px', borderRadius: '16px', background: 'var(--surface-sunken)', border: '1px solid var(--card-border)', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#f59e0b' }}>
-                    <Compass size={18} />
-                    <h4 style={{ fontSize: '14.5px', fontWeight: 800 }}>
-                      1. Dikotomi Kendali (The Stoic Anchor)
+                    <Coffee size={18} />
+                    <h4 style={{ fontSize: '14.5px', fontWeight: 800, margin: 0 }}>
+                      1. Jiwa Penjelajah: Eksplorasi Tempat Baru
                     </h4>
                   </div>
-                  <p style={{ fontSize: '12.5px', color: 'var(--ink-body)', lineHeight: 1.6 }}>
-                    Pelajaran terbesar dari perpaduan IT dan pasar: pisahkan secara tegas antara apa yang bisa kita kontrol (jam belajar, manajemen risiko, kualitas kode, respon emosi) dengan apa yang di luar kendali kita (arah pasar, opini orang lain, kejadian tak terduga). Menaruh kedamaian pada proses, bukan hasil instan.
+                  <p style={{ fontSize: '12.5px', color: 'var(--ink-body)', lineHeight: 1.6, margin: 0 }}>
+                    Saya senang berpindah tempat: mencoba cafe baru dengan playlist akustik yang tenang, coworking space dengan komunitas dinamis, atau sudut kota baru. Berpindah ruang adalah tombol reset mental yang mengikis kejenuhan dan melahirkan perspektif segar.
                   </p>
                 </div>
 
-                {/* Pillar 2: Compounding Life */}
+                {/* Pillar 2: Dikotomi Kendali Seneca */}
                 <div style={{ padding: '20px', borderRadius: '16px', background: 'var(--surface-sunken)', border: '1px solid var(--card-border)', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#38bdf8' }}>
-                    <TrendingUp size={18} />
-                    <h4 style={{ fontSize: '14.5px', fontWeight: 800 }}>
-                      2. The Compounding Life (1.01^365 = 37.8)
+                    <Compass size={18} />
+                    <h4 style={{ fontSize: '14.5px', fontWeight: 800, margin: 0 }}>
+                      2. Dikotomi Kendali (The Stoic Anchor)
                     </h4>
                   </div>
-                  <p style={{ fontSize: '12.5px', color: 'var(--ink-body)', lineHeight: 1.6 }}>
-                    Tidak ada kesuksesan yang terjadi dalam satu malam. Menjadi 1% lebih baik setiap hari dalam berpikir sistem, menjaga ketenangan batin, dan merawat kesehatan tubuh menghasilkan pelipatgandaan 37 kali lipat dalam satu tahun. Keunggulan sejati adalah buah dari konsistensi jangka panjang.
+                  <p style={{ fontSize: '12.5px', color: 'var(--ink-body)', lineHeight: 1.6, margin: 0 }}>
+                    Pelajaran terbesar dari perpaduan IT dan pasar: pisahkan secara tegas antara apa yang bisa kita kontrol (jam belajar, manajemen risiko, kualitas kode, respon emosi) dengan apa yang di luar kendali kita (arah pasar, opini orang lain). Menaruh kedamaian pada proses, bukan hasil instan.
                   </p>
                 </div>
 
-                {/* Pillar 3: Giving Back & Mentorship */}
+                {/* Pillar 3: Compounding Life */}
                 <div style={{ padding: '20px', borderRadius: '16px', background: 'var(--surface-sunken)', border: '1px solid var(--card-border)', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#10b981' }}>
-                    <Heart size={18} />
-                    <h4 style={{ fontSize: '14.5px', fontWeight: 800 }}>
-                      3. Berbagi Pengalaman & Mentorship
+                    <TrendingUp size={18} />
+                    <h4 style={{ fontSize: '14.5px', fontWeight: 800, margin: 0 }}>
+                      3. The Compounding Life (1.01^365 = 37.8)
                     </h4>
                   </div>
-                  <p style={{ fontSize: '12.5px', color: 'var(--ink-body)', lineHeight: 1.6 }}>
-                    Mengingat kembali orang-orang dan lingkungan yang pernah memberi kesempatan saat saya masih di titik awal SMK. Pengalaman jatuh bangun—termasuk kerugian 100 juta—harus dibagikan agar orang lain bisa belajar tanpa perlu mengulangi kesalahan yang sama.
+                  <p style={{ fontSize: '12.5px', color: 'var(--ink-body)', lineHeight: 1.6, margin: 0 }}>
+                    Menjadi 1% lebih baik setiap hari dalam coding, cara berpikir, dan ketenangan batin menghasilkan pelipatgandaan 37 kali lipat dalam satu tahun. Keunggulan sejati bukan ledakan instan semalam, melainkan buah manis dari konsistensi jangka panjang.
                   </p>
                 </div>
               </div>
 
-              {/* Interdisciplinary Synthesis Banner */}
+              {/* Synthesis Banner */}
               <div
                 style={{
                   padding: '18px 22px',
@@ -1287,8 +1446,8 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
                 }}
               >
                 <Flame size={28} color="#f59e0b" style={{ flexShrink: 0 }} />
-                <p style={{ fontSize: '13px', color: 'var(--folio-ink)', lineHeight: 1.6 }}>
-                  <strong>Sintesis Dua Dunia:</strong> Rekayasa perangkat lunak mengajarkan saya cara membangun sistem yang terstruktur dan reliabel di tengah kekacauan. Pasar finansial mengajarkan saya kerendahan hati untuk menerima ketidakpastian tanpa kehilangan integritas diri.
+                <p style={{ fontSize: '13px', color: 'var(--folio-ink)', lineHeight: 1.6, margin: 0 }}>
+                  <strong>Manifesto Penutup:</strong> Hidup adalah kanvas eksperimen tanpa batas. Jangan takut menjelajah hal baru, jangan takut mendatangi tempat baru, dan jangan pernah takut pada tempaan kegagalan—karena setiap likuidasi masa lalu adalah batu loncatan menuju versi terbaik diri kita hari ini.
                 </p>
               </div>
 
@@ -1310,7 +1469,7 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
                   "Life is long if you know how to use it… we are not given a short life but we make it short, and wasteful of it." — Seneca
                 </span>
                 <span style={{ fontSize: '12.5px', fontFamily: 'var(--font-mono)', color: '#f59e0b', fontWeight: 700, letterSpacing: '0.5px' }}>
-                  Muhammad Rifai (Rifai Martin) • Software Engineer & Systems Thinker
+                  Muhammad Rifai (Rifai Martin) • Continuous Explorer, Vibe Coder &amp; Systems Builder
                 </span>
               </div>
             </div>
@@ -1389,13 +1548,13 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
               boxShadow: currentSlide === CHAPTERS.length - 1 ? 'none' : '0 4px 14px rgba(245, 158, 11, 0.35)'
             }}
           >
-            <span>Next Chapter</span>
+            <span>{currentSlide === CHAPTERS.length - 1 ? 'Selesai' : 'Next Chapter'}</span>
             <ChevronRight size={16} />
           </button>
         </footer>
       </div>
 
-      {/* Image Lightbox Modal for Evidence Zoom */}
+      {/* Image Lightbox Modal for Evidence & Photo Zoom */}
       {previewImage && (
         <div
           style={{
@@ -1433,7 +1592,7 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
           </div>
           <img
             src={previewImage}
-            alt="Evidence Binance Margin Call"
+            alt="Zoomed Preview"
             style={{
               maxWidth: '92vw',
               maxHeight: '88vh',
