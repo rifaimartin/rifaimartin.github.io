@@ -31,24 +31,25 @@ export const PRESENTATIONS_DATA = [
   {
     id: 'behind-the-terminal',
     number: '02',
-    title: 'Behind the Terminal: Curiosity, The -100M Crucible & The Rise of Nemo',
-    subtitle: 'Dari Hobi Belajar Hal Baru, Ilusi Ingin Cepat Kaya di Kripto, Tempaan Likuidasi -100 Juta, hingga Era Vibe Coding yang Melahirkan Nemo',
+    title: 'Halo, Saya Rifai: Curiosity, Hobi Eksplorasi & The Art of Building',
+    subtitle: 'Mengenal Diri & Hobi: Dari Juara 1 Stacks Bitcoin, Instruktur Java Ladies, Tempaan Kripto -100M, hingga Vibe Coding & Nemo',
     status: 'available', // 'available' | 'upcoming' | 'draft'
     statusLabel: 'Ready to Present',
     statusColor: '#f59e0b',
     badge: 'PERSONAL KEYNOTE',
-    chaptersCount: 6,
+    chaptersCount: 7,
     estimatedMinutes: 18,
     date: 'Oktober 2026',
-    tags: ['Personal Story', 'Continuous Learning', 'Crypto Crucible', 'Likuidasi 100M', 'Vibe Coding', 'Project Nemo', 'Explorer Spirit'],
-    description: 'Kisah personal Rifai Martin yang digerakkan oleh rasa penasaran tak terbatas: hobi belajar hal baru yang membawanya ke pasar kripto dengan mimpi cepat kaya, realita pahit likuidasi -100 juta di Binance Futures (bukti otentik dilampirkan), simulator interaktif leverage Rupiah, kebangkitan lewat gairah vibe coding yang melahirkan Nemo, hingga filosofi penjelajah tempat & hal baru.',
+    tags: ['Personal Story', 'Continuous Learning', 'Juara 1 Stacks Bitcoin', 'Instruktur Java Ladies', 'Crypto Crucible', 'Vibe Coding', 'Project Nemo', 'Explorer Spirit'],
+    description: 'Perjalanan personal Rifai Martin: rasa penasaran tak terbatas, suka belajar hal baru hingga juara 1 kompetisi Bitcoin dan mengajar Java Ladies, godaan cepat kaya di pasar kripto berujung likuidasi ratusan juta, hingga bangkit lewat vibe coding dan melahirkan project Nemo.',
     chapters: [
-      { num: '01', name: 'The Perpetual Learner: Selalu Penasaran & Senang Belajar Hal Baru' },
-      { num: '02', name: 'Masuk ke Dunia Kripto: Dari Rasa Ingin Tahu ke Obsesi Ingin Cepat Kaya' },
-      { num: '03', name: 'Kuliah Termahal: Riwayat Likuidasi Binance Futures -100 Juta' },
-      { num: '04', name: 'Futures & Leverage Lab: Simulasi Kalkulator Rupiah (BTC, ETH, HBAR, SOL)' },
-      { num: '05', name: 'Jatuh Cinta pada Vibe Coding: Hingga Melahirkan Nemo 🐙' },
-      { num: '06', name: 'The Explorer Spirit: Mencoba Tempat Baru, Stoikisme & Compounding' }
+      { num: '01', name: 'Halo, Saya Rifai: Suka Mencoba & Belajar Hal Baru' },
+      { num: '02', name: 'Buah dari Rasa Ingin Tahu: Juara 1 Bitcoin & Instruktur Java Ladies' },
+      { num: '03', name: 'Kelinci Lubang Kripto: Dari Ingin Tahu ke Ilusi Cepat Kaya' },
+      { num: '04', name: 'Kuliah Termahal: Riwayat Likuidasi Binance Futures -100 Juta' },
+      { num: '05', name: 'Futures & Leverage Lab: Simulasi Kalkulator Rupiah' },
+      { num: '06', name: 'Jatuh Cinta pada Vibe Coding & Lahirnya Nemo 🐙' },
+      { num: '07', name: 'The Explorer Spirit: Tempat Baru, Stoikisme & Compounding' }
     ]
   },
   {
