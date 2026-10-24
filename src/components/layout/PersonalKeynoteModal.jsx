@@ -8,6 +8,10 @@ import {
   Users, Trophy, GraduationCap, Lightbulb, ExternalLink
 } from 'lucide-react';
 import { soundFx } from '../../utils/audio';
+import introImg from '../../assets/images/rifaimartin-introduction.jpeg';
+import stacksWinnerImg from '../../assets/images/stacks-bitcoin-winner.jpg';
+import instructorImg from '../../assets/images/instructor-java-ladies.jpg';
+import marginCallImg from '../../assets/images/margin-call-history.png';
 
 const CHAPTERS = [
   {
@@ -497,11 +501,16 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
                       alignItems: 'center',
                       justifyContent: 'center'
                     }}
-                    onClick={() => setPreviewImage('./rifaimartin-introduction.jpeg')}
+                    onClick={() => setPreviewImage(introImg || './rifaimartin-introduction.jpeg')}
                     title="Klik untuk memperbesar foto profil"
                   >
                     <img
-                      src="./rifaimartin-introduction.jpeg"
+                      src={introImg || './rifaimartin-introduction.jpeg'}
+                      onError={(e) => {
+                        if (e.currentTarget.src.indexOf('/assets/') === -1) {
+                          e.currentTarget.src = './assets/rifaimartin-introduction.jpeg';
+                        }
+                      }}
                       alt="Muhamad Rifai (Rifai Martin)"
                       style={{
                         width: '100%',
@@ -693,11 +702,16 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
                       alignItems: 'center',
                       justifyContent: 'center'
                     }}
-                    onClick={() => setPreviewImage('./stacks-bitcoin-winner.jpg')}
+                    onClick={() => setPreviewImage(stacksWinnerImg || './stacks-bitcoin-winner.jpg')}
                     title="Klik untuk memperbesar sertifikat Juara 1 Stacks Bitcoin"
                   >
                     <img
-                      src="./stacks-bitcoin-winner.jpg"
+                      src={stacksWinnerImg || './stacks-bitcoin-winner.jpg'}
+                      onError={(e) => {
+                        if (e.currentTarget.src.indexOf('/assets/') === -1) {
+                          e.currentTarget.src = './assets/stacks-bitcoin-winner.jpg';
+                        }
+                      }}
                       alt="1st Winner Build on Bitcoin Developer Challenge by Stacks Indonesia"
                       style={{
                         width: '100%',
@@ -791,11 +805,16 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
                       alignItems: 'center',
                       justifyContent: 'center'
                     }}
-                    onClick={() => setPreviewImage('./instructor-java-ladies.jpg')}
+                    onClick={() => setPreviewImage(instructorImg || './instructor-java-ladies.jpg')}
                     title="Klik untuk memperbesar foto Instruktur Java Ladies"
                   >
                     <img
-                      src="./instructor-java-ladies.jpg"
+                      src={instructorImg || './instructor-java-ladies.jpg'}
+                      onError={(e) => {
+                        if (e.currentTarget.src.indexOf('/assets/') === -1) {
+                          e.currentTarget.src = './assets/instructor-java-ladies.jpg';
+                        }
+                      }}
                       alt="Instructor Java Ladies Community Mentorship"
                       style={{
                         width: '100%',
@@ -1036,11 +1055,16 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
                       alignItems: 'center',
                       justifyContent: 'center'
                     }}
-                    onClick={() => setPreviewImage('./margin-call-history.png')}
+                    onClick={() => setPreviewImage(marginCallImg || './margin-call-history.png')}
                     title="Klik untuk melihat bukti otentik email likuidasi"
                   >
                     <img
-                      src="./margin-call-history.png"
+                      src={marginCallImg || './margin-call-history.png'}
+                      onError={(e) => {
+                        if (e.currentTarget.src.indexOf('/assets/') === -1) {
+                          e.currentTarget.src = './assets/margin-call-history.png';
+                        }
+                      }}
                       alt="Bukti Otentik Riwayat Likuidasi Margin Call Binance"
                       style={{
                         width: '100%',
@@ -1745,6 +1769,12 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
             </button>
             <img
               src={previewImage}
+              onError={(e) => {
+                if (typeof previewImage === 'string' && e.currentTarget.src.indexOf('/assets/') === -1) {
+                  const cleaned = previewImage.replace(/^\.\//, '').replace(/^\//, '');
+                  e.currentTarget.src = './assets/' + cleaned;
+                }
+              }}
               alt="High resolution preview"
               style={{
                 maxWidth: '100%',
