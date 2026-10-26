@@ -5,7 +5,7 @@ import {
   RefreshCw, ZoomIn, Sparkles, Cpu, BookOpen, 
   Compass, Heart, Layers, Bot, Wand2, Rocket, Zap,
   Trophy, GraduationCap, Workflow, Play, ShieldCheck, Box, Terminal, Code2,
-  Activity, ArrowRight, MapPin, Coffee, Flame
+  Activity, ArrowRight, MapPin, Coffee, Flame, Globe, Lightbulb, Brain
 } from 'lucide-react';
 import { soundFx } from '../../utils/audio';
 import introImg from '../../assets/images/rifaimartin-introduction.jpeg';
@@ -1230,12 +1230,12 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
                     3. Execution Tools & Vibe Coding
                   </span>
                   <p style={{ fontSize: '12px', color: 'var(--ink-muted)', margin: 0, lineHeight: 1.45 }}>
-                    Tangan & mata sang agent di dunia nyata: eksekusi shell, compile test, manipulasi file, dan API calls. Ini melahirkan era <strong>Vibe Coding</strong> & lahirnya <strong>Project Nemo 🐙</strong>.
+                    Tangan & mata sang agent di dunia nyata: eksekusi shell, compile test, manipulasi file, dan API calls. Ini melahirkan era <strong>Vibe Coding</strong> — memprogram lewat orkestrasi tools secara otonom.
                   </p>
                   <div style={{ marginTop: 'auto', paddingTop: '6px', display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
                     <span style={{ fontSize: '10.5px', padding: '2px 7px', borderRadius: '4px', background: 'rgba(16, 185, 129, 0.15)', color: '#10b981', fontWeight: 600 }}>Vibe Coding</span>
                     <span style={{ fontSize: '10.5px', padding: '2px 7px', borderRadius: '4px', background: 'var(--surface-sunken)', color: 'var(--ink-body)' }}>Shell & FS Tools</span>
-                    <span style={{ fontSize: '10.5px', padding: '2px 7px', borderRadius: '4px', background: 'var(--surface-sunken)', color: 'var(--ink-body)' }}>Project Nemo 🐙</span>
+                    <span style={{ fontSize: '10.5px', padding: '2px 7px', borderRadius: '4px', background: 'var(--surface-sunken)', color: 'var(--ink-body)' }}>Autonomous Execution</span>
                   </div>
                 </div>
               </div>
@@ -1697,6 +1697,127 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
                   <p style={{ fontSize: '12px', color: 'var(--ink-body)', margin: 0, lineHeight: 1.45 }}>
                     Jangan pernah meremehkan eksperimen 1 jam setiap malam. Dalam 365 hari, akumulasi belajar hal baru melahirkan lompatan eksponensial dalam hidup dan keahlian kita.
                   </p>
+                </div>
+              </div>
+
+              {/* Food for Thought: Mengapa Peradaban Selalu Bergerak dari Rasa Penasaran? */}
+              <div
+                className="interactive-card"
+                style={{
+                  padding: '18px 22px',
+                  borderRadius: '18px',
+                  background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(59, 130, 246, 0.08) 50%, rgba(245, 158, 11, 0.08) 100%)',
+                  border: '1px solid rgba(139, 92, 246, 0.35)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '12px'
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'rgba(139, 92, 246, 0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <Globe size={18} color="#8b5cf6" />
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                      <span style={{ fontSize: '13.5px', fontWeight: 800, color: 'var(--folio-ink)' }}>
+                        Food for Thought: Mengapa Peradaban Bergerak dari Rasa Penasaran?
+                      </span>
+                      <span style={{ fontSize: '11px', color: 'var(--ink-muted)' }}>
+                        Refleksi Eksistensial: Hal-hal yang dulu mustahil, kini menjadi mungkin karena manusia yang menolak berhenti belajar.
+                      </span>
+                    </div>
+                  </div>
+
+                  <span
+                    style={{
+                      fontSize: '10.5px',
+                      fontFamily: 'var(--font-mono)',
+                      padding: '3px 9px',
+                      borderRadius: '999px',
+                      background: 'rgba(139, 92, 246, 0.15)',
+                      color: '#8b5cf6',
+                      fontWeight: 700
+                    }}
+                  >
+                    THE CIVILIZATION ENGINE
+                  </span>
+                </div>
+
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+                    gap: '12px'
+                  }}
+                >
+                  {/* Pillar 1: Dari Mustahil Menjadi Nyata */}
+                  <div
+                    style={{
+                      padding: '12px 14px',
+                      borderRadius: '12px',
+                      background: 'var(--surface-sunken)',
+                      border: '1px solid var(--card-border)',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '6px'
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <Rocket size={14} color="#f59e0b" />
+                      <span style={{ fontSize: '12px', fontWeight: 700, color: '#f59e0b' }}>
+                        Dari Mustahil Menjadi Nyata
+                      </span>
+                    </div>
+                    <p style={{ fontSize: '11.5px', color: 'var(--ink-body)', margin: 0, lineHeight: 1.45 }}>
+                      Manusia tidak punya sayap, tapi kini kita melintasi benua di atas awan. Komputer dulunya sebesar gedung, kini miliaran transistor ada di saku kita. Semua mukjizat teknologi ini berawal dari orang-orang yang berani mencoba hal baru yang pada zamannya ditertawakan.
+                    </p>
+                  </div>
+
+                  {/* Pillar 2: Mesin Penggerak Zaman */}
+                  <div
+                    style={{
+                      padding: '12px 14px',
+                      borderRadius: '12px',
+                      background: 'var(--surface-sunken)',
+                      border: '1px solid var(--card-border)',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '6px'
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <Lightbulb size={14} color="#10b981" />
+                      <span style={{ fontSize: '12px', fontWeight: 700, color: '#10b981' }}>
+                        Mesin Penggerak Zaman
+                      </span>
+                    </div>
+                    <p style={{ fontSize: '11.5px', color: 'var(--ink-body)', margin: 0, lineHeight: 1.45 }}>
+                      Peradaban tidak pernah dimajukan oleh orang-orang yang merasa sudah tahu segalanya atau puas dengan status quo. Peradaban selalu melonjak setiap kali ada orang yang rela merasa bodoh lagi demi mencari jawaban atas satu pertanyaan sederhana: <em>"Bagaimana jika...?"</em>
+                    </p>
+                  </div>
+
+                  {/* Pillar 3: Sepenting Apa Bagi Diri Kita? */}
+                  <div
+                    style={{
+                      padding: '12px 14px',
+                      borderRadius: '12px',
+                      background: 'var(--surface-sunken)',
+                      border: '1px solid var(--card-border)',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '6px'
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <Brain size={14} color="#3b82f6" />
+                      <span style={{ fontSize: '12px', fontWeight: 700, color: '#3b82f6' }}>
+                        Sepenting Apa Bagi Diri Kita?
+                      </span>
+                    </div>
+                    <p style={{ fontSize: '11.5px', color: 'var(--ink-body)', margin: 0, lineHeight: 1.45 }}>
+                      Belajar hal baru bukan sekadar soal karir atau menaikkan gaji — ini adalah cara kita menjaga api kesadaran di dalam kepala. Hari ketika kita berhenti penasaran dan menolak mencoba hal baru adalah hari ketika kita memutuskan untuk berhenti berevolusi.
+                    </p>
+                  </div>
                 </div>
               </div>
 
