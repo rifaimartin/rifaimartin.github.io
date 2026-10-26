@@ -52,9 +52,9 @@ const CHAPTERS = [
   {
     id: 'explorer-manifesto',
     number: '06',
-    badge: 'EXPLORER & STOIC',
-    title: 'The Explorer Spirit: Tempat Baru, Stoikisme & Compounding 1% 🌱',
-    subtitle: 'Eksplorasi tempat kerja baru setiap minggu, ketenangan lewat stoikisme Seneca, dan komitmen bertumbuh 1% setiap hari.'
+    badge: 'EXPLORER & PHILOSOPHY',
+    title: 'The Explorer Spirit: Tempat Baru, Stoikisme & Api Peradaban 🌱',
+    subtitle: 'Eksplorasi suasana kerja baru setiap minggu, ketenangan lewat stoikisme Seneca, dan refleksi mengapa rasa ingin tahu menggerakkan peradaban.'
   }
 ];
 
@@ -1481,10 +1481,10 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
             </div>
           )}
 
-          {/* SLIDE 5 (Chapter 06): The Explorer Spirit: Tempat Baru, Stoikisme & Compounding */}
+          {/* SLIDE 5 (Chapter 06): The Explorer Spirit: Tempat Baru, Stoikisme & Api Peradaban */}
           {safeSlideIndex === 5 && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              {/* Top Grid: Nomad + Stoikisme on Left, Compounding Graph on Right */}
+              {/* Dual Pillars: Nomad Spirit & Stoikisme Seneca */}
               <div
                 style={{
                   display: 'grid',
@@ -1493,210 +1493,122 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
                   alignItems: 'stretch'
                 }}
               >
-                {/* Left Column: Nomad Spirit & Stoikisme Matrix */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                  {/* Nomadic Spirit Card */}
-                  <div
-                    className="interactive-card"
-                    style={{
-                      padding: '16px',
-                      borderRadius: '16px',
-                      background: 'var(--surface-card-subtle)',
-                      border: '1px solid var(--card-border)',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '10px'
-                    }}
-                  >
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <div style={{ width: '30px', height: '30px', borderRadius: '8px', background: 'rgba(245, 158, 11, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                          <Compass size={17} color="#f59e0b" />
-                        </div>
-                        <span style={{ fontSize: '13.5px', fontWeight: 800, color: 'var(--folio-ink)' }}>
-                          Mencoba Tempat Baru (Nomadic Spirit)
-                        </span>
-                      </div>
-                      <span
-                        style={{
-                          fontSize: '10px',
-                          fontFamily: 'var(--font-mono)',
-                          padding: '3px 8px',
-                          borderRadius: '999px',
-                          background: 'rgba(245, 158, 11, 0.15)',
-                          color: '#f59e0b',
-                          fontWeight: 700,
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '5px'
-                        }}
-                      >
-                        <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#f59e0b', animation: 'radarPing 2s infinite' }}></span>
-                        CAFE HOPPER
-                      </span>
-                    </div>
-
-                    <p style={{ fontSize: '12px', color: 'var(--ink-body)', margin: 0, lineHeight: 1.45 }}>
-                      Pikiran tidak boleh terkurung di 4 dinding yang sama. Mencoba cafe, coworking, atau spot kerja baru setiap minggu memicu dopamin perspektif segar dan mencegah kejenuhan berpikir (*burnout*).
-                    </p>
-
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                      <span style={{ fontSize: '10.5px', padding: '3px 8px', borderRadius: '6px', background: 'var(--surface-sunken)', color: 'var(--ink-body)' }}>☕ Cafe Hopper</span>
-                      <span style={{ fontSize: '10.5px', padding: '3px 8px', borderRadius: '6px', background: 'var(--surface-sunken)', color: 'var(--ink-body)' }}>🏙️ Coworking Hub</span>
-                      <span style={{ fontSize: '10.5px', padding: '3px 8px', borderRadius: '6px', background: 'var(--surface-sunken)', color: 'var(--ink-body)' }}>🍵 Warkop Deep Work</span>
-                      <span style={{ fontSize: '10.5px', padding: '3px 8px', borderRadius: '6px', background: 'var(--surface-sunken)', color: 'var(--ink-body)' }}>🎧 Ambient Explorer</span>
-                    </div>
-                  </div>
-
-                  {/* Stoikisme Dikotomi Kendali Matrix */}
-                  <div
-                    className="interactive-card"
-                    style={{
-                      padding: '16px',
-                      borderRadius: '16px',
-                      background: 'var(--surface-card-subtle)',
-                      border: '1px solid var(--card-border)',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '10px'
-                    }}
-                  >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <div style={{ width: '30px', height: '30px', borderRadius: '8px', background: 'rgba(59, 130, 246, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <Heart size={17} color="#3b82f6" />
-                      </div>
-                      <span style={{ fontSize: '13.5px', fontWeight: 800, color: 'var(--folio-ink)' }}>
-                        Stoikisme Seneca: Dikotomi Kendali
-                      </span>
-                    </div>
-
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-                      {/* Out of Control */}
-                      <div
-                        style={{
-                          padding: '10px 12px',
-                          borderRadius: '10px',
-                          background: 'rgba(239, 68, 68, 0.08)',
-                          border: '1px solid rgba(239, 68, 68, 0.25)',
-                          display: 'flex',
-                          flexDirection: 'column',
-                          gap: '4px'
-                        }}
-                      >
-                        <span style={{ fontSize: '10.5px', fontWeight: 800, color: '#ef4444', fontFamily: 'var(--font-mono)' }}>
-                          ✕ DI LUAR KENDALI
-                        </span>
-                        <span style={{ fontSize: '11px', color: 'var(--ink-muted)', lineHeight: 1.35 }}>
-                          Volatilitas market, crypto crash, down pihak ketiga, dan opini orang lain.
-                        </span>
-                      </div>
-
-                      {/* In Control */}
-                      <div
-                        style={{
-                          padding: '10px 12px',
-                          borderRadius: '10px',
-                          background: 'rgba(16, 185, 129, 0.08)',
-                          border: '1px solid rgba(16, 185, 129, 0.25)',
-                          display: 'flex',
-                          flexDirection: 'column',
-                          gap: '4px'
-                        }}
-                      >
-                        <span style={{ fontSize: '10.5px', fontWeight: 800, color: '#10b981', fontFamily: 'var(--font-mono)' }}>
-                          ✓ 100% DI DALAM KENDALI
-                        </span>
-                        <span style={{ fontSize: '11px', color: 'var(--ink-body)', lineHeight: 1.35 }}>
-                          Jam terbang belajar, disiplin risiko, ketenangan respon mental, dan baris kode kita.
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Right Column: Compounding Growth Visualizer */}
+                {/* Nomadic Spirit Card */}
                 <div
                   className="interactive-card"
                   style={{
-                    padding: '18px',
-                    borderRadius: '18px',
+                    padding: '18px 20px',
+                    borderRadius: '16px',
                     background: 'var(--surface-card-subtle)',
-                    border: '1.5px solid rgba(16, 185, 129, 0.4)',
+                    border: '1px solid var(--card-border)',
                     display: 'flex',
                     flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    gap: '14px',
-                    animation: 'pulseGreen 5s infinite ease-in-out'
+                    gap: '10px'
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <div style={{ width: '30px', height: '30px', borderRadius: '8px', background: 'rgba(16, 185, 129, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <TrendingUp size={18} color="#10b981" />
+                      <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'rgba(245, 158, 11, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <Compass size={18} color="#f59e0b" />
                       </div>
                       <span style={{ fontSize: '14px', fontWeight: 800, color: 'var(--folio-ink)' }}>
-                        Compounding 1% Setiap Hari
+                        Mencoba Tempat Baru (Nomadic Spirit)
                       </span>
                     </div>
-                    <span style={{ fontSize: '13px', fontFamily: 'var(--font-mono)', fontWeight: 800, color: '#10b981' }}>
-                      1.01³⁶⁵ = 37.8x
+                    <span
+                      style={{
+                        fontSize: '10px',
+                        fontFamily: 'var(--font-mono)',
+                        padding: '3px 8px',
+                        borderRadius: '999px',
+                        background: 'rgba(245, 158, 11, 0.15)',
+                        color: '#f59e0b',
+                        fontWeight: 700,
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '5px'
+                      }}
+                    >
+                      <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#f59e0b', animation: 'radarPing 2s infinite' }}></span>
+                      CAFE HOPPER
                     </span>
                   </div>
 
-                  {/* SVG Exponential Growth Curve */}
-                  <div
-                    style={{
-                      height: '130px',
-                      background: 'rgba(5, 5, 8, 0.65)',
-                      borderRadius: '12px',
-                      border: '1px solid var(--card-border)',
-                      position: 'relative',
-                      padding: '12px',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'space-between',
-                      overflow: 'hidden'
-                    }}
-                  >
-                    <svg
-                      viewBox="0 0 300 100"
-                      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
-                      preserveAspectRatio="none"
+                  <p style={{ fontSize: '12.5px', color: 'var(--ink-body)', margin: 0, lineHeight: 1.5 }}>
+                    Pikiran tidak boleh terkurung di 4 dinding yang sama. Mencoba cafe, coworking, atau spot kerja baru setiap minggu memicu dopamin perspektif segar dan mencegah kejenuhan berpikir (*burnout*).
+                  </p>
+
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: 'auto', paddingTop: '4px' }}>
+                    <span style={{ fontSize: '10.5px', padding: '3px 8px', borderRadius: '6px', background: 'var(--surface-sunken)', color: 'var(--ink-body)' }}>☕ Cafe Hopper</span>
+                    <span style={{ fontSize: '10.5px', padding: '3px 8px', borderRadius: '6px', background: 'var(--surface-sunken)', color: 'var(--ink-body)' }}>🏙️ Coworking Hub</span>
+                    <span style={{ fontSize: '10.5px', padding: '3px 8px', borderRadius: '6px', background: 'var(--surface-sunken)', color: 'var(--ink-body)' }}>🍵 Warkop Deep Work</span>
+                    <span style={{ fontSize: '10.5px', padding: '3px 8px', borderRadius: '6px', background: 'var(--surface-sunken)', color: 'var(--ink-body)' }}>🎧 Ambient Explorer</span>
+                  </div>
+                </div>
+
+                {/* Stoikisme Dikotomi Kendali Matrix */}
+                <div
+                  className="interactive-card"
+                  style={{
+                    padding: '18px 20px',
+                    borderRadius: '16px',
+                    background: 'var(--surface-card-subtle)',
+                    border: '1px solid var(--card-border)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '10px'
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'rgba(59, 130, 246, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <Heart size={18} color="#3b82f6" />
+                    </div>
+                    <span style={{ fontSize: '14px', fontWeight: 800, color: 'var(--folio-ink)' }}>
+                      Stoikisme Seneca: Dikotomi Kendali
+                    </span>
+                  </div>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', flex: 1 }}>
+                    {/* Out of Control */}
+                    <div
+                      style={{
+                        padding: '10px 12px',
+                        borderRadius: '10px',
+                        background: 'rgba(239, 68, 68, 0.08)',
+                        border: '1px solid rgba(239, 68, 68, 0.25)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '4px'
+                      }}
                     >
-                      {/* Baseline 1.00^365 = 1.0 */}
-                      <line x1="20" y1="65" x2="280" y2="65" stroke="var(--card-border)" strokeWidth="1.5" strokeDasharray="3 3" />
-                      
-                      {/* Decay curve 0.99^365 = 0.03 */}
-                      <path d="M 20,65 Q 120,67 280,88" fill="none" stroke="#ef4444" strokeWidth="2" strokeOpacity="0.6" />
-
-                      {/* Growth curve 1.01^365 = 37.8 */}
-                      <path
-                        d="M 20,65 Q 180,60 280,12"
-                        fill="none"
-                        stroke="#10b981"
-                        strokeWidth="3.5"
-                        strokeLinecap="round"
-                        style={{ filter: 'drop-shadow(0 0 8px rgba(16, 185, 129, 0.6))' }}
-                      />
-                    </svg>
-
-                    {/* Value Labels */}
-                    <div style={{ display: 'flex', justifyContent: 'flex-end', zIndex: 1 }}>
-                      <span style={{ fontSize: '11px', fontFamily: 'var(--font-mono)', fontWeight: 800, color: '#10b981', background: 'rgba(16, 185, 129, 0.2)', padding: '2px 8px', borderRadius: '4px' }}>
-                        +3,780% KEMAJUAN (37.8x)
+                      <span style={{ fontSize: '10.5px', fontWeight: 800, color: '#ef4444', fontFamily: 'var(--font-mono)' }}>
+                        ✕ DI LUAR KENDALI
+                      </span>
+                      <span style={{ fontSize: '11px', color: 'var(--ink-muted)', lineHeight: 1.35 }}>
+                        Volatilitas market, crypto crash, down pihak ketiga, dan opini orang lain.
                       </span>
                     </div>
 
-                    <div style={{ display: 'flex', justifyContent: 'space-between', zIndex: 1, fontSize: '9.5px', fontFamily: 'var(--font-mono)', color: 'var(--ink-muted)' }}>
-                      <span>Hari ke-1 (Mulai Eksplorasi)</span>
-                      <span style={{ color: '#ef4444' }}>0.99³⁶⁵ = 0.03x</span>
-                      <span>Hari ke-365 (Lompatan Besar)</span>
+                    {/* In Control */}
+                    <div
+                      style={{
+                        padding: '10px 12px',
+                        borderRadius: '10px',
+                        background: 'rgba(16, 185, 129, 0.08)',
+                        border: '1px solid rgba(16, 185, 129, 0.25)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '4px'
+                      }}
+                    >
+                      <span style={{ fontSize: '10.5px', fontWeight: 800, color: '#10b981', fontFamily: 'var(--font-mono)' }}>
+                        ✓ 100% DI DALAM KENDALI
+                      </span>
+                      <span style={{ fontSize: '11px', color: 'var(--ink-body)', lineHeight: 1.35 }}>
+                        Jam terbang belajar, disiplin risiko, ketenangan respon mental, dan baris kode kita.
+                      </span>
                     </div>
                   </div>
-
-                  <p style={{ fontSize: '12px', color: 'var(--ink-body)', margin: 0, lineHeight: 1.45 }}>
-                    Jangan pernah meremehkan eksperimen 1 jam setiap malam. Dalam 365 hari, akumulasi belajar hal baru melahirkan lompatan eksponensial dalam hidup dan keahlian kita.
-                  </p>
                 </div>
               </div>
 
