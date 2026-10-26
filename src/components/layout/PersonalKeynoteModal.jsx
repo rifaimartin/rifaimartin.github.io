@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
   X, ChevronLeft, ChevronRight, Tv, Clock, Maximize2, Minimize2, 
-  TrendingUp, TrendingDown, ShieldAlert, AlertTriangle, CheckCircle2, 
-  Flame, RefreshCw, ZoomIn, Sparkles, Award, Cpu, BookOpen, 
-  Compass, ArrowRight, DollarSign, Activity, Percent, Code2, 
-  Terminal, Brain, Heart, Layers, Bot, Wand2, MapPin, Coffee, Rocket, Globe, Zap,
-  Users, Trophy, GraduationCap, Lightbulb, ExternalLink
+  TrendingUp, ShieldAlert, AlertTriangle, CheckCircle2, 
+  RefreshCw, ZoomIn, Sparkles, Cpu, BookOpen, 
+  Compass, Heart, Layers, Bot, Wand2, Rocket, Zap,
+  Trophy, GraduationCap, Workflow, Play, ShieldCheck, Box, Terminal, Code2
 } from 'lucide-react';
 import { soundFx } from '../../utils/audio';
 import introImg from '../../assets/images/rifaimartin-introduction.jpeg';
@@ -17,68 +16,46 @@ const CHAPTERS = [
   {
     id: 'intro-curiosity',
     number: '01',
-    badge: 'THE CURIOUS BUILDER',
+    badge: 'THE CURIOUS EXPLORER',
     title: 'Halo, Saya Rifai: Suka Mencoba & Belajar Hal Baru',
-    subtitle: 'Mengenal saya di balik terminal: bukan tentang menjadi yang terpintar, melainkan tentang rasa penasaran tak terbatas, gairah mengulik hal baru, dan dorongan untuk terus berevolusi.'
+    subtitle: 'Mengenal saya di balik terminal: bukan tentang menjadi yang terpintar, melainkan tentang rasa penasaran tak terbatas, hobi mengulik hal baru, dan dorongan tiada henti untuk berevolusi.'
   },
   {
-    id: 'curiosity-milestones',
+    id: 'crypto-rabbit-hole',
     number: '02',
-    badge: 'CURIOSITY MILESTONES',
-    title: 'Buah Rasa Ingin Tahu: Juara 1 Stacks Bitcoin & Instruktur Java Ladies',
-    subtitle: 'Ketika hobi belajar hal baru membawa hasil tak terduga: dari memenangkan kompetisi developer Bitcoin, hingga diminta jadi instruktur komunitas Java Ladies.'
-  },
-  {
-    id: 'crypto-ambition',
-    number: '03',
-    badge: 'THE GREED ILLUSION',
-    title: 'Kelinci Lubang Kripto: Dari Ingin Tahu ke Ilusi Cepat Kaya',
-    subtitle: 'Ketika rasa penasaran blockchain bergeser menjadi obsesi instan: volatilitas 24/7, ilusi cepat kaya dalam semalam, dan bahaya leverage yang mengaburkan akal sehat.'
+    badge: 'THE CRYPTO ADVENTURE',
+    title: 'Belajar Hal Baru: Terpikat Kripto hingga Terjebak Ilusi Cepat Kaya',
+    subtitle: 'Dari rasa penasaran mengulik teknologi blockchain & smart contracts, berkembang menjadi hasrat instan: volatilitas pasar 24/7 dan godaan ingin cepat kaya.'
   },
   {
     id: 'margin-call-crucible',
+    number: '03',
+    badge: 'BAD EXPERIENCE // -100M LIQUIDATION',
+    title: 'Kuliah Termahal: Bad Experience & Likuidasi Ratusan Juta (Haha!) 💸',
+    subtitle: 'Kenyataan pahit Binance Futures: bukti otentik margin call senilai -100 juta rupiah, kehancuran modal dalam semalam, dan titik balik kedewasaan mental seorang engineer.'
+  },
+  {
+    id: 'ai-agent-vibe-coding',
     number: '04',
-    badge: 'THE -100M CRUCIBLE',
-    title: 'Kuliah Termahal: Riwayat Likuidasi Binance Futures -100 Juta',
-    subtitle: 'Bukti otentik email likuidasi: Menghadapi kehancuran modal, matematika kejam drawdown, dan titik balik dari spekulan menuju risk manager yang disiplin.'
+    badge: 'THE AGENTIC SHIFT',
+    title: 'Mengenal AI Agent: LLM + Harness + Execution Tools & Vibe Coding 🤖',
+    subtitle: 'Babak baru eksplorasi: menyadari bahwa autonomous agent bukan sekadar prompt chat, melainkan sinergi antara LLM (Reasoner), Agentic Harness, dan Tool Execution.'
   },
   {
-    id: 'simulator',
+    id: 'curiosity-milestones',
     number: '05',
-    badge: 'INTERACTIVE LAB',
-    title: 'Futures & Leverage Lab: Simulasi Kalkulator Rupiah (BTC, ETH, HBAR, SOL)',
-    subtitle: 'Eksplorasi interaktif bagaimana leverage melipatgandakan profit sekaligus mempersempit batas likuidasi hingga melenyapkan modal dalam hitungan detik.'
-  },
-  {
-    id: 'vibe-coding-nemo',
-    number: '06',
-    badge: 'THE AI RENAISSANCE',
-    title: 'Jatuh Cinta pada Vibe Coding: Hingga Melahirkan Nemo 🐙',
-    subtitle: 'Dari luka pasar kembali ke gairah murni membangun: era vibe coding dengan generative AI, flow state tanpa hambatan, dan lahirnya personal AI agent Nemo.'
+    badge: 'CURIOSITY MILESTONES',
+    title: 'Buah Rasa Ingin Tahu: Juara 1 Stacks Bitcoin & Instruktur Java Ladies 🏆',
+    subtitle: 'Ketika hobi belajar hal baru membawa hasil tak terduga: dari memenangkan kompetisi developer Bitcoin, hingga diminta jadi instruktur komunitas Java Ladies.'
   },
   {
     id: 'explorer-manifesto',
-    number: '07',
+    number: '06',
     badge: 'EXPLORER & STOIC',
-    title: 'The Explorer Spirit: Tempat Baru, Stoikisme & Compounding 1%',
-    subtitle: 'Eksplorasi tempat kerja & suasana baru, kedamaian lewat dikotomi kendali Seneca, dan filosofi bertumbuh 1% setiap hari.'
+    title: 'The Explorer Spirit: Tempat Baru, Stoikisme & Compounding 1% 🌱',
+    subtitle: 'Eksplorasi tempat kerja baru setiap minggu, ketenangan lewat stoikisme Seneca, dan komitmen bertumbuh 1% setiap hari.'
   }
 ];
-
-const ASSETS = [
-  { id: 'BTC', name: 'Bitcoin', symbol: 'BTC/USDT', icon: '₿', color: '#f7931a', defaultPrice: 1500000000 },
-  { id: 'ETH', name: 'Ethereum', symbol: 'ETH/USDT', icon: 'Ξ', color: '#627eea', defaultPrice: 55000000 },
-  { id: 'HBAR', name: 'Hedera', symbol: 'HBAR/USDT', icon: 'ℏ', color: '#00a3e0', defaultPrice: 3200 },
-  { id: 'SOL', name: 'Solana', symbol: 'SOL/USDT', icon: '◎', color: '#14f195', defaultPrice: 3100000 }
-];
-
-const formatIDR = (num) => {
-  return new Intl.NumberFormat('id-ID', {
-    style: 'currency',
-    currency: 'IDR',
-    maximumFractionDigits: 0
-  }).format(num);
-};
 
 const formatTime = (seconds) => {
   const mins = Math.floor(seconds / 60);
@@ -92,13 +69,6 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [previewImage, setPreviewImage] = useState(null);
-
-  // Simulator State
-  const [selectedAsset, setSelectedAsset] = useState(ASSETS[0]);
-  const [initialMargin, setInitialMargin] = useState(10000000); // 10 Juta Rupiah
-  const [leverage, setLeverage] = useState(10); // 10x
-  const [positionType, setPositionType] = useState('LONG'); // 'LONG' | 'SHORT'
-  const [priceChangePercent, setPriceChangePercent] = useState(5); // +5%
 
   // Presenter Timer
   useEffect(() => {
@@ -232,16 +202,6 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
   const safeSlideIndex = Math.max(0, Math.min(CHAPTERS.length - 1, currentSlide));
   const activeChapter = CHAPTERS[safeSlideIndex] || CHAPTERS[0];
 
-  // Simulator Calculation Logic
-  const positionMultiplier = positionType === 'LONG' ? 1 : -1;
-  const rawRoePercent = priceChangePercent * leverage * positionMultiplier;
-  const isLiquidated = rawRoePercent <= -100;
-  const roePercent = isLiquidated ? -100 : rawRoePercent;
-  const totalPositionSize = initialMargin * leverage;
-  const pnlIDR = isLiquidated ? -initialMargin : initialMargin * (roePercent / 100);
-  const finalEquity = Math.max(0, initialMargin + pnlIDR);
-  const liquidationBufferPercent = 100 / leverage;
-
   return (
     <div
       ref={containerRef}
@@ -278,6 +238,10 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
         @keyframes pulseRed {
           0%, 100% { border-color: rgba(239, 68, 68, 0.4); box-shadow: 0 0 15px rgba(239, 68, 68, 0.2); }
           50% { border-color: rgba(239, 68, 68, 0.85); box-shadow: 0 0 30px rgba(239, 68, 68, 0.45); }
+        }
+        @keyframes pulsePurple {
+          0%, 100% { border-color: rgba(139, 92, 246, 0.4); box-shadow: 0 0 15px rgba(139, 92, 246, 0.15); }
+          50% { border-color: rgba(139, 92, 246, 0.8); box-shadow: 0 0 25px rgba(139, 92, 246, 0.35); }
         }
         .interactive-card {
           transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, border-color 0.2s ease;
@@ -671,8 +635,483 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
             </div>
           )}
 
-          {/* SLIDE 1: Buah Rasa Ingin Tahu: Juara 1 Stacks Bitcoin & Instruktur Java Ladies */}
+          {/* SLIDE 1 (Chapter 02): Belajar Hal Baru: Terpikat Kripto hingga Terjebak Ilusi Cepat Kaya */}
           {safeSlideIndex === 1 && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+              {/* Visual 4-Stage Mindset Trap */}
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+                  gap: '12px'
+                }}
+              >
+                {/* Step 1 */}
+                <div
+                  className="interactive-card"
+                  style={{
+                    padding: '16px',
+                    borderRadius: '16px',
+                    background: 'var(--surface-card-subtle)',
+                    border: '1px solid var(--card-border)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '8px'
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <span style={{ fontSize: '11px', fontFamily: 'var(--font-mono)', color: '#3b82f6', fontWeight: 700 }}>STAGE 01</span>
+                    <span style={{ fontSize: '16px' }}>🌱</span>
+                  </div>
+                  <div style={{ fontSize: '14px', fontWeight: 800, color: 'var(--folio-ink)' }}>Curiosity & Web3</div>
+                  <p style={{ fontSize: '12px', color: 'var(--ink-muted)', margin: 0, lineHeight: 1.4 }}>
+                    Berawal dari hobi belajar hal baru: mengulik smart contracts, desentralisasi, dan potensi masa depan blockchain.
+                  </p>
+                </div>
+
+                {/* Step 2 */}
+                <div
+                  className="interactive-card"
+                  style={{
+                    padding: '16px',
+                    borderRadius: '16px',
+                    background: 'var(--surface-card-subtle)',
+                    border: '1px solid var(--card-border)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '8px'
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <span style={{ fontSize: '11px', fontFamily: 'var(--font-mono)', color: '#10b981', fontWeight: 700 }}>STAGE 02</span>
+                    <span style={{ fontSize: '16px' }}>🤑</span>
+                  </div>
+                  <div style={{ fontSize: '14px', fontWeight: 800, color: 'var(--folio-ink)' }}>First Euphoria</div>
+                  <p style={{ fontSize: '12px', color: 'var(--ink-muted)', margin: 0, lineHeight: 1.4 }}>
+                    Merasakan profit cepat beberapa kali lipat. Otak mulai meyakini: <em>"Ternyata cari uang di market itu mudah dan seru!"</em>
+                  </p>
+                </div>
+
+                {/* Step 3 */}
+                <div
+                  className="interactive-card"
+                  style={{
+                    padding: '16px',
+                    borderRadius: '16px',
+                    background: 'var(--surface-card-subtle)',
+                    border: '1px solid rgba(245, 158, 11, 0.4)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '8px'
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <span style={{ fontSize: '11px', fontFamily: 'var(--font-mono)', color: '#f59e0b', fontWeight: 700 }}>STAGE 03</span>
+                    <span style={{ fontSize: '16px' }}>🎰</span>
+                  </div>
+                  <div style={{ fontSize: '14px', fontWeight: 800, color: '#f59e0b' }}>Ilusi Ingin Cepat Kaya</div>
+                  <p style={{ fontSize: '12px', color: 'var(--ink-muted)', margin: 0, lineHeight: 1.4 }}>
+                    Rasa penasaran bergeser menjadi obsesi cepat kaya. Masuk ke Binance Futures dengan posisi leverage 20x hingga 50x.
+                  </p>
+                </div>
+
+                {/* Step 4 */}
+                <div
+                  className="interactive-card"
+                  style={{
+                    padding: '16px',
+                    borderRadius: '16px',
+                    background: 'rgba(239, 68, 68, 0.08)',
+                    border: '1.5px solid rgba(239, 68, 68, 0.4)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '8px',
+                    animation: 'pulseRed 4s infinite ease-in-out'
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <span style={{ fontSize: '11px', fontFamily: 'var(--font-mono)', color: '#ef4444', fontWeight: 700 }}>STAGE 04</span>
+                    <span style={{ fontSize: '16px' }}>💥</span>
+                  </div>
+                  <div style={{ fontSize: '14px', fontWeight: 800, color: '#ef4444' }}>The Margin Call</div>
+                  <p style={{ fontSize: '12px', color: 'var(--ink-muted)', margin: 0, lineHeight: 1.4 }}>
+                    Satu sumbu candle berlawanan arah. Saldo margin terhapus bersih dalam hitungan detik.
+                  </p>
+                </div>
+              </div>
+
+              {/* Takeaway Insight Banner */}
+              <div
+                style={{
+                  padding: '16px 20px',
+                  borderRadius: '16px',
+                  background: 'var(--surface-card-subtle)',
+                  border: '1px solid var(--card-border)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '14px'
+                }}
+              >
+                <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'rgba(245, 158, 11, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <AlertTriangle size={20} color="#f59e0b" />
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
+                  <span style={{ fontSize: '13.5px', fontWeight: 800, color: 'var(--folio-ink)' }}>
+                    Pelajaran Psikologis: Ilusi Superioritas Trader Pemula
+                  </span>
+                  <span style={{ fontSize: '12px', color: 'var(--ink-body)', lineHeight: 1.4 }}>
+                    Market selalu memberikan keuntungan di awal untuk membuat kita merasa jenius, sebelum akhirnya mengambil semuanya ketika kita menaikkan taruhan karena rasa serakah ingin cepat kaya.
+                  </span>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* SLIDE 2 (Chapter 03): Kuliah Termahal: Bad Experience & Likuidasi Ratusan Juta (Haha!) */}
+          {safeSlideIndex === 2 && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                  gap: '18px',
+                  alignItems: 'stretch'
+                }}
+              >
+                {/* Left: Authentic Evidence Image */}
+                <div
+                  className="interactive-card"
+                  style={{
+                    borderRadius: '18px',
+                    overflow: 'hidden',
+                    background: 'var(--surface-card-subtle)',
+                    border: '1.5px solid rgba(239, 68, 68, 0.45)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    animation: 'pulseRed 4s infinite ease-in-out'
+                  }}
+                >
+                  <div
+                    style={{
+                      position: 'relative',
+                      width: '100%',
+                      aspectRatio: '16/10',
+                      overflow: 'hidden',
+                      cursor: 'zoom-in',
+                      background: '#090d16',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                    onClick={() => setPreviewImage(marginCallImg || './margin-call-history.png')}
+                    title="Klik untuk melihat bukti otentik email likuidasi"
+                  >
+                    <img
+                      src={marginCallImg || './margin-call-history.png'}
+                      onError={(e) => {
+                        if (e.currentTarget.src.indexOf('/assets/') === -1) {
+                          e.currentTarget.src = './assets/margin-call-history.png';
+                        }
+                      }}
+                      alt="Bukti Otentik Riwayat Likuidasi Margin Call Binance"
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        objectPosition: 'top'
+                      }}
+                    />
+                    <div
+                      style={{
+                        position: 'absolute',
+                        top: '12px',
+                        left: '12px',
+                        background: 'rgba(239, 68, 68, 0.9)',
+                        color: '#ffffff',
+                        padding: '4px 10px',
+                        borderRadius: '6px',
+                        fontSize: '11px',
+                        fontWeight: 800,
+                        fontFamily: 'var(--font-mono)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '5px'
+                      }}
+                    >
+                      <ShieldAlert size={13} />
+                      <span>BUKTI OTENTIK (REAL EVIDENCE)</span>
+                    </div>
+
+                    <div
+                      style={{
+                        position: 'absolute',
+                        bottom: '10px',
+                        right: '12px',
+                        background: 'rgba(0, 0, 0, 0.75)',
+                        backdropFilter: 'blur(8px)',
+                        color: '#ffffff',
+                        padding: '4px 10px',
+                        borderRadius: '6px',
+                        fontSize: '11px',
+                        fontFamily: 'var(--font-mono)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '5px'
+                      }}
+                    >
+                      <ZoomIn size={12} color="#ef4444" />
+                      <span>Zoom Bukti</span>
+                    </div>
+                  </div>
+
+                  <div style={{ padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                    <span style={{ fontSize: '13px', fontWeight: 800, color: '#ef4444' }}>
+                      Binance Futures Liquidation Call Notification
+                    </span>
+                    <span style={{ fontSize: '11.5px', color: 'var(--ink-muted)' }}>
+                      Total kerugian kumulatif menembus angka <strong>-100 Juta Rupiah</strong> (Haha!).
+                    </span>
+                  </div>
+                </div>
+
+                {/* Right: 3 Visual Takeaways */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  <div
+                    className="interactive-card"
+                    style={{
+                      padding: '14px 16px',
+                      borderRadius: '14px',
+                      background: 'var(--surface-card-subtle)',
+                      border: '1px solid var(--card-border)',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '4px'
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span style={{ fontSize: '13px', fontWeight: 800, color: '#f59e0b' }}>
+                        1. Matematika Kejam Drawdown
+                      </span>
+                    </div>
+                    <span style={{ fontSize: '12px', color: 'var(--ink-body)', lineHeight: 1.4 }}>
+                      Rugi 50% butuh profit 100% hanya untuk kembali impas. Rugi 90% butuh profit 900%. Sekali terkena likuidasi total (100%), modal menjadi nol selamanya.
+                    </span>
+                  </div>
+
+                  <div
+                    className="interactive-card"
+                    style={{
+                      padding: '14px 16px',
+                      borderRadius: '14px',
+                      background: 'var(--surface-card-subtle)',
+                      border: '1px solid var(--card-border)',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '4px'
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span style={{ fontSize: '13px', fontWeight: 800, color: '#ef4444' }}>
+                        2. Leverage Mengamplifikasi Ego, Bukan Skill
+                      </span>
+                    </div>
+                    <span style={{ fontSize: '12px', color: 'var(--ink-body)', lineHeight: 1.4 }}>
+                      Leverage tinggi tidak pernah membuat seorang trader lebih pintar; ia hanya mempercepat datangnya kehancuran saat ego menolak memotong kerugian (cut loss).
+                    </span>
+                  </div>
+
+                  <div
+                    className="interactive-card"
+                    style={{
+                      padding: '14px 16px',
+                      borderRadius: '14px',
+                      background: 'var(--surface-card-subtle)',
+                      border: '1px solid var(--card-border)',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '4px'
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span style={{ fontSize: '13px', fontWeight: 800, color: '#10b981' }}>
+                        3. Titik Balik Menuju Risk Manager
+                      </span>
+                    </div>
+                    <span style={{ fontSize: '12px', color: 'var(--ink-body)', lineHeight: 1.4 }}>
+                      Dari spekulan ceroboh menjadi praktisi yang menaruh <strong>manajemen risiko di atas segalanya</strong>. Pelajaran ini terbawa langsung ke cara saya merancang arsitektur sistem backend hari ini.
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* SLIDE 3 (Chapter 04): Mengenal AI Agent: LLM + Harness + Execution Tools & Vibe Coding */}
+          {safeSlideIndex === 3 && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+              {/* Equation Banner */}
+              <div
+                style={{
+                  padding: '16px 20px',
+                  borderRadius: '16px',
+                  background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(139, 92, 246, 0.15))',
+                  border: '1px solid rgba(139, 92, 246, 0.35)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '8px'
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <Cpu size={16} color="#8b5cf6" />
+                  <span style={{ fontSize: '11px', fontFamily: 'var(--font-mono)', color: '#8b5cf6', fontWeight: 800, letterSpacing: '0.8px' }}>
+                    THE REAL AGENTIC FORMULA
+                  </span>
+                </div>
+                <div
+                  style={{
+                    fontSize: '15px',
+                    fontWeight: 800,
+                    color: 'var(--folio-ink)',
+                    fontFamily: 'var(--font-mono)',
+                    lineHeight: 1.4,
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    alignItems: 'center',
+                    gap: '6px'
+                  }}
+                >
+                  <span style={{ color: '#3b82f6', background: 'rgba(59, 130, 246, 0.15)', padding: '2px 8px', borderRadius: '6px' }}>LLM (Reasoner)</span>
+                  <span>+</span>
+                  <span style={{ color: '#8b5cf6', background: 'rgba(139, 92, 246, 0.15)', padding: '2px 8px', borderRadius: '6px' }}>Harness (Context & Loop)</span>
+                  <span>+</span>
+                  <span style={{ color: '#10b981', background: 'rgba(16, 185, 129, 0.15)', padding: '2px 8px', borderRadius: '6px' }}>Execution Tools (CLI / APIs)</span>
+                  <span>=</span>
+                  <span style={{ color: '#f59e0b', background: 'rgba(245, 158, 11, 0.15)', padding: '2px 8px', borderRadius: '6px' }}>Autonomous Agent</span>
+                </div>
+                <span style={{ fontSize: '12px', color: 'var(--ink-muted)' }}>
+                  AI Agent bukan sekadar text prompt satu arah. Agent adalah sistem otonom berlapis yang berpikir, mengambil keputusan, dan mengeksekusi aksi nyata di komputer.
+                </span>
+              </div>
+
+              {/* 3 Pillars of AI Agent Architecture */}
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                  gap: '16px'
+                }}
+              >
+                {/* Pillar 1: LLM */}
+                <div
+                  className="interactive-card"
+                  style={{
+                    padding: '16px',
+                    borderRadius: '16px',
+                    background: 'var(--surface-card-subtle)',
+                    border: '1px solid var(--card-border)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '8px'
+                  }}
+                >
+                  <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'rgba(59, 130, 246, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Bot size={18} color="#3b82f6" />
+                  </div>
+                  <span style={{ fontSize: '14px', fontWeight: 800, color: 'var(--folio-ink)' }}>
+                    1. The LLM (Cognitive Brain)
+                  </span>
+                  <p style={{ fontSize: '12px', color: 'var(--ink-muted)', margin: 0, lineHeight: 1.45 }}>
+                    Sebagai mesin penalaran (reasoner) tingkat tinggi. Menganalisis masalah rumit, menyusun rencana langkah demi langkah, dan mengevaluasi hasil tanpa langsung terjebak eksekusi mentah.
+                  </p>
+                  <div style={{ marginTop: 'auto', paddingTop: '6px', display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                    <span style={{ fontSize: '10.5px', padding: '2px 7px', borderRadius: '4px', background: 'var(--surface-sunken)', color: '#3b82f6', fontWeight: 600 }}>Reasoning</span>
+                    <span style={{ fontSize: '10.5px', padding: '2px 7px', borderRadius: '4px', background: 'var(--surface-sunken)', color: 'var(--ink-body)' }}>Planning</span>
+                    <span style={{ fontSize: '10.5px', padding: '2px 7px', borderRadius: '4px', background: 'var(--surface-sunken)', color: 'var(--ink-body)' }}>Reflection</span>
+                  </div>
+                </div>
+
+                {/* Pillar 2: Harness */}
+                <div
+                  className="interactive-card"
+                  style={{
+                    padding: '16px',
+                    borderRadius: '16px',
+                    background: 'var(--surface-card-subtle)',
+                    border: '1px solid rgba(139, 92, 246, 0.4)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '8px',
+                    animation: 'pulsePurple 5s infinite ease-in-out'
+                  }}
+                >
+                  <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'rgba(139, 92, 246, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Layers size={18} color="#8b5cf6" />
+                  </div>
+                  <span style={{ fontSize: '14px', fontWeight: 800, color: '#8b5cf6' }}>
+                    2. The Harness (Middleware & Loop)
+                  </span>
+                  <p style={{ fontSize: '12px', color: 'var(--ink-muted)', margin: 0, lineHeight: 1.45 }}>
+                    Jantung dari sistem agentic: mengelola siklus putaran (Plan ➔ Act ➔ Observe ➔ Adjust), context window, persistent state, guardrails keamanan, serta orchestrasi memori antar task.
+                  </p>
+                  <div style={{ marginTop: 'auto', paddingTop: '6px', display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                    <span style={{ fontSize: '10.5px', padding: '2px 7px', borderRadius: '4px', background: 'rgba(139, 92, 246, 0.15)', color: '#8b5cf6', fontWeight: 600 }}>State Machine Loop</span>
+                    <span style={{ fontSize: '10.5px', padding: '2px 7px', borderRadius: '4px', background: 'var(--surface-sunken)', color: 'var(--ink-body)' }}>Context Engine</span>
+                    <span style={{ fontSize: '10.5px', padding: '2px 7px', borderRadius: '4px', background: 'var(--surface-sunken)', color: 'var(--ink-body)' }}>Guardrails</span>
+                  </div>
+                </div>
+
+                {/* Pillar 3: Execution Tools & Vibe Coding */}
+                <div
+                  className="interactive-card"
+                  style={{
+                    padding: '16px',
+                    borderRadius: '16px',
+                    background: 'var(--surface-card-subtle)',
+                    border: '1px solid var(--card-border)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '8px'
+                  }}
+                >
+                  <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'rgba(16, 185, 129, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Terminal size={18} color="#10b981" />
+                  </div>
+                  <span style={{ fontSize: '14px', fontWeight: 800, color: 'var(--folio-ink)' }}>
+                    3. Execution Tools & Vibe Coding
+                  </span>
+                  <p style={{ fontSize: '12px', color: 'var(--ink-muted)', margin: 0, lineHeight: 1.45 }}>
+                    Tangan & mata sang agent di dunia nyata: eksekusi shell, compile test, manipulasi file, dan API calls. Ini melahirkan era <strong>Vibe Coding</strong> & lahirnya <strong>Project Nemo 🐙</strong>.
+                  </p>
+                  <div style={{ marginTop: 'auto', paddingTop: '6px', display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                    <span style={{ fontSize: '10.5px', padding: '2px 7px', borderRadius: '4px', background: 'rgba(16, 185, 129, 0.15)', color: '#10b981', fontWeight: 600 }}>Vibe Coding</span>
+                    <span style={{ fontSize: '10.5px', padding: '2px 7px', borderRadius: '4px', background: 'var(--surface-sunken)', color: 'var(--ink-body)' }}>Shell & FS Tools</span>
+                    <span style={{ fontSize: '10.5px', padding: '2px 7px', borderRadius: '4px', background: 'var(--surface-sunken)', color: 'var(--ink-body)' }}>Project Nemo 🐙</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Vibe Coding Insight Card */}
+              <div
+                style={{
+                  padding: '14px 20px',
+                  borderRadius: '14px',
+                  background: 'rgba(245, 158, 11, 0.08)',
+                  border: '1px dashed rgba(245, 158, 11, 0.4)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '12px'
+                }}
+              >
+                <Sparkles size={20} color="#f59e0b" style={{ flexShrink: 0 }} />
+                <span style={{ fontSize: '12.5px', color: 'var(--ink-body)', fontStyle: 'italic' }}>
+                  "Vibe coding bersama autonomous agent mengubah peran engineer: kita berfokus pada arsitektur, boundary, dan visi produk, sementara harness dan execution tools mengeksekusi implementasi secara presisi."
+                </span>
+              </div>
+            </div>
+          )}
+
+          {/* SLIDE 4 (Chapter 05): Buah Rasa Ingin Tahu: Juara 1 Stacks Bitcoin & Instruktur Java Ladies */}
+          {safeSlideIndex === 4 && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
               <div
                 style={{
@@ -892,642 +1331,8 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
             </div>
           )}
 
-          {/* SLIDE 2: Kelinci Lubang Kripto: Dari Ingin Tahu ke Ilusi Cepat Kaya */}
-          {safeSlideIndex === 2 && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
-              {/* Visual 4-Stage Mindset Trap */}
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-                  gap: '12px'
-                }}
-              >
-                {/* Step 1 */}
-                <div
-                  className="interactive-card"
-                  style={{
-                    padding: '16px',
-                    borderRadius: '16px',
-                    background: 'var(--surface-card-subtle)',
-                    border: '1px solid var(--card-border)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '8px'
-                  }}
-                >
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <span style={{ fontSize: '11px', fontFamily: 'var(--font-mono)', color: '#3b82f6', fontWeight: 700 }}>STAGE 01</span>
-                    <span style={{ fontSize: '16px' }}>🌱</span>
-                  </div>
-                  <div style={{ fontSize: '14px', fontWeight: 800, color: 'var(--folio-ink)' }}>Curiosity & Web3</div>
-                  <p style={{ fontSize: '12px', color: 'var(--ink-muted)', margin: 0, lineHeight: 1.4 }}>
-                    Mulai dari eksplorasi smart contract, desentralisasi, dan teknologi blockchain yang revolusioner.
-                  </p>
-                </div>
-
-                {/* Step 2 */}
-                <div
-                  className="interactive-card"
-                  style={{
-                    padding: '16px',
-                    borderRadius: '16px',
-                    background: 'var(--surface-card-subtle)',
-                    border: '1px solid var(--card-border)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '8px'
-                  }}
-                >
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <span style={{ fontSize: '11px', fontFamily: 'var(--font-mono)', color: '#10b981', fontWeight: 700 }}>STAGE 02</span>
-                    <span style={{ fontSize: '16px' }}>🤑</span>
-                  </div>
-                  <div style={{ fontSize: '14px', fontWeight: 800, color: 'var(--folio-ink)' }}>First Euphoria</div>
-                  <p style={{ fontSize: '12px', color: 'var(--ink-muted)', margin: 0, lineHeight: 1.4 }}>
-                    Merasakan profit cepat 2x lipat. Otak mulai meyakini: <em>"Ternyata cari uang di market itu mudah!"</em>
-                  </p>
-                </div>
-
-                {/* Step 3 */}
-                <div
-                  className="interactive-card"
-                  style={{
-                    padding: '16px',
-                    borderRadius: '16px',
-                    background: 'var(--surface-card-subtle)',
-                    border: '1px solid rgba(245, 158, 11, 0.4)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '8px'
-                  }}
-                >
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <span style={{ fontSize: '11px', fontFamily: 'var(--font-mono)', color: '#f59e0b', fontWeight: 700 }}>STAGE 03</span>
-                    <span style={{ fontSize: '16px' }}>🎰</span>
-                  </div>
-                  <div style={{ fontSize: '14px', fontWeight: 800, color: '#f59e0b' }}>The Greed Trap</div>
-                  <p style={{ fontSize: '12px', color: 'var(--ink-muted)', margin: 0, lineHeight: 1.4 }}>
-                    Keinginan cepat kaya mendominasi. Mulai membuka posisi Futures dengan leverage 20x hingga 50x.
-                  </p>
-                </div>
-
-                {/* Step 4 */}
-                <div
-                  className="interactive-card"
-                  style={{
-                    padding: '16px',
-                    borderRadius: '16px',
-                    background: 'rgba(239, 68, 68, 0.08)',
-                    border: '1.5px solid rgba(239, 68, 68, 0.4)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '8px',
-                    animation: 'pulseRed 4s infinite ease-in-out'
-                  }}
-                >
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <span style={{ fontSize: '11px', fontFamily: 'var(--font-mono)', color: '#ef4444', fontWeight: 700 }}>STAGE 04</span>
-                    <span style={{ fontSize: '16px' }}>💥</span>
-                  </div>
-                  <div style={{ fontSize: '14px', fontWeight: 800, color: '#ef4444' }}>The Margin Call</div>
-                  <p style={{ fontSize: '12px', color: 'var(--ink-muted)', margin: 0, lineHeight: 1.4 }}>
-                    Satu sumbu candle berlawanan arah. Saldo margin terhapus bersih dalam hitungan detik.
-                  </p>
-                </div>
-              </div>
-
-              {/* Takeaway Insight Banner */}
-              <div
-                style={{
-                  padding: '16px 20px',
-                  borderRadius: '16px',
-                  background: 'var(--surface-card-subtle)',
-                  border: '1px solid var(--card-border)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '14px'
-                }}
-              >
-                <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'rgba(245, 158, 11, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                  <AlertTriangle size={20} color="#f59e0b" />
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
-                  <span style={{ fontSize: '13.5px', fontWeight: 800, color: 'var(--folio-ink)' }}>
-                    Pelajaran Psikologis: Ilusi Superioritas Trader Pemula
-                  </span>
-                  <span style={{ fontSize: '12px', color: 'var(--ink-body)', lineHeight: 1.4 }}>
-                    Market selalu memberikan keuntungan di awal untuk membuat kita merasa jenius, sebelum akhirnya mengambil semuanya ketika kita menaikkan taruhan karena rasa serakah.
-                  </span>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* SLIDE 3: Kuliah Termahal: Riwayat Likuidasi Binance Futures -100 Juta */}
-          {safeSlideIndex === 3 && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                  gap: '18px',
-                  alignItems: 'stretch'
-                }}
-              >
-                {/* Left: Authentic Evidence Image */}
-                <div
-                  className="interactive-card"
-                  style={{
-                    borderRadius: '18px',
-                    overflow: 'hidden',
-                    background: 'var(--surface-card-subtle)',
-                    border: '1.5px solid rgba(239, 68, 68, 0.45)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    animation: 'pulseRed 4s infinite ease-in-out'
-                  }}
-                >
-                  <div
-                    style={{
-                      position: 'relative',
-                      width: '100%',
-                      aspectRatio: '16/10',
-                      overflow: 'hidden',
-                      cursor: 'zoom-in',
-                      background: '#090d16',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center'
-                    }}
-                    onClick={() => setPreviewImage(marginCallImg || './margin-call-history.png')}
-                    title="Klik untuk melihat bukti otentik email likuidasi"
-                  >
-                    <img
-                      src={marginCallImg || './margin-call-history.png'}
-                      onError={(e) => {
-                        if (e.currentTarget.src.indexOf('/assets/') === -1) {
-                          e.currentTarget.src = './assets/margin-call-history.png';
-                        }
-                      }}
-                      alt="Bukti Otentik Riwayat Likuidasi Margin Call Binance"
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                        objectPosition: 'top'
-                      }}
-                    />
-                    <div
-                      style={{
-                        position: 'absolute',
-                        top: '12px',
-                        left: '12px',
-                        background: 'rgba(239, 68, 68, 0.9)',
-                        color: '#ffffff',
-                        padding: '4px 10px',
-                        borderRadius: '6px',
-                        fontSize: '11px',
-                        fontWeight: 800,
-                        fontFamily: 'var(--font-mono)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '5px'
-                      }}
-                    >
-                      <ShieldAlert size={13} />
-                      <span>BUKTI OTENTIK (REAL EVIDENCE)</span>
-                    </div>
-
-                    <div
-                      style={{
-                        position: 'absolute',
-                        bottom: '10px',
-                        right: '12px',
-                        background: 'rgba(0, 0, 0, 0.75)',
-                        backdropFilter: 'blur(8px)',
-                        color: '#ffffff',
-                        padding: '4px 10px',
-                        borderRadius: '6px',
-                        fontSize: '11px',
-                        fontFamily: 'var(--font-mono)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '5px'
-                      }}
-                    >
-                      <ZoomIn size={12} color="#ef4444" />
-                      <span>Zoom Bukti</span>
-                    </div>
-                  </div>
-
-                  <div style={{ padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                    <span style={{ fontSize: '13px', fontWeight: 800, color: '#ef4444' }}>
-                      Binance Futures Liquidation Call Notification
-                    </span>
-                    <span style={{ fontSize: '11.5px', color: 'var(--ink-muted)' }}>
-                      Total kerugian kumulatif menembus angka <strong>-100 Juta Rupiah</strong>.
-                    </span>
-                  </div>
-                </div>
-
-                {/* Right: 3 Visual Takeaways */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                  <div
-                    className="interactive-card"
-                    style={{
-                      padding: '14px 16px',
-                      borderRadius: '14px',
-                      background: 'var(--surface-card-subtle)',
-                      border: '1px solid var(--card-border)',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '4px'
-                    }}
-                  >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <span style={{ fontSize: '13px', fontWeight: 800, color: '#f59e0b' }}>
-                        1. Matematika Kejam Drawdown
-                      </span>
-                    </div>
-                    <span style={{ fontSize: '12px', color: 'var(--ink-body)', lineHeight: 1.4 }}>
-                      Rugi 50% butuh profit 100% hanya untuk kembali impas. Rugi 90% butuh profit 900%. Sekali terkena likuidasi total (100%), modal menjadi nol selamanya.
-                    </span>
-                  </div>
-
-                  <div
-                    className="interactive-card"
-                    style={{
-                      padding: '14px 16px',
-                      borderRadius: '14px',
-                      background: 'var(--surface-card-subtle)',
-                      border: '1px solid var(--card-border)',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '4px'
-                    }}
-                  >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <span style={{ fontSize: '13px', fontWeight: 800, color: '#ef4444' }}>
-                        2. Leverage Mengamplifikasi Ego, Bukan Skill
-                      </span>
-                    </div>
-                    <span style={{ fontSize: '12px', color: 'var(--ink-body)', lineHeight: 1.4 }}>
-                      Leverage tinggi tidak pernah membuat seorang trader lebih pintar; ia hanya mempercepat datangnya kehancuran saat ego menolak memotong kerugian (cut loss).
-                    </span>
-                  </div>
-
-                  <div
-                    className="interactive-card"
-                    style={{
-                      padding: '14px 16px',
-                      borderRadius: '14px',
-                      background: 'var(--surface-card-subtle)',
-                      border: '1px solid var(--card-border)',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '4px'
-                    }}
-                  >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <span style={{ fontSize: '13px', fontWeight: 800, color: '#10b981' }}>
-                        3. Titik Balik Menuju Risk Manager
-                      </span>
-                    </div>
-                    <span style={{ fontSize: '12px', color: 'var(--ink-body)', lineHeight: 1.4 }}>
-                      Dari spekulan ceroboh menjadi praktisi yang menaruh <strong>manajemen risiko di atas segalanya</strong>. Pelajaran ini terbawa ke cara saya merancang arsitektur sistem backend hari ini.
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* SLIDE 4: Futures & Leverage Lab: Simulasi Kalkulator Rupiah */}
-          {safeSlideIndex === 4 && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
-              {/* Asset Selector Chips */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-                <span style={{ fontSize: '12px', fontFamily: 'var(--font-mono)', color: 'var(--ink-muted)', marginRight: '4px' }}>
-                  PILIH ASET:
-                </span>
-                {ASSETS.map((asset) => (
-                  <button
-                    key={asset.id}
-                    onClick={() => {
-                      soundFx.playCardClick();
-                      setSelectedAsset(asset);
-                    }}
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '6px',
-                      padding: '5px 12px',
-                      borderRadius: '8px',
-                      background: selectedAsset.id === asset.id ? 'var(--surface-sunken)' : 'transparent',
-                      border: selectedAsset.id === asset.id ? `1.5px solid ${asset.color}` : '1px solid var(--card-border)',
-                      color: selectedAsset.id === asset.id ? asset.color : 'var(--ink-body)',
-                      fontWeight: selectedAsset.id === asset.id ? 700 : 500,
-                      fontSize: '12px',
-                      cursor: 'pointer',
-                      transition: 'all 0.15s ease'
-                    }}
-                  >
-                    <span>{asset.icon}</span>
-                    <span>{asset.name}</span>
-                  </button>
-                ))}
-              </div>
-
-              {/* Simulator Grid */}
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                  gap: '18px'
-                }}
-              >
-                {/* Control Panel */}
-                <div
-                  style={{
-                    padding: '16px',
-                    borderRadius: '16px',
-                    background: 'var(--surface-card-subtle)',
-                    border: '1px solid var(--card-border)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '14px'
-                  }}
-                >
-                  <span style={{ fontSize: '13px', fontWeight: 800, color: 'var(--folio-ink)' }}>
-                    Parameter Posisi Futures
-                  </span>
-
-                  {/* Margin Input */}
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11.5px' }}>
-                      <span style={{ color: 'var(--ink-muted)' }}>Modal Margin Awal:</span>
-                      <span style={{ fontWeight: 700, color: '#f59e0b', fontFamily: 'var(--font-mono)' }}>{formatIDR(initialMargin)}</span>
-                    </div>
-                    <input
-                      type="range"
-                      min="1000000"
-                      max="50000000"
-                      step="1000000"
-                      value={initialMargin}
-                      onChange={(e) => setInitialMargin(Number(e.target.value))}
-                      style={{ width: '100%', accentColor: '#f59e0b', cursor: 'pointer' }}
-                    />
-                  </div>
-
-                  {/* Leverage Input */}
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11.5px' }}>
-                      <span style={{ color: 'var(--ink-muted)' }}>Leverage Pengali:</span>
-                      <span style={{ fontWeight: 800, color: leverage > 20 ? '#ef4444' : '#f59e0b', fontFamily: 'var(--font-mono)' }}>{leverage}x</span>
-                    </div>
-                    <input
-                      type="range"
-                      min="1"
-                      max="50"
-                      step="1"
-                      value={leverage}
-                      onChange={(e) => setLeverage(Number(e.target.value))}
-                      style={{ width: '100%', accentColor: leverage > 20 ? '#ef4444' : '#f59e0b', cursor: 'pointer' }}
-                    />
-                  </div>
-
-                  {/* Position Type Selector */}
-                  <div style={{ display: 'flex', gap: '8px' }}>
-                    <button
-                      onClick={() => { soundFx.playCardClick(); setPositionType('LONG'); }}
-                      style={{
-                        flex: 1,
-                        padding: '8px',
-                        borderRadius: '8px',
-                        background: positionType === 'LONG' ? 'rgba(16, 185, 129, 0.2)' : 'var(--surface-sunken)',
-                        border: positionType === 'LONG' ? '1.5px solid #10b981' : '1px solid var(--card-border)',
-                        color: positionType === 'LONG' ? '#10b981' : 'var(--ink-muted)',
-                        fontWeight: 700,
-                        fontSize: '12px',
-                        cursor: 'pointer'
-                      }}
-                    >
-                      🟢 LONG (Beli / Bullish)
-                    </button>
-                    <button
-                      onClick={() => { soundFx.playCardClick(); setPositionType('SHORT'); }}
-                      style={{
-                        flex: 1,
-                        padding: '8px',
-                        borderRadius: '8px',
-                        background: positionType === 'SHORT' ? 'rgba(239, 68, 68, 0.2)' : 'var(--surface-sunken)',
-                        border: positionType === 'SHORT' ? '1.5px solid #ef4444' : '1px solid var(--card-border)',
-                        color: positionType === 'SHORT' ? '#ef4444' : 'var(--ink-muted)',
-                        fontWeight: 700,
-                        fontSize: '12px',
-                        cursor: 'pointer'
-                      }}
-                    >
-                      🔴 SHORT (Jual / Bearish)
-                    </button>
-                  </div>
-
-                  {/* Price Move Slider */}
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11.5px' }}>
-                      <span style={{ color: 'var(--ink-muted)' }}>Pergerakan Harga Pasar:</span>
-                      <span style={{ fontWeight: 800, color: priceChangePercent >= 0 ? '#10b981' : '#ef4444', fontFamily: 'var(--font-mono)' }}>
-                        {priceChangePercent >= 0 ? `+${priceChangePercent}%` : `${priceChangePercent}%`}
-                      </span>
-                    </div>
-                    <input
-                      type="range"
-                      min="-20"
-                      max="20"
-                      step="0.5"
-                      value={priceChangePercent}
-                      onChange={(e) => setPriceChangePercent(Number(e.target.value))}
-                      style={{ width: '100%', accentColor: priceChangePercent >= 0 ? '#10b981' : '#ef4444', cursor: 'pointer' }}
-                    />
-                  </div>
-                </div>
-
-                {/* Calculation Output Card */}
-                <div
-                  style={{
-                    padding: '16px',
-                    borderRadius: '16px',
-                    background: isLiquidated ? 'rgba(239, 68, 68, 0.08)' : 'var(--surface-card-subtle)',
-                    border: isLiquidated ? '1.5px solid rgba(239, 68, 68, 0.6)' : '1px solid var(--card-border)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    gap: '12px'
-                  }}
-                >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: '13px', fontWeight: 800, color: 'var(--folio-ink)' }}>
-                      Hasil Simulasi PnL (Rupiah)
-                    </span>
-                    {isLiquidated && (
-                      <span style={{ fontSize: '11px', fontWeight: 800, padding: '3px 8px', borderRadius: '4px', background: '#ef4444', color: '#fff' }}>
-                        💥 TERLIKUIDASI (-100%)
-                      </span>
-                    )}
-                  </div>
-
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-                    <div style={{ padding: '10px', borderRadius: '10px', background: 'var(--surface-sunken)' }}>
-                      <span style={{ fontSize: '11px', color: 'var(--ink-muted)' }}>Ukuran Posisi:</span>
-                      <div style={{ fontSize: '14px', fontWeight: 800, color: 'var(--folio-ink)', fontFamily: 'var(--font-mono)' }}>
-                        {formatIDR(totalPositionSize)}
-                      </div>
-                    </div>
-
-                    <div style={{ padding: '10px', borderRadius: '10px', background: 'var(--surface-sunken)' }}>
-                      <span style={{ fontSize: '11px', color: 'var(--ink-muted)' }}>ROE (% Profit/Loss):</span>
-                      <div style={{ fontSize: '14px', fontWeight: 800, color: roePercent >= 0 ? '#10b981' : '#ef4444', fontFamily: 'var(--font-mono)' }}>
-                        {roePercent >= 0 ? `+${roePercent.toFixed(1)}%` : `${roePercent.toFixed(1)}%`}
-                      </div>
-                    </div>
-
-                    <div style={{ padding: '10px', borderRadius: '10px', background: 'var(--surface-sunken)' }}>
-                      <span style={{ fontSize: '11px', color: 'var(--ink-muted)' }}>Untung / Rugi Bersih:</span>
-                      <div style={{ fontSize: '14px', fontWeight: 800, color: pnlIDR >= 0 ? '#10b981' : '#ef4444', fontFamily: 'var(--font-mono)' }}>
-                        {formatIDR(pnlIDR)}
-                      </div>
-                    </div>
-
-                    <div style={{ padding: '10px', borderRadius: '10px', background: 'var(--surface-sunken)' }}>
-                      <span style={{ fontSize: '11px', color: 'var(--ink-muted)' }}>Sisa Modal:</span>
-                      <div style={{ fontSize: '14px', fontWeight: 800, color: finalEquity > 0 ? '#10b981' : '#ef4444', fontFamily: 'var(--font-mono)' }}>
-                        {formatIDR(finalEquity)}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div
-                    style={{
-                      padding: '10px 12px',
-                      borderRadius: '8px',
-                      background: 'rgba(245, 158, 11, 0.1)',
-                      fontSize: '11.5px',
-                      color: 'var(--ink-body)'
-                    }}
-                  >
-                    ⚠️ Pada leverage <strong>{leverage}x</strong>, pergerakan harga berlawanan sebesar hanya <strong>{liquidationBufferPercent.toFixed(1)}%</strong> sudah cukup melenyapkan seluruh modal!
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* SLIDE 5: Jatuh Cinta pada Vibe Coding: Hingga Melahirkan Nemo 🐙 */}
+          {/* SLIDE 5 (Chapter 06): The Explorer Spirit: Tempat Baru, Stoikisme & Compounding */}
           {safeSlideIndex === 5 && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-                  gap: '16px'
-                }}
-              >
-                {/* Pillar 1 */}
-                <div
-                  className="interactive-card"
-                  style={{
-                    padding: '16px',
-                    borderRadius: '16px',
-                    background: 'var(--surface-card-subtle)',
-                    border: '1px solid var(--card-border)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '8px'
-                  }}
-                >
-                  <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'rgba(59, 130, 246, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <Bot size={18} color="#3b82f6" />
-                  </div>
-                  <span style={{ fontSize: '14px', fontWeight: 800, color: 'var(--folio-ink)' }}>
-                    Flow State Tanpa Hambatan
-                  </span>
-                  <p style={{ fontSize: '12px', color: 'var(--ink-muted)', margin: 0, lineHeight: 1.4 }}>
-                    Dari mengetik boilerplate manual ke mengarahkan model AI sebagai perpanjangan pikiran. Kecepatan iterasi ide meningkat 10x lipat.
-                  </p>
-                </div>
-
-                {/* Pillar 2 */}
-                <div
-                  className="interactive-card"
-                  style={{
-                    padding: '16px',
-                    borderRadius: '16px',
-                    background: 'var(--surface-card-subtle)',
-                    border: '1px solid var(--card-border)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '8px'
-                  }}
-                >
-                  <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'rgba(139, 92, 246, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <Wand2 size={18} color="#8b5cf6" />
-                  </div>
-                  <span style={{ fontSize: '14px', fontWeight: 800, color: 'var(--folio-ink)' }}>
-                    Lahirnya Project Nemo 🐙
-                  </span>
-                  <p style={{ fontSize: '12px', color: 'var(--ink-muted)', margin: 0, lineHeight: 1.4 }}>
-                    Project Nemo lahir dari hasrat membangun AI personal agent yang mandiri: mampu meneliti, mengeksekusi script, dan menjadi partner diskusi cerdas.
-                  </p>
-                </div>
-
-                {/* Pillar 3 */}
-                <div
-                  className="interactive-card"
-                  style={{
-                    padding: '16px',
-                    borderRadius: '16px',
-                    background: 'var(--surface-card-subtle)',
-                    border: '1px solid var(--card-border)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '8px'
-                  }}
-                >
-                  <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'rgba(16, 185, 129, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <Rocket size={18} color="#10b981" />
-                  </div>
-                  <span style={{ fontSize: '14px', fontWeight: 800, color: 'var(--folio-ink)' }}>
-                    The Art of Pure Creation
-                  </span>
-                  <p style={{ fontSize: '12px', color: 'var(--ink-muted)', margin: 0, lineHeight: 1.4 }}>
-                    Kembali ke hakikat membangun: menciptakan hal-hal yang bermanfaat, memecahkan masalah nyata, dan menikmati proses tanpa tekanan spekulasi.
-                  </p>
-                </div>
-              </div>
-
-              {/* Quote Card */}
-              <div
-                style={{
-                  padding: '14px 20px',
-                  borderRadius: '14px',
-                  background: 'rgba(139, 92, 246, 0.08)',
-                  border: '1px dashed rgba(139, 92, 246, 0.4)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '12px'
-                }}
-              >
-                <Sparkles size={20} color="#8b5cf6" style={{ flexShrink: 0 }} />
-                <span style={{ fontSize: '12.5px', color: 'var(--ink-body)', fontStyle: 'italic' }}>
-                  "Vibe coding bukan tentang malas coding, melainkan tentang membebaskan otak dari kelelahan sintaks sehingga bisa fokus 100% pada logika arsitektur dan visi produk."
-                </span>
-              </div>
-            </div>
-          )}
-
-          {/* SLIDE 6: The Explorer Spirit: Tempat Baru, Stoikisme & Compounding */}
-          {safeSlideIndex === 6 && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
               <div
                 style={{
@@ -1556,7 +1361,7 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
                     Mencoba Tempat Baru (Nomadic Spirit)
                   </span>
                   <p style={{ fontSize: '12px', color: 'var(--ink-muted)', margin: 0, lineHeight: 1.4 }}>
-                    Hobi berpindah cafe, coworking space baru, atau suasana kerja berbeda. Perubahan lingkungan visual memicu perspektif segar dan mencegah kejenuhan berpikir.
+                    Hobi berpindah cafe, coworking space baru, atau suasana kerja berbeda setiap minggu. Perubahan lingkungan visual memicu perspektif segar dan mencegah kejenuhan berpikir.
                   </p>
                 </div>
 
@@ -1648,8 +1453,25 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
                       cursor: 'pointer'
                     }}
                   >
-                    <RefreshCw size={12} />
-                    <span>Ulangi Presentasi</span>
+                    <span>Mulai Ulang (Slide 1)</span>
+                  </button>
+                  <button
+                    onClick={handleClose}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      padding: '6px 14px',
+                      borderRadius: '8px',
+                      background: '#f59e0b',
+                      border: 'none',
+                      fontSize: '11.5px',
+                      fontWeight: 700,
+                      color: '#000000',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    <span>Selesai Menyimak</span>
                   </button>
                 </div>
               </div>
@@ -1657,13 +1479,13 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
           )}
         </div>
 
-        {/* Bottom Keynote Controller Footer */}
+        {/* Footer Navigation Bar */}
         <footer
           style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            padding: isFullscreen ? '16px 36px' : '12px 24px',
+            padding: isFullscreen ? '14px 40px' : '12px 24px',
             borderTop: '1px solid var(--card-border)',
             background: 'var(--surface-card-subtle)',
             flexShrink: 0
@@ -1684,7 +1506,7 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '5px',
-                padding: '6px 14px',
+                padding: '6px 12px',
                 borderRadius: '8px',
                 background: 'var(--surface-sunken)',
                 border: '1px solid var(--card-border)',
@@ -1723,76 +1545,33 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
         </footer>
       </div>
 
-      {/* Lightbox Image Preview Modal */}
+      {/* Fullscreen Image Preview Lightbox */}
       {previewImage && (
         <div
           style={{
             position: 'fixed',
             inset: 0,
-            zIndex: 110,
-            background: 'rgba(0, 0, 0, 0.92)',
-            backdropFilter: 'blur(16px)',
+            zIndex: 1000,
+            background: 'rgba(0,0,0,0.92)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             padding: '24px',
-            animation: 'fadeIn 0.2s ease-out'
+            cursor: 'zoom-out'
           }}
           onClick={() => setPreviewImage(null)}
         >
-          <div
+          <img
+            src={previewImage}
+            alt="Preview Evidence"
             style={{
-              position: 'relative',
               maxWidth: '92vw',
-              maxHeight: '92vh',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: '12px'
+              maxHeight: '90vh',
+              objectFit: 'contain',
+              borderRadius: '12px',
+              boxShadow: '0 20px 60px rgba(0,0,0,0.8)'
             }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              onClick={() => setPreviewImage(null)}
-              style={{
-                position: 'absolute',
-                top: '-40px',
-                right: '0',
-                background: 'rgba(255, 255, 255, 0.2)',
-                border: 'none',
-                color: '#ffffff',
-                width: '32px',
-                height: '32px',
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer'
-              }}
-            >
-              <X size={18} />
-            </button>
-            <img
-              src={previewImage}
-              onError={(e) => {
-                if (typeof previewImage === 'string' && e.currentTarget.src.indexOf('/assets/') === -1) {
-                  const cleaned = previewImage.replace(/^\.\//, '').replace(/^\//, '');
-                  e.currentTarget.src = './assets/' + cleaned;
-                }
-              }}
-              alt="High resolution preview"
-              style={{
-                maxWidth: '100%',
-                maxHeight: '82vh',
-                objectFit: 'contain',
-                borderRadius: '12px',
-                boxShadow: '0 24px 64px rgba(0, 0, 0, 0.8)'
-              }}
-            />
-            <span style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.7)', fontFamily: 'var(--font-mono)' }}>
-              Klik di luar gambar atau tekan [Esc] untuk menutup
-            </span>
-          </div>
+          />
         </div>
       )}
     </div>
