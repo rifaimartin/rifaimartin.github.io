@@ -563,11 +563,6 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
                     <p style={{ fontSize: '12px', color: 'var(--ink-muted)', margin: 0 }}>
                       Backend Engineer • Polyglot Tinkerer • Lifelong Curious Soul
                     </p>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: '4px' }}>
-                      <span style={{ fontSize: '11px', padding: '3px 8px', borderRadius: '4px', background: 'var(--surface-sunken)', color: 'var(--ink-body)' }}>☕ Coffee & Nomad</span>
-                      <span style={{ fontSize: '11px', padding: '3px 8px', borderRadius: '4px', background: 'var(--surface-sunken)', color: 'var(--ink-body)' }}>⚡ WebFlux & Reactive</span>
-                      <span style={{ fontSize: '11px', padding: '3px 8px', borderRadius: '4px', background: 'var(--surface-sunken)', color: 'var(--ink-body)' }}>🤖 AI Agents & Nemo</span>
-                    </div>
                   </div>
                 </div>
 
@@ -595,7 +590,7 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
                       </span>
                     </div>
                     <p style={{ fontSize: '12.5px', color: 'var(--ink-body)', margin: 0, lineHeight: 1.5 }}>
-                      Bagi saya, hal paling menyenangkan di dunia ini adalah <strong>menemukan sesuatu yang belum saya mengerti, lalu membongkarnya sampai paham</strong>. Mulai dari distributed systems, smart contracts, AI agent orchestration, hingga mencoba tempat kerja baru setiap minggu.
+                      Bagi saya, hal paling menyenangkan di dunia ini adalah <strong>menemukan sesuatu yang belum saya mengerti, lalu membongkarnya sampai paham</strong>. Mulai dari distributed systems, smart contracts, AI agent orchestration, hingga liquidation di crypto ratusan juta.
                     </p>
                   </div>
 
