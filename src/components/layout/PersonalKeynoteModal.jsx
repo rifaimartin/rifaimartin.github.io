@@ -204,23 +204,33 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
   if (!isOpen) return null;
 
   const handleNext = () => {
-    if (currentSlide < CHAPTERS.length - 1) {
-      soundFx.playCardClick();
-      setCurrentSlide((prev) => prev + 1);
-    }
+    setCurrentSlide((prev) => {
+      if (prev < CHAPTERS.length - 1) {
+        soundFx.playCardClick();
+        return prev + 1;
+      }
+      return prev;
+    });
   };
 
   const handlePrev = () => {
-    if (currentSlide > 0) {
-      soundFx.playCardClick();
-      setCurrentSlide((prev) => prev + 1);
-    }
+    setCurrentSlide((prev) => {
+      if (prev > 0) {
+        soundFx.playCardClick();
+        return prev - 1;
+      }
+      return 0;
+    });
   };
 
   const goToSlide = (idx) => {
     soundFx.playCardClick();
-    setCurrentSlide(idx);
+    setCurrentSlide(Math.max(0, Math.min(CHAPTERS.length - 1, idx)));
   };
+
+  // Safe Slide Bounds & Chapter
+  const safeSlideIndex = Math.max(0, Math.min(CHAPTERS.length - 1, currentSlide));
+  const activeChapter = CHAPTERS[safeSlideIndex] || CHAPTERS[0];
 
   // Simulator Calculation Logic
   const positionMultiplier = positionType === 'LONG' ? 1 : -1;
@@ -357,11 +367,11 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
                 key={ch.id}
                 onClick={() => goToSlide(idx)}
                 style={{
-                  width: idx === currentSlide ? '36px' : '10px',
+                  width: idx === safeSlideIndex ? '36px' : '10px',
                   height: '10px',
                   borderRadius: '999px',
                   border: 'none',
-                  background: idx === currentSlide ? '#f59e0b' : 'var(--card-border)',
+                  background: idx === safeSlideIndex ? '#f59e0b' : 'var(--card-border)',
                   cursor: 'pointer',
                   transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
                   padding: 0
@@ -434,7 +444,7 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
                 letterSpacing: '1px'
               }}
             >
-              CHAPTER {CHAPTERS[currentSlide].number} // {CHAPTERS[currentSlide].badge}
+              CHAPTER {activeChapter.number} // {activeChapter.badge}
             </span>
           </div>
           <h2
@@ -447,10 +457,10 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
               marginBottom: '3px'
             }}
           >
-            {CHAPTERS[currentSlide].title}
+            {activeChapter.title}
           </h2>
           <p style={{ fontSize: '12.5px', color: 'var(--ink-muted)', lineHeight: 1.4, margin: 0 }}>
-            {CHAPTERS[currentSlide].subtitle}
+            {activeChapter.subtitle}
           </p>
         </div>
 
@@ -466,7 +476,7 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
           }}
         >
           {/* SLIDE 0: Halo, Saya Rifai: Suka Mencoba & Belajar Hal Baru */}
-          {currentSlide === 0 && (
+          {safeSlideIndex === 0 && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
               <div
                 style={{
@@ -662,7 +672,7 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
           )}
 
           {/* SLIDE 1: Buah Rasa Ingin Tahu: Juara 1 Stacks Bitcoin & Instruktur Java Ladies */}
-          {currentSlide === 1 && (
+          {safeSlideIndex === 1 && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
               <div
                 style={{
@@ -883,7 +893,7 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
           )}
 
           {/* SLIDE 2: Kelinci Lubang Kripto: Dari Ingin Tahu ke Ilusi Cepat Kaya */}
-          {currentSlide === 2 && (
+          {safeSlideIndex === 2 && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
               {/* Visual 4-Stage Mindset Trap */}
               <div
@@ -1015,7 +1025,7 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
           )}
 
           {/* SLIDE 3: Kuliah Termahal: Riwayat Likuidasi Binance Futures -100 Juta */}
-          {currentSlide === 3 && (
+          {safeSlideIndex === 3 && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
               <div
                 style={{
@@ -1194,7 +1204,7 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
           )}
 
           {/* SLIDE 4: Futures & Leverage Lab: Simulasi Kalkulator Rupiah */}
-          {currentSlide === 4 && (
+          {safeSlideIndex === 4 && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
               {/* Asset Selector Chips */}
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
@@ -1414,7 +1424,7 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
           )}
 
           {/* SLIDE 5: Jatuh Cinta pada Vibe Coding: Hingga Melahirkan Nemo 🐙 */}
-          {currentSlide === 5 && (
+          {safeSlideIndex === 5 && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
               <div
                 style={{
@@ -1517,7 +1527,7 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
           )}
 
           {/* SLIDE 6: The Explorer Spirit: Tempat Baru, Stoikisme & Compounding */}
-          {currentSlide === 6 && (
+          {safeSlideIndex === 6 && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
               <div
                 style={{
@@ -1661,7 +1671,7 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <span style={{ fontSize: '12px', fontFamily: 'var(--font-mono)', color: 'var(--ink-muted)' }}>
-              SLIDE {currentSlide + 1} / {CHAPTERS.length}
+              SLIDE {safeSlideIndex + 1} / {CHAPTERS.length}
             </span>
             <span style={{ fontSize: '11px', color: 'var(--ink-faint)' }}>• Gunakan [Space] atau [Panah]</span>
           </div>
@@ -1669,7 +1679,7 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <button
               onClick={handlePrev}
-              disabled={currentSlide === 0}
+              disabled={safeSlideIndex === 0}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -1678,10 +1688,10 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
                 borderRadius: '8px',
                 background: 'var(--surface-sunken)',
                 border: '1px solid var(--card-border)',
-                color: currentSlide === 0 ? 'var(--ink-faint)' : 'var(--ink-body)',
+                color: safeSlideIndex === 0 ? 'var(--ink-faint)' : 'var(--ink-body)',
                 fontSize: '12px',
                 fontWeight: 600,
-                cursor: currentSlide === 0 ? 'not-allowed' : 'pointer'
+                cursor: safeSlideIndex === 0 ? 'not-allowed' : 'pointer'
               }}
             >
               <ChevronLeft size={14} />
@@ -1690,20 +1700,20 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
 
             <button
               onClick={handleNext}
-              disabled={currentSlide === CHAPTERS.length - 1}
+              disabled={safeSlideIndex === CHAPTERS.length - 1}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '5px',
                 padding: '6px 16px',
                 borderRadius: '8px',
-                background: currentSlide === CHAPTERS.length - 1 ? 'var(--surface-sunken)' : '#f59e0b',
+                background: safeSlideIndex === CHAPTERS.length - 1 ? 'var(--surface-sunken)' : '#f59e0b',
                 border: 'none',
-                color: currentSlide === CHAPTERS.length - 1 ? 'var(--ink-faint)' : '#000000',
+                color: safeSlideIndex === CHAPTERS.length - 1 ? 'var(--ink-faint)' : '#000000',
                 fontSize: '12px',
                 fontWeight: 700,
-                cursor: currentSlide === CHAPTERS.length - 1 ? 'not-allowed' : 'pointer',
-                boxShadow: currentSlide === CHAPTERS.length - 1 ? 'none' : '0 2px 8px rgba(245, 158, 11, 0.35)'
+                cursor: safeSlideIndex === CHAPTERS.length - 1 ? 'not-allowed' : 'pointer',
+                boxShadow: safeSlideIndex === CHAPTERS.length - 1 ? 'none' : '0 2px 8px rgba(245, 158, 11, 0.35)'
               }}
             >
               <span>Next</span>
