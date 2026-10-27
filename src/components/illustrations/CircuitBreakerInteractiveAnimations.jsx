@@ -807,10 +807,10 @@ export function HystrixVsResilience4jVisualizer() {
             </div>
           </div>
           <div style={{ padding: '12px 14px', borderRadius: '8px', background: '#1e293b', border: '1px solid #334155' }}>
-            <div style={{ color: '#38bdf8', fontSize: '12px', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>DE-FACTO CLUSTER STANDARD</div>
-            <div style={{ fontSize: '14px', fontWeight: 700, color: '#f8fafc', margin: '4px 0' }}>Pilihan Utama Arsitektur Finansial Enterprise</div>
-            <p style={{ fontSize: '12px', color: '#cbd5e1', lineHeight: 1.5, margin: 0 }}>
-              Resmi menjadi pondasi implementasi standar di <code>Spring Cloud CircuitBreaker</code> oleh VMware, menggantikan posisi Hystrix sebagai standar emas ketahanan sistem transaksi pembayaran modern.
+            <div style={{ color: '#38bdf8', fontSize: '12px', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>MODERN MICROSERVICES &amp; SPRING</div>
+            <div style={{ fontSize: '14px', fontWeight: 700, color: '#f8fafc', margin: '4px 0' }}>Ekosistem Fault Tolerance Terintegrasi</div>
+            <p style={{ fontSize: '12px', color: '#cbd5e1', lineHeight: 1.6, margin: 0 }}>
+              Saat ini Resilience4j banyak digunakan pada sistem transaksi dan microservices modern karena menyediakan <strong>Circuit Breaker</strong>, <strong>Retry</strong>, <strong>Rate Limiter</strong>, <strong>Bulkhead</strong>, dan <strong>Time Limiter</strong> yang terintegrasi dengan ekosistem Spring.
             </p>
           </div>
         </div>
