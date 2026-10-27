@@ -626,24 +626,6 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
                       </div>
                     </div>
                   </div>
-
-                  {/* Card 3: Quick Quote Badge */}
-                  <div
-                    style={{
-                      padding: '12px 16px',
-                      borderRadius: '12px',
-                      background: 'rgba(245, 158, 11, 0.08)',
-                      border: '1px dashed rgba(245, 158, 11, 0.4)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '10px'
-                    }}
-                  >
-                    <Zap size={18} color="#f59e0b" style={{ flexShrink: 0 }} />
-                    <span style={{ fontSize: '12px', fontStyle: 'italic', color: 'var(--ink-body)' }}>
-                      "Keahlian terbaik seorang engineer bukan hafal satu framework, tapi keberanian untuk merasa bodoh lagi saat mempelajari hal baru."
-                    </span>
-                  </div>
                 </div>
               </div>
 
