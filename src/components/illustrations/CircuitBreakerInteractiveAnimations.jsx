@@ -55,7 +55,7 @@ export function CircuitBreakerFuseVisualizer() {
               border: isClosed ? `1.5px solid ${ACCENT_GREEN}` : '1px solid #334155',
               background: isClosed ? `${ACCENT_GREEN}25` : '#1e293b',
               color: isClosed ? ACCENT_GREEN : '#94a3b8',
-              fontSize: '11px',
+              fontSize: '12px',
               fontFamily: 'var(--font-mono)',
               fontWeight: 700,
               cursor: 'pointer'
@@ -72,7 +72,7 @@ export function CircuitBreakerFuseVisualizer() {
               border: isOpen ? `1.5px solid ${ACCENT_RED}` : '1px solid #334155',
               background: isOpen ? `${ACCENT_RED}25` : '#1e293b',
               color: isOpen ? ACCENT_RED : '#94a3b8',
-              fontSize: '11px',
+              fontSize: '12px',
               fontFamily: 'var(--font-mono)',
               fontWeight: 700,
               cursor: 'pointer'
@@ -89,7 +89,7 @@ export function CircuitBreakerFuseVisualizer() {
               border: isHalfOpen ? `1.5px solid ${ACCENT_ORANGE}` : '1px solid #334155',
               background: isHalfOpen ? `${ACCENT_ORANGE}25` : '#1e293b',
               color: isHalfOpen ? ACCENT_ORANGE : '#94a3b8',
-              fontSize: '11px',
+              fontSize: '12px',
               fontFamily: 'var(--font-mono)',
               fontWeight: 700,
               cursor: 'pointer'
@@ -214,15 +214,16 @@ export function CircuitBreakerFuseVisualizer() {
 
       {/* Explanatory Caption */}
       <div style={{
-        fontSize: '11.5px',
-        padding: '6px 12px',
-        borderRadius: '6px',
+        fontSize: '13px',
+        padding: '8px 14px',
+        borderRadius: '8px',
         background: isClosed ? '#10b98115' : isOpen ? '#ef444415' : '#f59e0b15',
         border: `1px solid ${isClosed ? '#10b98135' : isOpen ? '#ef444435' : '#f59e0b35'}`,
         color: isClosed ? '#34d399' : isOpen ? '#fca5a5' : '#fde68a',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        lineHeight: 1.5
       }}>
         <span>
           <strong>Status Saat Ini: [{state}]</strong> —{' '}
@@ -230,7 +231,7 @@ export function CircuitBreakerFuseVisualizer() {
           {isOpen && 'Sekering terputus! Request ditolak instan dalam 1ms (CallNotPermittedException) tanpa membebani thread.'}
           {isHalfOpen && 'Masa tunggu selesai. Sekering setengah terbuka mengirim 10 request sampel untuk mengecek apakah downstream sudah sembuh.'}
         </span>
-        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10.5px', opacity: 0.8 }}>
+        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11.5px', opacity: 0.9, whiteSpace: 'nowrap', marginLeft: '10px' }}>
           {isClosed ? '⚡ Latency: 45ms' : isOpen ? '⚡ Fast-Fail: < 1ms' : '⚡ Trial Probe'}
         </span>
       </div>
@@ -289,7 +290,7 @@ export function FailoverPacketFlowVisualizer() {
               border: scenario === 'NORMAL' ? `1.5px solid ${ACCENT_GREEN}` : '1px solid #334155',
               background: scenario === 'NORMAL' ? `${ACCENT_GREEN}25` : '#1e293b',
               color: scenario === 'NORMAL' ? ACCENT_GREEN : '#94a3b8',
-              fontSize: '11px',
+              fontSize: '12px',
               fontFamily: 'var(--font-mono)',
               fontWeight: 700,
               cursor: 'pointer'
@@ -306,7 +307,7 @@ export function FailoverPacketFlowVisualizer() {
               border: scenario === 'NNS_DOWN' ? `1.5px solid ${ACCENT_ORANGE}` : '1px solid #334155',
               background: scenario === 'NNS_DOWN' ? `${ACCENT_ORANGE}25` : '#1e293b',
               color: scenario === 'NNS_DOWN' ? ACCENT_ORANGE : '#94a3b8',
-              fontSize: '11px',
+              fontSize: '12px',
               fontFamily: 'var(--font-mono)',
               fontWeight: 700,
               cursor: 'pointer'
@@ -323,7 +324,7 @@ export function FailoverPacketFlowVisualizer() {
               border: scenario === 'ALTO_DOWN' ? `1.5px solid ${ACCENT_RED}` : '1px solid #334155',
               background: scenario === 'ALTO_DOWN' ? `${ACCENT_RED}25` : '#1e293b',
               color: scenario === 'ALTO_DOWN' ? ACCENT_RED : '#94a3b8',
-              fontSize: '11px',
+              fontSize: '12px',
               fontFamily: 'var(--font-mono)',
               fontWeight: 700,
               cursor: 'pointer'
@@ -635,16 +636,16 @@ export function FailoverPacketFlowVisualizer() {
 
       {/* Dynamic Scenario Legend */}
       <div style={{
-        fontSize: '11.5px',
-        padding: '8px 14px',
-        borderRadius: '6px',
+        fontSize: '13px',
+        padding: '10px 16px',
+        borderRadius: '8px',
         background: '#1e293b',
         border: '1px solid #334155',
         color: '#e2e8f0',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        lineHeight: 1.45
+        lineHeight: 1.55
       }}>
         <span>
           {scenario === 'NORMAL' && (
@@ -663,7 +664,7 @@ export function FailoverPacketFlowVisualizer() {
             </>
           )}
         </span>
-        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10.5px', color: '#38bdf8', whiteSpace: 'nowrap', marginLeft: '12px' }}>
+        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11.5px', color: '#38bdf8', whiteSpace: 'nowrap', marginLeft: '12px' }}>
           Decision Latency: &lt; 0.5ms
         </span>
       </div>
@@ -722,7 +723,7 @@ export function HystrixVsResilience4jVisualizer() {
                   border: active ? `1.5px solid ${isModern ? ACCENT_GREEN : ACCENT}` : '1px solid #334155',
                   background: active ? (isModern ? `${ACCENT_GREEN}25` : `${ACCENT}25`) : '#1e293b',
                   color: active ? (isModern ? ACCENT_GREEN : '#38bdf8') : '#94a3b8',
-                  fontSize: '11px',
+                  fontSize: '12px',
                   fontFamily: 'var(--font-mono)',
                   fontWeight: 700,
                   cursor: 'pointer',
@@ -741,15 +742,15 @@ export function HystrixVsResilience4jVisualizer() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '12px' }}>
           <div style={{ padding: '12px 14px', borderRadius: '8px', background: '#1e293b', border: '1px solid #334155' }}>
             <div style={{ color: ACCENT, fontSize: '12px', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>ORIGIN STORY</div>
-            <div style={{ fontSize: '14px', fontWeight: 700, color: '#f8fafc', margin: '4px 0' }}>Buku Legendaris "Release It!" (2007)</div>
-            <p style={{ fontSize: '12px', color: '#cbd5e1', lineHeight: 1.5, margin: 0 }}>
+            <div style={{ fontSize: '15.5px', fontWeight: 700, color: '#f8fafc', margin: '4px 0' }}>Buku Legendaris "Release It!" (2007)</div>
+            <p style={{ fontSize: '13.5px', color: '#cbd5e1', lineHeight: 1.55, margin: 0 }}>
               Michael T. Nygard memformalkan pola <strong>Circuit Breaker</strong> untuk rekayasa perangkat lunak enterprise. Filosofi dasarnya diadaptasi dari saklar sekering listrik: kegagalan di satu komponen terisolasi tidak boleh memadamkan seluruh sistem.
             </p>
           </div>
           <div style={{ padding: '12px 14px', borderRadius: '8px', background: '#1e293b', border: '1px solid #334155' }}>
             <div style={{ color: ACCENT_ORANGE, fontSize: '12px', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>PROBLEMATIKA UTAMA</div>
-            <div style={{ fontSize: '14px', fontWeight: 700, color: '#f8fafc', margin: '4px 0' }}>Mencegah Cascading Outages</div>
-            <p style={{ fontSize: '12px', color: '#cbd5e1', lineHeight: 1.5, margin: 0 }}>
+            <div style={{ fontSize: '15.5px', fontWeight: 700, color: '#f8fafc', margin: '4px 0' }}>Mencegah Cascading Outages</div>
+            <p style={{ fontSize: '13.5px', color: '#cbd5e1', lineHeight: 1.55, margin: 0 }}>
               Sebelum adanya Circuit Breaker, sistem backend rontok massal saat satu API downstream lambat (&gt; 2000ms), mengunci seluruh worker threads server hingga terjadi pemadaman total (resource starvation).
             </p>
           </div>
@@ -760,14 +761,14 @@ export function HystrixVsResilience4jVisualizer() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '12px' }}>
           <div style={{ padding: '12px 14px', borderRadius: '8px', background: '#1e293b', border: '1px solid #ef444455' }}>
             <div style={{ color: ACCENT_RED, fontSize: '12px', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>ERA NETFLIX OSS (2012)</div>
-            <div style={{ fontSize: '14px', fontWeight: 700, color: '#f8fafc', margin: '4px 0' }}>Netflix Hystrix: Pelopor Circuit Breaker Microservices</div>
-            <p style={{ fontSize: '12px', color: '#cbd5e1', lineHeight: 1.5, margin: 0 }}>
+            <div style={{ fontSize: '15.5px', fontWeight: 700, color: '#f8fafc', margin: '4px 0' }}>Netflix Hystrix: Pelopor Circuit Breaker Microservices</div>
+            <p style={{ fontSize: '13.5px', color: '#cbd5e1', lineHeight: 1.55, margin: 0 }}>
               Netflix mempopulerkan toleransi kegagalan cloud dengan merilis Hystrix. Sangat berjasa memperkenalkan fail-fast, fallback otomatis, dan dashboard telemetry real-time (Turbine).
             </p>
           </div>
           <div style={{ padding: '12px 14px', borderRadius: '8px', background: '#450a0a25', border: '1px solid #ef444440' }}>
             <div style={{ color: ACCENT_RED, fontSize: '12px', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>BATASAN TEKNIKAL HYSTRIX ⚠️</div>
-            <div style={{ fontSize: '12px', color: '#fca5a5', marginTop: '4px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+            <div style={{ fontSize: '13px', color: '#fca5a5', marginTop: '6px', display: 'flex', flexDirection: 'column', gap: '5px' }}>
               <span>• <strong>Thread-Pool Isolation Overhead:</strong> Tiap breaker membutuhkan OS thread pool terpisah (~1MB JVM stack per thread).</span>
               <span>• <strong>CPU Context-Switch Thrashing:</strong> Ratusan thread pada puluhan endpoint memicu jutaan switch context OS di traffic tinggi.</span>
               <span>• <strong>Monolithic &amp; RxJava 1.x Legacy:</strong> Kompleksitas arsitektur internal yang sulit dioptimasi untuk arsitektur modern.</span>
@@ -780,15 +781,15 @@ export function HystrixVsResilience4jVisualizer() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '12px' }}>
           <div style={{ padding: '12px 14px', borderRadius: '8px', background: '#1e293b', border: '1px solid #f59e0b55' }}>
             <div style={{ color: ACCENT_ORANGE, fontSize: '12px', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>MILESTONE RESMI (NOVEMBER 2018)</div>
-            <div style={{ fontSize: '14px', fontWeight: 700, color: '#f8fafc', margin: '4px 0' }}>Netflix Resmi Deprecate Hystrix</div>
-            <p style={{ fontSize: '12px', color: '#cbd5e1', lineHeight: 1.5, margin: 0 }}>
+            <div style={{ fontSize: '15.5px', fontWeight: 700, color: '#f8fafc', margin: '4px 0' }}>Netflix Resmi Deprecate Hystrix</div>
+            <p style={{ fontSize: '13.5px', color: '#cbd5e1', lineHeight: 1.55, margin: 0 }}>
               Netflix Tech Announcement: <em>"Hystrix is no longer in active development, and is currently in maintenance mode."</em> Netflix secara eksplisit merekomendasikan komunitas Java enterprise bermigrasi ke <strong>Resilience4j</strong>.
             </p>
           </div>
           <div style={{ padding: '12px 14px', borderRadius: '8px', background: '#1e293b', border: '1px solid #334155' }}>
             <div style={{ color: ACCENT_GREEN, fontSize: '12px', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>PERUBAHAN PARADIGMA ARSITEKTUR</div>
-            <div style={{ fontSize: '14px', fontWeight: 700, color: '#f8fafc', margin: '4px 0' }}>Transisi ke Arsitektur Asynchronous &amp; Non-Blocking</div>
-            <p style={{ fontSize: '12px', color: '#cbd5e1', lineHeight: 1.5, margin: 0 }}>
+            <div style={{ fontSize: '15.5px', fontWeight: 700, color: '#f8fafc', margin: '4px 0' }}>Transisi ke Arsitektur Asynchronous &amp; Non-Blocking</div>
+            <p style={{ fontSize: '13.5px', color: '#cbd5e1', lineHeight: 1.55, margin: 0 }}>
               Dunia backend bertransformasi dari <em>Thread-per-Request</em> (blocking I/O) menuju runtime <em>Non-blocking Event Loop</em>. Mempertahankan thread-pool isolasi Hystrix menjadi anti-pattern yang membunuh throughput dan latensi.
             </p>
           </div>
@@ -799,26 +800,26 @@ export function HystrixVsResilience4jVisualizer() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '12px' }}>
           <div style={{ padding: '12px 14px', borderRadius: '8px', background: '#064e3b25', border: '1px solid #10b98155' }}>
             <div style={{ color: ACCENT_GREEN, fontSize: '12px', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>MODERN STANDARD: RESILIENCE4J ⚡</div>
-            <div style={{ fontSize: '14px', fontWeight: 700, color: '#f8fafc', margin: '4px 0' }}>Ringan, Modern, dan Cocok untuk Arsitektur Reactive</div>
-            <div style={{ fontSize: '11.5px', color: '#cbd5e1', marginTop: '6px', display: 'flex', flexDirection: 'column', gap: '8px', lineHeight: 1.45 }}>
+            <div style={{ fontSize: '15.5px', fontWeight: 700, color: '#f8fafc', margin: '4px 0' }}>Ringan, Modern, dan Cocok untuk Arsitektur Reactive</div>
+            <div style={{ fontSize: '13px', color: '#cbd5e1', marginTop: '6px', display: 'flex', flexDirection: 'column', gap: '8px', lineHeight: 1.5 }}>
               <div>
-                <div style={{ fontWeight: 700, color: '#34d399', fontSize: '12px' }}>Tanpa Thread Tambahan</div>
+                <div style={{ fontWeight: 700, color: '#34d399', fontSize: '13px' }}>Tanpa Thread Tambahan</div>
                 <div style={{ color: '#cbd5e1' }}>Resilience4j tidak membuat thread pool sendiri seperti Hystrix. Circuit breaker berjalan langsung pada thread yang sedang memproses request sehingga lebih ringan dan efisien.</div>
               </div>
               <div>
-                <div style={{ fontWeight: 700, color: '#34d399', fontSize: '12px' }}>Mendukung Pemrograman Modern Java</div>
+                <div style={{ fontWeight: 700, color: '#34d399', fontSize: '13px' }}>Mendukung Pemrograman Modern Java</div>
                 <div style={{ color: '#cbd5e1' }}>Dirancang untuk Java 8+, Lambda, CompletableFuture, dan framework reactive seperti Spring WebFlux sehingga mudah diintegrasikan dengan aplikasi modern.</div>
               </div>
               <div>
-                <div style={{ fontWeight: 700, color: '#34d399', fontSize: '12px' }}>Modular dan Ringan</div>
+                <div style={{ fontWeight: 700, color: '#34d399', fontSize: '13px' }}>Modular dan Ringan</div>
                 <div style={{ color: '#cbd5e1' }}>Hanya menambahkan komponen yang dibutuhkan, seperti Circuit Breaker, Retry, Rate Limiter, atau Bulkhead, sehingga jejak memori dan dependency tetap minimal.</div>
               </div>
             </div>
           </div>
           <div style={{ padding: '12px 14px', borderRadius: '8px', background: '#1e293b', border: '1px solid #334155' }}>
             <div style={{ color: '#38bdf8', fontSize: '12px', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>MODERN MICROSERVICES &amp; SPRING</div>
-            <div style={{ fontSize: '14px', fontWeight: 700, color: '#f8fafc', margin: '4px 0' }}>Ekosistem Fault Tolerance Terintegrasi</div>
-            <p style={{ fontSize: '12px', color: '#cbd5e1', lineHeight: 1.6, margin: 0 }}>
+            <div style={{ fontSize: '15.5px', fontWeight: 700, color: '#f8fafc', margin: '4px 0' }}>Ekosistem Fault Tolerance Terintegrasi</div>
+            <p style={{ fontSize: '13.5px', color: '#cbd5e1', lineHeight: 1.6, margin: 0 }}>
               Saat ini Resilience4j banyak digunakan pada sistem transaksi dan microservices modern karena menyediakan <strong>Circuit Breaker</strong>, <strong>Retry</strong>, <strong>Rate Limiter</strong>, <strong>Bulkhead</strong>, dan <strong>Time Limiter</strong> yang terintegrasi dengan ekosistem Spring.
             </p>
           </div>
@@ -829,12 +830,13 @@ export function HystrixVsResilience4jVisualizer() {
       <div style={{
         display: 'grid',
         gridTemplateColumns: '1.2fr 1.5fr 1.5fr',
-        gap: '6px',
-        fontSize: '11px',
+        gap: '8px',
+        fontSize: '12.5px',
         background: '#0d1322',
-        padding: '8px 12px',
-        borderRadius: '6px',
-        border: '1px solid #1f2a44'
+        padding: '10px 14px',
+        borderRadius: '8px',
+        border: '1px solid #1f2a44',
+        lineHeight: 1.45
       }}>
         <div style={{ fontWeight: 700, color: '#94a3b8' }}>Parameter</div>
         <div style={{ fontWeight: 700, color: '#ef4444' }}>Netflix Hystrix (Legacy 2012)</div>

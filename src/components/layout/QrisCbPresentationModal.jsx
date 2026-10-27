@@ -108,18 +108,18 @@ const cardStyle = {
 
 const monoLabel = {
   fontFamily: 'var(--font-mono)',
-  fontSize: '11px',
+  fontSize: '11.5px',
   fontWeight: 700,
   letterSpacing: '0.5px'
 };
 
-const bodyText = { fontSize: '13px', color: 'var(--ink-body)', lineHeight: 1.6 };
+const bodyText = { fontSize: '14.5px', color: 'var(--ink-body)', lineHeight: 1.6 };
 
 function CardTitle({ icon: Icon, color = ACCENT, children }) {
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-      <Icon size={17} color={color} />
-      <h4 style={{ fontSize: '14.5px', fontWeight: 700, color: 'var(--folio-ink)' }}>{children}</h4>
+      <Icon size={19} color={color} />
+      <h4 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--folio-ink)' }}>{children}</h4>
     </div>
   );
 }
@@ -138,14 +138,14 @@ function CodeSnippet({ code, title = 'TERMINAL / LOG' }) {
   return (
     <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1px solid var(--card-border)', background: '#090d16' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '6px 12px', background: '#131b2e', borderBottom: '1px solid #1f2a44' }}>
-        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10.5px', color: '#94a3b8', fontWeight: 600 }}>{title}</span>
+        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11.5px', color: '#94a3b8', fontWeight: 600 }}>{title}</span>
         <div style={{ display: 'flex', gap: '5px' }}>
           <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#ef4444' }} />
           <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#f59e0b' }} />
           <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981' }} />
         </div>
       </div>
-      <pre style={{ margin: 0, padding: '10px 14px', fontFamily: 'var(--font-mono)', fontSize: '11.5px', color: '#38bdf8', overflowX: 'auto', lineHeight: 1.5 }}>
+      <pre style={{ margin: 0, padding: '10px 14px', fontFamily: 'var(--font-mono)', fontSize: '12.5px', color: '#38bdf8', overflowX: 'auto', lineHeight: 1.5 }}>
         {code}
       </pre>
     </div>
@@ -423,10 +423,10 @@ export default function QrisCbPresentationModal({ isOpen, onClose, initialFullsc
                 </span>
                 <span style={{ ...monoLabel, color: 'var(--ink-muted)' }}>Slide {currentSlide + 1} of {CHAPTERS.length}</span>
               </div>
-              <h2 style={{ fontSize: '22px', fontWeight: 800, color: 'var(--folio-ink)', margin: '4px 0 0', lineHeight: 1.3 }}>
+              <h2 style={{ fontSize: '24px', fontWeight: 800, color: 'var(--folio-ink)', margin: '4px 0 0', lineHeight: 1.3 }}>
                 {currentChapter.title}
               </h2>
-              <p style={{ fontSize: '13.5px', color: 'var(--ink-muted)', margin: 0, lineHeight: 1.5 }}>
+              <p style={{ fontSize: '15px', color: 'var(--ink-muted)', margin: 0, lineHeight: 1.55 }}>
                 {currentChapter.subtitle}
               </p>
             </div>
@@ -469,7 +469,7 @@ export default function QrisCbPresentationModal({ isOpen, onClose, initialFullsc
                 }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
                     <CardTitle icon={BookOpen} color={ACCENT}>Referensi &amp; Sumber Literatur Resmi (Authoritative Citations)</CardTitle>
-                    <span style={{ ...monoLabel, color: ACCENT, fontSize: '10.5px' }}>INDUSTRY STANDARDS</span>
+                    <span style={{ ...monoLabel, color: ACCENT, fontSize: '11px' }}>INDUSTRY STANDARDS</span>
                   </div>
 
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '10px' }}>
@@ -489,13 +489,13 @@ export default function QrisCbPresentationModal({ isOpen, onClose, initialFullsc
                       }}
                     >
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <span style={{ ...monoLabel, color: ACCENT, fontSize: '10px' }}>BUKU STANDAR (2007)</span>
-                        <ExternalLink size={12} color="var(--ink-muted)" />
+                        <span style={{ ...monoLabel, color: ACCENT, fontSize: '11px' }}>BUKU STANDAR (2007)</span>
+                        <ExternalLink size={13} color="var(--ink-muted)" />
                       </div>
-                      <div style={{ fontSize: '12.5px', fontWeight: 700, color: 'var(--folio-ink)' }}>
+                      <div style={{ fontSize: '13.5px', fontWeight: 700, color: 'var(--folio-ink)' }}>
                         Michael T. Nygard — "Release It!"
                       </div>
-                      <div style={{ fontSize: '11px', color: 'var(--ink-muted)', lineHeight: 1.4 }}>
+                      <div style={{ fontSize: '12px', color: 'var(--ink-muted)', lineHeight: 1.45 }}>
                         Pragmatic Bookshelf (ISBN: 978-0978739256). Formulasi arsitektural pertama yang memperkenalkan pola Circuit Breaker untuk mencegah cascading failures di sistem software produksi.
                       </div>
                     </a>
@@ -516,13 +516,13 @@ export default function QrisCbPresentationModal({ isOpen, onClose, initialFullsc
                       }}
                     >
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <span style={{ ...monoLabel, color: ACCENT_RED, fontSize: '10px' }}>NETFLIX OFFICIAL EOL (2018)</span>
-                        <ExternalLink size={12} color="var(--ink-muted)" />
+                        <span style={{ ...monoLabel, color: ACCENT_RED, fontSize: '11px' }}>NETFLIX OFFICIAL EOL (2018)</span>
+                        <ExternalLink size={13} color="var(--ink-muted)" />
                       </div>
-                      <div style={{ fontSize: '12.5px', fontWeight: 700, color: 'var(--folio-ink)' }}>
+                      <div style={{ fontSize: '13.5px', fontWeight: 700, color: 'var(--folio-ink)' }}>
                         Netflix/Hystrix Deprecation Notice
                       </div>
-                      <div style={{ fontSize: '11px', color: 'var(--ink-muted)', lineHeight: 1.4 }}>
+                      <div style={{ fontSize: '12px', color: 'var(--ink-muted)', lineHeight: 1.45 }}>
                         Pengumuman resmi status Maintenance Mode Netflix: <em>"Hystrix is no longer in active development... Netflix recommends Resilience4j for new applications."</em>
                       </div>
                     </a>
@@ -543,13 +543,13 @@ export default function QrisCbPresentationModal({ isOpen, onClose, initialFullsc
                       }}
                     >
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <span style={{ ...monoLabel, color: ACCENT_ORANGE, fontSize: '10px' }}>PATTERN SPECIFICATION</span>
-                        <ExternalLink size={12} color="var(--ink-muted)" />
+                        <span style={{ ...monoLabel, color: ACCENT_ORANGE, fontSize: '11px' }}>PATTERN SPECIFICATION</span>
+                        <ExternalLink size={13} color="var(--ink-muted)" />
                       </div>
-                      <div style={{ fontSize: '12.5px', fontWeight: 700, color: 'var(--folio-ink)' }}>
+                      <div style={{ fontSize: '13.5px', fontWeight: 700, color: 'var(--folio-ink)' }}>
                         Martin Fowler — CircuitBreaker Bliki
                       </div>
-                      <div style={{ fontSize: '11px', color: 'var(--ink-muted)', lineHeight: 1.4 }}>
+                      <div style={{ fontSize: '12px', color: 'var(--ink-muted)', lineHeight: 1.45 }}>
                         Dokumentasi kanonikal arsitektur microservice yang mendefinisikan state machine CLOSED, OPEN, HALF-OPEN, sliding window, dan mekanisme fast-fail fallback.
                       </div>
                     </a>
@@ -570,13 +570,13 @@ export default function QrisCbPresentationModal({ isOpen, onClose, initialFullsc
                       }}
                     >
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <span style={{ ...monoLabel, color: ACCENT_GREEN, fontSize: '10px' }}>OFFICIAL REPO &amp; DOCS</span>
-                        <ExternalLink size={12} color="var(--ink-muted)" />
+                        <span style={{ ...monoLabel, color: ACCENT_GREEN, fontSize: '11px' }}>OFFICIAL REPO &amp; DOCS</span>
+                        <ExternalLink size={13} color="var(--ink-muted)" />
                       </div>
-                      <div style={{ fontSize: '12.5px', fontWeight: 700, color: 'var(--folio-ink)' }}>
+                      <div style={{ fontSize: '13.5px', fontWeight: 700, color: 'var(--folio-ink)' }}>
                         Resilience4j Architecture Guide
                       </div>
-                      <div style={{ fontSize: '11px', color: 'var(--ink-muted)', lineHeight: 1.4 }}>
+                      <div style={{ fontSize: '12px', color: 'var(--ink-muted)', lineHeight: 1.45 }}>
                         Panduan teknis modul RingBitSet lock-free in-memory evaluation dan adopsi spesifikasi Spring Cloud Circuit Breaker resmi oleh VMware/Pivotal.
                       </div>
                     </a>
@@ -653,22 +653,22 @@ export default function QrisCbPresentationModal({ isOpen, onClose, initialFullsc
                     <div style={{ padding: '12px', borderRadius: '10px', background: '#ef444415', border: '1px solid #ef444440', textAlign: 'center' }}>
                       <div style={{ ...monoLabel, color: ACCENT_RED }}>POD 1 (Detector)</div>
                       <div style={{ fontSize: '16px', fontWeight: 800, color: ACCENT_RED, margin: '6px 0' }}>OPEN (Trip)</div>
-                      <div style={{ fontSize: '11px', color: 'var(--ink-muted)' }}>Failover ke RINTIS aktif ✅</div>
+                      <div style={{ fontSize: '12px', color: 'var(--ink-muted)' }}>Failover ke RINTIS aktif ✅</div>
                     </div>
                     <div style={{ padding: '12px', borderRadius: '10px', background: '#38bdf810', border: '1px solid #38bdf830', textAlign: 'center' }}>
                       <div style={{ ...monoLabel, color: '#38bdf8' }}>POD 2 (Blind)</div>
                       <div style={{ fontSize: '16px', fontWeight: 800, color: '#38bdf8', margin: '6px 0' }}>CLOSED ⚠️</div>
-                      <div style={{ fontSize: '11px', color: 'var(--ink-muted)' }}>Masih menembak ALTO mati ❌</div>
+                      <div style={{ fontSize: '12px', color: 'var(--ink-muted)' }}>Masih menembak ALTO mati ❌</div>
                     </div>
                     <div style={{ padding: '12px', borderRadius: '10px', background: '#38bdf810', border: '1px solid #38bdf830', textAlign: 'center' }}>
                       <div style={{ ...monoLabel, color: '#38bdf8' }}>POD 3 (Blind)</div>
                       <div style={{ fontSize: '16px', fontWeight: 800, color: '#38bdf8', margin: '6px 0' }}>CLOSED ⚠️</div>
-                      <div style={{ fontSize: '11px', color: 'var(--ink-muted)' }}>Masih menembak ALTO mati ❌</div>
+                      <div style={{ fontSize: '12px', color: 'var(--ink-muted)' }}>Masih menembak ALTO mati ❌</div>
                     </div>
                     <div style={{ padding: '12px', borderRadius: '10px', background: '#38bdf810', border: '1px solid #38bdf830', textAlign: 'center' }}>
                       <div style={{ ...monoLabel, color: '#38bdf8' }}>POD 4 (Blind)</div>
                       <div style={{ fontSize: '16px', fontWeight: 800, color: '#38bdf8', margin: '6px 0' }}>CLOSED ⚠️</div>
-                      <div style={{ fontSize: '11px', color: 'var(--ink-muted)' }}>Masih menembak ALTO mati ❌</div>
+                      <div style={{ fontSize: '12px', color: 'var(--ink-muted)' }}>Masih menembak ALTO mati ❌</div>
                     </div>
                   </div>
                 </div>
@@ -807,7 +807,7 @@ return executePaymentViaAlto(request, nns); // Jalur Utama`}
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
                     <div style={{ padding: '12px', borderRadius: '10px', background: 'var(--surface-card)', border: '1px solid var(--card-border)' }}>
                       <div style={{ ...monoLabel, color: ACCENT }}>Sliding Window Config</div>
-                      <div style={{ fontSize: '12px', color: 'var(--ink-body)', marginTop: '4px', display: 'flex', flexDirection: 'column', gap: '3px' }}>
+                      <div style={{ fontSize: '13px', color: 'var(--ink-body)', marginTop: '4px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
                         <span>• Type: <strong>COUNT_BASED</strong> (300 calls)</span>
                         <span>• Min Calls: <strong>3 calls</strong> (Fast Trip)</span>
                         <span>• Threshold: <strong>90.0%</strong> failure rate</span>
@@ -816,7 +816,7 @@ return executePaymentViaAlto(request, nns); // Jalur Utama`}
                     </div>
                     <div style={{ padding: '12px', borderRadius: '10px', background: 'var(--surface-card)', border: '1px solid var(--card-border)' }}>
                       <div style={{ ...monoLabel, color: ACCENT_GREEN }}>QRIS MPM Namespace</div>
-                      <div style={{ fontSize: '12px', color: 'var(--ink-body)', marginTop: '4px', display: 'flex', flexDirection: 'column', gap: '3px' }}>
+                      <div style={{ fontSize: '13px', color: 'var(--ink-body)', marginTop: '4px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
                         <span>• Channel: <code style={{ color: '#38bdf8' }}>qris:cb:state:events</code></span>
                         <span>• Snapshot: <code style={{ color: '#38bdf8' }}>cb:snapshot:orch-qris-*</code></span>
                         <span>• L1 Breakers: <code style={{ color: '#38bdf8' }}>alto, rintis</code></span>
@@ -825,7 +825,7 @@ return executePaymentViaAlto(request, nns); // Jalur Utama`}
                     </div>
                     <div style={{ padding: '12px', borderRadius: '10px', background: 'var(--surface-card)', border: '1px solid var(--card-border)' }}>
                       <div style={{ ...monoLabel, color: ACCENT_ORANGE }}>Fund Transfer Namespace</div>
-                      <div style={{ fontSize: '12px', color: 'var(--ink-body)', marginTop: '4px', display: 'flex', flexDirection: 'column', gap: '3px' }}>
+                      <div style={{ fontSize: '13px', color: 'var(--ink-body)', marginTop: '4px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
                         <span>• Channel: <code style={{ color: '#f59e0b' }}>ft:cb:state:events</code></span>
                         <span>• Snapshot: <code style={{ color: '#f59e0b' }}>cb:ft:snapshot:*</code></span>
                         <span>• L1 Breakers: <code style={{ color: '#f59e0b' }}>online-switching-alto, rintis, bifast</code></span>
@@ -868,23 +868,23 @@ return executePaymentViaAlto(request, nns); // Jalur Utama`}
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px' }}>
                     <div style={{ padding: '12px', borderRadius: '10px', background: '#10b98115', border: '1px solid #10b98140', textAlign: 'center' }}>
                       <div style={{ ...monoLabel, color: ACCENT_GREEN }}>FASE 1: NORMAL</div>
-                      <div style={{ fontSize: '15px', fontWeight: 800, color: ACCENT_GREEN, margin: '6px 0' }}>CLOSED</div>
-                      <div style={{ fontSize: '11px', color: 'var(--ink-muted)' }}>100% Traffic dialirkan ke ALTO (Primary).</div>
+                      <div style={{ fontSize: '16px', fontWeight: 800, color: ACCENT_GREEN, margin: '6px 0' }}>CLOSED</div>
+                      <div style={{ fontSize: '12px', color: 'var(--ink-muted)' }}>100% Traffic dialirkan ke ALTO (Primary).</div>
                     </div>
                     <div style={{ padding: '12px', borderRadius: '10px', background: '#ef444415', border: '1px solid #ef444440', textAlign: 'center' }}>
                       <div style={{ ...monoLabel, color: ACCENT_RED }}>FASE 2: TRIP & FAILOVER</div>
-                      <div style={{ fontSize: '15px', fontWeight: 800, color: ACCENT_RED, margin: '6px 0' }}>OPEN (Sync)</div>
-                      <div style={{ fontSize: '11px', color: 'var(--ink-muted)' }}>Failure rate &gt; 90%. 100% dialihkan ke RINTIS.</div>
+                      <div style={{ fontSize: '16px', fontWeight: 800, color: ACCENT_RED, margin: '6px 0' }}>OPEN (Sync)</div>
+                      <div style={{ fontSize: '12px', color: 'var(--ink-muted)' }}>Failure rate &gt; 90%. 100% dialihkan ke RINTIS.</div>
                     </div>
                     <div style={{ padding: '12px', borderRadius: '10px', background: '#f59e0b15', border: '1px solid #f59e0b40', textAlign: 'center' }}>
                       <div style={{ ...monoLabel, color: ACCENT_ORANGE }}>FASE 3: TEST PROBE</div>
-                      <div style={{ fontSize: '15px', fontWeight: 800, color: ACCENT_ORANGE, margin: '6px 0' }}>HALF-OPEN</div>
-                      <div style={{ fontSize: '11px', color: 'var(--ink-muted)' }}>Setelah 15s, kirim 10 panggilan uji ke ALTO.</div>
+                      <div style={{ fontSize: '16px', fontWeight: 800, color: ACCENT_ORANGE, margin: '6px 0' }}>HALF-OPEN</div>
+                      <div style={{ fontSize: '12px', color: 'var(--ink-muted)' }}>Setelah 15s, kirim 10 panggilan uji ke ALTO.</div>
                     </div>
                     <div style={{ padding: '12px', borderRadius: '10px', background: '#38bdf815', border: '1px solid #38bdf840', textAlign: 'center' }}>
                       <div style={{ ...monoLabel, color: '#38bdf8' }}>FASE 4: SELF-HEAL</div>
-                      <div style={{ fontSize: '15px', fontWeight: 800, color: '#38bdf8', margin: '6px 0' }}>AUTO RECOVER</div>
-                      <div style={{ fontSize: '11px', color: 'var(--ink-muted)' }}>Jika probe sukses, otomatis kembali ke CLOSED!</div>
+                      <div style={{ fontSize: '16px', fontWeight: 800, color: '#38bdf8', margin: '6px 0' }}>AUTO RECOVER</div>
+                      <div style={{ fontSize: '12px', color: 'var(--ink-muted)' }}>Jika probe sukses, otomatis kembali ke CLOSED!</div>
                     </div>
                   </div>
                 </div>
@@ -952,7 +952,7 @@ return executePaymentViaAlto(request, nns); // Jalur Utama`}
                   background: currentSlide === 0 ? 'transparent' : 'var(--surface-card)',
                   color: currentSlide === 0 ? 'var(--ink-faint)' : 'var(--folio-ink)',
                   cursor: currentSlide === 0 ? 'not-allowed' : 'pointer',
-                  fontSize: '12.5px',
+                  fontSize: '13.5px',
                   fontWeight: 600
                 }}
               >
@@ -973,7 +973,7 @@ return executePaymentViaAlto(request, nns); // Jalur Utama`}
                   background: currentSlide === CHAPTERS.length - 1 ? 'var(--surface-card)' : ACCENT,
                   color: currentSlide === CHAPTERS.length - 1 ? 'var(--ink-faint)' : '#ffffff',
                   cursor: currentSlide === CHAPTERS.length - 1 ? 'not-allowed' : 'pointer',
-                  fontSize: '12.5px',
+                  fontSize: '13.5px',
                   fontWeight: 700,
                   boxShadow: currentSlide === CHAPTERS.length - 1 ? 'none' : `0 4px 14px ${ACCENT}55`
                 }}
@@ -994,8 +994,8 @@ return executePaymentViaAlto(request, nns); // Jalur Utama`}
               <span style={{ ...monoLabel, color: ACCENT }}>QRIS MPM ARCHITECTURE • CHAPTER {ch.number}</span>
               <span style={{ ...monoLabel, color: '#64748b' }}>BCA Digital • Technical Sharing Session</span>
             </div>
-            <h2 style={{ fontSize: '20px', fontWeight: 800, margin: '4px 0', color: '#0f172a' }}>{ch.title}</h2>
-            <p style={{ fontSize: '13px', color: '#475569', margin: '0 0 10px' }}>{ch.subtitle}</p>
+            <h2 style={{ fontSize: '22px', fontWeight: 800, margin: '4px 0', color: '#0f172a' }}>{ch.title}</h2>
+            <p style={{ fontSize: '14px', color: '#475569', margin: '0 0 10px' }}>{ch.subtitle}</p>
 
             {idx === 6 && (
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
