@@ -799,11 +799,20 @@ export function HystrixVsResilience4jVisualizer() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '12px' }}>
           <div style={{ padding: '12px 14px', borderRadius: '8px', background: '#064e3b25', border: '1px solid #10b98155' }}>
             <div style={{ color: ACCENT_GREEN, fontSize: '12px', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>MODERN STANDARD: RESILIENCE4J ⚡</div>
-            <div style={{ fontSize: '14px', fontWeight: 700, color: '#f8fafc', margin: '4px 0' }}>Lock-Free, Functional &amp; Asynchronous Native</div>
-            <div style={{ fontSize: '12px', color: '#6ee7b7', marginTop: '4px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-              <span>• <strong>Zero Extra Threads:</strong> Evaluasi failure rate lock-free di memory menggunakan Atomic RingBitSet pada level CPU cache.</span>
-              <span>• <strong>Functional Decorator:</strong> Dibangun untuk Java 8+ Lambdas, Higher-Order Functions, dan CompletableFuture tanpa blocking.</span>
-              <span>• <strong>Zero Third-Party Deps:</strong> Modular dan ultra-ringan (&lt; 300KB JAR), tanpa memory bloat di container Kubernetes.</span>
+            <div style={{ fontSize: '14px', fontWeight: 700, color: '#f8fafc', margin: '4px 0' }}>Ringan, Modern, dan Cocok untuk Arsitektur Reactive</div>
+            <div style={{ fontSize: '11.5px', color: '#cbd5e1', marginTop: '6px', display: 'flex', flexDirection: 'column', gap: '8px', lineHeight: 1.45 }}>
+              <div>
+                <div style={{ fontWeight: 700, color: '#34d399', fontSize: '12px' }}>Tanpa Thread Tambahan</div>
+                <div style={{ color: '#cbd5e1' }}>Resilience4j tidak membuat thread pool sendiri seperti Hystrix. Circuit breaker berjalan langsung pada thread yang sedang memproses request sehingga lebih ringan dan efisien.</div>
+              </div>
+              <div>
+                <div style={{ fontWeight: 700, color: '#34d399', fontSize: '12px' }}>Mendukung Pemrograman Modern Java</div>
+                <div style={{ color: '#cbd5e1' }}>Dirancang untuk Java 8+, Lambda, CompletableFuture, dan framework reactive seperti Spring WebFlux sehingga mudah diintegrasikan dengan aplikasi modern.</div>
+              </div>
+              <div>
+                <div style={{ fontWeight: 700, color: '#34d399', fontSize: '12px' }}>Modular dan Ringan</div>
+                <div style={{ color: '#cbd5e1' }}>Hanya menambahkan komponen yang dibutuhkan, seperti Circuit Breaker, Retry, Rate Limiter, atau Bulkhead, sehingga jejak memori dan dependency tetap minimal.</div>
+              </div>
             </div>
           </div>
           <div style={{ padding: '12px 14px', borderRadius: '8px', background: '#1e293b', border: '1px solid #334155' }}>
