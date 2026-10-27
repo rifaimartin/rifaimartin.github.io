@@ -609,7 +609,6 @@ export default function QrisCbPresentationModal({ isOpen, onClose, initialFullsc
                     <BulletList
                       items={[
                         'Internal Database Queries (PostgreSQL / MySQL): Jangan pasang CB pada database lokal! Gunakan Database Connection Pooling (HikariCP/R2DBC) & Query Timeout.',
-                        'In-Memory Cache Lokal (Redis / Caffeine): Akses cache lokal berkecepatan sub-milidetik (<1ms). Memasang CB hanya menambah CPU overhead dan kompleksitas percuma.',
                         'Asynchronous Event / Queue (Kafka Consumers): Pada message consumer, gunakan Retry Topics dan Dead Letter Queue (DLQ), bukan Circuit Breaker.',
                         'Stateless Non-Critical Ops: Pemanggilan yang murni idempotent dan cepat di mana simple retry sudah cukup menyelesaikan masalah.'
                       ]}
@@ -855,13 +854,10 @@ return executePaymentViaAlto(request, nns); // Jalur Utama`}
                   </div>
 
                   <div style={{ ...cardStyle, borderLeft: `4px solid ${ACCENT_GREEN}` }}>
-                    <CardTitle icon={Activity} color={ACCENT_GREEN}>Automated Verification & Banking Log Audit</CardTitle>
+                    <CardTitle icon={Activity} color={ACCENT_GREEN}>Automated Verification</CardTitle>
                     <BulletList
                       items={[
-                        'Script Otomasi Mandiri (automate-cb-sync.js): Menjalankan full cycle test otomatis: Discovery Pods (KEYS) ➔ Inspect HGETALL ➔ Publish Trip ➔ Verify Sync ➔ Auto-Restore ke CLOSED.',
-                        'MDC Context Injection: Memasang MDC.put("elkFlag", "ELKORCH1") pada thread context agar log [CB-SYNC] lolos filter dan tercatat permanen di transaction.log.',
-                        'Audit Trail Perbankan: Setiap transisi status memiliki timestamp ISO-8601, pod sumber, dan identitas trigger untuk kebutuhan audit regulasi perbankan.',
-                        'Cluster Aggregation Endpoint: GET /api/v1/circuit-breaker/status menerapkan logika "Worst-Wins" (jika 1 pod OPEN, seluruh cluster dilaporkan OPEN).'
+                        'Script Otomasi Mandiri (automate-cb-sync.js): Menjalankan full cycle test otomatis: Discovery Pods (KEYS) ➔ Inspect HGETALL ➔ Publish Trip ➔ Verify Sync ➔ Auto-Restore ke CLOSED.'
                       ]}
                     />
                   </div>
@@ -1043,7 +1039,7 @@ return executePaymentViaAlto(request, nns); // Jalur Utama`}
                 </div>
                 <div style={cardStyle}>
                   <CardTitle icon={CheckCircle2} color={ACCENT_GREEN}>Kapan Perlu vs Anti-Pattern</CardTitle>
-                  <BulletList items={['WAJIB: Remote external payment switcher (ALTO/RINTIS) & downstream dengan fallback.', 'ANTI-PATTERN: Internal database (gunakan pool/timeout), cache in-memory lokal (Redis <1ms), dan async queue (Kafka DLQ).']} />
+                  <BulletList items={['WAJIB: Remote external payment switcher (ALTO/RINTIS) & downstream dengan fallback.', 'ANTI-PATTERN: Internal database (gunakan pool/timeout) dan async queue (Kafka DLQ).']} />
                 </div>
               </div>
             )}
@@ -1094,8 +1090,8 @@ return executePaymentViaAlto(request, nns); // Jalur Utama`}
                   <BulletList items={['Simulasi via Redis CLI: PUBLISH qris:cb:state:events "alto:OPEN:cli-test-pod" tanpa mematikan partner live.', 'Script otomasi automate-cb-sync.js: Scan pods, check metrik, publish trip, verifikasi, dan auto-restore.', 'Control Panel visual trigger untuk tim operasional IT Ops saat mitigasi insiden.']} />
                 </div>
                 <div style={cardStyle}>
-                  <CardTitle icon={Activity} color={ACCENT_GREEN}>Banking Audit Log & Self-Healing</CardTitle>
-                  <BulletList items={['Injeksi MDC elkFlag=ELKORCH1 memastikan log [CB-SYNC] tercatat di transaction.log.', 'Audit trail lengkap dengan ISO-8601 timestamp dan pod identifier untuk compliance perbankan.', 'Self-healing otomatis: CLOSED -> OPEN -> HALF-OPEN (probe test) -> CLOSED tanpa intervensi manual.', 'API status cluster aggregator mengadopsi prinsip "Worst-Wins" untuk observability Control Panel.']} />
+                  <CardTitle icon={Activity} color={ACCENT_GREEN}>Automation &amp; Self-Healing</CardTitle>
+                  <BulletList items={['Script otomasi automate-cb-sync.js: Scan pods, check metrik, publish trip, verifikasi, dan auto-restore.', 'Self-healing otomatis: CLOSED -> OPEN -> HALF-OPEN (probe test) -> CLOSED tanpa intervensi manual.']} />
                 </div>
               </div>
             )}
