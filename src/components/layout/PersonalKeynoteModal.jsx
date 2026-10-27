@@ -646,6 +646,112 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
                   </div>
                 </div>
               </div>
+
+              {/* Section: 10 Random Facts & Icebreaker */}
+              <div
+                className="interactive-card"
+                style={{
+                  padding: '20px',
+                  borderRadius: '18px',
+                  background: 'var(--surface-card-subtle)',
+                  border: '1px solid var(--card-border)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '16px'
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <div style={{ width: '32px', height: '32px', borderRadius: '10px', background: 'rgba(245, 158, 11, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <Sparkles size={18} color="#f59e0b" />
+                    </div>
+                    <div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <span style={{ fontSize: '11px', fontFamily: 'var(--font-mono)', fontWeight: 800, color: '#f59e0b', letterSpacing: '0.8px' }}>
+                          ICEBREAKER // QUICK TRIVIA
+                        </span>
+                        <span style={{ fontSize: '10px', padding: '2px 8px', borderRadius: '4px', background: 'rgba(245, 158, 11, 0.12)', color: '#f59e0b', fontWeight: 700 }}>
+                          10 Q&amp;A
+                        </span>
+                      </div>
+                      <h4 style={{ fontSize: '15px', fontWeight: 800, color: 'var(--folio-ink)', margin: '2px 0 0' }}>
+                        10 Hal Random Tentang Saya
+                      </h4>
+                    </div>
+                  </div>
+                  <span style={{ fontSize: '11.5px', color: 'var(--ink-muted)', fontStyle: 'italic' }}>
+                    Sisi personal &amp; trivia di luar baris kode
+                  </span>
+                </div>
+
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                    gap: '10px'
+                  }}
+                >
+                  {[
+                    { no: '01', q: 'Paling suka pakai aksesoris apa', a: 'Jam tangan', icon: '⌚', tag: 'Aksesoris' },
+                    { no: '02', q: 'Pertama kali pacaran umur berapa', a: '16 tahun', icon: '💖', tag: 'Romansa' },
+                    { no: '03', q: 'Kalo dikasi 1 permintaan untuk dikabulkan, mau minta apa', a: 'Balik ke 2018 dan all in Bitcoin & NVIDIA', icon: '🚀', tag: 'Wishlist' },
+                    { no: '04', q: 'Menu warteg yang paling disuka', a: 'Ayam serundeng', icon: '🍗', tag: 'Kuliner' },
+                    { no: '05', q: 'Lebih tahan kedinginan atau kepanasan', a: 'Kedinginan', icon: '❄️', tag: 'Preferensi' },
+                    { no: '06', q: 'Paling suka koleksi apa', a: 'Alt coin', icon: '🪙', tag: 'Koleksi' },
+                    { no: '07', q: 'Kalo karaoke bakal pilih lagu apa', a: 'Rohani, opening naruto', icon: '🎤', tag: 'Playlist' },
+                    { no: '08', q: 'Mimpi yang paling aneh', a: 'Lucid dream', icon: '🌙', tag: 'Mimpi' },
+                    { no: '09', q: 'Satu hal yang harus dicobain sebelum almarhum', a: 'Punya baby', icon: '👶', tag: 'Life Goal' },
+                    { no: '10', q: 'Salah satu nama bluspending yang dimiliki saat ini', a: 'Party', icon: '🎉', tag: 'blu Account' }
+                  ].map((item, idx) => (
+                    <div
+                      key={idx}
+                      style={{
+                        padding: '12px 14px',
+                        borderRadius: '12px',
+                        background: 'var(--surface-sunken)',
+                        border: '1px solid var(--card-border)',
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                        gap: '12px',
+                        transition: 'all 0.2s ease'
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: '34px',
+                          height: '34px',
+                          borderRadius: '9px',
+                          background: 'rgba(245, 158, 11, 0.12)',
+                          border: '1px solid rgba(245, 158, 11, 0.25)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: '16px',
+                          flexShrink: 0
+                        }}
+                      >
+                        {item.icon}
+                      </div>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '3px', flex: 1, minWidth: 0 }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '6px' }}>
+                          <span style={{ fontSize: '10px', fontFamily: 'var(--font-mono)', fontWeight: 700, color: '#f59e0b' }}>
+                            #{item.no}
+                          </span>
+                          <span style={{ fontSize: '9.5px', fontFamily: 'var(--font-mono)', color: 'var(--ink-muted)', opacity: 0.8 }}>
+                            {item.tag}
+                          </span>
+                        </div>
+                        <div style={{ fontSize: '12px', color: 'var(--ink-muted)', lineHeight: 1.35 }}>
+                          {item.q}
+                        </div>
+                        <div style={{ fontSize: '13.5px', fontWeight: 800, color: 'var(--folio-ink)', marginTop: '2px' }}>
+                          {item.a}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           )}
 
