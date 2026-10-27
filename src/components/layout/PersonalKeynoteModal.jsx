@@ -694,12 +694,12 @@ export default function PersonalKeynoteModal({ isOpen, onClose, initialFullscree
                   {[
                     { no: '01', q: 'Paling suka pakai aksesoris apa', a: 'Jam tangan', icon: '⌚', tag: 'Aksesoris' },
                     { no: '02', q: 'Pertama kali pacaran umur berapa', a: '16 tahun', icon: '💖', tag: 'Romansa' },
-                    { no: '03', q: 'Kalo dikasi 1 permintaan untuk dikabulkan, mau minta apa', a: 'Balik ke 2018 dan all in Bitcoin & NVIDIA', icon: '🚀', tag: 'Wishlist' },
+                    { no: '03', q: 'Kalo dikasi 1 permintaan untuk dikabulkan, mau minta apa', a: 'Pengen kaya', icon: '💰', tag: 'Wishlist' },
                     { no: '04', q: 'Menu warteg yang paling disuka', a: 'Ayam serundeng', icon: '🍗', tag: 'Kuliner' },
                     { no: '05', q: 'Lebih tahan kedinginan atau kepanasan', a: 'Kedinginan', icon: '❄️', tag: 'Preferensi' },
                     { no: '06', q: 'Paling suka koleksi apa', a: 'Alt coin', icon: '🪙', tag: 'Koleksi' },
                     { no: '07', q: 'Kalo karaoke bakal pilih lagu apa', a: 'Rohani, opening naruto', icon: '🎤', tag: 'Playlist' },
-                    { no: '08', q: 'Mimpi yang paling aneh', a: 'Lucid dream', icon: '🌙', tag: 'Mimpi' },
+                    { no: '08', q: 'Mimpi yang paling aneh', a: 'Dikejar zombie tapi larinya slow motion', icon: '🧟‍♂️', tag: 'Mimpi' },
                     { no: '09', q: 'Satu hal yang harus dicobain sebelum almarhum', a: 'Punya baby', icon: '👶', tag: 'Life Goal' },
                     { no: '10', q: 'Salah satu nama bluspending yang dimiliki saat ini', a: 'Party', icon: '🎉', tag: 'blu Account' }
                   ].map((item, idx) => (
